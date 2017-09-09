@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        
+        <title>School Page</title>
+         <script src="fabric.min.js"></script>
+         <script src="index.js"></script>
+        <link rel="stylesheet" type="text/css" href="index.css">
+    
+    </head>
+    <body>
+    
+        <header>
+        
+            <h1><i>Physics Calculator!</i></h1>
+            <hr>
+        
+        </header>
+        
+        <div>
+        
+            <canvas id="canvas" width=800 height=600><b>Sorry HTML Canvas Isn't Supported On This Browser...</b></canvas>
+            <script>
+            
+                // Declare the fabric canvas as a global variable
+                var canvas = new fabric.Canvas("canvas", {selection: false});
+                
+                canvas.setBackgroundColor('black', canvas.renderAll.bind(canvas));
+            
+            </script>
+            <div id="title"><h2>Charge Properties</h2></div>
+            <form id="options">
+                
+                <label><b>Charge:</b></label>
+                <select id="chargeSelect" onchange="updateSection('charge', 0); updateGroupLines()">
+                
+                    <option value=0>negative</option>
+                    <option value=1>positive</option>
+                    
+                </select><br>
+            
+                <label><b>Charge Magnitude:</b></label>
+                <input id="magnitudeScroll" type="range" value=0 max=1000 min=1 step=0.1 onchange="updateSection('magnitude', 0)">
+                <input id="magnitudeField" type="text" value="1"  onchange="updateSection('magnitude', 1)">
+                <label><b>Prefix:</b></label>
+                <select id="magnitudePrefix" onchange="updateSection('magnitudePrefix', 0); updateGroupTitle()">
+                
+                    <option value=0>none</option>
+                
+                    <option value=1>d(Deci)</option>
+                    <option value=2>c(Centi)</option>
+                    <option value=3>in(Mili)</option>
+                    <option value=4>u(Micro)</option>
+                    <option value=5>n(Nano)</option>
+                    <option value=6>p(Pico)</option>
+                
+                    <option value=7>da(Deca)</option>
+                    <option value=8>H(Hecto)</option>
+                    <option value=9>K(Kilo)</option>
+                    <option value=10>M(Mega)</option>
+                    <option value=11>G(Giga)</option>
+                    <option value=12>T(Tera)</option>
+                
+                </select><br>
+                
+                <label><b>Distance From Origin:</b></label>
+                <input id="distanceScroll" type="range" value=0 max=1000 min=1 step=0.1  onchange="updateSection('distance', 0); updateGroupObjects()">
+                <input id="distanceField" type="text" value=0  onchange="updateSection('distance', 1); updateGroupObjects()">
+                <label><b>Prefix:</b></label>
+                <select id="distancePrefix" onchange="updateSection('distancePrefix', 0)">
+                
+                    <option value=0>none</option>
+                
+                    <option value=1>d(Deci)</option>
+                    <option value=2>c(Centi)</option>
+                    <option value=3>in(Mili)</option>
+                    <option value=4>u(Micro)</option>
+                    <option value=5>n(Nano)</option>
+                    <option value=6>p(Pico)</option>
+                
+                    <option value=7>da(Deca)</option>
+                    <option value=8>H(Hecto)</option>
+                    <option value=9>K(Kilo)</option>
+                    <option value=10>M(Mega)</option>
+                    <option value=11>G(Giga)</option>
+                    <option value=12>T(Tera)</option>
+                
+                </select>
+                <label><b>Unit:</b></label>
+                <select id="distanceUnit" onchange="updateSection('distanceUnit', 0)">
+                    
+                    <option value=0>m(Meter)</option>
+                    <option value=1>yd(Yard)</option>
+                    <option value=2>ft(Foot)</option>
+                    <option value=3>in(Inch)</option>
+                    <option value=4>cm(Centimeter)</option>
+                    <option value=5>mm(Millimeter)</option>
+                    <option value=6>um(Micrometer)</option>
+                    <option value=7>nm(Nanometer)</option>
+                    <option value=8>km(Kilometre)</option>
+                    <option value=9>mi(Miles)</option>
+                    <option value=10>M(Nautical Mile)</option>
+                
+                </select><br>
+                
+                <label><b>Angle:</b></label>
+                <select id="angleUsage" onchange="updateSection('angle', -1)">
+                    
+                    <option value=0>We Know It</option>
+                    <option value=1>We Need To Know It</option>
+                    <option value=2>Don't Need It</option>
+                
+                </select>
+                <label><b>Angle From Origin:</b></label>
+                <input id="angleScroll" type="range" value=0 max=360 min=0 step=0.1  onchange="updateSection('angle', 0); updateGroupObjects()">
+                <input id="angleField" type="text" value=0 onchange="updateSection('angle', 1); updateGroupObjects()"><br>
+            
+                <input id="reset" type="button" value="Reset" onclick="updateSections()">
+                <input id="random" type="button" value="Random" onclick="randomProblem()">
+                <input id="submit" type="button" value="Submit" onclick="submitProblem()">
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <input id="addCharge" type="button" value="Add Charge" onclick="addObjectGroup()">
+                <input id="removeCharge" type="button" value="Remove Charge" onclick="removeObjectGroup()">
+                <select id="chargeList" onchange="updateSettings(this.value); updateSelectedCanvas(this.value)">
+                </select>
+                
+            </form>
+        
+            <hr>
+            
+        </div>
+        <div>
+        
+            <h2>Process Explained</h2>
+            <div id="explanation">
+
+                
+
+            </div>
+        
+        </div>
+        
+        <footer>
+            
+            <hr>
+            <p>Created By: Christian Cuevas</p>
+            <p>Contact information: <a href="mailto:clarck71@outlook.com">clarck71@outlook.com</a></p>
+        
+        </footer> 
+    
+    </body>
+
+</html>

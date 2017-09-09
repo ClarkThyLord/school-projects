@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	
+		<title>
+			Forma Geológica Escolar
+		</title>
+	
+		<!-- Load CSS sheets first -->
+	
+	</head>
+	<body>
+	
+	<form id="landmarkForm"> <!-- Contains: name, latitude, longitude, text, files(images, videos, etc.) -->
+			
+		<fieldset id="page">
+				<legend><h1>Forma Geológica Escolar</h1></legend>
+				
+				<hr>
+				
+				<label>
+                    <b><i>ID:</i></b>
+                    <input type="text" id="id">
+                </label>
+            
+                <br>
+					
+                <label>
+                    <b><i>Nombre:</i></b>
+                    <input type="text" placeholder="Nombre de la forma..." autofocus title="" oninput="checkName();" id="name">
+                </label> <br>
+                <label>
+                    <b><i>Clasificación De Hito:</i></b>
+                    <select id="classification">
+                         <option value="geo/historia">Geo/Historia</option>
+                         <option value="actual">Actual</option>
+                         <option value="riesgo">Riesgo</option>
+                         <option value="hechos graciosos">Hechos Graciosos</option>
+                         <option value="hard facts">Hard Facts</option>
+                         <option value="m2go todo">M2GO ToDo</option>
+                         <option value="otro tema">Otro Tema.</option>
+                    <select>
+                </label> <br>
+                <label>
+                    <b><i>Latitude:</i></b>
+                    <input type="number" placeholder="0.0" step=0.000000000001 title="" oninput="checkLatitude();" id="latitude">
+                </label>
+                <label>
+                    <b><i>Longitude:</i></b>
+                    <input type="number" placeholder="0.0" step=0.000000000001 title="" oninput="checkLongitude();" id="longitude">
+                </label>
+
+                <br>
+
+                <label>
+                    <b><i>Extracto:</i></b> <br>
+                    <textarea placeholder="Un resumen de la forma..." rows="9" cols="60" title="" oninput="checkSummary();" id="summary"></textarea> <br>
+                </label>
+
+                <hr>
+
+                <label>
+                    <b><i>Archivos:</i></b>
+                    <input type="file" onchange="updateFileArea();" multiple id="fileInput"> <br>
+                </label>
+                <div id="fileArea"> <i>no se seleccionaron archivos</i> <!-- Visual aid for files --> </div>
+
+                <hr>
+
+                <input type="button" value="Someter" onclick="formSubmit();" id="submitButton"> <!-- This would be the "submit button" of the form. -->
+                <input type="button" value="Reiniciar" onclick="formReset();" id="resetButton"> <!-- This would be the "reset button" of the form. -->
+                <input type="button" value="Actualizar" onclick="formUpdate();" id="resetButton">
+                <input type="button" value="Borrar" onclick="formDelete();" id="resetButton">
+
+				
+		</fieldset>
+	
+	</form>
+	
+	<div id="notice"> <!-- Where notifications to user will be placed --> </div>
+	
+			<!-- Scripts last so that HTML loads first -->
+			<script type="text/javascript" src="index.js"></script>
+		
+	</body>
+</html>

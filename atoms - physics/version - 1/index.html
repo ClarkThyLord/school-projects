@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+
+    <head>
+        
+        <title>School Page</title>
+         <script src="index.js"></script> 
+        <link rel="stylesheet" type="text/css" href="index.css">
+    
+    </head>
+    <body>
+    
+        <header>
+        
+            <h1><i>Physics Calculator!</i></h1>
+        
+        </header>
+        
+        <hr>
+        
+        <div id="representation">
+            
+            <h3>() <------||------> () <------||------> ()</h3>
+        
+        </div>
+        
+        <div>
+        
+            <form id="info">
+            
+                <!-- 
+
+                    First Atom 
+
+                !-->
+                <h4>First Atom</h4>
+                <b>Charge:</b><select id="c1" onchange="updateRepresentation()">
+                
+                    <option value=0>negative</option>
+                    <option value=1>positive</option>
+                    
+                </select>
+                <b>Charge Magnitude:</b><input id="q1" type="number" onchange="updateRepresentation()">
+                <b>Prefix:</b>
+                <select id="p1a" onchange="updateRepresentation()">
+                
+                    <option value=0>none</option>
+                
+                    <option value=1>d(Deci)</option>
+                    <option value=2>c(Centi)</option>
+                    <option value=3>in(Mili)</option>
+                    <option value=4>u(Micro)</option>
+                    <option value=5>n(Nano)</option>
+                    <option value=6>p(Pico)</option>
+                
+                    <option value=7>da(Deca)</option>
+                    <option value=8>H(Hecto)</option>
+                    <option value=9>K(Kilo)</option>
+                    <option value=10>M(Mega)</option>
+                    <option value=11>G(Giga)</option>
+                    <option value=12>T(Tera)</option>
+                
+                </select>
+                
+                
+                <br>
+                <b>Distance From First Atom To Second Atom:</b><input id="r1" type="number" onchange="updateRepresentation()">
+                <b>Prefix:</b>
+                <select id="p1b" onchange="updateRepresentation()">
+                
+                    <option value=0>none</option>
+                
+                    <option value=1>d(Deci)</option>
+                    <option value=2>c(Centi)</option>
+                    <option value=3>in(Mili)</option>
+                    <option value=4>u(Micro)</option>
+                    <option value=5>n(Nano)</option>
+                    <option value=6>p(Pico)</option>
+                
+                    <option value=7>da(Deca)</option>
+                    <option value=8>H(Hecto)</option>
+                    <option value=9>K(Kilo)</option>
+                    <option value=10>M(Mega)</option>
+                    <option value=11>G(Giga)</option>
+                    <option value=12>T(Tera)</option>
+                
+                </select>
+                <b>Unit:</b>
+                <select id="u1" onchange="updateRepresentation()">
+                    
+                    <option value=0>m(Meter)</option> <!-- 1 !-->
+                    <option value=1>yd(Yard)</option> <!-- 1.09361296 !-->
+                    <option value=2>ft(Foot)</option> <!-- 3.2808388799999997 !-->
+                    <option value=3>in(Inch)</option> <!-- 39.370066559999997935 !-->
+                    <option value=4>cm(Centimeter)</option> <!-- 100 !-->
+                    <option value=5>mm(Millimeter)</option> <!-- 1000 !-->
+                    <option value=6>um(Micrometer)</option> <!-- 1000000 !-->
+                    <option value=7>nm(Nanometer)</option> <!-- 1000000000 !-->
+                    <option value=8>km(Kilometre)</option> <!-- 0.001 !-->
+                    <option value=9>mi(Miles)</option> <!-- 0.000621371 !-->
+                    <option value=10>M(Nautical Mile)</option> <!-- 0.00053995663640604750835 !-->
+                
+                </select>
+        
+                <!-- 
+
+                    Second Atom 
+
+                !-->
+                <h4>Second Atom</h4>
+                <b>Charge:</b><select id="c2" onchange="updateRepresentation()">
+                
+                    <option value=0>negative</option>
+                    <option value=1>positive</option>
+                    
+                </select>
+                <b>Charge Magnitude:</b><input id="q2" type="number" onchange="updateRepresentation()">
+                <b>Prefix:</b>
+                <select id="p2a" onchange="updateRepresentation()">
+                
+                    <option value=0>none</option>
+                
+                    <option value=1>d(Deci)</option>
+                    <option value=2>c(Centi)</option>
+                    <option value=3>in(Mili)</option>
+                    <option value=4>u(Micro)</option>
+                    <option value=5>n(Nano)</option>
+                    <option value=6>p(Pico)</option>
+                
+                    <option value=7>da(Deca)</option>
+                    <option value=8>H(Hecto)</option>
+                    <option value=9>K(Kilo)</option>
+                    <option value=10>M(Mega)</option>
+                    <option value=11>G(Giga)</option>
+                    <option value=12>T(Tera)</option>
+                
+                </select>
+            
+                <!-- 
+
+                    Third Atom 
+
+                !-->
+                <h4>Third Atom</h4>
+                <b>Charge:</b><select id="c3" onchange="updateRepresentation()">
+                
+                    <option value=0>negative</option>
+                    <option value=1>positive</option>
+                    
+                </select>
+                <b>Charge Magnitude:</b><input id="q3" type="number" onchange="updateRepresentation()">
+                <b>Prefix:</b>
+                <select id="p3a" onchange="updateRepresentation()">
+                
+                    <option value=0>none</option>
+                
+                    <option value=1>d(Deci)</option>
+                    <option value=2>c(Centi)</option>
+                    <option value=3>in(Mili)</option>
+                    <option value=4>u(Micro)</option>
+                    <option value=5>n(Nano)</option>
+                    <option value=6>p(Pico)</option>
+                
+                    <option value=7>da(Deca)</option>
+                    <option value=8>H(Hecto)</option>
+                    <option value=9>K(Kilo)</option>
+                    <option value=10>M(Mega)</option>
+                    <option value=11>G(Giga)</option>
+                    <option value=12>T(Tera)</option>
+                
+                </select>
+                
+                
+                <br>
+                <b>Distance From Second Atom To Third Atom:</b><input id="r2"type="number" onchange="updateRepresentation()">
+                <b>Prefix:</b>
+                <select id="p3b" onchange="updateRepresentation()">
+                
+                    <option value=0>none</option>
+                
+                    <option value=1>d(Deci)</option>
+                    <option value=2>c(Centi)</option>
+                    <option value=3>in(Mili)</option>
+                    <option value=4>u(Micro)</option>
+                    <option value=5>n(Nano)</option>
+                    <option value=6>p(Pico)</option>
+                
+                    <option value=7>da(Deca)</option>
+                    <option value=8>H(Hecto)</option>
+                    <option value=9>K(Kilo)</option>
+                    <option value=10>M(Mega)</option>
+                    <option value=11>G(Giga)</option>
+                    <option value=12>T(Tera)</option>
+                
+                </select>
+                <b>Unit:</b>
+                <select id="u2" onchange="updateRepresentation()">
+                    
+                    <option value=0>m(Meter)</option> <!-- 1 !-->
+                    <option value=1>yd(Yard)</option> <!-- 1.09361296 !-->
+                    <option value=2>ft(Foot)</option> <!-- 3.2808388799999997 !-->
+                    <option value=3>in(Inch)</option> <!-- 39.370066559999997935 !-->
+                    <option value=4>cm(Centimeter)</option> <!-- 100 !-->
+                    <option value=5>mm(Millimeter)</option> <!-- 1000 !-->
+                    <option value=6>um(Micrometer)</option> <!-- 1000000 !-->
+                    <option value=7>nm(Nanometer)</option> <!-- 1000000000 !-->
+                    <option value=8>km(Kilometre)</option> <!-- 0.001 !-->
+                    <option value=9>mi(Miles)</option> <!-- 0.000621371 !-->
+                    <option value=10>M(Nautical Mile)</option> <!-- 0.00053995663640604750835 !-->
+                
+                </select>
+                
+                <br>
+                <input type="button" id="random" value="random" onClick="randomValues(); updateRepresentation(); processProblem()">
+                <input type="button" id="submit" value="submit" onClick="updateRepresentation(); processProblem()">
+                <input type="reset">
+                
+            </form>
+        
+        </div>
+        
+        <hr>
+        <h2><i>Process Explained</i></h2>
+        
+        <div id="explain">
+        
+        </div>
+        
+        <footer>
+            
+            <hr>
+            <p>Created By: Christian Cuevas</p>
+            <p>Contact information: <a href="mailto:clarck71@outlook.com">clarck71@outlook.com</a></p>
+        
+        </footer> 
+    
+    </body>
+
+</html>
