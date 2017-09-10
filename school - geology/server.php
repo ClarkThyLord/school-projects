@@ -36,7 +36,7 @@
             if ($route == "server.php"){ // Check if is head
 				$head = true;
 			}
-			else if ($route == true){ // This is a route
+			else if ($head == true){ // This is a route
 				array_push($routes, $route);
 			}
     }
