@@ -164,7 +164,8 @@
 				"latitude" => $_GET["latitude"],
 				"longitude" => $_GET["longitude"],
 				"summary" => $_GET["summary"],
-				"files" => json_decode($_GET["files"])
+				"images" => json_decode($_GET["files"]),
+                "urls" => json_decode($_GET["urls"])
 			
 			)));
 			fclose($fp);
@@ -209,6 +210,28 @@
 						}
 					}
 				}
+				else if ($patch == "urls"){
+                    
+                    foreach (json_decode($value) as $nUrl){
+                        
+						// Check if this url isn't already in data
+						$save = true;
+                        foreach ($result["urls"] as $sUrl){
+							if ($sUrl === $nUrl){
+								$save = false;
+								break;
+							}
+						}
+                        
+						if ($save == false){
+							continue;
+						}
+                        
+						// Add file to data
+						$result["urls"][] = $nUrl;
+                    }
+                        
+                }
 				else if ($patch == "files"){
                     // FOR DEBUGGING
                     $GLOBALS["response"]["extra"]["post"] = $_POST;
@@ -222,12 +245,12 @@
                     }
                     
                     // Add files to data
-                    foreach (json_decode($value) as $nValue){
+                    foreach (json_decode($value) as $nFile){
                         
 						// Check if this file isn't already in data
 						$save = true;
                         foreach ($result["files"] as $sFile){
-							if ($sFile[1] == $nValue[1]){
+							if ($sFile[1] === $nFile[1]){
 								$save = false;
 								break;
 							}
@@ -238,7 +261,7 @@
 						}
                         
 						// Add file to data
-						$result["files"][] = $nValue;
+						$result["files"][] = $nFile;
                     }
                     
                 }

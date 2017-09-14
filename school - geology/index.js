@@ -205,6 +205,32 @@ function checkSummary(){
 }
 
 /**
+ * Check if the urls given in DOM Form object is valid.
+ * @return {boolean} Returns true if valid; else false.
+ */
+function checkUrls(){
+
+	// Make a reference to the DOM element
+	var element = document.getElementById("landmarkForm").elements["urls"];
+	
+	if(element.value.length > 2048){ // If the summary is more then 1024 characters
+		// Mark input as red and display error msg
+		element.style.borderColor = "red";
+		element.title = "el extracto debe tener menos de 2048 caracteres";
+		
+		return false;
+	}
+	else{
+		// Mark input with green and display valid msg
+		element.style.borderColor = "green";
+		element.title = "válido";
+		
+		return true;
+	}
+
+}
+
+/**
  * Update file area.
  * @return {undefined} Returns nothing.
  */
@@ -281,7 +307,7 @@ function removeFile(name){
 function formSubmit(){
 	
 	// Check that all things are valid
-	if (checkId() == false|| checkName() == false || checkLatitude() == false || checkLongitude() == false || checkSummary() == false){
+	if (checkId() == false|| checkName() == false || checkLatitude() == false || checkLongitude() == false || checkSummary() == false || checkUrls() == false){
 	
 		// Double check to warn user
         checkId();
@@ -289,6 +315,7 @@ function formSubmit(){
 		checkLatitude();
 		checkLongitude();
 		checkSummary();
+        checkUrls();
 		
         // If we're debugging don't return
 		if (debugging == false){
@@ -300,6 +327,19 @@ function formSubmit(){
 	// Disable the page
 	pageDisable(true);
 
+    // Get URLS
+    var urlNames = (document.getElementById("landmarkForm").elements["urls"].value).split(",");
+    
+    var realUrlNames = [];
+    for (var num = 0; (urlNames.length) > num; num++){
+        if (urlNames[num] === ""){
+            continue;
+        }
+        else{
+            realUrlNames.push(urlNames[num].replace(" ", ""));
+        }
+    }
+    
 	// Make a reference to the DOM element
 	var element = document.getElementById("landmarkForm").elements["fileInput"];
     var fileNames = [];
@@ -333,7 +373,8 @@ function formSubmit(){
 		"&latitude=" + document.getElementById("landmarkForm").elements["latitude"].value +
 		"&longitude=" + document.getElementById("landmarkForm").elements["longitude"].value +
 		"&summary=" + document.getElementById("landmarkForm").elements["summary"].value +
-		"&files=" + JSON.stringify(fileNames)
+		"&files=" + JSON.stringify(fileNames) + 
+        "&urls=" + JSON.stringify(realUrlNames)
 		, false);
 		
 		// When the state of the response changes do the following
@@ -396,6 +437,21 @@ function formUpdate(){
     }
     if (checkSummary() == true){
         updates += "&summary=" + document.getElementById("landmarkForm").elements["summary"].value;
+    }
+    if (checkUrls() == true){
+        // Get URLS
+        var urlNames = (document.getElementById("landmarkForm").elements["urls"].value).split(",");
+
+        var realUrlNames = [];
+        for (var num = 0; (urlNames.length) > num; num++){
+            if (urlNames[num] === ""){
+                continue;
+            }
+            else{
+                realUrlNames.push(urlNames[num].replace(" ", ""));
+            }
+        }
+        updates += "&urls=" + JSON.stringify(realUrlNames);
     }
 
 	// Disable the page
