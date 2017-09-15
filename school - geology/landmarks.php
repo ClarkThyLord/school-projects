@@ -165,7 +165,7 @@
 				"longitude" => $_GET["longitude"],
 				"summary" => $_GET["summary"],
 				"images" => json_decode($_GET["files"]),
-                "urls" => json_decode($_GET["urls"])
+                "videos" => json_decode($_GET["urls"])
 			
 			)));
 			fclose($fp);
@@ -216,7 +216,7 @@
                         
 						// Check if this url isn't already in data
 						$save = true;
-                        foreach ($result["urls"] as $sUrl){
+                        foreach ($result["videos"] as $sUrl){
 							if ($sUrl === $nUrl){
 								$save = false;
 								break;
@@ -228,7 +228,7 @@
 						}
                         
 						// Add file to data
-						$result["urls"][] = $nUrl;
+						$result["videos"][] = $nUrl;
                     }
                         
                 }
