@@ -350,10 +350,9 @@ function formSubmit(){
             var file = element.files[num]; // Reference to file
             
             // Add file url and name
-            fileNames.push([
+            fileNames.push(
 			url + "/landmarks/" + file.name, // File URL
-			file.name // File name
-			]);
+            );
 			// Add file object
             fileObjects.append(file.name, file);
         }
@@ -464,10 +463,9 @@ function formUpdate(){
 		var fileNames = [];
 		for (var num = 0; num < element.files.length; num++){
 			var file = element.files[num]; // Reference to file
-			fileNames.push([
+			fileNames.push(
 				url + "/landmarks/" + file.name, // File URL
-				file.name // File name
-			]);
+                );
 			fileObjects.append(file.name, file);
 		}
 		// Add to updates

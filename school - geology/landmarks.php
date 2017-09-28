@@ -250,7 +250,7 @@
 						// Check if this file isn't already in data
 						$save = true;
                         foreach ($result["files"] as $sFile){
-							if ($sFile[1] === $nFile[1]){
+							if ($sFile === $nFile){
 								$save = false;
 								break;
 							}
