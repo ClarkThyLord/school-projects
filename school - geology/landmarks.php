@@ -249,7 +249,7 @@
                         
 						// Check if this file isn't already in data
 						$save = true;
-                        foreach ($result["files"] as $sFile){
+                        foreach ($result["images"] as $sFile){
 							if ($sFile === $nFile){
 								$save = false;
 								break;
@@ -261,7 +261,7 @@
 						}
                         
 						// Add file to data
-						$result["files"][] = $nFile;
+						$result["images"][] = $nFile;
                     }
                     
                 }
