@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KanBan</title>
+    <script src="./libs/web-animations.min.js"></script>
+    <script src="./libs/hammer.min.js"></script>
+    <script src="./libs/muuri.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/lists.css">
+    <link rel="stylesheet" href="./css/styles.css">
+  </head>
+  <body background="./img/bg.jpg">
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand">Bienvenido</a>
+    </nav>
+    <div class="board">
+      <div class="board-column hist">
+        <div class="board-column-header">HISTORIAS</div>
+        <div class="board-column-content">
+          <!-- Content -->
+          <div class="board-item"><div class="board-item-content"><span>Item #</span>1</div></div>
+          <div id="before-this-hist"></div>
+        </div>
+        <button id="add-hist" type="button" class="btn btn-info add">add</button>
+
+      </div>
+      <div class="board-column inv">
+        <div class="board-column-header">INVESTIGACION</div>
+        <div class="board-column-content">
+          <!-- Content -->
+          <div class="board-item"><div class="board-item-content"><span>Item #</span>2</div></div>
+          <div id="before-this-inv"></div>
+        </div>
+        <button id="add-inv" type="button" class="btn btn-info add">add</button>
+
+      </div>
+      <div class="board-column prod">
+        <div class="board-column-header">PRODUCCION</div>
+        <div class="board-column-content">
+          <!-- Content -->
+          <div class="board-item"><div class="board-item-content"><span>Item #</span>3</div></div>
+          <div id="before-this-prod"></div>
+        </div>
+        <button id="add-prod" type="button" class="btn btn-info add">add</button>
+
+      </div>
+    </div>
+
+    <!-- start modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="myModalLabel">New message</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                <input type="text" class="form-control" id="recipient-name">
+              </div>
+              <div class="form-group">
+                <label for="message-text" class="col-form-label">Message:</label>
+                <textarea class="form-control" id="message-text"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modal -->
+    <script src="./js/muuri-app.js"></script>
+    <script src="./js/add.js"></script>
+    <script src="./js/modal.js"></script>
+  </bodys>
+</html>
