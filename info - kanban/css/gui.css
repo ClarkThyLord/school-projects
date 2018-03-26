@@ -1,0 +1,116 @@
+:root {
+  /* Text options */
+  color: rgb(255, 255, 255);
+  font-family: "Times New Roman";
+  /* Variables */
+  --primary: rgba(23, 23, 23, 1);
+  --secondary: rgba(46, 46, 46, 1);
+  --choosen: rgba(14, 14, 14, 1);
+  --selected: rgba(70, 70, 70, 1);
+  --text-color: rgba(255, 255, 255, 1);
+  --shadow-color: rgba(0, 0, 0, 1);
+}
+
+/* Element classes */
+
+body {
+  background-color: var(--primary);
+}
+
+/* Nav classes */
+
+.nav {
+  /* Effects */
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px var(--shadow-color);
+}
+
+.nav .menu {
+  /* Content */
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: var(--secondary);
+}
+
+.nav .menu .title {
+  /* Content */
+  float: left;
+  /* Font */
+  font-size: 24px;
+}
+
+.nav .menu .user {
+  /* Content */
+  float: right;
+  padding: 5px;
+  border-radius: 10px;
+  /* Font */
+  text-align: right;
+}
+
+.nav .categories {
+  /* Content */
+  display: flex;
+  border: solid var(--secondary);
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.nav .categories .category {
+  /* Content */
+  margin: 3px;
+  padding: 10px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 5px;
+  /* Font */
+  font-size: 20px;
+  text-align: center;
+}
+
+.nav .categories .prev {
+  /* Content */
+  border-radius: 3px 0 0 3px;
+  float: left;
+}
+
+.nav .categories .next {
+  /* Content */
+  border-radius: 0 3px 3px 0;
+  float: right;
+}
+
+.nav .categories .prev, .nav .categories .next {
+  /* Content */
+  margin: 3px;
+  padding: 10px;
+  /* Font */
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Common classes */
+
+.choosen {
+  background-color: var(--choosen);
+}
+
+.choosable:active {
+  background-color: var(--choosen);
+}
+
+.selected {
+  background-color: var(--selected);
+}
+
+.selectable {
+  /* Effects */
+  cursor: pointer;
+}
+
+.selectable:hover {
+  transition: 0.6s ease;
+  background-color: var(--selected);
+}
