@@ -13,9 +13,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="./css/lib/jquery-ui.min.css">
-  <link rel="stylesheet" href="./css/lib/jquery-ui-theme.css.css">
   <link rel="stylesheet" href="./css/gui.css">
+  <link rel="stylesheet" href="./css/lib/jquery-ui.min.css">
+  <link rel="stylesheet" href="./css/lib/jquery-ui-theme.css">
 
   <!-- Javascript -->
   <script src="./js/lib/jquery-3.3.1.min.js"></script>
@@ -26,6 +26,11 @@
 </head>
 
 <body>
+
+  <?php include "./php/login_menu.php" ?>
+  <?php include "./php/configuration_menu.php" ?>
+  <?php include "./php/category_menu.php" ?>
+  <?php include "./php/task_menu.php" ?>
 
   <!-- Navigation Bar -->
   <div class="nav">
