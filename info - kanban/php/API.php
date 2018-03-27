@@ -7,7 +7,7 @@
 	// ****************************************
 
 	// Response object that will be sent back
-	$response = array("status" => "received", "reason" => "initial response", "response" => array());
+	$response = array("status" => "received", "reason" => "initial response", "data" => array());
 
   // Initialize session if not already
   if(!isset($_SESSION)) {
@@ -15,7 +15,7 @@
   }
 
 	if ((array_key_exists("user_data", $_SESSION) && !empty($_SESSION["user_data"])) && $_SESSION["user_data"]["access"] >= 1) {
-		// Method of request: GET, POST, etc.
+		// Method of request: GET, POST and etc.
 		$method = $_SERVER["REQUEST_METHOD"];
 
 		// Stripping the base URL and getting all the "routes"
@@ -55,9 +55,16 @@
       $GLOBALS["response"]["status"] = "invalid request";
       $GLOBALS["response"]["reason"] = "no valid endpoint given";
 		}
-		else if ($routes[0] == ""){
+		else if ($routes[0] == "login"){
 			// Load endpoint
-			include "";
+			include "DB.php";
+
+			login();
+		}
+		else if ($routes[0] == "logout"){
+		  session_unset();
+      $GLOBALS["response"]["status"] = "logged out";
+      $GLOBALS["response"]["reason"] = "sucesfully logged out";
 		} else { // Main route requested for wasn't found
       $GLOBALS["response"]["status"] = "invalid main endpoint";
       $GLOBALS["response"]["reason"] = "`" . json_encode($routes[0]) . "` endpoint not found";
