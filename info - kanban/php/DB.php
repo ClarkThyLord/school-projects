@@ -10,7 +10,7 @@
     // 1 - worker
     // 2 - admin
 
-    $response["data"]["login"] = array("granted" => 0, "reasons" => array("username" => false, "password" => false));
+    $GLOBALS["response"]["data"]["login"] = array("granted" => 0, "reasons" => array("username" => false, "password" => false));
 
     // Initialize session if not already
     if(!isset($_SESSION)) {
@@ -32,7 +32,7 @@
     }
 
     // Check if access granted
-    if ($response["granted"] == 1) {
+    if ($GLOBALS["response"]["data"]["login"]["granted"] == 1) {
       $_SESSION["user_data"] = array("user" => "admin", "access" => 2);
 
       $GLOBALS["response"]["status"] = "logged in";
