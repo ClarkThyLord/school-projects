@@ -29,6 +29,16 @@
 </head>
 
 <body>
+
+  <!-- TODO redirect to index if already logedin -->
+  <?php
+
+
+
+  ?>
+  <div class="title">
+    Metropoli2Go
+  </div>
   <form>
     <fieldset>
       <label>
@@ -44,6 +54,7 @@
     <input type="submit" value="Log-in" />
     <input type="reset" value="Reset" />
   </form>
+
 </body>
 
 </html>

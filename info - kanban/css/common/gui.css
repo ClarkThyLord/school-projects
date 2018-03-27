@@ -15,7 +15,8 @@
 
 body {
   /* Content */
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: var(--primary);
 }
 
@@ -29,87 +30,13 @@ input, select, fieldset {
   box-shadow: 0px 0px 5px var(--shadow-color);
 }
 
+input:hover {
+  transition: 0.6s ease;
+  background-color: var(--selected);
+}
+
 input:active, input:focus {
   background-color: var(--secondary);
-}
-
-/* Nav classes */
-
-.nav {
-  /* Effects */
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px var(--shadow-color);
-}
-
-.nav .menu {
-  /* Content */
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  background-color: var(--secondary);
-}
-
-.nav .menu .title {
-  /* Content */
-  float: left;
-  /* Font */
-  font-size: 24px;
-}
-
-.nav .menu .user {
-  /* Content */
-  float: right;
-  padding: 5px;
-  border-radius: 10px;
-  /* Font */
-  text-align: right;
-}
-
-.nav .toolbar {
-  /* Content */
-  border: solid var(--secondary);
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  /* box-shadow: 0px 0px 5px var(--shadow-color); */
-  /* Font */
-  text-align: center;
-  font-size: 20px;
-}
-
-.nav .toolbar .tool {
-  /* Content */
-  margin: 3px;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-/* Workspace classes */
-
-.workspace {}
-
-.workspace .prev {
-  /* Content */
-  border-radius: 3px 0 0 3px;
-}
-
-.workspace .next {
-  /* Content */
-  right: 0;
-  border-radius: 0 3px 3px 0;
-}
-
-.workspace .kanban {}
-
-.workspace .prev, .workspace .next {
-  /* Content */
-  margin: 2px;
-  padding: 3px;
-  position: absolute;
-  top: 50%;
-  /* Font */
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
 }
 
 /* Common classes */

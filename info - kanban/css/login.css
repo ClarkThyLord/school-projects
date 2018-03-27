@@ -1,0 +1,17 @@
+form {
+  text-align: center;
+}
+
+form input {
+  margin: 5px;
+  padding: 3px;
+}
+
+/* Custom Classes */
+
+.title {
+  font-size: 64px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px;
+}

@@ -1,0 +1,118 @@
+/* Nav classes */
+
+.nav {
+  /* Effects */
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px var(--shadow-color);
+}
+
+.nav .menu {
+  /* Content */
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color: var(--secondary);
+}
+
+.nav .menu .title {
+  /* Content */
+  float: left;
+  /* Font */
+  font-size: 24px;
+}
+
+.nav .menu .user {
+  /* Content */
+  float: right;
+  padding: 5px;
+  border-radius: 10px;
+  /* Font */
+  text-align: right;
+}
+
+.nav .toolbar {
+  /* Content */
+  border: solid var(--secondary);
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  /* box-shadow: 0px 0px 5px var(--shadow-color); */
+  /* Font */
+  text-align: center;
+  font-size: 20px;
+}
+
+.nav .toolbar .tool {
+  /* Content */
+  margin: 3px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* Workspace classes */
+
+.workspace {}
+
+.workspace .prev {
+  /* Content */
+  border-radius: 3px 0 0 3px;
+}
+
+.workspace .next {
+  /* Content */
+  right: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+.workspace .prev, .workspace .next {
+  /* Content */
+  margin: 2px;
+  padding: 3px;
+  position: absolute;
+  top: 50%;
+  /* Font */
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.workspace .kanban {
+  /* Content */
+  display: flex;
+}
+
+.workspace .kanban .table {
+  /* Content */
+  margin: 15px;
+  padding: 5px;
+  width: 250px;
+  /* Effects */
+  border-radius: 10px;
+  border: solid 2px var(--secondary);
+  box-shadow: 0px 0px 10px var(--shadow-color);
+}
+
+.workspace .kanban .table .header {
+  /* Content */
+  padding: 5px;
+  /* Font */
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  /* Effects */
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px var(--shadow-color);
+}
+
+.workspace .kanban .table .container {}
+
+.workspace .kanban .table .container .item {
+  /* Content */
+  margin: 10px;
+  padding: 5px;
+  height: 100px;
+  border-radius: 5px;
+  border: solid 2px var(--secondary);
+  /* Font */
+  overflow: hidden;
+  text-align: center;
+}

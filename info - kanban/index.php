@@ -25,12 +25,13 @@
   <script src="./js/lib/jquery-ui-touch-punch.min.js"></script>
   <script src="./js/lib/dragula.min.js"></script>
   <script src="./js/common/gui.js"></script>
+  <script src="./js/index.js"></script>
 
 </head>
 
 <body>
 
-  <!-- TODO Login before continuing to load -->
+  <!-- TODO Login, if not already, before continuing -->
   <?php
 
 
@@ -55,11 +56,11 @@
     <div class="toolbar">
       <label>
         Search:
-        <input type="text" class="tool selectable" placeholder="Search term..." />
+        <input type="text" class="tool" placeholder="Search term..." />
       </label>
       <label>
         Filter:
-        <input type="text" class="tool selectable" placeholder="Filter by..." />
+        <input type="text" class="tool" placeholder="Filter by..." />
       </label>
       <span class="tool selectable" onclick="$('#Task_Menu').dialog('open');">
         &#9881;
@@ -81,6 +82,22 @@
     </a>
     <!-- Kanban -->
     <div class="kanban">
+      <div class="table" id="table_a">
+        <div class="header">
+          A
+          <hr />
+          <label>
+            Search:
+            <br />
+            <input type="text" placeholder="Search term..." data-table="a" onchange="" />
+          </label>
+        </div>
+        <form class="container" data-table="a">
+          <div class="item selectable" onclick="" data-table="a" name="1">
+            Name of Item
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
