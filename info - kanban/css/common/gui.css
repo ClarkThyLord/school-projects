@@ -65,77 +65,52 @@ input:active, input:focus {
   text-align: right;
 }
 
-.nav .categories {
+.nav .toolbar {
   /* Content */
-  display: flex;
-  position: relative;
   border: solid var(--secondary);
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-}
-
-.nav .categories .category {
-  /* Content */
-  margin: 3px;
-  padding: 10px;
-  padding-left: 30px;
-  padding-right: 30px;
-  border-radius: 5px;
-  /* Font */
-  font-size: 20px;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.nav .categories .prev {
-  /* Content */
-  border-radius: 3px 0 0 3px;
-}
-
-.nav .categories .next {
-  /* Content */
-  right: 0;
-  border-radius: 0 3px 3px 0;
-}
-
-.nav .categories .prev, .nav .categories .next {
-  /* Content */
-  margin: 2px;
-  padding: 3px;
-  position: absolute;
-  top: 17%;
-  /* Font */
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-}
-
-/* Workspace classes */
-
-.workspace {}
-
-.workspace .toolbar {
-  /* Content */
-  margin: 5px;
-  margin-top: 0px;
-  padding: 10px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border: solid var(--secondary);
-  box-shadow: 0px 0px 5px var(--shadow-color);
+  /* box-shadow: 0px 0px 5px var(--shadow-color); */
   /* Font */
   text-align: center;
   font-size: 20px;
 }
 
-.workspace .tool {
+.nav .toolbar .tool {
   /* Content */
   margin: 3px;
   padding: 5px;
   border-radius: 5px;
 }
 
+/* Workspace classes */
+
+.workspace {}
+
+.workspace .prev {
+  /* Content */
+  border-radius: 3px 0 0 3px;
+}
+
+.workspace .next {
+  /* Content */
+  right: 0;
+  border-radius: 0 3px 3px 0;
+}
+
 .workspace .kanban {}
+
+.workspace .prev, .workspace .next {
+  /* Content */
+  margin: 2px;
+  padding: 3px;
+  position: absolute;
+  top: 50%;
+  /* Font */
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
 
 /* Common classes */
 
