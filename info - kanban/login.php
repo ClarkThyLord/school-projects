@@ -15,25 +15,26 @@
   <!-- CSS -->
   <link rel="stylesheet" href="./css/common/gui.css">
   <link rel="stylesheet" href="./css/login.css">
-  <link rel="stylesheet" href="./css/lib/jquery-ui.min.css">
-  <link rel="stylesheet" href="./css/lib/jquery-ui-theme.css">
-  <link rel="stylesheet" href="./css/lib/dragula.min.css">
 
   <!-- Javascript -->
   <script src="./js/lib/jquery-3.3.1.min.js"></script>
-  <script src="./js/lib/jquery-ui.min.js"></script>
-  <script src="./js/lib/jquery-ui-touch-punch.min.js"></script>
-  <script src="./js/lib/dragula.min.js"></script>
   <script src="./js/common/gui.js"></script>
+  <script src="./js/common/user.js"></script>
 
 </head>
 
 <body>
 
-  <!-- TODO redirect to index if already logedin -->
   <?php
 
+    // Initialize session if not already
+    if(!isset($_SESSION)) {
+      session_start();
+    }
 
+    if(array_key_exists("user_data", $_SESSION) || !empty($_SESSION["user_data"])) {
+      header("Location: index");
+    }
 
   ?>
   <div class="title">
@@ -43,15 +44,18 @@
     <fieldset>
       <label>
         Username:
-        <input type="text" name="username" placeholder="Username..." />
+        <input type="text" placeholder="Username..." name="username" />
       </label>
       <br />
       <label>
         Password:
-        <input type="password" name="password" placeholder="Password..." />
+        <input type="password" placeholder="Password..." name="password" />
       </label>
+      <div id="error_msg">
+
+      </div>
     </fieldset>
-    <input type="submit" value="Log-in" />
+    <input type="button" onclick="login(username.value, password.value);" value="Log-in" />
     <input type="reset" value="Reset" />
   </form>
 

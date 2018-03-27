@@ -25,16 +25,23 @@
   <script src="./js/lib/jquery-ui-touch-punch.min.js"></script>
   <script src="./js/lib/dragula.min.js"></script>
   <script src="./js/common/gui.js"></script>
+  <script src="./js/common/user.js"></script>
   <script src="./js/index.js"></script>
 
 </head>
 
 <body>
 
-  <!-- TODO Login, if not already, before continuing -->
   <?php
 
+    // Initialize session if not already
+    if(!isset($_SESSION)) {
+      session_start();
+    }
 
+    if(!array_key_exists("user_data", $_SESSION) || empty($_SESSION["user_data"])) {
+      header("Location: login");
+    }
 
   ?>
   <?php include "./php/configuration_menu.php" ?>

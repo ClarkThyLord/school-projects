@@ -3,6 +3,6 @@
 
   </div>
   <fieldset style="text-align: right;">
-    <input type="button" value="Sign-out" />
+    <input type="button" onclick="logout();" value="Sign-out" />
   </fieldset>
 </div>
