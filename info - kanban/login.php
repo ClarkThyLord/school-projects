@@ -16,11 +16,6 @@
   <link rel="stylesheet" href="./css/common/gui.css">
   <link rel="stylesheet" href="./css/login.css">
 
-  <!-- Javascript -->
-  <script src="./js/lib/jquery-3.3.1.min.js"></script>
-  <script src="./js/common/gui.js"></script>
-  <script src="./js/common/user.js"></script>
-
 </head>
 
 <body>
@@ -58,6 +53,11 @@
     <input type="button" onclick="login(username.value, password.value);" value="Log-in" />
     <input type="reset" value="Reset" />
   </form>
+
+  <!-- Javascript -->
+  <script src="./js/lib/jquery-3.3.1.min.js"></script>
+  <script src="./js/common/gui.js"></script>
+  <script src="./js/common/user.js"></script>
 
 </body>
 

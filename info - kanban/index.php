@@ -19,15 +19,6 @@
   <link rel="stylesheet" href="./css/lib/jquery-ui-theme.css">
   <link rel="stylesheet" href="./css/lib/dragula.min.css">
 
-  <!-- Javascript -->
-  <script src="./js/lib/jquery-3.3.1.min.js"></script>
-  <script src="./js/lib/jquery-ui.min.js"></script>
-  <script src="./js/lib/jquery-ui-touch-punch.min.js"></script>
-  <script src="./js/lib/dragula.min.js"></script>
-  <script src="./js/common/gui.js"></script>
-  <script src="./js/common/user.js"></script>
-  <script src="./js/index.js"></script>
-
 </head>
 
 <body>
@@ -65,10 +56,6 @@
         Search:
         <input type="text" class="tool" placeholder="Search term..." />
       </label>
-      <label>
-        Filter:
-        <input type="text" class="tool" placeholder="Filter by..." />
-      </label>
       <span class="tool selectable" onclick="$('#Task_Menu').dialog('open');">
         &#9881;
       </span>
@@ -92,6 +79,8 @@
       <div class="table" id="table_a">
         <div class="header">
           A
+          <br />
+          <span></span>
           <hr />
           <label>
             Search:
@@ -107,6 +96,15 @@
       </div>
     </div>
   </div>
+
+  <!-- Javascript -->
+  <script src="./js/lib/jquery-3.3.1.min.js"></script>
+  <script src="./js/lib/jquery-ui.min.js"></script>
+  <script src="./js/lib/jquery-ui-touch-punch.min.js"></script>
+  <script src="./js/lib/dragula.min.js"></script>
+  <script src="./js/common/gui.js"></script>
+  <script src="./js/common/user.js"></script>
+  <script src="./js/index.js"></script>
 
 </body>
 
