@@ -1,5 +1,10 @@
 <?php
 
+  // Access level
+  // 0 - viewer
+  // 1 - worker
+  // 2 - admin
+
   $response = array("granted" => 0, "reasons" => array("username" => false, "password" => false));
 
   // Initialize session if not already

@@ -27,7 +27,7 @@
       session_start();
     }
 
-    if(array_key_exists("user_data", $_SESSION) || !empty($_SESSION["user_data"])) {
+    if(array_key_exists("user_data", $_SESSION) && !empty($_SESSION["user_data"])) {
       header("Location: index");
     }
 

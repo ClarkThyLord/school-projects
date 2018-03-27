@@ -1,6 +1,10 @@
 $(function() {});
 
 
+// TABLE FUNCTIONS
+// *** --- ***
+
+
 /**
  * Creat and setup a Kanban table; server and client side.
  * @return {object} Returns object that's a DOM.
@@ -10,6 +14,27 @@ function createTable() {
   var dom = createTableDOM(table_id);
 
   return dom;
+}
+
+
+/**
+ * Delete a Kanban table; server and client side.
+ * @param {string} table_id ID belonging to table.
+ * @return {boolean} Returns true if sucesfully deleted; false, if unsucesfully deleted.
+ */
+function deleteTable(table_id) {
+
+}
+
+
+/**
+ * Modify a Kanban table; server and client side.
+ * @param {string} table_id ID belonging to task's table.
+ * @param {object} data Data being modified in table.
+ * @return {boolean} Returns true if sucesfully modified; false, if unsucesfully modified.
+ */
+function modifyTable(table_id, data) {
+
 }
 
 
@@ -37,6 +62,10 @@ function setupTableDOM(dom) {
 }
 
 
+// TASK FUNCTIONS
+// *** --- ***
+
+
 /**
  * Creat and setup a Kanban task for a given table; server and client side.
  * @param {string} table_id ID of table in which to create task.
@@ -47,6 +76,29 @@ function createTask() {
   var dom = createTaskDOM(task_id);
 
   return dom;
+}
+
+
+/**
+ * Delete a Kanban task; server and client side.
+ * @param {string} table_id ID belonging to task's table.
+ * @param {string} task_id ID belonging to task.
+ * @return {boolean} Returns true if sucesfully deleted; false, if unsucesfully deleted.
+ */
+function deleteTask(table_id, task_id) {
+
+}
+
+
+/**
+ * Modify a Kanban task; server and client side.
+ * @param {string} table_id ID belonging to task's table.
+ * @param {string} task_id ID belonging to task.
+ * @param {object} data Data being modified in task.
+ * @return {boolean} Returns true if sucesfully modified; false, if unsucesfully modified.
+ */
+function modifyTask(table_id, task_id, data) {
+
 }
 
 
