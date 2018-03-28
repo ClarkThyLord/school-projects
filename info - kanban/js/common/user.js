@@ -1,7 +1,7 @@
 function login(username, password) {
   // This probably isn't safe >_>
   $.post({
-    url: "./php/API.php/login",
+    url: "./php/API.php/user/login",
     data: {
       "username": username,
       "password": password
@@ -26,7 +26,7 @@ function login(username, password) {
 
 function logout() {
   $.ajax({
-    url: "./php/API.php/logout",
+    url: "./php/API.php/user/logout",
     success: function(response) {
       window.location.href = "./login";
     }
