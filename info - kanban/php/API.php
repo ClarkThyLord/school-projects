@@ -9,6 +9,12 @@
 	// user       | create   | POST      | 2
 	// user       | remove   | POST      | anyone can remove their own user; but only admins, access: 2, can remove other users
 	// user       | modify   | POST      | anyone can modify their own user; but only admins, access: 2, can modify other users
+	// table      | create   | POST      | 1
+	// table      | remove   | POST      | 1
+	// table      | modify   | POST      | 1
+	// task       | create   | POST      | 1
+	// task       | remove   | POST      | 1
+	// task       | modify   | POST      | 1
 	// ****************************************
 
 	// Response object that will be sent back
@@ -71,30 +77,32 @@
 
 			if ($routes[1] == "login" && $method == "POST") { user_login(); }
 
-			if ($routes[1] == "create" && $method == "POST") {  }
+			if ($routes[1] == "create" && $method == "POST") { user_create(); }
 
-		 	if ($routes[1] == "remove" && $method == "POST") {  }
+		 	if ($routes[1] == "remove" && $method == "POST") { user_remove(); }
 
-		 	if ($routes[1] == "modify" && $method == "POST") {  }
+		 	if ($routes[1] == "modify" && $method == "POST") { user_modify(); }
 		}
 	}
 	else if ($routes[0] == "table"){
 		include "DB.php";
 
-		if ($routes[1] == "create" && $method == "POST") {  }
+		if ($routes[1] == "create" && $method == "POST") { table_create(); }
 
-	 	if ($routes[1] == "remove" && $method == "POST") {  }
+	 	if ($routes[1] == "remove" && $method == "POST") { table_remove(); }
 
-	 	if ($routes[1] == "modify" && $method == "POST") {  }
+	 	if ($routes[1] == "modify" && $method == "POST") { table_modify(); }
+
 	}
 	else if ($routes[0] == "task"){
 		include "DB.php";
 
-		if ($routes[1] == "create" && $method == "POST") {  }
+		if ($routes[1] == "create" && $method == "POST") { task_create(); }
 
-	 	if ($routes[1] == "remove" && $method == "POST") {  }
+	 	if ($routes[1] == "remove" && $method == "POST") { task_remove(); }
 
-	 	if ($routes[1] == "modify" && $method == "POST") {  }
+	 	if ($routes[1] == "modify" && $method == "POST") { task_modify(); }
+		
 	} else { // Main route requested for wasn't found
     $GLOBALS["response"]["status"] = "invalid main endpoint";
     $GLOBALS["response"]["reason"] = "`" . json_encode($routes[0]) . "` endpoint not found";

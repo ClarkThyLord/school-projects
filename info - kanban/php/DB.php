@@ -198,4 +198,216 @@
    $GLOBALS["conn"]->close();
   }
 
+
+  // TABLE FUNCTIONS
+  // ***************************************************************************
+
+
+  /**
+  * Create a table.
+  * @return {undefined} Returns nothing.
+  */
+  function table_create () {
+    // Check for access
+    if (!check_access(1)) {
+      $GLOBALS["response"]["status"] = "access denied";
+      $GLOBALS["response"]["reason"] = "insufficient access level";
+      send_response();
+    }
+
+    $sql = "INSERT INTO `tables` (`id`, `name`) VALUES (NULL, '" . $_POST["table_name"] . "')";
+
+    // FOR DEBUGGING
+    $GLOBALS["response"]["sql"] = $sql;
+
+    if ($GLOBALS["conn"]->query($sql) == True) {
+      $GLOBALS["response"]["status"] = "success";
+      $GLOBALS["response"]["reason"] = "sucesfully created table";
+    } else {
+      $GLOBALS["response"]["status"] = "failure";
+      $GLOBALS["response"]["reason"] = "unsucesfully created table";
+    }
+
+    $GLOBALS["conn"]->close();
+  }
+
+
+  /**
+  * Remove a table.
+  * @return {undefined} Returns nothing.
+  */
+  function table_remove () {
+   // Check for access
+   if (!check_access(1)) {
+     $GLOBALS["response"]["status"] = "access denied";
+     $GLOBALS["response"]["reason"] = "insufficient access level";
+     send_response();
+   }
+
+   $sql = "DELETE FROM `tables` WHERE `tables`.`id` = " . $_["table_id"];
+
+   // FOR DEBUGGING
+   $GLOBALS["response"]["sql"] = $sql;
+
+   if ($GLOBALS["conn"]->query($sql) == True) {
+     $GLOBALS["response"]["status"] = "success";
+     $GLOBALS["response"]["reason"] = "sucesfully removed table";
+   } else {
+     $GLOBALS["response"]["status"] = "failure";
+     $GLOBALS["response"]["reason"] = "unsucesfully removed table";
+   }
+
+   $GLOBALS["conn"]->close();
+  }
+
+
+  /**
+  * Modify a table.
+  * @return {undefined} Returns nothing.
+  */
+  function table_modify () {
+   // Check for access
+   if (!check_access(1)) {
+     $GLOBALS["response"]["status"] = "access denied";
+     $GLOBALS["response"]["reason"] = "insufficient access level";
+     send_response();
+   }
+
+   $another = False;
+   $changes = "";
+   foreach ($_POST as $key => $value) {
+     if ($key == "id" || $key == "table_id") {
+       continue;
+     } else {
+       $changes .= "`" . $key . "` = '" . $value . "'";
+       if ($another == True) {
+         $changes .= ",";
+       } else {
+         $another = True;
+       }
+     }
+   }
+
+   $sql = "UPDATE `tables` SET " . $changes . " WHERE `tables`.`id` = " . $_POST["table_id"];
+
+   // FOR DEBUGGING
+   $GLOBALS["response"]["sql"] = $sql;
+
+   if ($GLOBALS["conn"]->query($sql) == True) {
+     $GLOBALS["response"]["status"] = "success";
+     $GLOBALS["response"]["reason"] = "sucesfully modified table";
+   } else {
+     $GLOBALS["response"]["status"] = "failure";
+     $GLOBALS["response"]["reason"] = "unsucesfully modified table";
+   }
+
+   $GLOBALS["conn"]->close();
+  }
+
+
+  // TASK FUNCTIONS
+  // ***************************************************************************
+
+
+  /**
+  * Create a task.
+  * @return {undefined} Returns nothing.
+  */
+  function task_create () {
+    // Check for access
+    if (!check_access(1)) {
+      $GLOBALS["response"]["status"] = "access denied";
+      $GLOBALS["response"]["reason"] = "insufficient access level";
+      send_response();
+    }
+
+    $sql = "INSERT INTO `tasks` (`id`, `table_id`, `name`) VALUES (NULL, '" . $_POST["table_id"] . "', '" . $_POST["task_name"] . "')";
+
+    // FOR DEBUGGING
+    $GLOBALS["response"]["sql"] = $sql;
+
+    if ($GLOBALS["conn"]->query($sql) == True) {
+      $GLOBALS["response"]["status"] = "success";
+      $GLOBALS["response"]["reason"] = "sucesfully created task";
+    } else {
+      $GLOBALS["response"]["status"] = "failure";
+      $GLOBALS["response"]["reason"] = "unsucesfully created task";
+    }
+
+    $GLOBALS["conn"]->close();
+  }
+
+
+  /**
+  * Remove a task.
+  * @return {undefined} Returns nothing.
+  */
+  function task_remove () {
+   // Check for access
+   if (!(check_access(1)) {
+     $GLOBALS["response"]["status"] = "access denied";
+     $GLOBALS["response"]["reason"] = "insufficient access level";
+     send_response();
+   }
+
+   $sql = "DELETE FROM `tasks` WHERE `tasks`.`id` = " . $_["tasks_id"];
+
+   // FOR DEBUGGING
+   $GLOBALS["response"]["sql"] = $sql;
+
+   if ($GLOBALS["conn"]->query($sql) == True) {
+     $GLOBALS["response"]["status"] = "success";
+     $GLOBALS["response"]["reason"] = "sucesfully removed task";
+   } else {
+     $GLOBALS["response"]["status"] = "failure";
+     $GLOBALS["response"]["reason"] = "unsucesfully removed task";
+   }
+
+   $GLOBALS["conn"]->close();
+  }
+
+
+  /**
+  * Modify a task.
+  * @return {undefined} Returns nothing.
+  */
+  function task_modify () {
+   // Check for access
+   if (!check_access(1)) {
+     $GLOBALS["response"]["status"] = "access denied";
+     $GLOBALS["response"]["reason"] = "insufficient access level";
+     send_response();
+   }
+
+   $another = False;
+   $changes = "";
+   foreach ($_POST as $key => $value) {
+     if ($key == "id" || $key == "task_id") {
+       continue;
+     } else {
+       $changes .= "`" . $key . "` = '" . $value . "'";
+       if ($another == True) {
+         $changes .= ",";
+       } else {
+         $another = True;
+       }
+     }
+   }
+
+   $sql = "UPDATE `tasks` SET " . $changes . " WHERE `tasks`.`id` = " . $_POST["task_id"];
+
+   // FOR DEBUGGING
+   $GLOBALS["response"]["sql"] = $sql;
+
+   if ($GLOBALS["conn"]->query($sql) == True) {
+     $GLOBALS["response"]["status"] = "success";
+     $GLOBALS["response"]["reason"] = "sucesfully modified task";
+   } else {
+     $GLOBALS["response"]["status"] = "failure";
+     $GLOBALS["response"]["reason"] = "unsucesfully modified task";
+   }
+
+   $GLOBALS["conn"]->close();
+  }
+
 ?>
