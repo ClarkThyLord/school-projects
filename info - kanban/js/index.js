@@ -10,8 +10,6 @@ $(function() {
     width: window.innerWidth / 1.3,
     height: window.innerHeight / 1.3,
     modal: true,
-    resizable: true,
-    draggable: false
   });
   $("#Configuration_Tabs").tabs();
 
@@ -20,9 +18,7 @@ $(function() {
     autoOpen: false,
     width: window.innerWidth / 1.3,
     height: window.innerHeight / 1.3,
-    modal: true,
-    resizable: true,
-    draggable: false
+    modal: true
   });
 
 
@@ -30,9 +26,7 @@ $(function() {
     autoOpen: false,
     width: window.innerWidth / 1.3,
     height: window.innerHeight / 1.3,
-    modal: true,
-    resizable: true,
-    draggable: false
+    modal: true
   });
 
 
@@ -40,9 +34,7 @@ $(function() {
     autoOpen: false,
     width: window.innerWidth / 1.3,
     height: window.innerHeight / 1.3,
-    modal: true,
-    resizable: true,
-    draggable: false
+    modal: true
   });
 });
 

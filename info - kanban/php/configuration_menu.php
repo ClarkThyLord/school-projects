@@ -17,10 +17,10 @@
             <span class="name">
               User Name
             </span>
-            <input type="button" value="Remove" class="option" />
+            <input type="button" value="Rename" class="option" />
             <input type="button" value="Change Password" class="option" />
             <input type="button" value="Change Access Level" class="option" />
-            <input type="button" value="Rename" class="option" />
+            <input type="button" value="Remove" class="option" />
           </div>
       </div>
       <fieldset class="bar">
@@ -31,11 +31,11 @@
     </div>
     <div id="Configuration_T_3">
       <div style="max-height: 50%;  overflow-x: hidden; overflow-y: auto; word-wrap: break-word;" id="system_log">
-        Example of things being logged here!
-        Hello world!
-        How are you?
-        Good?!
-        I'm trying to get this work done! =D
+        (date) : Example of things being logged here! <br />
+        (date) : Hello world! <br />
+        (date) : How are you? <br />
+        (date) : Good?! <br />
+        (date) : I'm trying to get this work done! =D <br />
       </div>
     </div>
   </div>

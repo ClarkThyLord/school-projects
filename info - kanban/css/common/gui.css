@@ -45,7 +45,7 @@ input:active, input:focus {
   margin: 5px;
   margin-bottom: 0px;
   padding: 13px;
-  border-radius: 5px;
+  overflow-y: border-radius: 5px;
   border: solid 2px var(--secondary);
 }
 
@@ -55,7 +55,6 @@ input:active, input:focus {
 }
 
 .dialog-menu .user .option {
-  float: right;
   margin-right: 5px;
 }
 

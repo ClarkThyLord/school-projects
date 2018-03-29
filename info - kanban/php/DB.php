@@ -103,7 +103,7 @@
   */
   function user_create () {
     // Check for access
-    if !(check_access(2)) {
+    if (!check_access(2)) {
       $GLOBALS["response"]["status"] = "access denied";
       $GLOBALS["response"]["reason"] = "insufficient access level";
       send_response();
@@ -132,7 +132,7 @@
   */
   function user_remove () {
    // Check for access
-   if !(check_access(2) || $_POST["user_id"] == $_SESSION["id"]) {
+   if (!(check_access(2) || $_POST["user_id"] == $_SESSION["id"])) {
      $GLOBALS["response"]["status"] = "access denied";
      $GLOBALS["response"]["reason"] = "insufficient access level";
      send_response();
@@ -161,7 +161,7 @@
   */
   function user_modify () {
    // Check for access
-   if !(check_access(2) || $_POST["user_id"] == $_SESSION["id"]) {
+   if (!(check_access(2) || $_POST["user_id"] == $_SESSION["id"])) {
      $GLOBALS["response"]["status"] = "access denied";
      $GLOBALS["response"]["reason"] = "insufficient access level";
      send_response();
@@ -175,7 +175,7 @@
      } else {
        $changes .= "`" . $key . "` = '" . $value . "'";
        if ($another == True) {
-         $changes .= ","
+         $changes .= ",";
        } else {
          $another = True;
        }
