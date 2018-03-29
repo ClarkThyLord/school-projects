@@ -7,7 +7,7 @@
 	// user       | login    | POST      | none
 	// user       | logout   | any       | none
 	// user       | create   | POST      | 2
-	// user       | remove   | POST      | 2
+	// user       | remove   | POST      | anyone can remove their own user; but only admins, access: 2, can remove other users
 	// user       | modify   | POST      | anyone can modify their own user; but only admins, access: 2, can modify other users
 	// ****************************************
 
@@ -69,7 +69,7 @@
 		} else{
 			include "DB.php";
 
-			if ($routes[1] == "login" && $method == "POST") { login(); }
+			if ($routes[1] == "login" && $method == "POST") { user_login(); }
 
 			if ($routes[1] == "create" && $method == "POST") {  }
 
@@ -82,6 +82,15 @@
     $GLOBALS["response"]["reason"] = "`" . json_encode($routes[0]) . "` endpoint not found";
 	}
 
-	echo json_encode($GLOBALS["response"]);
+	send_response();
+
+	/**
+	* Send response back to caller.
+	* @return {undefined} Returns nothing.
+	*/
+	function send_response() {
+		echo json_encode($GLOBALS["response"]);
+		die();
+	}
 
 ?>

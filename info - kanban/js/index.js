@@ -1,4 +1,50 @@
-$(function() {});
+$(function() {
+  /* Setup dialogs(menus)
+   * Configuration_Menu
+   * Login_Menu
+   * Category_Menu
+   * Task_Menu
+   */
+  $("#Configuration_Menu").dialog({
+    autoOpen: false,
+    width: window.innerWidth / 1.3,
+    height: window.innerHeight / 1.3,
+    modal: true,
+    resizable: true,
+    draggable: false
+  });
+  $("#Configuration_Tabs").tabs();
+
+
+  $("#Login_Menu").dialog({
+    autoOpen: false,
+    width: window.innerWidth / 1.3,
+    height: window.innerHeight / 1.3,
+    modal: true,
+    resizable: true,
+    draggable: false
+  });
+
+
+  $("#Category_Menu").dialog({
+    autoOpen: false,
+    width: window.innerWidth / 1.3,
+    height: window.innerHeight / 1.3,
+    modal: true,
+    resizable: true,
+    draggable: false
+  });
+
+
+  $("#Task_Menu").dialog({
+    autoOpen: false,
+    width: window.innerWidth / 1.3,
+    height: window.innerHeight / 1.3,
+    modal: true,
+    resizable: true,
+    draggable: false
+  });
+});
 
 
 // TABLE FUNCTIONS

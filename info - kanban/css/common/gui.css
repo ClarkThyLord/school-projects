@@ -39,7 +39,40 @@ input:active, input:focus {
   background-color: var(--secondary);
 }
 
-/* Common classes */
+/* Dialog Menu Classes */
+
+.dialog-menu .user {
+  margin: 5px;
+  margin-bottom: 0px;
+  padding: 13px;
+  border-radius: 5px;
+  border: solid 2px var(--secondary);
+}
+
+.dialog-menu .user .name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.dialog-menu .user .option {
+  float: right;
+  margin-right: 5px;
+}
+
+.dialog-menu .bar {
+  margin: 5px;
+  margin-top: 25px;
+  padding: 3px;
+  text-align: right;
+}
+
+.dialog-menu .bar .item {
+  margin: 5px;
+  padding: 10px;
+  text-align: right;
+}
+
+/* Common Classes */
 
 .choosen {
   background-color: var(--choosen);
