@@ -30,13 +30,16 @@
     <div id="Configuration_T_2">
     </div>
     <div id="Configuration_T_3">
-      <div style="max-height: 50%;  overflow-x: hidden; overflow-y: auto; word-wrap: break-word;" id="system_log">
+      <div id="system_log">
         (date) : Example of things being logged here! <br />
         (date) : Hello world! <br />
         (date) : How are you? <br />
         (date) : Good?! <br />
         (date) : I'm trying to get this work done! =D <br />
       </div>
+      <fieldset class="bar">
+        <input type="button" onclick="" value="Clear Log" class="item" />
+      </fieldset>
     </div>
   </div>
 </div>

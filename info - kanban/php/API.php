@@ -77,6 +77,24 @@
 
 		 	if ($routes[1] == "modify" && $method == "POST") {  }
 		}
+	}
+	else if ($routes[0] == "table"){
+		include "DB.php";
+
+		if ($routes[1] == "create" && $method == "POST") {  }
+
+	 	if ($routes[1] == "remove" && $method == "POST") {  }
+
+	 	if ($routes[1] == "modify" && $method == "POST") {  }
+	}
+	else if ($routes[0] == "task"){
+		include "DB.php";
+
+		if ($routes[1] == "create" && $method == "POST") {  }
+
+	 	if ($routes[1] == "remove" && $method == "POST") {  }
+
+	 	if ($routes[1] == "modify" && $method == "POST") {  }
 	} else { // Main route requested for wasn't found
     $GLOBALS["response"]["status"] = "invalid main endpoint";
     $GLOBALS["response"]["reason"] = "`" . json_encode($routes[0]) . "` endpoint not found";
