@@ -64,7 +64,7 @@
 
     $GLOBALS["response"]["data"]["login"] = array("granted" => 0, "reasons" => array("username" => false, "password" => false));
 
-    $sql = 'SELECT * FROM `users` WHERE `username` = "' . $_POST["username"] . '"';
+    $sql = 'SELECT * FROM `users` WHERE `name` = "' . $_POST["username"] . '"';
 
     // FOR DEBUGGING
     $GLOBALS["response"]["sql"] = $sql;
@@ -72,14 +72,14 @@
     $result = $GLOBALS["conn"]->query($sql);
 
     if ($result->num_rows > 0) {
-      $GLOBALS["response"]["data"]["login"]["reasons"]["username"] = true;
+      $GLOBALS["response"]["data"]["login"]["reasons"]["name"] = true;
       while($row = $result->fetch_assoc()) {
         if ($_POST["password"] == $row["password"]) {
           $GLOBALS["response"]["data"]["login"]["granted"] = 1;
           $GLOBALS["response"]["data"]["login"]["reasons"]["password"] = true;
 
           // Setup user data for session
-          $_SESSION["user_data"] = array("id" => $row["id"], "username" => $row["username"], "access" => $row["access"]);
+          $_SESSION["user_data"] = array("id" => $row["id"], "name" => $row["name"], "access" => $row["access"]);
 
           $GLOBALS["response"]["status"] = "success";
           $GLOBALS["response"]["reason"] = "sucesfully logged in";
@@ -344,7 +344,7 @@
   */
   function task_remove () {
    // Check for access
-   if (!(check_access(1)) {
+   if (!check_access(1)) {
      $GLOBALS["response"]["status"] = "access denied";
      $GLOBALS["response"]["reason"] = "insufficient access level";
      send_response();

@@ -1,10 +1,5 @@
 $(function() {
-  /* Setup dialogs(menus)
-   * Configuration_Menu
-   * Login_Menu
-   * Category_Menu
-   * Task_Menu
-   */
+  // Setup dialog menus(popups)
   $("#Configuration_Menu").dialog({
     autoOpen: false,
     width: window.innerWidth / 1.3,
@@ -13,6 +8,40 @@ $(function() {
   });
   $("#Configuration_Tabs").tabs();
 
+  $("#user_create").dialog({
+    autoOpen: false,
+    width: window.innerWidth / 2,
+    height: window.innerHeight / 2,
+    modal: true,
+  });
+
+  $("#user_rename").dialog({
+    autoOpen: false,
+    width: window.innerWidth / 2,
+    height: window.innerHeight / 2,
+    modal: true,
+  });
+
+  $("#user_repassword").dialog({
+    autoOpen: false,
+    width: window.innerWidth / 2,
+    height: window.innerHeight / 2,
+    modal: true,
+  });
+
+  $("#user_reaccess").dialog({
+    autoOpen: false,
+    width: window.innerWidth / 2,
+    height: window.innerHeight / 2,
+    modal: true,
+  });
+
+  $("#user_remove").dialog({
+    autoOpen: false,
+    width: window.innerWidth / 2,
+    height: window.innerHeight / 2,
+    modal: true,
+  });
 
   $("#Login_Menu").dialog({
     autoOpen: false,

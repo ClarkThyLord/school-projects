@@ -45,7 +45,8 @@ input:active, input:focus {
   margin: 5px;
   margin-bottom: 0px;
   padding: 13px;
-  overflow-y: border-radius: 5px;
+  overflow-y: hidden;
+  border-radius: 5px;
   border: solid 2px var(--secondary);
 }
 
