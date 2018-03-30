@@ -70,6 +70,7 @@ input:active, input:focus {
   margin: 5px;
   padding: 10px;
   text-align: right;
+  font-weight: bold;
 }
 
 .dialog-menu #system_log {

@@ -87,7 +87,7 @@
         $tables = $GLOBALS["conn"]->query("SELECT * FROM `tables`");
         if ($tables->num_rows > 0) {
           while($table = $tables->fetch_assoc()) {
-            $msg .= '<div class="table" onclick="current_table = $(this).attr(`data-id`);" data-id="' . $table["id"] . '"> <div class="header"> <span class="name">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="selectable" onclick="$(`#Task_Menu`).dialog(`open`);"> &#9881; </span> <span class="selectable" onclick="$(`#task_create`).dialog(`open`);"> Add + </span> </div> <form class="container" data-table="' . $table["id"] . '">';
+            $msg .= '<div class="table" onclick="current_table = $(this).attr(`data-id`);" data-id="' . $table["id"] . '"> <div class="header"> <span class="name">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(`#Task_Menu`).dialog(`open`);"> &#9881; </span> <span class="item selectable" onclick="$(`#task_create`).dialog(`open`);"> Add + </span> </div> <form class="container" data-table="' . $table["id"] . '">';
 
             $tasks =  $GLOBALS["conn"]->query("SELECT * FROM `tasks` WHERE `table_id` = " . $table["id"]);
             if ($tasks->num_rows > 0) {

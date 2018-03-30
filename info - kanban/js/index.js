@@ -20,6 +20,9 @@ $(function() {
       modal: true,
     });
   });
+
+  // Setup dragula(drag and drop)=
+  dragula($(".container").toArray());
 });
 
 var current_user, current_table, current_task;
@@ -27,6 +30,27 @@ var current_user, current_table, current_task;
 // USER FUNCTIONS
 // *****************************************************************************
 
+
+/**
+ * Search for a user by it's name.
+ * @param {string} search_term Term used to search for user.
+ * @return {undefined} Returns nothing.
+ */
+function seachForUser(search_term) {
+  if (search_term === "") {
+    $(".users > .user").each(function() {
+      $(this).show();
+    });
+  } else {
+    $(".users > .user").each(function() {
+      if ($(this).find(".header > .name").first().html().toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
+        $(this).hide();
+      } else {
+        $(this).show();
+      }
+    });
+  }
+}
 
 /**
  * Create a user.
@@ -46,7 +70,7 @@ function createUser(name, password, access_level) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === "success") {
-        var doms = '<div class="user" data-id="' + response.data.user.id + '"> <span class="name">' + response.data.user.name + '</span> <input type="button" onclick="$(`#user_rename`).dialog(`open`);" value="Rename" class="option" /> <input type="button" onclick="$(`#user_repassword`).dialog(`open`);" value="Change Password" class="option" /> <input type="button" onclick="$(`#user_reaccess`).dialog(`open`);" value="Change Access Level" class="option" /> <input type="button" onclick="$(`#user_remove`).dialog(`open`);" value="Remove" class="option" /> </div>';
+        var doms = '<div class="user" onclick="current_user = $(this).attr(`data-id`);" data-id="' + response.data.user.id + '"><span class="header"><span class="name">' + response.data.user.name + '</span></span> <input type="button" onclick="$(`#user_rename`).dialog(`open`);" value="Rename" class="option" /> <input type="button" onclick="$(`#user_repassword`).dialog(`open`); " value="Change Password" class="option" /> <input type="button" onclick="$(`#user_reaccess`).dialog(`open`);" value="Change Access Level" class="option" /> <input type="button" onclick="$(`#user_remove`).dialog(`open`); " value="Remove" class="option" /> </div>';
         $(".users").append(doms);
         $("#user_create").dialog("close");
       }
@@ -116,6 +140,7 @@ function modifyUser(user_id, modifications) {
 
 /**
  * Search for a table by it's name.
+ * @param {string} search_term Term used to search for user.
  * @return {undefined} Returns nothing.
  */
 function seachForTable(search_term) {
@@ -125,7 +150,7 @@ function seachForTable(search_term) {
     });
   } else {
     $(".kanban > .table").each(function() {
-      if ($(this).find(".header > .name").first().html().indexOf(search_term) === -1) {
+      if ($(this).find(".header > .name").first().html().toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
         $(this).hide();
       } else {
         $(this).show();
@@ -211,7 +236,7 @@ function seachForTask(search_term) {
   } else {
     $(".kanban > .table").each(function() {
       $(this).find(".container .item").each(function() {
-        if ($(this).html().indexOf(search_term) === -1) {
+        if ($(this).html().toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
           $(this).hide();
         } else {
           $(this).show();
@@ -238,7 +263,7 @@ function seachForTaskInTable(table_id, search_term) {
   } else {
     $(".kanban > .table[data-id='" + table_id + "']").each(function() {
       $(this).find(".container .item").each(function() {
-        if ($(this).html().indexOf(search_term) === -1) {
+        if ($(this).html().toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
           $(this).hide();
         } else {
           $(this).show();

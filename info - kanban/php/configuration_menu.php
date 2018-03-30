@@ -31,6 +31,10 @@
         ?>
       </div>
       <fieldset class="bar">
+        <label class="item">
+          Search For User:
+          <input type="text" oninput="seachForUser(this.value);" />
+        </label>
         <input type="button" onclick="$(`#user_create`).dialog(`open`);" value="New User" class="item" /> |
         <input type="button" onclick="logout();" value="Sign-out" class="item" />
       </fieldset>
@@ -52,6 +56,10 @@
         ?>
       </div>
       <fieldset class="bar">
+        <label class="item">
+          Search For Msg:
+          <input type="text" oninput="searchInLog(this.value);" />
+        </label> |
         <input type="button" onclick="" value="Clear Log" class="item" />
       </fieldset>
     </div>
