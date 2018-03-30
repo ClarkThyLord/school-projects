@@ -60,9 +60,6 @@
         Search For Task:
         <input type="text" class="tool" placeholder="Search term..." oninput="seachForTask(this.value);" />
       </label>
-      <span class="tool selectable" onclick="$('#Table_Menu').dialog('open');">
-        &#9881;
-      </span>
       <span class="tool selectable" onclick="$('#table_create').dialog('open');">
         Add +
       </span>
@@ -72,10 +69,10 @@
   <!-- Workspace -->
   <div class="workspace">
     <!-- prev and next controls -->
-    <a class="prev selectable">
+    <a class="prev selectable" onmousedown="kanbanViewLeft();">
       &#10094;
     </a>
-    <a class="next selectable">
+    <a class="next selectable" onmousedown="kanbanViewRight();">
       &#10095;
     </a>
     <!-- Kanban -->
@@ -87,7 +84,7 @@
         $tables = $GLOBALS["conn"]->query("SELECT * FROM `tables`");
         if ($tables->num_rows > 0) {
           while($table = $tables->fetch_assoc()) {
-            $msg .= '<div class="table" onclick="current_table = $(this).attr(`data-id`);" data-id="' . $table["id"] . '"> <div class="header"> <span class="name">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(`#Task_Menu`).dialog(`open`);"> &#9881; </span> <span class="item selectable" onclick="$(`#task_create`).dialog(`open`);"> Add + </span> </div> <form class="container" data-table="' . $table["id"] . '">';
+            $msg .= '<div class="table" onclick="current_table = $(this).attr(`data-id`);" data-id="' . $table["id"] . '"> <div class="header"> <span class="name selectable" onclick="$(`#table_rename`).dialog(`open`)">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(`#table_remove`).dialog(`open`);"> &#128465; </span> <span class="item selectable" onclick="$(`#task_create`).dialog(`open`);"> Add + </span> </div> <form class="dragula-container" data-table="' . $table["id"] . '">';
 
             $tasks =  $GLOBALS["conn"]->query("SELECT * FROM `tasks` WHERE `table_id` = " . $table["id"]);
             if ($tasks->num_rows > 0) {

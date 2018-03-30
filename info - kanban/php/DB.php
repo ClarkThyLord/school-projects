@@ -115,7 +115,7 @@
     $GLOBALS["response"]["sql"] = $sql;
 
     if ($GLOBALS["conn"]->query($sql) === TRUE) {
-      $GLOBALS["response"]["data"]["user"] = $GLOBALS["conn"]->query("SELECT * FROM `users` WHERE `name` = '" . $_POST["name"] . "' AND `password` = '" . $_POST["password"] . "' LIMIT 1")->fetch_assoc();
+      $GLOBALS["response"]["data"]["user"] = $GLOBALS["conn"]->query("SELECT `id`, `name` FROM `users` WHERE `id` = '" . $GLOBALS["conn"]->insert_id . "' LIMIT 1")->fetch_assoc();
 
       $GLOBALS["response"]["status"] = "success";
       $GLOBALS["response"]["reason"] = "sucesfully created user";
@@ -219,12 +219,14 @@
       send_response();
     }
 
-    $sql = "INSERT INTO `tables` (`id`, `name`) VALUES (NULL, '" . $_POST["table_name"] . "')";
+    $sql = "INSERT INTO `tables` (`id`, `name`) VALUES (NULL, '" . $_POST["name"] . "')";
 
     // FOR DEBUGGING
     $GLOBALS["response"]["sql"] = $sql;
 
     if ($GLOBALS["conn"]->query($sql) == True) {
+      $GLOBALS["response"]["data"]["table"] = $GLOBALS["conn"]->query("SELECT * FROM `tables` WHERE `id` = " . $GLOBALS["conn"]->insert_id . " LIMIT 1")->fetch_assoc();
+
       $GLOBALS["response"]["status"] = "success";
       $GLOBALS["response"]["reason"] = "sucesfully created table";
     } else {
@@ -248,12 +250,14 @@
      send_response();
    }
 
-   $sql = "DELETE FROM `tables` WHERE `tables`.`id` = " . $_["table_id"];
+   $sql = "DELETE FROM `tables` WHERE `tables`.`id` = " . $_POST["table_id"];
 
    // FOR DEBUGGING
    $GLOBALS["response"]["sql"] = $sql;
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     $GLOBALS["response"]["data"]["table_id"] = $_POST["table_id"];
+
      $GLOBALS["response"]["status"] = "success";
      $GLOBALS["response"]["reason"] = "sucesfully removed table";
    } else {
@@ -325,7 +329,7 @@
       send_response();
     }
 
-    $sql = "INSERT INTO `tasks` (`id`, `table_id`, `name`) VALUES (NULL, '" . $_POST["table_id"] . "', '" . $_POST["task_name"] . "')";
+    $sql = "INSERT INTO `tasks` (`id`, `table_id`, `name`) VALUES (NULL, '" . $_POST["table_id"] . "', '" . $_POST["name"] . "')";
 
     // FOR DEBUGGING
     $GLOBALS["response"]["sql"] = $sql;
@@ -354,7 +358,7 @@
      send_response();
    }
 
-   $sql = "DELETE FROM `tasks` WHERE `tasks`.`id` = " . $_["tasks_id"];
+   $sql = "DELETE FROM `tasks` WHERE `tasks`.`id` = " . $_POST["tasks_id"];
 
    // FOR DEBUGGING
    $GLOBALS["response"]["sql"] = $sql;
