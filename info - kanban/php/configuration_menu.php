@@ -49,8 +49,6 @@
               echo "(" . $row["date"] . ") : " . $row["text"] . "<br />";
             }
           }
-
-          $GLOBALS["conn"]->close();
         ?>
       </div>
       <fieldset class="bar">

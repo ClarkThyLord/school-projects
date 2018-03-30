@@ -85,24 +85,29 @@
     </a>
     <!-- Kanban -->
     <div class="kanban">
-      <div class="table" id="table_a">
-        <div class="header">
-          A
-          <br />
-          <span></span>
-          <hr />
-          <label>
-            Search:
-            <br />
-            <input type="text" placeholder="Search term..." data-table="a" onchange="" />
-          </label>
-        </div>
-        <form class="container" data-table="a">
-          <div class="item selectable" onclick="" data-table="a" name="1">
-            Name of Item
-          </div>
-        </form>
-      </div>
+      <?php
+        include_once "./php/DB.php";
+
+        $msg = "";
+        $tables = $GLOBALS["conn"]->query("SELECT * FROM `tables`");
+        if ($tables->num_rows > 0) {
+          while($table = $tables->fetch_assoc()) {
+            $msg .= '<div class="table" data-id="' . $table["id"] . '"> <div class="header"> <span class="name">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" onchange="" /> </label> </div> <form class="container" data-table="' . $table["id"] . '">';
+
+            $tasks =  $GLOBALS["conn"]->query("SELECT * FROM `tasks` WHERE `table_id` = " . $table["id"]);
+            if ($tasks->num_rows > 0) {
+              while($task = $tasks->fetch_assoc()) {
+                $msg .= '<div class="item selectable" onclick="" data-table="' . $table["id"] . '" name="' . $task["id"] . '">' . $task["name"] . '</div>';
+              }
+            }
+            $msg .= "</form> </div>";
+          }
+        }
+
+        echo $msg;
+
+        $GLOBALS["conn"]->close();
+      ?>
     </div>
   </div>
 
