@@ -47,7 +47,16 @@
         Metropoli2Go
       </span>
       <span class="user selectable" onclick="$('#Configuration_Menu').dialog('open');" id="user">
-        ClarkThyLord
+        <?php
+
+          // Initialize session if not already
+          if(!isset($_SESSION)) {
+            session_start();
+          }
+
+          echo $_SESSION["user_data"]["name"];
+
+        ?>
       </span>
     </div>
     <!-- Toolbar -->

@@ -64,7 +64,7 @@
 
     $GLOBALS["response"]["data"]["login"] = array("granted" => 0, "reasons" => array("username" => false, "password" => false));
 
-    $sql = 'SELECT * FROM `users` WHERE `name` = "' . $_POST["username"] . '"';
+    $sql = 'SELECT * FROM `users` WHERE `name` = "' . $_POST["name"] . '"';
 
     // FOR DEBUGGING
     $GLOBALS["response"]["sql"] = $sql;
@@ -109,12 +109,14 @@
       send_response();
     }
 
-    $sql = "INSERT INTO `users` (`id`, `username`, `password`, `access`) VALUES (NULL, '" . $_POST["username"] . "', '" . $_POST["password"] . "', '" . $_POST["access"] . "')";
+    $sql = "INSERT INTO `users` (`id`, `name`, `password`, `access`) VALUES (NULL, '" . $_POST["name"] . "', '" . $_POST["password"] . "', " . $_POST["access"] . ")";
 
     // FOR DEBUGGING
     $GLOBALS["response"]["sql"] = $sql;
 
-    if ($GLOBALS["conn"]->query($sql) == True) {
+    if ($GLOBALS["conn"]->query($sql) === TRUE) {
+      $GLOBALS["response"]["data"]["user"] = $GLOBALS["conn"]->query("SELECT * FROM `users` WHERE `name` = '" . $_POST["name"] . "' AND `password` = '" . $_POST["password"] . "' LIMIT 1")->fetch_assoc();
+
       $GLOBALS["response"]["status"] = "success";
       $GLOBALS["response"]["reason"] = "sucesfully created user";
     } else {
@@ -132,18 +134,20 @@
   */
   function user_remove () {
    // Check for access
-   if (!(check_access(2) || $_POST["user_id"] == $_SESSION["id"])) {
+   if (!(check_access(2) || $_POST["user_id"] == $_SESSION["user_data"]["id"])) {
      $GLOBALS["response"]["status"] = "access denied";
      $GLOBALS["response"]["reason"] = "insufficient access level";
      send_response();
    }
 
-   $sql = "DELETE FROM `users` WHERE `users`.`id` = " . $_["user_id"];
+   $sql = "DELETE FROM `users` WHERE `users`.`id` = " . $_POST["user_id"];
 
    // FOR DEBUGGING
    $GLOBALS["response"]["sql"] = $sql;
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     $GLOBALS["response"]["data"]["user_id"] = $_POST["user_id"];
+
      $GLOBALS["response"]["status"] = "success";
      $GLOBALS["response"]["reason"] = "sucesfully removed user";
    } else {
@@ -161,7 +165,7 @@
   */
   function user_modify () {
    // Check for access
-   if (!(check_access(2) || $_POST["user_id"] == $_SESSION["id"])) {
+   if (!(check_access(2) || ($_POST["user_id"] == $_SESSION["user_data"]["id"] && !array_key_exists("access", $_POST)))) {
      $GLOBALS["response"]["status"] = "access denied";
      $GLOBALS["response"]["reason"] = "insufficient access level";
      send_response();

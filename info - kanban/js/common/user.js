@@ -1,9 +1,8 @@
 function login(username, password) {
-  // This probably isn't safe >_>
   $.post({
     url: "./php/API.php/user/login",
     data: {
-      "username": username,
+      "name": username,
       "password": password
     },
     success: function(response) {

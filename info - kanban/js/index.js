@@ -67,9 +67,98 @@ $(function() {
   });
 });
 
+var current_user, current_table, current_task;
+
+// USER FUNCTIONS
+// *****************************************************************************
+
+
+/**
+ * Create a user.
+ * @param {string} name New user's name.
+ * @param {string} password New user's password.
+ * @param {integer} access_level New user's access level.
+ * @return {undefined} Returns nothing.
+ */
+function createUser(name, password, access_level) {
+  $.post({
+    url: "./php/API.php/user/create",
+    data: {
+      "name": name,
+      "password": password,
+      "access": access_level
+    },
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === "success") {
+        var doms = '<div class="user" data-id="' + response.data.user.id + '"> <span class="name">' + response.data.user.name + '</span> <input type="button" onclick="$(`#user_rename`).dialog(`open`);" value="Rename" class="option" /> <input type="button" onclick="$(`#user_repassword`).dialog(`open`);" value="Change Password" class="option" /> <input type="button" onclick="$(`#user_reaccess`).dialog(`open`);" value="Change Access Level" class="option" /> <input type="button" onclick="$(`#user_remove`).dialog(`open`);" value="Remove" class="option" /> </div>';
+        $(".users").append(doms);
+        $("#user_create").dialog("close");
+      }
+
+      alert(response.reason);
+    }
+  });
+}
+
+
+/**
+ * Remove a user.
+ * @param {integer} user_id User's ID.
+ * @return {undefined} Returns nothing.
+ */
+function removeUser(user_id) {
+  $.post({
+    url: "./php/API.php/user/remove",
+    data: {
+      "user_id": user_id
+    },
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === "success") {
+        $(".user[data-id='" + response.data.user_id + "']").remove();
+        $("#user_remove").dialog("close");
+      }
+
+      alert(response.reason);
+    }
+  });
+}
+
+
+/**
+ * Modify a user.
+ * @param {integer} user_id User's ID.
+ * @param {object} modifications Things going to be modified.
+ * @return {undefined} Returns nothing.
+ */
+function modifyUser(user_id, modifications) {
+  var data = Object.assign({
+    "user_id": user_id
+  }, modifications);
+  $.post({
+    url: "./php/API.php/user/modify",
+    data: data,
+    success: function(response) {
+      response = JSON.parse(response);
+
+      alert(response.reason);
+
+      if (response.status === "success") {
+        $(".user[data-id='" + response.data.user_id + "']").remove();
+        $("#user_rename").dialog("close");
+        $("#user_repassword").dialog("close");
+        $("#user_reaccess").dialog("close");
+
+        return true;
+      }
+    }
+  });
+}
+
 
 // TABLE FUNCTIONS
-// *** --- ***
+// *****************************************************************************
 
 
 /**
