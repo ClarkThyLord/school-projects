@@ -1,5 +1,5 @@
 <div class="dialog-menu" title="Configuration Menu" id="Configuration_Menu">
-  <div id="Configuration_Tabs">
+  <div class="ui-tabs" id="Configuration_Tabs">
     <ul>
       <li><a href="#Configuration_T_1">Users</a></li>
       <li><a href="#Configuration_T_2">Configuration</a></li>
@@ -23,9 +23,9 @@
             while($row = $result->fetch_assoc()) {
               $icon = "";
               if ($row["id"] == $_SESSION["user_data"]["id"]) {
-                $icon = "&#9733;";
+                $icon = "&#9733; ";
               }
-              echo '<div class="user" onclick="current_user = $(this).attr(`data-id`);" data-id="' . $row["id"] . '">' . $icon . '<span class="name">' . $row["name"] . '</span> <input type="button" onclick="$(`#user_rename`).dialog(`open`);" value="Rename" class="option" /> <input type="button" onclick="$(`#user_repassword`).dialog(`open`); " value="Change Password" class="option" /> <input type="button" onclick="$(`#user_reaccess`).dialog(`open`);" value="Change Access Level" class="option" /> <input type="button" onclick="$(`#user_remove`).dialog(`open`); " value="Remove" class="option" /> </div>';
+              echo '<div class="user" onclick="current_user = $(this).attr(`data-id`);" data-id="' . $row["id"] . '"><span class="header">' . $icon . '<span class="name">' . $row["name"] . '</span></span> <input type="button" onclick="$(`#user_rename`).dialog(`open`);" value="Rename" class="option" /> <input type="button" onclick="$(`#user_repassword`).dialog(`open`); " value="Change Password" class="option" /> <input type="button" onclick="$(`#user_reaccess`).dialog(`open`);" value="Change Access Level" class="option" /> <input type="button" onclick="$(`#user_remove`).dialog(`open`); " value="Remove" class="option" /> </div>';
             }
           }
         ?>
@@ -58,8 +58,8 @@
   </div>
 </div>
 
-<div class="dialog-menu" title="Create User" id="user_create">
-  <form style="text-align: center;">
+<div class="dialog-menu-mini" title="Create User" id="user_create">
+  <form class="content">
     <label>
       Username:<br />
       <input type="text" placeholder="Username..." name="user_name" />
@@ -82,20 +82,20 @@
   </form>
 </div>
 
-<div class="dialog-menu" title="Rename User" id="user_rename">
-  <form style="text-align: center;">
+<div class="dialog-menu-mini" title="Rename User" id="user_rename">
+  <form class="content">
     <label>
       New User Name:<br />
       <input type="text" placeholder="Username..." name="new_name"/>
     </label>
     <fieldset class="bar">
-      <input type="button" value="Rename User"  onclick="modifyUser(current_user, {'name' : new_name.value}); $('.user[data-id=\'' + current_user + '\'] > .name').html(new_name.value);" class="item" />
+      <input type="button" value="Rename User"  onclick="modifyUser(current_user, {'name' : new_name.value}); $('.user[data-id=\'' + current_user + '\'] > .header > .name').html(new_name.value);" class="item" />
     </fieldset>
   </form>
 </div>
 
-<div class="dialog-menu" title="Change User Password" id="user_repassword">
-  <form style="text-align: center;">
+<div class="dialog-menu-mini" title="Change User Password" id="user_repassword">
+  <form class="content">
     <label>
       New User Password:<br />
       <input type="password" placeholder="Password..." name="new_password" />
@@ -106,8 +106,8 @@
   </form>
 </div>
 
-<div class="dialog-menu" title="Change User Access Level" id="user_reaccess">
-  <form style="text-align: center;">
+<div class="dialog-menu-mini" title="Change User Access Level" id="user_reaccess">
+  <form class="content">
     <label>
       New Access Level:
       (Viewer : 0,
@@ -122,8 +122,8 @@
   </form>
 </div>
 
-<div class="dialog-menu" title="Remove User" id="user_remove">
-  <form style="text-align: center;">
+<div class="dialog-menu-mini" title="Remove User" id="user_remove">
+  <form class="content">
     Remove User?
     <fieldset class="bar">
       <input type="button" value="Remove User"  onclick="removeUser(current_user);" class="item" />

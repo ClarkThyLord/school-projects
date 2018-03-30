@@ -1,69 +1,24 @@
 $(function() {
   // Setup dialog menus(popups)
-  $("#Configuration_Menu").dialog({
-    autoOpen: false,
-    width: window.innerWidth / 1.3,
-    height: window.innerHeight / 1.3,
-    modal: true,
+  $(".dialog-menu").each(function() {
+    $(this).dialog({
+      autoOpen: false,
+      width: window.innerWidth / 1.3,
+      height: window.innerHeight / 1.3,
+      modal: true,
+    });
   });
-  $("#Configuration_Tabs").tabs();
-
-  $("#user_create").dialog({
-    autoOpen: false,
-    width: window.innerWidth / 2,
-    height: window.innerHeight / 2,
-    modal: true,
+  $(".ui-tabs").tabs({
+    active: 0
   });
 
-  $("#user_rename").dialog({
-    autoOpen: false,
-    width: window.innerWidth / 2,
-    height: window.innerHeight / 2,
-    modal: true,
-  });
-
-  $("#user_repassword").dialog({
-    autoOpen: false,
-    width: window.innerWidth / 2,
-    height: window.innerHeight / 2,
-    modal: true,
-  });
-
-  $("#user_reaccess").dialog({
-    autoOpen: false,
-    width: window.innerWidth / 2,
-    height: window.innerHeight / 2,
-    modal: true,
-  });
-
-  $("#user_remove").dialog({
-    autoOpen: false,
-    width: window.innerWidth / 2,
-    height: window.innerHeight / 2,
-    modal: true,
-  });
-
-  $("#Login_Menu").dialog({
-    autoOpen: false,
-    width: window.innerWidth / 1.3,
-    height: window.innerHeight / 1.3,
-    modal: true
-  });
-
-
-  $("#Category_Menu").dialog({
-    autoOpen: false,
-    width: window.innerWidth / 1.3,
-    height: window.innerHeight / 1.3,
-    modal: true
-  });
-
-
-  $("#Task_Menu").dialog({
-    autoOpen: false,
-    width: window.innerWidth / 1.3,
-    height: window.innerHeight / 1.3,
-    modal: true
+  $(".dialog-menu-mini").each(function() {
+    $(this).dialog({
+      autoOpen: false,
+      width: window.innerWidth / 2,
+      height: window.innerHeight / 2,
+      modal: true,
+    });
   });
 });
 

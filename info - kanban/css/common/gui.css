@@ -50,7 +50,7 @@ input:active, input:focus {
   border: solid 2px var(--secondary);
 }
 
-.dialog-menu .user .name {
+.dialog-menu .user .header {
   font-size: 18px;
   font-weight: bold;
 }
@@ -59,14 +59,14 @@ input:active, input:focus {
   margin-right: 5px;
 }
 
-.dialog-menu .bar {
+.dialog-menu .bar, .dialog-menu-mini .bar {
   margin: 5px;
   margin-top: 25px;
   padding: 3px;
   text-align: right;
 }
 
-.dialog-menu .bar .item {
+.dialog-menu .bar .item, .dialog-menu-mini .bar .item {
   margin: 5px;
   padding: 10px;
   text-align: right;
@@ -77,6 +77,10 @@ input:active, input:focus {
   overflow-x: hidden;
   overflow-y: auto;
   word-wrap: break-word;
+}
+
+.dialog-menu-mini .content {
+  text-align: center;
 }
 
 /* Common Classes */

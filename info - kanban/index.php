@@ -36,7 +36,7 @@
 
   ?>
   <?php include "./php/configuration_menu.php" ?>
-  <?php include "./php/category_menu.php" ?>
+  <?php include "./php/table_menu.php" ?>
   <?php include "./php/task_menu.php" ?>
 
   <!-- Navigation Bar -->
@@ -47,16 +47,7 @@
         Metropoli2Go
       </span>
       <span class="user selectable" onclick="$('#Configuration_Menu').dialog('open');" id="user">
-        <?php
-
-          // Initialize session if not already
-          if(!isset($_SESSION)) {
-            session_start();
-          }
-
-          echo $_SESSION["user_data"]["name"];
-
-        ?>
+        <?php echo $_SESSION["user_data"]["name"]; ?>
       </span>
     </div>
     <!-- Toolbar -->
@@ -65,10 +56,10 @@
         Search:
         <input type="text" class="tool" placeholder="Search term..." />
       </label>
-      <span class="tool selectable" onclick="$('#Task_Menu').dialog('open');">
+      <span class="tool selectable" onclick="$('#Table_Menu').dialog('open');">
         &#9881;
       </span>
-      <span class="tool selectable">
+      <span class="tool selectable" onclick="$('#table_create').dialog('open');">
         Add +
       </span>
     </div>
@@ -92,7 +83,7 @@
         $tables = $GLOBALS["conn"]->query("SELECT * FROM `tables`");
         if ($tables->num_rows > 0) {
           while($table = $tables->fetch_assoc()) {
-            $msg .= '<div class="table" data-id="' . $table["id"] . '"> <div class="header"> <span class="name">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" onchange="" /> </label> </div> <form class="container" data-table="' . $table["id"] . '">';
+            $msg .= '<div class="table" data-id="' . $table["id"] . '"> <div class="header"> <span class="name">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" onchange="" /> </label> <br /><span class="selectable" onclick="$(`#Task_Menu`).dialog(`open`);"> &#9881; </span> <span class="selectable"> Add + </span> </div> <form class="container" data-table="' . $table["id"] . '">';
 
             $tasks =  $GLOBALS["conn"]->query("SELECT * FROM `tasks` WHERE `table_id` = " . $table["id"]);
             if ($tasks->num_rows > 0) {
