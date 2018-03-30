@@ -101,9 +101,7 @@ function modifyUser(user_id, modifications) {
 
       if (response.status === "success") {
         $(".user[data-id='" + response.data.user_id + "']").remove();
-        $("#user_rename").dialog("close");
-        $("#user_repassword").dialog("close");
-        $("#user_reaccess").dialog("close");
+        $(".dialog-menu-mini").dialog("close");
 
         return true;
       }
@@ -114,6 +112,27 @@ function modifyUser(user_id, modifications) {
 
 // TABLE FUNCTIONS
 // *****************************************************************************
+
+
+/**
+ * Search for a table by it's name.
+ * @return {undefined} Returns nothing.
+ */
+function seachForTable(search_term) {
+  if (search_term === "") {
+    $(".kanban > .table").each(function() {
+      $(this).show();
+    });
+  } else {
+    $(".kanban > .table").each(function() {
+      if ($(this).find(".header > .name").first().html().indexOf(search_term) === -1) {
+        $(this).hide();
+      } else {
+        $(this).show();
+      }
+    });
+  }
+}
 
 
 /**
@@ -174,7 +193,60 @@ function setupTableDOM(dom) {
 
 
 // TASK FUNCTIONS
-// *** --- ***
+// *****************************************************************************
+
+
+/**
+ * Search for a task, in a table, by it's name.
+ * @param {string} search_term Term used to search for task.
+ * @return {undefined} Returns nothing.
+ */
+function seachForTask(search_term) {
+  if (search_term === "") {
+    $(".kanban > .table").each(function() {
+      $(this).find(".container .item").each(function() {
+        $(this).show();
+      });
+    });
+  } else {
+    $(".kanban > .table").each(function() {
+      $(this).find(".container .item").each(function() {
+        if ($(this).html().indexOf(search_term) === -1) {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+      });
+    });
+  }
+}
+
+
+/**
+ * Search for a task, in a table, by it's name.
+ * @param {integer} table_id Table's ID in which to search for task.
+ * @param {string} search_term Term used to search for task.
+ * @return {undefined} Returns nothing.
+ */
+function seachForTaskInTable(table_id, search_term) {
+  if (search_term === "") {
+    $(".kanban > .table[data-id='" + table_id + "']").each(function() {
+      $(this).find(".container .item").each(function() {
+        $(this).show();
+      });
+    });
+  } else {
+    $(".kanban > .table[data-id='" + table_id + "']").each(function() {
+      $(this).find(".container .item").each(function() {
+        if ($(this).html().indexOf(search_term) === -1) {
+          $(this).hide();
+        } else {
+          $(this).show();
+        }
+      });
+    });
+  }
+}
 
 
 /**

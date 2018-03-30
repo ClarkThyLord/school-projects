@@ -53,8 +53,12 @@
     <!-- Toolbar -->
     <div class="toolbar">
       <label>
-        Search:
-        <input type="text" class="tool" placeholder="Search term..." />
+        Search For Table:
+        <input type="text" class="tool" placeholder="Search term..." oninput="seachForTable(this.value);" />
+      </label>
+      <label>
+        Search For Task:
+        <input type="text" class="tool" placeholder="Search term..." oninput="seachForTask(this.value);" />
       </label>
       <span class="tool selectable" onclick="$('#Table_Menu').dialog('open');">
         &#9881;
@@ -83,12 +87,12 @@
         $tables = $GLOBALS["conn"]->query("SELECT * FROM `tables`");
         if ($tables->num_rows > 0) {
           while($table = $tables->fetch_assoc()) {
-            $msg .= '<div class="table" data-id="' . $table["id"] . '"> <div class="header"> <span class="name">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" onchange="" /> </label> <br /><span class="selectable" onclick="$(`#Task_Menu`).dialog(`open`);"> &#9881; </span> <span class="selectable"> Add + </span> </div> <form class="container" data-table="' . $table["id"] . '">';
+            $msg .= '<div class="table" onclick="current_table = $(this).attr(`data-id`);" data-id="' . $table["id"] . '"> <div class="header"> <span class="name">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="selectable" onclick="$(`#Task_Menu`).dialog(`open`);"> &#9881; </span> <span class="selectable" onclick="$(`#task_create`).dialog(`open`);"> Add + </span> </div> <form class="container" data-table="' . $table["id"] . '">';
 
             $tasks =  $GLOBALS["conn"]->query("SELECT * FROM `tasks` WHERE `table_id` = " . $table["id"]);
             if ($tasks->num_rows > 0) {
               while($task = $tasks->fetch_assoc()) {
-                $msg .= '<div class="item selectable" onclick="" data-table="' . $table["id"] . '" name="' . $task["id"] . '">' . $task["name"] . '</div>';
+                $msg .= '<div class="item selectable" onclick="current_task = $(this).attr(`name`); $(`#task_modify`).dialog(`open`);" data-table="' . $table["id"] . '" name="' . $task["id"] . '">' . $task["name"] . '</div>';
               }
             }
             $msg .= "</form> </div>";
