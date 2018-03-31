@@ -5,8 +5,8 @@ $(function() {
   $(".dialog-menu").each(function() {
     $(this).dialog({
       autoOpen: false,
-      width: window.innerWidth / 1.3,
-      height: window.innerHeight / 1.3,
+      width: window.innerWidth / 2,
+      height: window.innerHeight / 1.5,
       modal: true,
     });
   });
@@ -17,8 +17,8 @@ $(function() {
   $(".dialog-menu-mini").each(function() {
     $(this).dialog({
       autoOpen: false,
-      width: window.innerWidth / 2,
-      height: window.innerHeight / 2,
+      width: window.innerWidth / 2.7,
+      height: window.innerHeight / 2.2,
       modal: true,
     });
   });

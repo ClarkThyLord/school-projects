@@ -1,7 +1,48 @@
 <div class="dialog-menu" title="Modify Task" id="task_modify">
   <form class="content">
+    <div name="task_name">
+
+    </div>
     <label>
-    </label>
+      Classification: <br />
+      <select name="classification">
+        <option value="geo/historia">Geo/Historia</option>
+        <option value="actual">Actual</option>
+        <option value="riesgo">Riesgo</option>
+        <option value="hechos graciosos">Hechos Graciosos</option>
+        <option value="hard facts">Hard Facts</option>
+        <option value="m2go todo">M2GO ToDo</option>
+        <option value="otro tema">Otro Tema.</option>
+      <select>
+    </label> <br />
+    <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+      <label style="flex: 0.4;">
+        Latitude: <br />
+        <input type="number" placeholder="0.0" step="0.001"/>
+      </label>
+      <label style="flex: 0.4;">
+        Longitude: <br />
+        <input type="number" placeholder="0.0" step="0.001"/>
+      </label> <br />
+    </div>
+    <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+      <label style="flex: 0.4;">
+        Summary: <br />
+        <textarea placeholder="A text summary goes here...." style="width: 100%;" class="selectable" name="summary"></textarea>
+      </label>
+      <label style="flex: 0.4;">
+        URLs: <br />
+        <textarea placeholder="Seperate URLs via ','...." style="width: 100%;" class="selectable" name="urls"></textarea>
+      </label> <br />
+    </div>
+    <label>
+      Files: <br />
+      <input type="file" style="display: none;" name="new_files" />
+      <input type="button" onclick="new_files.click();" value="Browse files..." />
+      <div name="set_files">
+
+      </div>
+    </label> <br />
     <fieldset class="bar">
       <input type="button" value="Submit Changes" onclick="" class="item" />
       <input type="button" value="Rename Task"  onclick="$('#task_rename').dialog('open');" class="item" /> |

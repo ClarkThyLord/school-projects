@@ -20,7 +20,7 @@ body {
   background-color: var(--primary);
 }
 
-input, select, fieldset {
+input, select, fieldset, textarea {
   /* Content */
   color: inherit;
   border: 2px solid;
@@ -40,6 +40,14 @@ input:active, input:focus {
 }
 
 /* Dialog Menu Classes */
+
+.dialog-menu .content {
+  text-align: center;
+}
+
+.dialog-menu .content * {
+  margin: 5px;
+}
 
 .dialog-menu .user {
   margin: 5px;
