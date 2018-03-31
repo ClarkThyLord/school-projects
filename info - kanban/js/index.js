@@ -107,7 +107,6 @@ function createUser(name, password, access_level) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === "success") {
-        // TODO UPDATE USER CREATE
         var doms = '<div class="user" onclick="current_user = $(this).attr(`data-id`);" data-id="' + response.data.user.id + '"><span class="header"><span class="name">' + response.data.user.name + '</span></span> <input type="button" onclick="$(`#user_rename`).dialog(`open`);" value="Rename" class="option" /> <input type="button" onclick="$(`#user_repassword`).dialog(`open`); " value="Change Password" class="option" /> <input type="button" onclick="$(`#user_reaccess`).dialog(`open`);" value="Change Access Level" class="option" /> <input type="button" onclick="$(`#user_remove`).dialog(`open`); " value="Remove" class="option" /> </div>';
         $(".users").append(doms);
         $("#user_create").dialog("close");
@@ -211,8 +210,7 @@ function createTable(name) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === "success") {
-        // TODO UPDATE TABLE CREATION
-        var doms = '<div class="table" onclick="current_table = $(this).attr(`data-id`);" data-id="' + response.data.table.id + '"> <div class="header"> <span class="name">' + response.data.table.name + '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' + response.data.table.id + '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(`#Task_Menu`).dialog(`open`);"> &#9881; </span> <span class="item selectable" onclick="$(`#task_create`).dialog(`open`);"> Add + </span> </div> <form class="dragula-container" data-table="' + response.data.table.id + '"></form> </div>';
+        var doms = '<div class="table" onclick="current_table = $(this).attr(`data-id`);" data-id="' + response.data.table.id + '"> <div class="header"> <span class="name selectable" onclick="$(`#table_rename`).dialog(`open`)">' + response.data.table.name + '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' + response.data.table.id + '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(`#table_remove`).dialog(`open`);"> &#128465; </span> <span class="item selectable" onclick="$(`#task_create`).dialog(`open`);"> Add + </span> </div> <form class="dragula-container" data-table="' + response.data.table.id + '"></form> </div>';
 
         $(".kanban").append(doms);
         $("#table_create").dialog("close");
@@ -276,30 +274,6 @@ function modifyTable(table_id, modifications) {
 }
 
 
-/**
- * Creat and setup a Kanban table, DOM; client side.
- * @return {object} Returns object that's a DOM.
- */
-function createTableDOM() {
-  var dom;
-
-  // Setup created table
-  setupTableDOM(dom);
-
-  return dom;
-}
-
-
-/**
- * Setup a Kanban table, DOM; client side.
- * @param {object} dom Object that's a DOM.
- * @return {boolean} Returns true if sucesfully setup; false, if unsucesfully setup.
- */
-function setupTableDOM(dom) {
-
-}
-
-
 // TASK FUNCTIONS
 // *****************************************************************************
 
@@ -356,63 +330,82 @@ function seachForTaskInTable(table_id, search_term) {
   }
 }
 
-
 /**
- * Creat and setup a Kanban task for a given table; server and client side.
- * @param {string} table_id ID of table in which to create task.
- * @return {object} Returns object that's a DOM.
+ * Create a task.
+ * @param {string} name New task's name.
+ * @return {undefined} Returns nothing.
  */
-function createTask() {
-  // Setup created table
-  var dom = createTaskDOM(task_id);
+function createTask(table_id, name) {
+  $.post({
+    url: "./php/API.php/task/create",
+    data: {
+      "table_id": table_id,
+      "name": name
+    },
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === "success") {
+        var doms = '<div class="item selectable" onclick="current_task = $(this).attr(`name`); $(`#task_modify`).dialog(`open`);" data-table="' + response.data.task.table_id + '" name="' + response.data.task.id + '">' + response.data.task.name + '</div>';
 
-  return dom;
+        $(".kanban > .table[data-id='" + response.data.task.table_id + "'] > .dragula-container").append(doms);
+        $("#task_create").dialog("close");
+      }
+
+      alert(response.reason);
+    }
+  });
 }
 
 
 /**
- * Delete a Kanban task; server and client side.
- * @param {string} table_id ID belonging to task's table.
- * @param {string} task_id ID belonging to task.
- * @return {boolean} Returns true if sucesfully deleted; false, if unsucesfully deleted.
+ * Remove a task.
+ * @param {integer} table_id Task's Table ID.
+ * @param {integer} task_id Task's ID.
+ * @return {undefined} Returns nothing.
  */
-function deleteTask(table_id, task_id) {
+function removeTask(table_id, task_id) {
+  $.post({
+    url: "./php/API.php/task/remove",
+    data: {
+      "table_id": table_id,
+      "task_id": task_id
+    },
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === "success") {
+        $(".kanban > .table[data-id='" + response.data.table_id + "'] > .dragula-container > .item[name='" + response.data.task_id + "']").remove();
+        $("#task_remove").dialog("close");
+      }
 
+      alert(response.reason);
+    }
+  });
 }
 
 
 /**
- * Modify a Kanban task; server and client side.
- * @param {string} table_id ID belonging to task's table.
- * @param {string} task_id ID belonging to task.
- * @param {object} data Data being modified in task.
- * @return {boolean} Returns true if sucesfully modified; false, if unsucesfully modified.
+ * Modify a task.
+ * @param {integer} task_id Task's ID.
+ * @param {object} modifications Things going to be modified.
+ * @return {undefined} Returns nothing.
  */
-function modifyTask(table_id, task_id, data) {
+function modifyTask(task_id, modifications) {
+  var data = Object.assign({
+    "task_id": task_id
+  }, modifications);
+  $.post({
+    url: "./php/API.php/task/modify",
+    data: data,
+    success: function(response) {
+      response = JSON.parse(response);
 
-}
+      alert(response.reason);
 
+      if (response.status === "success") {
+        $(".dialog-menu-mini").dialog("close");
 
-/**
- * Creat and setup a Kanban task for a given table, DOM; client side.
- * @param {string} table_id ID of table in which to create task.
- * @return {object} Returns object that's a DOM.
- */
-function createTaskDOM(table_id) {
-  var dom;
-
-  // Setup created table
-  setupTaskDOM(dom);
-
-  return dom;
-}
-
-
-/**
- * Setup a Kanban task, DOM; client side.
- * @param {object} dom Object that's a DOM.
- * @return {boolean} Returns true if sucesfully setup; false, if unsucesfully setup.
- */
-function setupTaskDOM(dom) {
-
+        return true;
+      }
+    }
+  });
 }

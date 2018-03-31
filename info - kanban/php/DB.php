@@ -335,6 +335,8 @@
     $GLOBALS["response"]["sql"] = $sql;
 
     if ($GLOBALS["conn"]->query($sql) == True) {
+      $GLOBALS["response"]["data"]["task"] = $GLOBALS["conn"]->query("SELECT * FROM `tasks` WHERE `id` = " . $GLOBALS["conn"]->insert_id . " LIMIT 1")->fetch_assoc();
+
       $GLOBALS["response"]["status"] = "success";
       $GLOBALS["response"]["reason"] = "sucesfully created task";
     } else {
@@ -358,12 +360,15 @@
      send_response();
    }
 
-   $sql = "DELETE FROM `tasks` WHERE `tasks`.`id` = " . $_POST["tasks_id"];
+   $sql = "DELETE FROM `tasks` WHERE `tasks`.`id` = " . $_POST["task_id"];
 
    // FOR DEBUGGING
    $GLOBALS["response"]["sql"] = $sql;
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     $GLOBALS["response"]["data"]["table_id"] = $_POST["table_id"];
+     $GLOBALS["response"]["data"]["task_id"] = $_POST["task_id"];
+
      $GLOBALS["response"]["status"] = "success";
      $GLOBALS["response"]["reason"] = "sucesfully removed task";
    } else {

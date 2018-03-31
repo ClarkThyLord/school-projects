@@ -17,7 +17,7 @@
       <input type="text" placeholder="Table's new name..." name="table_name"/>
     </label>
     <fieldset class="bar">
-      <input type="button" value="Rename Table"  onclick="modifyTable(current_table, {name: table_name.value}); $('.kanban > .table[data-id=' + current_table + '] > .header > .name').html(table_name.value);" class="item" />
+      <input type="button" value="Rename Table"  onclick="modifyTable(parseInt(current_table), {name: table_name.value}); $('.table[data-table-id=\'' + current_table + '\'] > .header > .name').html(table_name.value);" class="item" />
     </fieldset>
   </form>
 </div>

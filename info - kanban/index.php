@@ -84,15 +84,15 @@
         $tables = $GLOBALS["conn"]->query("SELECT * FROM `tables`");
         if ($tables->num_rows > 0) {
           while($table = $tables->fetch_assoc()) {
-            $msg .= '<div class="table" onclick="current_table = $(this).attr(`data-id`);" data-id="' . $table["id"] . '"> <div class="header"> <span class="name selectable" onclick="$(`#table_rename`).dialog(`open`)">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(`#table_remove`).dialog(`open`);"> &#128465; </span> <span class="item selectable" onclick="$(`#task_create`).dialog(`open`);"> Add + </span> </div> <form class="dragula-container" data-table="' . $table["id"] . '">';
+            $msg .= '<div class="table" onclick="current_table = $(this).attr(\'data-table-id\');" data-table-id="' . $table["id"] . '"> <div class="header"> <span class="name selectable" onclick="$(\'#table_rename\').dialog(\'open\')">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(\'#table_remove\').dialog(\'open\');"> &#128465; </span> <span class="item selectable" onclick="$(\'#task_create\').dialog(\'open\');"> Add + </span> </div> <div class="dragula-container" data-table="' . $table["id"] . '">';
 
             $tasks =  $GLOBALS["conn"]->query("SELECT * FROM `tasks` WHERE `table_id` = " . $table["id"]);
             if ($tasks->num_rows > 0) {
               while($task = $tasks->fetch_assoc()) {
-                $msg .= '<div class="item selectable" onclick="current_task = $(this).attr(`name`); $(`#task_modify`).dialog(`open`);" data-table="' . $table["id"] . '" name="' . $task["id"] . '">' . $task["name"] . '</div>';
+                $msg .= '<div class="item task selectable" onclick="current_task = $(this).attr(\'data-task-id\'); $(\'#task_modify\').dialog(\'open\');" data-table-id="' . $table["id"] . '" data-task-id="' . $task["id"] . '">' . $task["name"] . '</div>';
               }
             }
-            $msg .= "</form> </div>";
+            $msg .= "</div> </div>";
           }
         }
 
