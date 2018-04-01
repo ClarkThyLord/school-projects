@@ -21,6 +21,8 @@ $(function() {
       height: window.innerHeight / 2.2,
       modal: true,
     });
+
+    $("")
   });
 
   // Setup dragula(drag and drop)
@@ -412,7 +414,37 @@ function seachForTaskInTable(table_id, search_term) {
 }
 
 /**
+ * Get and set a task.
+ * @param {string} task_id Task's id.
+ * @return {undefined} Returns nothing.
+ */
+function getAndSetTask(task_id) {
+  $.get({
+    url: "./php/API.php/task",
+    data: {
+      "id": task_id
+    },
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === "success") {
+        $(".task_input[name='latitude']").val(response.data.tasks[current_task].latitude);
+        $(".task_input[name='longitude']").val(response.data.tasks[current_task].longitude);
+        $(".task_input[name='summary']").val(response.data.tasks[current_task].summary);
+        $(".task_input[name='urls']").val(response.data.tasks[current_task].urls);
+
+        if (prevent_popups == false) {
+          alert(response.reason);
+        }
+      } else {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+/**
  * Create a task.
+ * @param {integer} table_id New task's table's id.
  * @param {string} name New task's name.
  * @return {undefined} Returns nothing.
  */
@@ -426,7 +458,7 @@ function createTask(table_id, name) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === "success") {
-        var doms = '<div class="item task selectable" onclick="current_task = $(this).attr(\'data-task-id\'); $(\'#task_modify\').dialog(\'open\');" data-table-id="' + response.data.task.table_id + '" data-task-id="' + response.data.task.id + '">' + response.data.task.name + '</div>';
+        var doms = '<div class="item task selectable" onclick="current_task = $(this).attr(\'data-task-id\'); getAndSetTask(current_task); $(\'#task_modify\').dialog(\'open\');" data-table-id="' + response.data.task.table_id + '" data-task-id="' + response.data.task.id + '">' + response.data.task.name + '</div>';
 
         $(".kanban > .table[data-table-id='" + response.data.task.table_id + "'] > .dragula-container").append(doms);
         $("#task_create").dialog("close");

@@ -91,15 +91,16 @@
 
 			if ($method == "GET") { user_get(); }
 
-			if ($routes[1] == "login" && $method == "POST") { user_login(); }
+			if (count($routes) == 2) {
+				if ($routes[1] == "login" && $method == "POST") { user_login(); }
 
-			if ($routes[1] == "create" && $method == "POST") { user_create(); }
+				if ($routes[1] == "create" && $method == "POST") { user_create(); }
 
-		 	if ($routes[1] == "remove" && $method == "POST") { user_remove(); }
+			 	if ($routes[1] == "remove" && $method == "POST") { user_remove(); }
 
-		 	if ($routes[1] == "modify" && $method == "POST") { user_modify(); }
+			 	if ($routes[1] == "modify" && $method == "POST") { user_modify(); }
+			}
 		}
-
 	}
 	else if ($routes[0] == "table"){
 
@@ -107,11 +108,13 @@
 
 		if ($method == "GET") { table_get(); }
 
-		if ($routes[1] == "create" && $method == "POST") { table_create(); }
+		if (count($routes) == 2) {
+			if ($routes[1] == "create" && $method == "POST") { table_create(); }
 
-	 	if ($routes[1] == "remove" && $method == "POST") { table_remove(); }
+		 	if ($routes[1] == "remove" && $method == "POST") { table_remove(); }
 
-	 	if ($routes[1] == "modify" && $method == "POST") { table_modify(); }
+		 	if ($routes[1] == "modify" && $method == "POST") { table_modify(); }
+		}
 
 	}
 	else if ($routes[0] == "task"){
@@ -120,11 +123,13 @@
 
 		if ($method == "GET") { task_get(); }
 
-		if ($routes[1] == "create" && $method == "POST") { task_create(); }
+		if (count($routes) == 2) {
+			if ($routes[1] == "create" && $method == "POST") { task_create(); }
 
-	 	if ($routes[1] == "remove" && $method == "POST") { task_remove(); }
+		 	if ($routes[1] == "remove" && $method == "POST") { task_remove(); }
 
-	 	if ($routes[1] == "modify" && $method == "POST") { task_modify(); }
+		 	if ($routes[1] == "modify" && $method == "POST") { task_modify(); }
+		}
 
 	}
 	else if ($routes[0] == "file"){
@@ -133,12 +138,14 @@
 
 		if ($method == "GET") { file_get(); }
 
-		if ($routes[1] == "create" && $method == "POST") { file_create_direct(); }
+		if (count($routes) == 2) {
+			if ($routes[1] == "create" && $method == "POST") { file_create_direct(); }
 
-	 	if ($routes[1] == "remove" && $method == "POST") { file_remove(); }
+		 	if ($routes[1] == "remove" && $method == "POST") { file_remove(); }
 
-	 	if ($routes[1] == "modify" && $method == "POST") { file_modify(); }
-
+		 	if ($routes[1] == "modify" && $method == "POST") { file_modify(); }
+		}
+		
 	}
 	else if ($routes[0] == "log"){
 
@@ -146,13 +153,15 @@
 
 		if ($method == "GET") { log_get(); }
 
-		if ($routes[1] == "create" && $method == "POST") { log_create_direct(); }
+		if (count($routes) == 2) {
+			if ($routes[1] == "create" && $method == "POST") { log_create_direct(); }
 
-	 	if ($routes[1] == "clear") { log_clear(); }
+		 	if ($routes[1] == "clear") { log_clear(); }
 
-	 	if ($routes[1] == "remove" && $method == "POST") { log_remove(); }
+		 	if ($routes[1] == "remove" && $method == "POST") { log_remove(); }
 
-	 	if ($routes[1] == "modify" && $method == "POST") { log_modify(); }
+		 	if ($routes[1] == "modify" && $method == "POST") { log_modify(); }
+		}
 
 	}
 	else { // Main route requested for wasn't found

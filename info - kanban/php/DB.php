@@ -383,6 +383,9 @@
 
    $sql = "UPDATE `tables` SET " . $changes . " WHERE `tables`.`id` = " . $_POST["table_id"];
 
+   // FOR DEBUGGING
+   $GLOBALS["response"]["sql"] = $sql;
+
    if ($GLOBALS["conn"]->query($sql) == True) {
      log_create("sucesfully modified table `id` : " . $_POST["table_id"]);
 
@@ -417,11 +420,17 @@
 
       $conditions .= "`" . $key . "` = '" . $value . "'";
     }
-    $tasks = $GLOBALS["conn"]->query("SELECT * FROM `tasks`" . $conditions);
+
+    $sql = "SELECT * FROM `tasks`" . $conditions;
+
+    // FOR DEBUGGING
+    $GLOBALS["response"]["sql"] = $sql;
+
+    $tasks = $GLOBALS["conn"]->query($sql);
 
     if ($tasks->num_rows > 0) {
       $GLOBALS["response"]["data"]["tasks"] = array();
-      while($task = $result->fetch_assoc()) {
+      while($task = $tasks->fetch_assoc()) {
         $GLOBALS["response"]["data"]["tasks"][$task["id"]] = $task;
       }
 
@@ -525,12 +534,12 @@
      if ($key == "id" || $key == "task_id") {
        continue;
      } else {
+     if ($another == True) {
+       $changes .= ", ";
+     } else {
+       $another = True;
+     }
        $changes .= "`" . $key . "` = '" . $value . "'";
-       if ($another == True) {
-         $changes .= ",";
-       } else {
-         $another = True;
-       }
      }
    }
 
@@ -544,6 +553,9 @@
    }
 
    $sql = "UPDATE `tasks` SET " . $changes . " WHERE `tasks`.`id` = " . $_POST["task_id"];
+
+   // FOR DEBUGGING
+   $GLOBALS["response"]["sql"] = $sql;
 
    if ($GLOBALS["conn"]->query($sql) == True) {
     log_create("sucesfully modified task `id` : " . $_POST["task_id"]);

@@ -89,7 +89,7 @@
             $tasks =  $GLOBALS["conn"]->query("SELECT * FROM `tasks` WHERE `table_id` = " . $table["id"]);
             if ($tasks->num_rows > 0) {
               while($task = $tasks->fetch_assoc()) {
-                $msg .= '<div class="item task selectable" onclick="current_task = $(this).attr(\'data-task-id\'); $(\'#task_modify\').dialog(\'open\');" data-table-id="' . $table["id"] . '" data-task-id="' . $task["id"] . '">' . $task["name"] . '</div>';
+                $msg .= '<div class="item task selectable" onclick="current_task = $(this).attr(\'data-task-id\'); getAndSetTask(current_task); $(\'#task_modify\').dialog(\'open\');" data-table-id="' . $table["id"] . '" data-task-id="' . $task["id"] . '">' . $task["name"] . '</div>';
               }
             }
             $msg .= "</div> </div>";
