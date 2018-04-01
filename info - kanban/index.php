@@ -84,7 +84,7 @@
         $tables = $GLOBALS["conn"]->query("SELECT * FROM `tables`");
         if ($tables->num_rows > 0) {
           while($table = $tables->fetch_assoc()) {
-            $msg .= '<div class="table" onclick="current_table = $(this).attr(\'data-table-id\');" data-table-id="' . $table["id"] . '"> <div class="header"> <span class="name selectable" onclick="$(\'#table_rename\').dialog(\'open\')">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' . $table["id"] . '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(\'#table_remove\').dialog(\'open\');"> &#128465; </span> <span class="item selectable" onclick="$(\'#task_create\').dialog(\'open\');"> Add + </span> </div> <div class="dragula-container" data-table="' . $table["id"] . '">';
+            $msg .= '<div class="table" onclick="current_table = $(this).attr(\'data-table-id\');" data-table-id="' . $table["id"] . '"> <div class="header"> <span class="name selectable" onclick="$(\'#table_rename\').dialog(\'open\')">' . $table["name"] . '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table-id="' . $table["id"] . '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(\'#table_remove\').dialog(\'open\');"> &#128465; </span> <span class="item selectable" onclick="$(\'#task_create\').dialog(\'open\');"> Add + </span> </div> <div class="dragula-container" data-table-id="' . $table["id"] . '">';
 
             $tasks =  $GLOBALS["conn"]->query("SELECT * FROM `tasks` WHERE `table_id` = " . $table["id"]);
             if ($tasks->num_rows > 0) {

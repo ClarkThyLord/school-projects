@@ -69,6 +69,53 @@ function kanbanViewRight() {
 
 
 /**
+ * Search for a msg in log by a term.
+ * @param {string} search_term Term used to search for user.
+ * @return {undefined} Returns nothing.
+ */
+function searchInLog(search_term) {
+  if (search_term === "") {
+    $(".log > .msg").each(function() {
+      $(this).show();
+    });
+  } else {
+    $(".log > .msg").each(function() {
+      if ($(this).html().toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
+        $(this).hide();
+      } else {
+        $(this).show();
+      }
+    });
+  }
+}
+
+
+/**
+ * Clear log.
+ * @return {undefined} Returns nothing.
+ */
+function clearLog() {
+  $.post({
+    url: "./php/API.php/log/clear",
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === "success") {
+        $(".log > .msg").each(function() {
+          $(this).remove();
+        });
+      }
+
+      alert(response.reason);
+    }
+  });
+}
+
+
+// USER FUNCTIONS
+// *****************************************************************************
+
+
+/**
  * Search for a user by it's name.
  * @param {string} search_term Term used to search for user.
  * @return {undefined} Returns nothing.
@@ -210,7 +257,7 @@ function createTable(name) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === "success") {
-        var doms = '<div class="table" onclick="current_table = $(this).attr(`data-id`);" data-id="' + response.data.table.id + '"> <div class="header"> <span class="name selectable" onclick="$(`#table_rename`).dialog(`open`)">' + response.data.table.name + '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table="' + response.data.table.id + '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(`#table_remove`).dialog(`open`);"> &#128465; </span> <span class="item selectable" onclick="$(`#task_create`).dialog(`open`);"> Add + </span> </div> <form class="dragula-container" data-table="' + response.data.table.id + '"></form> </div>';
+        var doms = '<div class="table" onclick="current_table = $(this).attr(\'data-table-id\');" data-table-id="' + response.data.table.id + '"> <div class="header"> <span class="name selectable" onclick="$(\'#table_rename\').dialog(\'open\')">' + response.data.table.name + '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table-id="' + response.data.table.id + '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(\'#table_remove\').dialog(\'open\');"> &#128465; </span> <span class="item selectable" onclick="$(\'#task_create\').dialog(\'open\');"> Add + </span> </div> <div class="dragula-container" data-table-id="' + response.data.table.id + '"></div> </div>';
 
         $(".kanban").append(doms);
         $("#table_create").dialog("close");

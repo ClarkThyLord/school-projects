@@ -42,15 +42,13 @@
     <div id="Configuration_T_2">
     </div>
     <div id="Configuration_T_3">
-      <div id="system_log">
+      <div class="log">
         <?php
-          $sql = "SELECT * FROM `log` ORDER BY `date` DESC";
-
-          $result = $GLOBALS["conn"]->query($sql);
+          $result = $GLOBALS["conn"]->query("SELECT logs.id, logs.date, users.name, logs.msg FROM logs INNER JOIN users ON logs.user = users.id ORDER BY `date` DESC");
 
           if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-              echo "(" . $row["date"] . ") : " . $row["text"] . "<br />";
+            while($log = $result->fetch_assoc()) {
+              echo "<span class='msg' data-log-msg-id='" . $log["id"] . "'>(" . $log["date"] . ") : " . $log["name"] . " : " . $log["msg"] . "<br /></span>";
             }
           }
         ?>
@@ -60,10 +58,19 @@
           Search For Msg:
           <input type="text" oninput="searchInLog(this.value);" />
         </label> |
-        <input type="button" onclick="" value="Clear Log" class="item" />
+        <input type="button" onclick="$('#log_clear').dialog('open');" value="Clear Log" class="item" />
       </fieldset>
     </div>
   </div>
+</div>
+
+<div class="dialog-menu-mini" title="Clear Log" id="log_clear">
+  <form class="content">
+    Clear log?
+    <fieldset class="bar">
+      <input type="button" value="Clear Log"  onclick="clearLog();" class="item" />
+    </fieldset>
+  </form>
 </div>
 
 <div class="dialog-menu-mini" title="Create User" id="user_create">

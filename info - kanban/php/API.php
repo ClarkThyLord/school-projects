@@ -82,7 +82,7 @@
 	}
 	else if ($routes[0] == "user"){
 
-		else if ($routes[1] == "logout") {
+		if ($routes[1] == "logout") {
 		  session_unset();
 	    $GLOBALS["response"]["status"] = "logged out";
 	    $GLOBALS["response"]["reason"] = "sucesfully logged out";

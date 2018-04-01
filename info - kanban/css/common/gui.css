@@ -81,12 +81,14 @@ input:active, input:focus {
   font-weight: bold;
 }
 
-.dialog-menu #system_log {
+.dialog-menu .log {
   max-height: 50%;
   overflow-x: hidden;
   overflow-y: auto;
   word-wrap: break-word;
 }
+
+.dialog-menu .log .msg {}
 
 .dialog-menu-mini .content {
   text-align: center;

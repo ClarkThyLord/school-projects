@@ -73,13 +73,13 @@
 
     if ($result->num_rows > 0) {
       $GLOBALS["response"]["data"]["login"]["reasons"]["name"] = true;
-      while($row = $result->fetch_assoc()) {
+      while($user = $result->fetch_assoc()) {
         if ($_POST["password"] == $row["password"]) {
           $GLOBALS["response"]["data"]["login"]["granted"] = 1;
           $GLOBALS["response"]["data"]["login"]["reasons"]["password"] = true;
 
           // Setup user data for session
-          $_SESSION["user_data"] = array("id" => $row["id"], "name" => $row["name"], "access" => $row["access"]);
+          $_SESSION["user_data"] = array("id" => $user["id"], "name" => $user["name"], "access" => $user["access"]);
 
           $GLOBALS["response"]["status"] = "success";
           $GLOBALS["response"]["reason"] = "sucesfully logged in";
@@ -146,10 +146,20 @@
 
     $sql = "INSERT INTO `users` (`id`, `name`, `password`, `access`) VALUES (NULL, '" . $_POST["name"] . "', '" . $_POST["password"] . "', " . $_POST["access"] . ")";
 
+    // FOR DEBUGGING
+    $GLOBALS["response"]["sql"] = $sql;
+
     if ($GLOBALS["conn"]->query($sql) === TRUE) {
-      log_create("sucesfully created user `id` : " . $GLOBALS["conn"]->insert_id);
-      
-      $GLOBALS["response"]["data"]["user"] = $GLOBALS["conn"]->query("SELECT `id`, `name` FROM `users` WHERE `id` = '" . $GLOBALS["conn"]->insert_id . "' LIMIT 1")->fetch_assoc();
+      $insert_id = $GLOBALS["conn"]->insert_id;
+
+      log_create("sucesfully created user `id` : " . $insert_id);
+
+      $sql = "SELECT `id`, `name` FROM `users` WHERE `id` = '" . $insert_id . "' LIMIT 1";
+
+      // FOR DEBUGGING
+      $GLOBALS["response"]["sub_sql"] = $sql;
+
+      $GLOBALS["response"]["data"]["user"] = $GLOBALS["conn"]->query($sql)->fetch_assoc();
 
       $GLOBALS["response"]["status"] = "success";
       $GLOBALS["response"]["reason"] = "sucesfully created user";
@@ -288,10 +298,20 @@
 
     $sql = "INSERT INTO `tables` (`id`, `name`) VALUES (NULL, '" . $_POST["name"] . "')";
 
-    if ($GLOBALS["conn"]->query($sql) == True) {
-      log_create("sucesfully created table `id` : " . $GLOBALS["conn"]->insert_id);
+    // FOR DEBUGGING
+    $GLOBALS["response"]["sql"] = $sql;
 
-      $GLOBALS["response"]["data"]["table"] = $GLOBALS["conn"]->query("SELECT * FROM `tables` WHERE `id` = " . $GLOBALS["conn"]->insert_id . " LIMIT 1")->fetch_assoc();
+    if ($GLOBALS["conn"]->query($sql) == True) {
+      $insert_id = $GLOBALS["conn"]->insert_id;
+
+      log_create("sucesfully created table `id` : " . $insert_id);
+
+      $sql = "SELECT * FROM `tables` WHERE `id` = " . $insert_id . " LIMIT 1";
+
+      // FOR DEBUGGING
+      $GLOBALS["response"]["sub_sql"] = $sql;
+
+      $GLOBALS["response"]["data"]["table"] = $GLOBALS["conn"]->query($sql)->fetch_assoc();
 
       $GLOBALS["response"]["status"] = "success";
       $GLOBALS["response"]["reason"] = "sucesfully created table";
@@ -430,10 +450,20 @@
 
     $sql = "INSERT INTO `tasks` (`id`, `table_id`, `name`) VALUES (NULL, '" . $_POST["table_id"] . "', '" . $_POST["name"] . "')";
 
-    if ($GLOBALS["conn"]->query($sql) == True) {
-      log_create("sucesfully created task `id` : " . $GLOBALS["conn"]->insert_id);
+    // FOR DEBUGGING
+    $GLOBALS["response"]["sql"] = $sql;
 
-      $GLOBALS["response"]["data"]["task"] = $GLOBALS["conn"]->query("SELECT * FROM `tasks` WHERE `id` = " . $GLOBALS["conn"]->insert_id . " LIMIT 1")->fetch_assoc();
+    if ($GLOBALS["conn"]->query($sql) == True) {
+      $insert_id = $GLOBALS["conn"]->insert_id;
+
+      log_create("sucesfully created task `id` : " . $insert_id);
+
+      $sql = "SELECT * FROM `tasks` WHERE `id` = " . $insert_id . " LIMIT 1";
+
+      // FOR DEBUGGING
+      $GLOBALS["response"]["sub_sql"] = $sql;
+
+      $GLOBALS["response"]["data"]["task"] = $GLOBALS["conn"]->query($sql)->fetch_assoc();
 
       $GLOBALS["response"]["status"] = "success";
       $GLOBALS["response"]["reason"] = "sucesfully created task";
@@ -579,10 +609,20 @@
 
     $sql = "INSERT INTO `files` (`id`, `data`, `name`, `url`) VALUES (NULL, NULL, '" . $file["name"] . "', '" . $GLOBALS["server_url"] . $file["name"] . "')";
 
-    if ($GLOBALS["conn"]->query($sql) == True) {
-      log_create("sucesfully created a file `id` : " . $GLOBALS["conn"]->insert_id);
+    // FOR DEBUGGING
+    $GLOBALS["response"]["sql"] = $sql;
 
-      return $GLOBALS["conn"]->query("SELECT * FROM `files` WHERE `id` = " . $GLOBALS["conn"]->insert_id . " LIMIT 1")->fetch_assoc();
+    if ($GLOBALS["conn"]->query($sql) == True) {
+      $insert_id = $GLOBALS["conn"]->insert_id;
+
+      log_create("sucesfully created a file `id` : " . $insert_id);
+
+      $sql = "SELECT * FROM `files` WHERE `id` = " . $insert_id . " LIMIT 1";
+
+      // FOR DEBUGGING
+      $GLOBALS["response"]["sub_sql"] = $sql;
+
+      return $GLOBALS["conn"]->query($sql)->fetch_assoc();
     } else {
       return array();
     }
@@ -740,20 +780,28 @@
   * @return {undefined} Returns nothing.
   */
   function log_create ($msg) {
-    $sql = "INSERT INTO `logs` (`id`, `date`, `user`, `msg`) VALUES (NULL, NULL, '" . $_SERVER["user_data"]["id"] . "', '" . $msg . "')";
+    $sql = "INSERT INTO `logs` (`id`, `date`, `user`, `msg`) VALUES (NULL, CURRENT_TIMESTAMP, '" . $_SESSION["user_data"]["id"] . "', '" . $msg . "')";
+
+    // FOR DEBUGGING
+    $GLOBALS["response"]["sql"] = $sql;
 
     if ($GLOBALS["conn"]->query($sql) == True) {
-      log_create("sucesfully created log `id` : " . $GLOBALS["conn"]->insert_id);
+      $insert_id = $GLOBALS["conn"]->insert_id;
 
       $GLOBALS["response"]["status"] = "success";
       $GLOBALS["response"]["reason"] = "sucesfully created log";
 
-      return $GLOBALS["conn"]->query("SELECT * FROM `logs` WHERE `id` = " . $GLOBALS["conn"]->insert_id . " LIMIT 1")->fetch_assoc();
+      $sql = "SELECT * FROM `logs` WHERE `id` = " . $insert_id . " LIMIT 1";
+
+      // FOR DEBUGGING
+      $GLOBALS["response"]["sub_sql"] = $sql;
+
+      return $GLOBALS["conn"]->query($sql)->fetch_assoc();
     } else {
       $GLOBALS["response"]["status"] = "failure";
       $GLOBALS["response"]["reason"] = "unsucesfully created log";
 
-      return array()
+      return array();
     }
   }
 
@@ -770,7 +818,7 @@
       send_response();
     }
 
-    $sql = "INSERT INTO `logs` (`id`, `date`, `user`, `msg`) VALUES (NULL, NULL, '" . $_SERVER["user_data"]["id"] . "', '" . $_POST["msg"] . "')";
+    $sql = "INSERT INTO `logs` (`id`, `date`, `user`, `msg`) VALUES (NULL, CURRENT_TIMESTAMP, '" . $_SESSION["user_data"]["id"] . "', '" . $_POST["msg"] . "')";
 
     if ($GLOBALS["conn"]->query($sql) == True) {
       log_create("sucesfully created log `id` : " . $GLOBALS["conn"]->insert_id);
