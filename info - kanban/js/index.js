@@ -1,4 +1,4 @@
-var drag_and_drop, prevent_popups = false;
+var drag_and_drop, prevent_popups = true;
 
 $(function() {
   // Setup dialog menus(popups)
@@ -29,6 +29,14 @@ $(function() {
     isContainer: function(el) {
       return el.classList.contains("dragula-container");
     }
+  });
+
+  drag_and_drop.on("drop", function(el, target, source, sibling) {
+    $(el).attr("data-table-id", $(target).attr("data-table-id"));
+
+    modifyTask($(el).attr("data-task-id"), {
+      "table_id": $(target).attr("data-table-id")
+    });
   });
 });
 
@@ -103,9 +111,11 @@ function clearLog() {
         $(".log > .msg").each(function() {
           $(this).remove();
         });
-      }
 
-      if (prevent_popups === false) {
+        if (prevent_popups == false) {
+          alert(response.reason);
+        }
+      } else {
         alert(response.reason);
       }
     }
@@ -159,9 +169,11 @@ function createUser(name, password, access_level) {
         var doms = '<div class="user" onclick="current_user = $(this).attr(`data-id`);" data-id="' + response.data.user.id + '"><span class="header"><span class="name">' + response.data.user.name + '</span></span> <input type="button" onclick="$(`#user_rename`).dialog(`open`);" value="Rename" class="option" /> <input type="button" onclick="$(`#user_repassword`).dialog(`open`); " value="Change Password" class="option" /> <input type="button" onclick="$(`#user_reaccess`).dialog(`open`);" value="Change Access Level" class="option" /> <input type="button" onclick="$(`#user_remove`).dialog(`open`); " value="Remove" class="option" /> </div>';
         $(".users").append(doms);
         $("#user_create").dialog("close");
-      }
 
-      if (prevent_popups === false) {
+        if (prevent_popups == false) {
+          alert(response.reason);
+        }
+      } else {
         alert(response.reason);
       }
     }
@@ -185,9 +197,11 @@ function removeUser(user_id) {
       if (response.status === "success") {
         $(".user[data-id='" + response.data.user_id + "']").remove();
         $("#user_remove").dialog("close");
-      }
 
-      if (prevent_popups === false) {
+        if (prevent_popups == false) {
+          alert(response.reason);
+        }
+      } else {
         alert(response.reason);
       }
     }
@@ -210,16 +224,15 @@ function modifyUser(user_id, modifications) {
     data: data,
     success: function(response) {
       response = JSON.parse(response);
-
-      if (prevent_popups === false) {
-        alert(response.reason);
-      }
-
       if (response.status === "success") {
         $(".user[data-id='" + response.data.user_id + "']").remove();
         $(".dialog-menu-mini").dialog("close");
 
-        return true;
+        if (prevent_popups == false) {
+          alert(response.reason);
+        }
+      } else {
+        alert(response.reason);
       }
     }
   });
@@ -269,9 +282,11 @@ function createTable(name) {
 
         $(".kanban").append(doms);
         $("#table_create").dialog("close");
-      }
 
-      if (prevent_popups === false) {
+        if (prevent_popups == false) {
+          alert(response.reason);
+        }
+      } else {
         alert(response.reason);
       }
     }
@@ -285,12 +300,9 @@ function createTable(name) {
  * @return {undefined} Returns nothing.
  */
 function removeTable(table_id) {
-  var original = prevent_popups;
-  prevent_popups = true;
   $(".kanban .table[data-table-id=\"" + table_id + "\"] > .dragula-container > .task").each(function() {
     removeTask(table_id, $(this).attr("data-task-id"));
   });
-  prevent_popups = original;
 
   $.post({
     url: "./php/API.php/table/remove",
@@ -302,9 +314,11 @@ function removeTable(table_id) {
       if (response.status === "success") {
         $(".table[data-table-id='" + response.data.table_id + "']").remove();
         $("#table_remove").dialog("close");
-      }
 
-      if (prevent_popups === false) {
+        if (prevent_popups == false) {
+          alert(response.reason);
+        }
+      } else {
         alert(response.reason);
       }
     }
@@ -327,15 +341,14 @@ function modifyTable(table_id, modifications) {
     data: data,
     success: function(response) {
       response = JSON.parse(response);
-
-      if (prevent_popups === false) {
-        alert(response.reason);
-      }
-
       if (response.status === "success") {
         $(".dialog-menu-mini").dialog("close");
 
-        return true;
+        if (prevent_popups == false) {
+          alert(response.reason);
+        }
+      } else {
+        alert(response.reason);
       }
     }
   });
@@ -417,9 +430,11 @@ function createTask(table_id, name) {
 
         $(".kanban > .table[data-table-id='" + response.data.task.table_id + "'] > .dragula-container").append(doms);
         $("#task_create").dialog("close");
-      }
 
-      if (prevent_popups === false) {
+        if (prevent_popups == false) {
+          alert(response.reason);
+        }
+      } else {
         alert(response.reason);
       }
     }
@@ -446,9 +461,11 @@ function removeTask(table_id, task_id) {
         $(".kanban > .task[data-task-id='" + response.data.task_id + "']").remove();
         $("#task_remove").dialog("close");
         $("#task_modify").dialog("close");
-      }
 
-      if (prevent_popups === false) {
+        if (prevent_popups == false) {
+          alert(response.reason);
+        }
+      } else {
         alert(response.reason);
       }
     }
@@ -471,15 +488,14 @@ function modifyTask(task_id, modifications) {
     data: data,
     success: function(response) {
       response = JSON.parse(response);
-
-      if (prevent_popups === false) {
-        alert(response.reason);
-      }
-
       if (response.status === "success") {
         $(".dialog-menu-mini").dialog("close");
 
-        return true;
+        if (prevent_popups === false) {
+          alert(response.reason);
+        }
+      } else {
+        alert(response.reason);
       }
     }
   });

@@ -74,7 +74,7 @@
     if ($result->num_rows > 0) {
       $GLOBALS["response"]["data"]["login"]["reasons"]["name"] = true;
       while($user = $result->fetch_assoc()) {
-        if ($_POST["password"] == $row["password"]) {
+        if ($_POST["password"] == $user["password"]) {
           $GLOBALS["response"]["data"]["login"]["granted"] = 1;
           $GLOBALS["response"]["data"]["login"]["reasons"]["password"] = true;
 
@@ -113,12 +113,12 @@
 
       $conditions .= "`" . $key . "` = '" . $value . "'";
     }
-    $result = $GLOBALS["conn"]->query("SELECT `id`, `name`, `access` FROM `users`" . $conditions);
+    $users = $GLOBALS["conn"]->query("SELECT `id`, `name`, `access` FROM `users`" . $conditions);
 
-    if ($result->num_rows > 0) {
+    if ($users->num_rows > 0) {
       $GLOBALS["response"]["data"]["users"] = array();
-      while($row = $result->fetch_assoc()) {
-        $GLOBALS["response"]["data"]["users"][$row["id"]] = $row;
+      while($user = $users->fetch_assoc()) {
+        $GLOBALS["response"]["data"]["users"][$user["id"]] = $user;
       }
 
       $GLOBALS["response"]["status"] = "success";
@@ -265,12 +265,12 @@
 
       $conditions .= "`" . $key . "` = '" . $value . "'";
     }
-    $result = $GLOBALS["conn"]->query("SELECT * FROM `tables`" . $conditions);
+    $tables = $GLOBALS["conn"]->query("SELECT * FROM `tables`" . $conditions);
 
-    if ($result->num_rows > 0) {
+    if ($tables->num_rows > 0) {
       $GLOBALS["response"]["data"]["tables"] = array();
-      while($row = $result->fetch_assoc()) {
-        $GLOBALS["response"]["data"]["tables"][$row["id"]] = $row;
+      while($table = $result->fetch_assoc()) {
+        $GLOBALS["response"]["data"]["tables"][$table["id"]] = $table;
       }
 
       $GLOBALS["response"]["status"] = "success";
@@ -417,12 +417,12 @@
 
       $conditions .= "`" . $key . "` = '" . $value . "'";
     }
-    $result = $GLOBALS["conn"]->query("SELECT * FROM `tasks`" . $conditions);
+    $tasks = $GLOBALS["conn"]->query("SELECT * FROM `tasks`" . $conditions);
 
-    if ($result->num_rows > 0) {
+    if ($tasks->num_rows > 0) {
       $GLOBALS["response"]["data"]["tasks"] = array();
-      while($row = $result->fetch_assoc()) {
-        $GLOBALS["response"]["data"]["tasks"][$row["id"]] = $row;
+      while($task = $result->fetch_assoc()) {
+        $GLOBALS["response"]["data"]["tasks"][$task["id"]] = $task;
       }
 
       $GLOBALS["response"]["status"] = "success";
@@ -579,12 +579,12 @@
 
       $conditions .= "`" . $key . "` = '" . $value . "'";
     }
-    $result = $GLOBALS["conn"]->query("SELECT * FROM `files`" . $conditions);
+    $files = $GLOBALS["conn"]->query("SELECT * FROM `files`" . $conditions);
 
-    if ($result->num_rows > 0) {
+    if ($files->num_rows > 0) {
       $GLOBALS["response"]["data"]["files"] = array();
-      while($row = $result->fetch_assoc()) {
-        $GLOBALS["response"]["data"]["files"][$row["id"]] = $row;
+      while($file = $result->fetch_assoc()) {
+        $GLOBALS["response"]["data"]["files"][$file["id"]] = $file;
       }
 
       $GLOBALS["response"]["status"] = "success";
@@ -755,12 +755,12 @@
 
       $conditions .= "`" . $key . "` = '" . $value . "'";
     }
-    $result = $GLOBALS["conn"]->query("SELECT * FROM `logs`" . $conditions);
+    $logs = $GLOBALS["conn"]->query("SELECT * FROM `logs`" . $conditions);
 
-    if ($result->num_rows > 0) {
+    if ($logs->num_rows > 0) {
       $GLOBALS["response"]["data"]["log"] = array();
-      while($row = $result->fetch_assoc()) {
-        $GLOBALS["response"]["data"]["log"][$row["id"]] = $row;
+      while($log = $result->fetch_assoc()) {
+        $GLOBALS["response"]["data"]["log"][$log["id"]] = $log;
       }
 
       $GLOBALS["response"]["status"] = "success";
