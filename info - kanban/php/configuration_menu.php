@@ -2,10 +2,17 @@
   <div class="ui-tabs" id="Configuration_Tabs">
     <ul>
       <li><a href="#Configuration_T_1">Users</a></li>
-      <li><a href="#Configuration_T_2">Configuration</a></li>
-      <li><a href="#Configuration_T_3">Log</a></li>
+      <li><a href="#Configuration_T_2">Log</a></li>
     </ul>
     <div id="Configuration_T_1">
+      <fieldset class="bar">
+        <label class="item">
+          Search For User:
+          <input type="text" oninput="seachForUser(this.value);" />
+        </label> |
+        <input type="button" onclick="$('#user_create').dialog('open');" value="New User" class="item" /> |
+        <input type="button" onclick="logout();" value="Sign-out" class="item" />
+      </fieldset>
       <div class="users">
         <?php
           // Initialize session if not already
@@ -30,18 +37,15 @@
           }
         ?>
       </div>
-      <fieldset class="bar">
-        <label class="item">
-          Search For User:
-          <input type="text" oninput="seachForUser(this.value);" />
-        </label>
-        <input type="button" onclick="$('#user_create').dialog('open');" value="New User" class="item" /> |
-        <input type="button" onclick="logout();" value="Sign-out" class="item" />
-      </fieldset>
     </div>
     <div id="Configuration_T_2">
-    </div>
-    <div id="Configuration_T_3">
+      <fieldset class="bar">
+        <label class="item">
+          Search For Msg:
+          <input type="text" oninput="searchInLog(this.value);" />
+        </label> |
+        <input type="button" onclick="$('#log_clear').dialog('open');" value="Clear Log" class="item" />
+      </fieldset>
       <div class="log">
         <?php
           $result = $GLOBALS["conn"]->query("SELECT logs.id, logs.date, users.name, logs.msg FROM logs INNER JOIN users ON logs.user = users.id ORDER BY `date` DESC");
@@ -53,13 +57,6 @@
           }
         ?>
       </div>
-      <fieldset class="bar">
-        <label class="item">
-          Search For Msg:
-          <input type="text" oninput="searchInLog(this.value);" />
-        </label> |
-        <input type="button" onclick="$('#log_clear').dialog('open');" value="Clear Log" class="item" />
-      </fieldset>
     </div>
   </div>
 </div>
