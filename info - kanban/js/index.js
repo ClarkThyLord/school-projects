@@ -22,7 +22,114 @@ $(function() {
       modal: true,
     });
 
-    $("")
+    $("#task_file_dropzone").filedrop({
+      fallback_id: "new_files",
+      fallback_dropzoneClick: true,
+      withCredentials: true,
+      url: "./php/API.php/file/create",
+      error: function(err, file) {
+        switch (err) {
+          case 'BrowserNotSupported':
+            alert('browser does not support HTML5 drag and drop');
+            break;
+          case 'TooManyFiles':
+            break;
+          case 'FileTooLarge':
+            break;
+          case 'FileTypeNotAllowed':
+            break;
+          case 'FileExtensionNotAllowed':
+            break;
+          default:
+            break;
+        }
+      },
+      dragOver: function() {
+        // user dragging files over #dropzone
+        console.log("drag over");
+      },
+      dragLeave: function() {
+        // user dragging files out of #dropzone
+        console.log("drag leave");
+      },
+      docOver: function() {
+        // user dragging files anywhere inside the browser document window
+        console.log("doc over");
+      },
+      docLeave: function() {
+        // user dragging files out of the browser document window
+        console.log("doc leave");
+      },
+      drop: function() {
+        // user drops file
+        console.log("drop");
+      },
+      uploadStarted: function(i, file, len) {
+        // a file began uploading
+        // i = index => 0, 1, 2, 3, 4 etc
+        // file is the actual file of the index
+        // len = total files user dropped
+        console.log("upload started");
+        console.log(i);
+        console.log(file);
+        console.log(len);
+      },
+      uploadFinished: function(i, file, response, time) {
+        // response is the data you got back from server in JSON format.
+        console.log("upload finished");
+        console.log(i);
+        console.log(file);
+        console.log(response);
+        console.log(time);
+      },
+      progressUpdated: function(i, file, progress) {
+        // this function is used for large files and updates intermittently
+        // progress is the integer value of file being uploaded percentage to completion
+        console.log("progress updated");
+        console.log(i);
+        console.log(file);
+        console.log(progress);
+      },
+      globalProgressUpdated: function(progress) {
+        // progress for all the files uploaded on the current instance (percentage)
+        // ex: $('#progress div').width(progress+"%");
+        console.log("global progress updated");
+        console.log(progress);
+      },
+      speedUpdated: function(i, file, speed) {
+        // speed in kb/s
+        console.log("speed updated");
+        console.log(i);
+        console.log(file);
+        console.log(speed);
+      },
+      rename: function(name) {
+        // name in string format
+        // must return alternate name as string
+        console.log("rename");
+        console.log(name);
+      },
+      beforeEach: function(file) {
+        // file is a file object
+        // return false to cancel upload
+        console.log("before each");
+        console.log(file);
+      },
+      beforeSend: function(file, i, done) {
+        // file is a file object
+        // i is the file index
+        // call done() to start the upload
+        console.log("before send");
+        console.log(file);
+        console.log(i);
+        console.log(done);
+        done();
+      },
+      afterAll: function() {
+        // runs after all files have been uploaded or otherwise dealt with
+        console.log("after all");
+      }
+    });
   });
 
   // Setup dragula(drag and drop)

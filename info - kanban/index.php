@@ -105,6 +105,7 @@
 
   <!-- Javascript -->
   <script src="./js/lib/jquery-3.3.1.min.js"></script>
+  <script src="./js/lib/jquery-FileDrop.js"></script>
   <script src="./js/lib/jquery-ui.min.js"></script>
   <script src="./js/lib/jquery-ui-touch-punch.min.js"></script>
   <script src="./js/lib/jquery-ExtendedDialogs.js"></script>

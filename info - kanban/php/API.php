@@ -18,7 +18,7 @@
 	// task       | remove   | POST      | 1
 	// task       | modify   | POST      | 1
 	// file       |          | GET       | none
-	// file       | create   | POST      | 2
+	// file       | create   | POST      | 1
 	// file       | remove   | POST      | 1
 	// file       | modify   | POST      | 1
 	// log        |          | GET       | none
@@ -145,7 +145,7 @@
 
 		 	if ($routes[1] == "modify" && $method == "POST") { file_modify(); }
 		}
-		
+
 	}
 	else if ($routes[0] == "log"){
 

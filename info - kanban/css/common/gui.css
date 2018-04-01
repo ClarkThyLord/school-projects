@@ -90,6 +90,12 @@ input:active, input:focus {
 
 .dialog-menu .log .msg {}
 
+#task_file_dropzone {
+  padding: 25px;
+  border-radius: 25px;
+  border: dashed 5px var(--secondary);
+}
+
 .dialog-menu-mini .content {
   text-align: center;
 }

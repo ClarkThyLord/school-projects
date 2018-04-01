@@ -616,16 +616,16 @@
   * @return {array} Returns on success data related to file; on failer returns a empty array.
   */
   function file_create ($file) {
-    $file_content = file_get_contents($file["tmp_name"]);
-    file_put_contents("./landmarks/" . $file["name"], $file_content);
-
-    $sql = "INSERT INTO `files` (`id`, `data`, `name`, `url`) VALUES (NULL, NULL, '" . $file["name"] . "', '" . $GLOBALS["server_url"] . $file["name"] . "')";
+    $sql = "INSERT INTO `files` (`id`, `date`, `name`, `url`) VALUES (NULL, CURRENT_TIMESTAMP, '" . $file["name"] . "', '" . $GLOBALS["server_url"] . '/files/' . $file["name"] . "')";
 
     // FOR DEBUGGING
     $GLOBALS["response"]["sql"] = $sql;
 
     if ($GLOBALS["conn"]->query($sql) == True) {
       $insert_id = $GLOBALS["conn"]->insert_id;
+
+      $file_content = file_get_contents($file["tmp_name"]);
+      file_put_contents("../files/" . $insert_id . "." . pathinfo($file["name"], PATHINFO_EXTENSION), $file_content);
 
       log_create("sucesfully created a file `id` : " . $insert_id);
 
@@ -647,7 +647,7 @@
   */
   function file_create_direct () {
     // Check for access
-    if (!check_access(2)) {
+    if (!check_access(1)) {
       $GLOBALS["response"]["status"] = "access denied";
       $GLOBALS["response"]["reason"] = "insufficient access level";
       send_response();
