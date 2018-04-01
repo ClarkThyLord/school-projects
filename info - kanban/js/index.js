@@ -236,7 +236,7 @@ function removeTable(table_id) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === "success") {
-        $(".kanban > .table[data-id='" + response.data.table_id + "']").remove();
+        $(".table[data-table-id='" + response.data.table_id + "']").remove();
         $("#table_remove").dialog("close");
       }
 

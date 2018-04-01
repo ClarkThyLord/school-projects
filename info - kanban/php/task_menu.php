@@ -5,7 +5,7 @@
     </div>
     <label>
       Classification: <br />
-      <select name="classification">
+      <select class="selectable" name="classification">
         <option value="geo/historia">Geo/Historia</option>
         <option value="actual">Actual</option>
         <option value="riesgo">Riesgo</option>
@@ -35,14 +35,14 @@
         <textarea placeholder="Seperate URLs via ','...." style="width: 100%;" class="selectable" name="urls"></textarea>
       </label> <br />
     </div>
-    <label>
+    <div style="border-radius: 25px; border: dashed 5px var(--secondary);" class="selectable">
       Files: <br />
-      <input type="file" style="display: none;" name="new_files" />
+      Drag & Drop or <input type="file" style="display: none;" name="new_files" />
       <input type="button" onclick="new_files.click();" value="Browse files..." />
       <div name="set_files">
 
       </div>
-    </label> <br />
+    </div> <br />
     <fieldset class="bar">
       <input type="button" value="Submit Changes" onclick="" class="item" />
       <input type="button" value="Rename Task"  onclick="$('#task_rename').dialog('open');" class="item" /> |
