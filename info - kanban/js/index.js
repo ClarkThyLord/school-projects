@@ -1,4 +1,4 @@
-var drag_and_drop;
+var drag_and_drop, prevent_popups = false;
 
 $(function() {
   // Setup dialog menus(popups)
@@ -105,7 +105,9 @@ function clearLog() {
         });
       }
 
-      alert(response.reason);
+      if (prevent_popups === false) {
+        alert(response.reason);
+      }
     }
   });
 }
@@ -159,7 +161,9 @@ function createUser(name, password, access_level) {
         $("#user_create").dialog("close");
       }
 
-      alert(response.reason);
+      if (prevent_popups === false) {
+        alert(response.reason);
+      }
     }
   });
 }
@@ -183,7 +187,9 @@ function removeUser(user_id) {
         $("#user_remove").dialog("close");
       }
 
-      alert(response.reason);
+      if (prevent_popups === false) {
+        alert(response.reason);
+      }
     }
   });
 }
@@ -205,7 +211,9 @@ function modifyUser(user_id, modifications) {
     success: function(response) {
       response = JSON.parse(response);
 
-      alert(response.reason);
+      if (prevent_popups === false) {
+        alert(response.reason);
+      }
 
       if (response.status === "success") {
         $(".user[data-id='" + response.data.user_id + "']").remove();
@@ -263,7 +271,9 @@ function createTable(name) {
         $("#table_create").dialog("close");
       }
 
-      alert(response.reason);
+      if (prevent_popups === false) {
+        alert(response.reason);
+      }
     }
   });
 }
@@ -275,6 +285,13 @@ function createTable(name) {
  * @return {undefined} Returns nothing.
  */
 function removeTable(table_id) {
+  var original = prevent_popups;
+  prevent_popups = true;
+  $(".kanban .table[data-table-id=\"" + table_id + "\"] > .dragula-container > .task").each(function() {
+    removeTask(table_id, $(this).attr("data-task-id"));
+  });
+  prevent_popups = original;
+
   $.post({
     url: "./php/API.php/table/remove",
     data: {
@@ -287,7 +304,9 @@ function removeTable(table_id) {
         $("#table_remove").dialog("close");
       }
 
-      alert(response.reason);
+      if (prevent_popups === false) {
+        alert(response.reason);
+      }
     }
   });
 }
@@ -309,7 +328,9 @@ function modifyTable(table_id, modifications) {
     success: function(response) {
       response = JSON.parse(response);
 
-      alert(response.reason);
+      if (prevent_popups === false) {
+        alert(response.reason);
+      }
 
       if (response.status === "success") {
         $(".dialog-menu-mini").dialog("close");
@@ -359,13 +380,13 @@ function seachForTask(search_term) {
  */
 function seachForTaskInTable(table_id, search_term) {
   if (search_term === "") {
-    $(".kanban > .table[data-id='" + table_id + "']").each(function() {
+    $(".kanban > .table[data-table-id='" + table_id + "']").each(function() {
       $(this).find(".dragula-container .item").each(function() {
         $(this).show();
       });
     });
   } else {
-    $(".kanban > .table[data-id='" + table_id + "']").each(function() {
+    $(".kanban > .table[data-table-id='" + table_id + "']").each(function() {
       $(this).find(".dragula-container .item").each(function() {
         if ($(this).html().toLowerCase().indexOf(search_term.toLowerCase()) === -1) {
           $(this).hide();
@@ -392,13 +413,15 @@ function createTask(table_id, name) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === "success") {
-        var doms = '<div class="item selectable" onclick="current_task = $(this).attr(`name`); $(`#task_modify`).dialog(`open`);" data-table="' + response.data.task.table_id + '" name="' + response.data.task.id + '">' + response.data.task.name + '</div>';
+        var doms = '<div class="item task selectable" onclick="current_task = $(this).attr(\'data-task-id\'); $(\'#task_modify\').dialog(\'open\');" data-table-id="' + response.data.task.table_id + '" data-task-id="' + response.data.task.id + '">' + response.data.task.name + '</div>';
 
-        $(".kanban > .table[data-id='" + response.data.task.table_id + "'] > .dragula-container").append(doms);
+        $(".kanban > .table[data-table-id='" + response.data.task.table_id + "'] > .dragula-container").append(doms);
         $("#task_create").dialog("close");
       }
 
-      alert(response.reason);
+      if (prevent_popups === false) {
+        alert(response.reason);
+      }
     }
   });
 }
@@ -420,11 +443,14 @@ function removeTask(table_id, task_id) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === "success") {
-        $(".kanban > .table[data-id='" + response.data.table_id + "'] > .dragula-container > .item[name='" + response.data.task_id + "']").remove();
+        $(".kanban > .task[data-task-id='" + response.data.task_id + "']").remove();
         $("#task_remove").dialog("close");
+        $("#task_modify").dialog("close");
       }
 
-      alert(response.reason);
+      if (prevent_popups === false) {
+        alert(response.reason);
+      }
     }
   });
 }
@@ -446,7 +472,9 @@ function modifyTask(task_id, modifications) {
     success: function(response) {
       response = JSON.parse(response);
 
-      alert(response.reason);
+      if (prevent_popups === false) {
+        alert(response.reason);
+      }
 
       if (response.status === "success") {
         $(".dialog-menu-mini").dialog("close");
