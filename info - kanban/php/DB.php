@@ -9,6 +9,7 @@
   // Credentials
   // ***************************************************************************
 
+
   // URL
   $server_url = $_SERVER['SERVER_NAME'];
 
@@ -146,6 +147,8 @@
     $sql = "INSERT INTO `users` (`id`, `name`, `password`, `access`) VALUES (NULL, '" . $_POST["name"] . "', '" . $_POST["password"] . "', " . $_POST["access"] . ")";
 
     if ($GLOBALS["conn"]->query($sql) === TRUE) {
+      log_create("sucesfully created user `id` : " . $GLOBALS["conn"]->insert_id);
+      
       $GLOBALS["response"]["data"]["user"] = $GLOBALS["conn"]->query("SELECT `id`, `name` FROM `users` WHERE `id` = '" . $GLOBALS["conn"]->insert_id . "' LIMIT 1")->fetch_assoc();
 
       $GLOBALS["response"]["status"] = "success";
@@ -174,6 +177,8 @@
    $sql = "DELETE FROM `users` WHERE `users`.`id` = " . $_POST["user_id"];
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     log_create("sucesfully removed user `id` : " . $_POST["user_id"]);
+
      $GLOBALS["response"]["data"]["user_id"] = $_POST["user_id"];
 
      $GLOBALS["response"]["status"] = "success";
@@ -217,6 +222,8 @@
    $sql = "UPDATE `users` SET " . $changes . " WHERE `users`.`id` = " . $_POST["user_id"];
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     log_create("sucesfully modified user `id` : " . $_POST["user_id"]);
+
      $GLOBALS["response"]["status"] = "success";
      $GLOBALS["response"]["reason"] = "sucesfully modified user";
    } else {
@@ -282,6 +289,8 @@
     $sql = "INSERT INTO `tables` (`id`, `name`) VALUES (NULL, '" . $_POST["name"] . "')";
 
     if ($GLOBALS["conn"]->query($sql) == True) {
+      log_create("sucesfully created table `id` : " . $GLOBALS["conn"]->insert_id);
+
       $GLOBALS["response"]["data"]["table"] = $GLOBALS["conn"]->query("SELECT * FROM `tables` WHERE `id` = " . $GLOBALS["conn"]->insert_id . " LIMIT 1")->fetch_assoc();
 
       $GLOBALS["response"]["status"] = "success";
@@ -310,6 +319,8 @@
    $sql = "DELETE FROM `tables` WHERE `tables`.`id` = " . $_POST["table_id"];
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     log_create("sucesfully removed table `id` : " . $_POST["table_id"]);
+
      $GLOBALS["response"]["data"]["table_id"] = $_POST["table_id"];
 
      $GLOBALS["response"]["status"] = "success";
@@ -353,6 +364,8 @@
    $sql = "UPDATE `tables` SET " . $changes . " WHERE `tables`.`id` = " . $_POST["table_id"];
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     log_create("sucesfully modified table `id` : " . $_POST["table_id"]);
+
      $GLOBALS["response"]["status"] = "success";
      $GLOBALS["response"]["reason"] = "sucesfully modified table";
    } else {
@@ -418,6 +431,8 @@
     $sql = "INSERT INTO `tasks` (`id`, `table_id`, `name`) VALUES (NULL, '" . $_POST["table_id"] . "', '" . $_POST["name"] . "')";
 
     if ($GLOBALS["conn"]->query($sql) == True) {
+      log_create("sucesfully created task `id` : " . $GLOBALS["conn"]->insert_id);
+
       $GLOBALS["response"]["data"]["task"] = $GLOBALS["conn"]->query("SELECT * FROM `tasks` WHERE `id` = " . $GLOBALS["conn"]->insert_id . " LIMIT 1")->fetch_assoc();
 
       $GLOBALS["response"]["status"] = "success";
@@ -446,14 +461,16 @@
    $sql = "DELETE FROM `tasks` WHERE `tasks`.`id` = " . $_POST["task_id"];
 
    if ($GLOBALS["conn"]->query($sql) == True) {
-     $GLOBALS["response"]["data"]["table_id"] = $_POST["table_id"];
-     $GLOBALS["response"]["data"]["task_id"] = $_POST["task_id"];
+    log_create("sucesfully removed task `id` : " . $_POST["task_id"]);
 
-     $GLOBALS["response"]["status"] = "success";
-     $GLOBALS["response"]["reason"] = "sucesfully removed task";
+    $GLOBALS["response"]["data"]["table_id"] = $_POST["table_id"];
+    $GLOBALS["response"]["data"]["task_id"] = $_POST["task_id"];
+
+    $GLOBALS["response"]["status"] = "success";
+    $GLOBALS["response"]["reason"] = "sucesfully removed task";
    } else {
-     $GLOBALS["response"]["status"] = "failure";
-     $GLOBALS["response"]["reason"] = "unsucesfully removed task";
+    $GLOBALS["response"]["status"] = "failure";
+    $GLOBALS["response"]["reason"] = "unsucesfully removed task";
    }
 
    $GLOBALS["conn"]->close();
@@ -499,11 +516,13 @@
    $sql = "UPDATE `tasks` SET " . $changes . " WHERE `tasks`.`id` = " . $_POST["task_id"];
 
    if ($GLOBALS["conn"]->query($sql) == True) {
-     $GLOBALS["response"]["status"] = "success";
-     $GLOBALS["response"]["reason"] = "sucesfully modified task";
+    log_create("sucesfully modified task `id` : " . $_POST["task_id"]);
+
+    $GLOBALS["response"]["status"] = "success";
+    $GLOBALS["response"]["reason"] = "sucesfully modified task";
    } else {
-     $GLOBALS["response"]["status"] = "failure";
-     $GLOBALS["response"]["reason"] = "unsucesfully modified task";
+    $GLOBALS["response"]["status"] = "failure";
+    $GLOBALS["response"]["reason"] = "unsucesfully modified task";
    }
 
    $GLOBALS["conn"]->close();
@@ -561,6 +580,8 @@
     $sql = "INSERT INTO `files` (`id`, `data`, `name`, `url`) VALUES (NULL, NULL, '" . $file["name"] . "', '" . $GLOBALS["server_url"] . $file["name"] . "')";
 
     if ($GLOBALS["conn"]->query($sql) == True) {
+      log_create("sucesfully created a file `id` : " . $GLOBALS["conn"]->insert_id);
+
       return $GLOBALS["conn"]->query("SELECT * FROM `files` WHERE `id` = " . $GLOBALS["conn"]->insert_id . " LIMIT 1")->fetch_assoc();
     } else {
       return array();
@@ -582,18 +603,18 @@
 
     $GLOBALS["response"]["data"]["files"] = array();
 
-    foreach ($_FILES as $file){
-      $result = file_create($file);
-      $GLOBALS["response"]["data"]["files"][$file["name"]] = $result;
-    }
+    if (count($_FILES) > 0) {
+      foreach ($_FILES as $file){
+        $result = file_create($file);
+        $GLOBALS["response"]["data"]["files"][$file["name"]] = $result;
+      }
 
-    if (count($GLOBALS["response"]["data"]["files"]) > 0) {
       $GLOBALS["response"]["status"] = "success";
       $GLOBALS["response"]["reason"] = "sucesfully created file(s)";
     }
     else {
       $GLOBALS["response"]["status"] = "failure";
-      $GLOBALS["response"]["reason"] = "unsucesfully created file(s)";
+      $GLOBALS["response"]["reason"] = "no file(s) were uploaded";
     }
 
     $GLOBALS["conn"]->close();
@@ -615,6 +636,8 @@
    $sql = "DELETE FROM `files` WHERE `files`.`id` = " . $_POST["file_id"];
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     log_create("sucesfully removed file `id` : " . $_POST["file_id"]);
+
      $GLOBALS["response"]["data"]["table_id"] = $_POST["table_id"];
      $GLOBALS["response"]["data"]["file_id"] = $_POST["file_id"];
 
@@ -659,6 +682,8 @@
    $sql = "UPDATE `files` SET " . $changes . " WHERE `files`.`id` = " . $_POST["file_id"];
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     log_create("sucesfully modified file `id` : " . $_POST["file_id"]);
+
      $GLOBALS["response"]["status"] = "success";
      $GLOBALS["response"]["reason"] = "sucesfully modified file";
    } else {
@@ -718,6 +743,8 @@
     $sql = "INSERT INTO `logs` (`id`, `date`, `user`, `msg`) VALUES (NULL, NULL, '" . $_SERVER["user_data"]["id"] . "', '" . $msg . "')";
 
     if ($GLOBALS["conn"]->query($sql) == True) {
+      log_create("sucesfully created log `id` : " . $GLOBALS["conn"]->insert_id);
+
       $GLOBALS["response"]["status"] = "success";
       $GLOBALS["response"]["reason"] = "sucesfully created log";
 
@@ -728,8 +755,6 @@
 
       return array()
     }
-
-    $GLOBALS["conn"]->close();
   }
 
 
@@ -748,6 +773,8 @@
     $sql = "INSERT INTO `logs` (`id`, `date`, `user`, `msg`) VALUES (NULL, NULL, '" . $_SERVER["user_data"]["id"] . "', '" . $_POST["msg"] . "')";
 
     if ($GLOBALS["conn"]->query($sql) == True) {
+      log_create("sucesfully created log `id` : " . $GLOBALS["conn"]->insert_id);
+
       $GLOBALS["response"]["data"]["log"] = $GLOBALS["conn"]->query("SELECT * FROM `logs` WHERE `id` = " . $GLOBALS["conn"]->insert_id . " LIMIT 1")->fetch_assoc();
 
       $GLOBALS["response"]["status"] = "success";
@@ -776,6 +803,8 @@
    $sql = "DELETE FROM `logs`";
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     log_create("sucesfully cleared log");
+
      $GLOBALS["response"]["status"] = "success";
      $GLOBALS["response"]["reason"] = "sucesfully cleared log";
    } else {
@@ -802,6 +831,8 @@
    $sql = "DELETE FROM `logs` WHERE `logs`.`id` = " . $_POST["log_id"];
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     log_create("sucesfully removed log `id` : " . $_POST["log_id"]);
+
      $GLOBALS["response"]["data"]["table_id"] = $_POST["table_id"];
      $GLOBALS["response"]["data"]["log_id"] = $_POST["log_id"];
 
@@ -846,6 +877,8 @@
    $sql = "UPDATE `logs` SET " . $changes . " WHERE `logs`.`id` = " . $_POST["log_id"];
 
    if ($GLOBALS["conn"]->query($sql) == True) {
+     log_create("sucesfully modified log `id` : " . $_POST["log_id"]);
+
      $GLOBALS["response"]["status"] = "success";
      $GLOBALS["response"]["reason"] = "sucesfully modified log";
    } else {
