@@ -547,7 +547,7 @@
      $GLOBALS["response"]["data"]["files"] = array();
 
      foreach ($_FILES as $file){
-       $result = file_create($file);
+       $result = file_create($_POST["task_id"], $file);
        $GLOBALS["response"]["data"]["files"][$file["name"]] = $result;
      }
    }
@@ -591,11 +591,16 @@
 
       $conditions .= "`" . $key . "` = '" . $value . "'";
     }
-    $files = $GLOBALS["conn"]->query("SELECT * FROM `files`" . $conditions);
+    $sql = "SELECT * FROM `files`" . $conditions;
+
+    // FOR DEBUGGING
+    $GLOBALS["response"]["sql"] = $sql;
+
+    $files = $GLOBALS["conn"]->query($sql);
 
     if ($files->num_rows > 0) {
       $GLOBALS["response"]["data"]["files"] = array();
-      while($file = $result->fetch_assoc()) {
+      while($file = $files->fetch_assoc()) {
         $GLOBALS["response"]["data"]["files"][$file["id"]] = $file;
       }
 
@@ -612,11 +617,12 @@
 
   /**
   * Create a file.
+  * @param {integer} $task_id ID of task which file belongs to.
   * @param {object} $file File to setup in server.
   * @return {array} Returns on success data related to file; on failer returns a empty array.
   */
-  function file_create ($file) {
-    $sql = "INSERT INTO `files` (`id`, `date`, `name`, `url`) VALUES (NULL, CURRENT_TIMESTAMP, '" . $file["name"] . "', '" . $GLOBALS["server_url"] . '/files/' . $file["name"] . "')";
+  function file_create ($task_id, $file) {
+    $sql = "INSERT INTO `files` (`id`, `task_id`, `date`, `name`, `url`) VALUES (NULL, " . $task_id . ", CURRENT_TIMESTAMP, '" . $file["name"] . "', '" . $GLOBALS["server_url"] . '/files/' . $file["name"] . "')";
 
     // FOR DEBUGGING
     $GLOBALS["response"]["sql"] = $sql;
@@ -657,7 +663,7 @@
 
     if (count($_FILES) > 0) {
       foreach ($_FILES as $file){
-        $result = file_create($file);
+        $result = file_create($_POST["task_id"], $file);
         $GLOBALS["response"]["data"]["files"][$file["name"]] = $result;
       }
 
@@ -685,12 +691,15 @@
      send_response();
    }
 
+   $file = $GLOBALS["conn"]->query("SELECT * FROM `files` WHERE `id` = " . $_POST["file_id"] . " LIMIT 1")->fetch_assoc();
+
+   unlink("../files/" . $_POST["file_id"] . "." . pathinfo($file["name"], PATHINFO_EXTENSION));
+
    $sql = "DELETE FROM `files` WHERE `files`.`id` = " . $_POST["file_id"];
 
    if ($GLOBALS["conn"]->query($sql) == True) {
      log_create("sucesfully removed file `id` : " . $_POST["file_id"]);
 
-     $GLOBALS["response"]["data"]["table_id"] = $_POST["table_id"];
      $GLOBALS["response"]["data"]["file_id"] = $_POST["file_id"];
 
      $GLOBALS["response"]["status"] = "success";

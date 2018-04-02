@@ -96,6 +96,23 @@ input:active, input:focus {
   border: dashed 5px var(--secondary);
 }
 
+#task_file_preview {
+  padding: 10px;
+  border-radius: 25px;
+}
+
+#task_file_preview .file {
+  padding: 5px;
+  border-radius: 5px;
+  border: solid 3px var(--secondary);
+  text-align: left;
+}
+
+#task_file_preview .name {
+  padding: 5px;
+  border-radius: 5px;
+}
+
 .dialog-menu-mini .content {
   text-align: center;
 }

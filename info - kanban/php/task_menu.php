@@ -38,10 +38,11 @@
     <label>
       Files:
       <input type="file" style="display: none;" class="task_input" name="new_files" />
-      <div class="selectable" id="task_file_dropzone">
-        Drag & Drop Files
+      <div class="dropzone selectable" id="task_file_dropzone">
+        Drop Files Here or Click To Upload
       </div>
     </label>
+    <div id="task_file_preview"></div>
     <fieldset class="bar">
       <input type="button" value="Submit Changes" onclick="modifyTask(current_task, {classification : classification.value, latitude: latitude.value, longitude: longitude.value, summary: summary.value, urls: urls.value})" class="item" />
       <input type="button" value="Rename Task"  onclick="$('#task_rename').dialog('open');" class="item" /> |
@@ -79,6 +80,15 @@
     Remove task?
     <fieldset class="bar">
       <input type="button" value="Remove Task"  onclick="removeTask(current_table, current_task);" class="item" />
+    </fieldset>
+  </form>
+</div>
+
+<div class="dialog-menu-mini" title="Remove File" id="file_remove">
+  <form class="content">
+    Remove file?
+    <fieldset class="bar">
+      <input type="button" value="Remove Task"  onclick="removeFile(current_file);" class="item" />
     </fieldset>
   </form>
 </div>
