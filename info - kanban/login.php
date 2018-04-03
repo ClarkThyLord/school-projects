@@ -1,3 +1,16 @@
+<?php
+
+	// Initialize session if not already
+	if(!isset($_SESSION)) {
+		session_start();
+	}
+
+  if(array_key_exists("user_data", $_SESSION) && !empty($_SESSION["user_data"])) {
+    header("Location: index.php");
+  }
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -20,18 +33,6 @@
 
 <body>
 
-  <?php
-
-    // Initialize session if not already
-    if(!isset($_SESSION)) {
-      session_start();
-    }
-
-    if(array_key_exists("user_data", $_SESSION) && !empty($_SESSION["user_data"])) {
-      header("Location: index");
-    }
-
-  ?>
   <div class="title">
     Metropoli2Go
   </div>

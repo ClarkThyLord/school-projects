@@ -8,7 +8,7 @@ function login(username, password) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.data.login.granted === 1) {
-        window.location.href = "./index";
+        window.location.href = "./index.php";
       } else {
         msg = "";
         if (response.data.login.reasons.username === false) {
@@ -27,7 +27,7 @@ function logout() {
   $.ajax({
     url: "./php/API.php/user/logout",
     success: function(response) {
-      window.location.href = "./login";
+      window.location.href = "./login.php";
     }
   });
 }
