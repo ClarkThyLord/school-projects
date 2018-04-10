@@ -1,5 +1,9 @@
 <?php
 
+	// Setup variables
+	$url_extension = "beta/";
+
+
   // Initialize session if not already
   if (!isset($_SESSION)) {
     session_start();
@@ -15,9 +19,9 @@
 
   // DB Credentials
   $server_name = "localhost";
-  $user_name = "root";
-  $password = "";
-  $db_name = "kanban";
+  $user_name = "metropoli2go";
+  $password = "metro2017!";
+  $db_name = "metropol_beta2go";
 
   // Create connection to DB
   $conn = new mysqli($server_name, $user_name, $password, $db_name);
@@ -622,13 +626,17 @@
   * @return {array} Returns on success data related to file; on failer returns a empty array.
   */
   function file_create ($task_id, $file) {
-    $sql = "INSERT INTO `files` (`id`, `task_id`, `date`, `name`, `url`) VALUES (NULL, " . $task_id . ", CURRENT_TIMESTAMP, '" . $file["name"] . "', '" . $GLOBALS["server_url"] . '/files/' . $file["name"] . "')";
+    $sql = "INSERT INTO `files` (`id`, `task_id`, `date`, `name`, `url`) VALUES (NULL, " . $task_id . ", CURRENT_TIMESTAMP, '" . $file["name"] . "', '')";
 
     // FOR DEBUGGING
     $GLOBALS["response"]["sql"] = $sql;
 
     if ($GLOBALS["conn"]->query($sql) == True) {
       $insert_id = $GLOBALS["conn"]->insert_id;
+
+			$url = "files/" . $insert_id . "." . pathinfo($file["name"], PATHINFO_EXTENSION);
+
+			$GLOBALS["conn"]->query("UPDATE `files` SET `url`='" . $url . "' WHERE `id` = " . $insert_id);
 
       $file_content = file_get_contents($file["tmp_name"]);
       file_put_contents("../files/" . $insert_id . "." . pathinfo($file["name"], PATHINFO_EXTENSION), $file_content);

@@ -10,7 +10,6 @@
   }
 
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -26,34 +25,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="./css/common/gui.css">
+<!--   <link rel="stylesheet" href="./css/common/gui.css"> -->
   <link rel="stylesheet" href="./css/login.css">
 
 </head>
 
 <body>
-
-  <div class="title">
-    Metropoli2Go
-  </div>
-  <form>
-    <fieldset>
-      <label>
-        Username:
-        <input type="text" placeholder="Username..." name="username" />
-      </label>
-      <br />
-      <label>
-        Password:
-        <input type="password" placeholder="Password..." name="password" />
-      </label>
-      <div id="error_msg">
-
-      </div>
-    </fieldset>
-    <input type="button" onclick="login(username.value, password.value);" value="Log-in" />
-    <input type="reset" value="Reset" />
-  </form>
+	<div class="container">
+		<div class="card card-container">
+<!-- 			<center><p class="brand">Bienvenidos</p></center> -->
+			<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+  
+			<form class="form-signin">
+					<input type="text" id="inputEmail" class="form-control" placeholder=" Usuario" name="username" />
+					<input type="password" id="inputPassword" class="form-control" placeholder=" Contraseña" name="password" />
+					<div id="error_msg">      
+						
+					</div>
+					<br />
+					<button class="btn btn-lg btn-primary btn-block btn-signin" onclick="login(username.value, password.value);" value="Entrar" style="color:white">Entrar</button>
+					<!--     <button type="reset" value="Reset">Reset</button> -->
+  			</form>
+		</div>
+	</div>
 
   <!-- Javascript -->
   <script src="./js/lib/jquery-3.3.1.min.js"></script>

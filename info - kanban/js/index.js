@@ -34,6 +34,7 @@ $(function() {
     },
     url: "./php/API.php/file/create",
     error: function(err, file) {
+      console.log(err);
       switch (err) {
         case 'BrowserNotSupported':
           alert('browser does not support HTML5 drag and drop');
@@ -665,7 +666,7 @@ function getAndSetTaskFiles(task_id) {
       if (response.status === "success") {
         for (var file of Object.keys(response.data.files)) {
           file = response.data.files[file];
-          $("#task_file_preview").append('<div onclick="current_file = $(this).attr(\'data-file-id\');" class="file" data-table-id="' + current_table + '" data-task-id="' + current_task + '" data-file-id="' + file.id + '" data-file-url="' + file.url + '"> <span class="name selectable" onclick="var win = window.open($(this).parent().attr(\'data-file-url\'), \'_blank\'); win.focus();"> ' + file.name + ' </span> <input type="button" value="&#10006;" onclick="removeFile(' + file.id + ');" /> </div>');
+          $("#task_file_preview").append('<div onclick="current_file = $(this).attr(\'data-file-id\');" class="file" data-table-id="' + current_table + '" data-task-id="' + current_task + '" data-file-id="' + file.id + '" > <span class="name selectable" onclick="var win = window.open(' + file.url + ', \'_blank\'); win.focus();"> ' + file.name + ' </span> <input type="button" value="&#10006;" onclick="removeFile(' + file.id + ');" /> </div>');
         }
 
         if (prevent_popups == false) {

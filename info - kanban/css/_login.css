@@ -1,27 +1,27 @@
 body, html {
-    font-family:Montserrat;
-    height: 90%;
-    background-color:#607D8B;
+    font-family: Montserrat;
+    height: 100%;
+    background-color: #607D8B;
 }
 
-.brand {
-    color: #455A64;
-    font-size:50px;
-}
-.pay_off {
-	color: black;
-    font-size:16px;
-    text-align:center;
+form {
+  text-align: center;
 }
 
-.card-container.card {
-    max-width: 300px;
-    padding: 40px 40px;
+form input {
+  margin: 5px;
+  padding: 3px;
 }
 
-/*
- * Card component
- */
+/* Custom Classes */
+
+.title {
+  font-size: 64px;
+  font-weight: bold;
+  text-align: center;
+  margin: 10px;
+}
+
 .card {
     background-color: #F7F7F7;
     /* just in case there no content*/
@@ -37,6 +37,12 @@ body, html {
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
+.card-container.card {
+    max-width: 350px;
+    padding: 40px 40px;
+}
+
+
 .profile-img-card {
     width: 96px;
     height: 96px;
@@ -45,36 +51,6 @@ body, html {
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
-}
-
-/*
- * Form styles
- */
-.profile-name-card {
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    margin: 10px 0 0;
-    min-height: 1em;
-}
-
-
-form {
-  text-align: center;
-}
-
-/*
-form input {
-  margin: 5px;
-  padding: 3px;
-}
-*/
-
-.form-signin .form-control:focus {
-    border-color: rgb(104, 145, 162);
-    outline: 0;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
 }
 
 .form-signin #inputEmail,
@@ -123,11 +99,12 @@ form input {
     background-color: rgb(12, 97, 33);
 }
 
-/* Custom Classes */
+.forgot-password {
+    color: rgb(104, 145, 162);
+}
 
-.title {
-  font-size: 64px;
-  font-weight: bold;
-  text-align: center;
-  margin: 10px;
+.forgot-password:hover,
+.forgot-password:active,
+.forgot-password:focus{
+    color: rgb(12, 97, 33);
 }

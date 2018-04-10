@@ -1,9 +1,9 @@
 :root {
   /* Text options */
   color: var(--text-color);
-  font-family: "Times New Roman";
+  font-family:Montserrat;  
   /* Variables */
-  --primary: rgba(23, 23, 23, 1);
+  --primary: rgba(23, 23, 23, 1); 
   --secondary: rgba(46, 46, 46, 1);
   --choosen: rgba(14, 14, 14, 1);
   --selected: rgba(70, 70, 70, 1);
@@ -30,10 +30,12 @@ input, select, fieldset, textarea {
   box-shadow: 0px 0px 5px var(--shadow-color);
 }
 
+
 input:hover {
   transition: 0.6s ease;
   background-color: var(--selected);
 }
+
 
 input:active, input:focus {
   background-color: var(--secondary);

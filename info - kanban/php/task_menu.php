@@ -37,7 +37,7 @@
     </div>
     <label>
       Files:
-      <input type="file" style="display: none;" class="task_input" name="new_files" />
+      <input type="file" style="display: none;" class="task_input" id="new_files" />
       <div class="dropzone selectable" id="task_file_dropzone">
         Drop Files Here or Click To Upload
       </div>
