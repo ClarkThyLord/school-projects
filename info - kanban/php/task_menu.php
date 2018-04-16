@@ -6,13 +6,13 @@
     <label>
       Classification: <br />
       <select class="task_input selectable" name="classification">
-        <option value="geo/historia">Geo/Historia</option>
-        <option value="actual">Actual</option>
-        <option value="riesgo">Riesgo</option>
-        <option value="hechos graciosos">Hechos Graciosos</option>
-        <option value="hard facts">Hard Facts</option>
-        <option value="m2go todo">M2GO ToDo</option>
-        <option value="otro tema">Otro Tema.</option>
+        <option value="Geo/Historia">Geo/Historia</option>
+        <option value="Actual">Actual</option>
+        <option value="Riesgo">Riesgo</option>
+        <option value="Hechos Graciosos">Hechos Graciosos</option>
+        <option value="Hard Facts">Hard Facts</option>
+        <option value="M2GO ToDo">M2GO ToDo</option>
+        <option value="Otro Tema.">Otro Tema.</option>
       <select>
     </label> <br />
     <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">

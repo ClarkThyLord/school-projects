@@ -19,9 +19,13 @@
 
   // DB Credentials
   $server_name = "localhost";
-  $user_name = "metropoli2go";
-  $password = "metro2017!";
-  $db_name = "metropol_beta2go";
+  $user_name = "root";
+  $password = "";
+  $db_name = "kanban";
+  // $server_name = "localhost";
+  // $user_name = "metropoli2go";
+  // $password = "metro2017!";
+  // $db_name = "metropol_beta2go";
 
   // Create connection to DB
   $conn = new mysqli($server_name, $user_name, $password, $db_name);
@@ -575,6 +579,52 @@
   }
 
 
+  /**
+  * Construct task html table.
+  * @return {undefined} Returns nothing.
+  */
+  function task_construct () {
+		$result = $GLOBALS["conn"]->query("SELECT * FROM `tasks`");
+
+		if ($result->num_rows > 0) {
+			$classifications = array('Geo/Historia' => 0, 'Actual' => 0, 'Riesgo' => 0, 'Hechos Graciosos' => 0, 'Hard Facts' => 0, 'M2GO ToDo' => 0, 'Otro Tema.' => 0);
+
+			$html = "<table> <tr> <th>Ubicación</th> <th>Tema A Difundir</th>";
+			foreach ($classifications as $key => $value) {
+				$html .= " <th>" . $key . "</th>";
+			}
+			$html .= " </tr>";
+			while($task = $result->fetch_assoc()) {
+				$html .= "<tr> </tr><td>" . $task["table_id"] . ":" . $task["id"] . "</td> <td>" . $task["name"] ."</td>";
+				foreach ($classifications as $key => $value) {
+					if ($task["classification"] === $key) {
+						$html .= "<td> &#9737; </td>";
+
+						$classifications[$key] += 1;
+					} else {
+						$html .= "<td> </td>";
+					}
+				}
+				$html .= "</tr>";
+			}
+
+			$html .= "<tr> </tr> <td> </td> <td> Total: </td>";
+			foreach ($classifications as $key => $value) {
+				$html .= "<td>" . $value . "</td>";
+			}
+			$html .= "</tr> </table>";
+
+      $GLOBALS["response"]["data"]["html"] = $html;
+
+      $GLOBALS["response"]["status"] = "success";
+      $GLOBALS["response"]["reason"] = "sucesfully constructed log";
+    } else {
+      $GLOBALS["response"]["status"] = "failure";
+      $GLOBALS["response"]["reason"] = "unsucesfully constructed log";
+    }
+	}
+
+
   // FILE FUNCTIONS
   // ***************************************************************************
 
@@ -965,5 +1015,31 @@
 
    $GLOBALS["conn"]->close();
   }
+
+
+  /**
+  * Construct log html.
+  * @return {undefined} Returns nothing.
+  */
+  function log_construct () {
+		$result = $GLOBALS["conn"]->query("SELECT logs.id, logs.date, users.name, logs.msg FROM logs INNER JOIN users ON logs.user = users.id ORDER BY `date` DESC");
+
+		if ($result->num_rows > 0) {
+			$html = "";
+			while($log = $result->fetch_assoc()) {
+				$html .= "<span class='msg' data-log-msg-id='" . $log["id"] . "'>(" . $log["date"] . ") : " . $log["name"] . " : " . $log["msg"] . "<br /></span>";
+			}
+
+      $GLOBALS["response"]["data"]["html"] = $html;
+
+      $GLOBALS["response"]["status"] = "success";
+      $GLOBALS["response"]["reason"] = "sucesfully constructed log";
+    } else {
+      $GLOBALS["response"]["status"] = "failure";
+      $GLOBALS["response"]["reason"] = "unsucesfully constructed log";
+    }
+
+    $GLOBALS["conn"]->close();
+	}
 
 ?>

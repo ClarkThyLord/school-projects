@@ -3,29 +3,31 @@
 	// ~ API Endpoints ~
 	// Main:      | Sub:     | Methods:  | Access:
 	// -------------------------------------------
-	// user       |          | GET       | none
-	// user       | login    | POST      | none
-	// user       | logout   | any       | none
-	// user       | create   | POST      | 2
-	// user       | remove   | POST      | anyone can remove their own user; but only admins, access: 2, can remove other users
-	// user       | modify   | POST      | anyone can modify their own user; but only admins, access: 2, can modify other users
-	// table      |          | GET       | none
-	// table      | create   | POST      | 1
-	// table      | remove   | POST      | 1
-	// table      | modify   | POST      | 1
-	// task       |          | GET       | none
-	// task       | create   | POST      | 1
-	// task       | remove   | POST      | 1
-	// task       | modify   | POST      | 1
-	// file       |          | GET       | none
-	// file       | create   | POST      | 1
-	// file       | remove   | POST      | 1
-	// file       | modify   | POST      | 1
-	// log        |          | GET       | none
-	// log        | create   | POST      | 2
-	// log        | clear    | POST      | 2
-	// log        | remove   | POST      | 2
-	// log        | modify   | POST      | 2
+	// user       |           | GET       | none
+	// user       | login     | POST      | none
+	// user       | logout    | any       | none
+	// user       | create    | POST      | 2
+	// user       | remove    | POST      | anyone can remove their own user; but only admins, access: 2, can remove other users
+	// user       | modify    | POST      | anyone can modify their own user; but only admins, access: 2, can modify other users
+	// table      |           | GET       | none
+	// table      | create    | POST      | 1
+	// table      | remove    | POST      | 1
+	// table      | modify    | POST      | 1
+	// task       |           | GET       | none
+	// task       | create    | POST      | 1
+	// task       | remove    | POST      | 1
+	// task       | modify    | POST      | 1
+	// task       | construct | GET       | none
+	// file       |           | GET       | none
+	// file       | create    | POST      | 1
+	// file       | remove    | POST      | 1
+	// file       | modify    | POST      | 1
+	// log        |           | GET       | none
+	// log        | create    | POST      | 2
+	// log        | clear     | POST      | 2
+	// log        | remove    | POST      | 2
+	// log        | modify    | POST      | 2
+	// log        | construct | GET       | none
 	// ****************************************
 
 	// Response object that will be sent back
@@ -121,7 +123,7 @@
 
 		include "DB.php";
 
-		if ($method == "GET") { task_get(); }
+		if ($method == "GET" && count($routes) == 1) { task_get(); }
 
 		if (count($routes) == 2) {
 			if ($routes[1] == "create" && $method == "POST") { task_create(); }
@@ -129,6 +131,8 @@
 		 	if ($routes[1] == "remove" && $method == "POST") { task_remove(); }
 
 		 	if ($routes[1] == "modify" && $method == "POST") { task_modify(); }
+
+		 	if ($routes[1] == "construct" && $method == "GET") { task_construct(); }
 		}
 
 	}
@@ -151,7 +155,7 @@
 
 		include "DB.php";
 
-		if ($method == "GET") { log_get(); }
+		if ($method == "GET" && count($routes) == 1) { log_get(); }
 
 		if (count($routes) == 2) {
 			if ($routes[1] == "create" && $method == "POST") { log_create_direct(); }
@@ -161,6 +165,8 @@
 		 	if ($routes[1] == "remove" && $method == "POST") { log_remove(); }
 
 		 	if ($routes[1] == "modify" && $method == "POST") { log_modify(); }
+
+		 	if ($routes[1] == "construct" && $method == "GET") { log_construct(); }
 		}
 
 	}

@@ -47,15 +47,6 @@
         <input type="button" onclick="$('#log_clear').dialog('open');" value="Clear Log" class="item" />
       </fieldset>
       <div class="log">
-        <?php
-          $result = $GLOBALS["conn"]->query("SELECT logs.id, logs.date, users.name, logs.msg FROM logs INNER JOIN users ON logs.user = users.id ORDER BY `date` DESC");
-
-          if ($result->num_rows > 0) {
-            while($log = $result->fetch_assoc()) {
-              echo "<span class='msg' data-log-msg-id='" . $log["id"] . "'>(" . $log["date"] . ") : " . $log["name"] . " : " . $log["msg"] . "<br /></span>";
-            }
-          }
-        ?>
       </div>
     </div>
   </div>

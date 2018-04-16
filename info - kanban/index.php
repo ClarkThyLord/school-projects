@@ -37,6 +37,7 @@
 <body>
 
   <?php include "./php/configuration_menu.php" ?>
+  <?php include "./php/print_table.php" ?>
   <?php include "./php/table_menu.php" ?>
   <?php include "./php/task_menu.php" ?>
 
@@ -64,6 +65,9 @@
       <span class="tool selectable" onclick="$('#table_create').dialog('open');">
         Add +
       </span>
+			<label class="tool selectable" onclick="$('#print_table').dialog('open');">
+				Print Table
+			</label>
     </div>
   </div>
 
@@ -111,6 +115,7 @@
   <script src="./js/lib/jquery-ui-touch-punch.min.js"></script>
   <script src="./js/lib/jquery-ExtendedDialogs.js"></script>
   <script src="./js/lib/dragula.min.js"></script>
+  <script src="./js/lib/html2pdf.bundle.min.js"></script>
   <script src="./js/common/gui.js"></script>
   <script src="./js/common/user.js"></script>
   <script src="./js/index.js"></script>

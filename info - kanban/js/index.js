@@ -23,6 +23,46 @@ $(function() {
     });
   });
 
+  $("#Configuration_Menu").on("dialogopen", function(event, ui) {
+    $.get({
+      url: "./php/API.php/log/construct",
+      success: function(response) {
+        response = JSON.parse(response);
+        if (response.status === "success") {
+          $(".log").html(response.data.html);
+
+          if (prevent_popups == false) {
+            alert(response.reason);
+          }
+        } else {
+          if (prevent_popups == false) {
+            alert(response.reason);
+          }
+        }
+      }
+    });
+  });
+
+  $("#print_table").on("dialogopen", function(event, ui) {
+    $.get({
+      url: "./php/API.php/task/construct",
+      success: function(response) {
+        response = JSON.parse(response);
+        if (response.status === "success") {
+          $(".print-content").html(response.data.html);
+
+          if (prevent_popups == false) {
+            alert(response.reason);
+          }
+        } else {
+          if (prevent_popups == false) {
+            alert(response.reason);
+          }
+        }
+      }
+    });
+  });
+
   $("#task_file_dropzone").filedrop({
     fallback_id: "new_files",
     fallback_dropzoneClick: true,
