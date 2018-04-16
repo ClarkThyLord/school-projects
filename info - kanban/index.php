@@ -115,7 +115,8 @@
   <script src="./js/lib/jquery-ui-touch-punch.min.js"></script>
   <script src="./js/lib/jquery-ExtendedDialogs.js"></script>
   <script src="./js/lib/dragula.min.js"></script>
-  <script src="./js/lib/html2pdf.bundle.min.js"></script>
+  <script src="./js/lib/html2canvas.js"></script>
+  <script src="./js/lib/jspdf.debug.js"></script>
   <script src="./js/common/gui.js"></script>
   <script src="./js/common/user.js"></script>
   <script src="./js/index.js"></script>

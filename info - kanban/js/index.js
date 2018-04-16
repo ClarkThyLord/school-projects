@@ -1,6 +1,10 @@
-var drag_and_drop, prevent_popups = true;
+var html_pdf, drag_and_drop, prevent_popups = true;
 
 $(function() {
+  html_pdf = new jsPDF({
+    orientation: 'landscape'
+  });
+
   // Setup dialog menus(popups)
   $(".dialog-menu").each(function() {
     $(this).dialog({

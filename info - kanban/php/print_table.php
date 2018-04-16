@@ -23,7 +23,7 @@
 		</div>
 
     <fieldset class="bar">
-      <input type="button" value="Download PDF"  onclick="html2pdf($('.print-content')[0]);" class="item" />
+      <input type="button" value="Download PDF"  onclick="html_pdf.addHTML($('.print-content').get(0), function () { html_pdf.save('M2GO.pdf'); });" class="item" />
     </fieldset>
 	</div>
 </div>
