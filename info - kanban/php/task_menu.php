@@ -44,7 +44,7 @@
     </label>
     <div id="task_file_preview"></div>
     <fieldset class="bar">
-      <input type="button" value="Submit Changes" onclick="modifyTask(current_task, {classification : classification.value, latitude: latitude.value, longitude: longitude.value, summary: summary.value, urls: urls.value})" class="item" />
+      <input type="button" value="Submit Changes" onclick="let modified = getTaskData(); if (Object.keys(modified).length === 0) { return; } modifyTask(current_task, modified);" class="item" />
       <input type="button" value="Rename Task"  onclick="$('#task_rename').dialog('open');" class="item" /> |
       <input type="button" value="Remove Task"  onclick="$('#task_remove').dialog('open');" class="item" />
     </fieldset>
@@ -91,4 +91,8 @@
       <input type="button" value="Remove Task"  onclick="removeFile(current_file);" class="item" />
     </fieldset>
   </form>
+</div>
+
+<div class="dialog-menu" title="Preview File" id="file_preview">
+  <img class="content file-preview" src=""> </img>
 </div>

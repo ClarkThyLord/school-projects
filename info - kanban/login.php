@@ -35,17 +35,17 @@
 		<div class="card card-container">
 <!-- 			<center><p class="brand">Bienvenidos</p></center> -->
 			<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-  
+
 			<form class="form-signin">
-					<input type="text" id="inputEmail" class="form-control" placeholder=" Usuario" name="username" />
-					<input type="password" id="inputPassword" class="form-control" placeholder=" Contraseña" name="password" />
-					<div id="error_msg">      
-						
-					</div>
-					<br />
-					<button class="btn btn-lg btn-primary btn-block btn-signin" onclick="login(username.value, password.value);" value="Entrar" style="color:white">Entrar</button>
-					<!--     <button type="reset" value="Reset">Reset</button> -->
-  			</form>
+				<input type="text" id="inputEmail" class="form-control" placeholder=" Usuario" name="username" />
+				<input type="password" id="inputPassword" class="form-control" placeholder=" Contraseña" name="password" />
+				<div id="error_msg">
+
+				</div>
+				<br />
+				<input type="button" class="btn btn-lg btn-primary btn-block btn-signin" onclick="login(username.value, password.value);" value="Entrar"/>
+				<input type="reset" class="btn btn-lg btn-primary btn-block btn-signin" value="Resetiar" />
+			</form>
 		</div>
 	</div>
 

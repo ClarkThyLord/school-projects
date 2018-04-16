@@ -9,8 +9,8 @@ $(function() {
   $(".dialog-menu").each(function() {
     $(this).dialog({
       autoOpen: false,
-      width: window.innerWidth / 2,
-      height: window.innerHeight / 1.5,
+      width: window.innerWidth / 1.5,
+      height: window.innerHeight / 1.2,
       modal: true,
     });
   });
@@ -21,8 +21,8 @@ $(function() {
   $(".dialog-menu-mini").each(function() {
     $(this).dialog({
       autoOpen: false,
-      width: window.innerWidth / 2.7,
-      height: window.innerHeight / 2.2,
+      width: window.innerWidth / 2.2,
+      height: window.innerHeight / 1.7,
       modal: true,
     });
   });
@@ -116,7 +116,7 @@ $(function() {
       if (response.status === "success") {
         for (var file of Object.keys(response.data.files)) {
           file = response.data.files[file];
-          $("#task_file_preview").append('<div onclick="current_file = $(this).attr(\'data-file-id\');" class="file" data-table-id="' + current_table + '" data-task-id="' + current_task + '" data-file-id="' + file.id + '" data-file-url="' + file.url + '"> <span class="name selectable" onclick="var win = window.open($(this).parent().attr(\'data-file-url\'), \'_blank\'); win.focus();"> ' + file.name + ' </span> <input type="button" value="&#10006;" onclick="removeFile(' + file.id + ');" /> </div>');
+          $("#task_file_preview").append('<div onclick="current_file = $(this).attr(\'data-file-id\');" class="file" data-table-id="' + current_table + '" data-task-id="' + current_task + '" data-file-id="' + file.id + '" data-file-url="' + file.url + '"> <span class="name selectable" onclick="$(\'.file-preview\').attr(\'src\',\'' + file.url + '\'); $(\'#file_preview\').dialog(\'open\');"> ' + file.name + ' </span> <input type="button" value="&#10006;" onclick="removeFile(' + file.id + ');" /> </div>');
         }
 
         if (prevent_popups == false) {
@@ -578,6 +578,7 @@ function getAndSetTask(task_id) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === "success") {
+        $(".task_input[name='classification']").val(response.data.tasks[current_task].classification);
         $(".task_input[name='latitude']").val(response.data.tasks[current_task].latitude);
         $(".task_input[name='longitude']").val(response.data.tasks[current_task].longitude);
         $(".task_input[name='summary']").val(response.data.tasks[current_task].summary);
@@ -659,6 +660,35 @@ function removeTask(table_id, task_id) {
 
 
 /**
+ * Get task data from task menu.
+ * @return {undefined} Returns nothing.
+ */
+function getTaskData() {
+  const task_data = {
+    classification: undefined,
+    latitude: undefined,
+    longitude: undefined,
+    summary: undefined,
+    urls: undefined
+  }
+
+  for (let key of Object.keys(task_data)) {
+    let value = $(`.task_input[name="${key}"]`).val();
+
+    if (!([undefined, null, ""].includes(value))) {
+      task_data[key] = value;
+    } else {
+      delete task_data[key];
+    }
+  }
+
+  console.log(task_data);
+
+  return task_data;
+}
+
+
+/**
  * Modify a task.
  * @param {integer} task_id Task's ID.
  * @param {object} modifications Things going to be modified.
@@ -710,7 +740,7 @@ function getAndSetTaskFiles(task_id) {
       if (response.status === "success") {
         for (var file of Object.keys(response.data.files)) {
           file = response.data.files[file];
-          $("#task_file_preview").append('<div onclick="current_file = $(this).attr(\'data-file-id\');" class="file" data-table-id="' + current_table + '" data-task-id="' + current_task + '" data-file-id="' + file.id + '" > <span class="name selectable" onclick="var win = window.open(' + file.url + ', \'_blank\'); win.focus();"> ' + file.name + ' </span> <input type="button" value="&#10006;" onclick="removeFile(' + file.id + ');" /> </div>');
+          $("#task_file_preview").append('<div onclick="current_file = $(this).attr(\'data-file-id\');" class="file" data-table-id="' + current_table + '" data-task-id="' + current_task + '" data-file-id="' + file.id + '" > <span class="name selectable" onclick="$(\'.file-preview\').attr(\'src\',\'' + file.url + '\'); $(\'#file_preview\').dialog(\'open\');"> ' + file.name + ' </span> <input type="button" value="&#10006;" onclick="removeFile(' + file.id + ');" /> </div>');
         }
 
         if (prevent_popups == false) {
