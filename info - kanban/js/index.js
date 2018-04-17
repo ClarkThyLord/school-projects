@@ -1,6 +1,7 @@
 var html_pdf, drag_and_drop, prevent_popups = true;
 
 $(function() {
+  // Setup pdf.js
   html_pdf = new jsPDF({
     orientation: 'landscape'
   });
@@ -65,6 +66,15 @@ $(function() {
         }
       }
     });
+  });
+
+
+
+
+  $("#map_preview").dialog({
+    autoOpen: false,
+    width: window.innerWidth / 1.5,
+    height: window.innerHeight / 1.2,
   });
 
   $("#task_file_dropzone").filedrop({

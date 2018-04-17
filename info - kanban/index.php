@@ -41,32 +41,42 @@
   <?php include "./php/table_menu.php" ?>
   <?php include "./php/task_menu.php" ?>
 
+	<div class="dialog-menu" title="Vista Previa Del Mapa" id="map_preview">
+	  <form class="content">
+			<img src="./assets/map.jpg" />
+	  </form>
+	</div>
+
   <!-- Navigation Bar -->
   <div class="nav">
     <!-- Menu -->
     <div class="menu">
       <span class="title">
-        Metropoli2Go
+       <a href="index.php" ><img src="m2go_full.png" width="230px" height="37"></a>
       </span>
-      <span class="user selectable" onclick="$('#Configuration_Menu').dialog('open');" id="user">
-        <?php echo $_SESSION["user_data"]["name"]; ?>
+      <span class="item">
+				<input type="button" onclick="$('#Configuration_Menu').dialog('open');" value="<?php echo $_SESSION["user_data"]["name"]; ?>" />
+        <input type="button" onclick="logout();" value="Sign-out" />
       </span>
     </div>
     <!-- Toolbar -->
     <div class="toolbar">
       <label>
-        Search For Table:
-        <input type="text" class="tool" placeholder="Search term..." oninput="seachForTable(this.value);" />
+        Buscar Tabla:
+        <input type="text" class="tool" placeholder="buscar..." oninput="seachForTable(this.value);" />
       </label>
       <label>
-        Search For Task:
-        <input type="text" class="tool" placeholder="Search term..." oninput="seachForTask(this.value);" />
+        Buscar landmark:
+        <input type="text" class="tool" placeholder="buscar..." oninput="seachForTask(this.value);" />
       </label>
       <span class="tool selectable" onclick="$('#table_create').dialog('open');">
-        Add +
+        Agregar nuevo +
       </span>
+			<label class="tool selectable" onclick="$('#map_preview').dialog('open');">
+				Mostrar Mapa
+			</label>
 			<label class="tool selectable" onclick="$('#print_table').dialog('open');">
-				Print Table
+				Imprimir Tabla
 			</label>
     </div>
   </div>

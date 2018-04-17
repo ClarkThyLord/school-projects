@@ -34,7 +34,7 @@
 	<div class="container">
 		<div class="card card-container">
 <!-- 			<center><p class="brand">Bienvenidos</p></center> -->
-			<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+			<img id="profile-img" class="profile-img-card" src="./m2go.png"/>
 
 			<form class="form-signin">
 				<input type="text" id="inputEmail" class="form-control" placeholder=" Usuario" name="username" />

@@ -19,10 +19,13 @@
 
   // DB Credentials
   $server_name = "localhost";
-  $user_name = "root";
+
+	// Local
+	$user_name = "root";
   $password = "";
   $db_name = "kanban";
-  // $server_name = "localhost";
+
+	// // Server
   // $user_name = "metropoli2go";
   // $password = "metro2017!";
   // $db_name = "metropol_beta2go";

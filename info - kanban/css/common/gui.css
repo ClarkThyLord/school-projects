@@ -3,11 +3,11 @@
   color: var(--text-color);
   font-family: Montserrat;
   /* Variables */
-  --primary: rgba(23, 23, 23, 1);
-  --secondary: rgba(46, 46, 46, 1);
+  --primary: #EAEAEA;
+  --secondary: black;
   --choosen: rgba(14, 14, 14, 1);
-  --selected: rgba(70, 70, 70, 1);
-  --text-color: rgba(255, 255, 255, 1);
+  --selected: #e8eef7;
+  --text-color: #0f3d0c;
   --shadow-color: rgba(0, 0, 0, 1);
 }
 

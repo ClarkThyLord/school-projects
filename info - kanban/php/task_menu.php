@@ -4,7 +4,7 @@
 
     </div>
     <label>
-      Classification: <br />
+      Clasificación: <br />
       <select class="task_input selectable" name="classification">
         <option value="Geo/Historia">Geo/Historia</option>
         <option value="Actual">Actual</option>
@@ -17,29 +17,29 @@
     </label> <br />
     <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
       <label style="flex: 0.4;">
-        Latitude: <br />
+        Latitud: <br />
         <input type="number" placeholder="0.0" step="0.001" class="task_input" name="latitude" />
       </label>
       <label style="flex: 0.4;">
-        Longitude: <br />
+        Longitud: <br />
         <input type="number" placeholder="0.0" step="0.001" class="task_input" name="longitude" />
       </label> <br />
     </div>
     <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
       <label style="flex: 0.4;">
-        Summary: <br />
-        <textarea placeholder="A text summary goes here...." style="width: 100%;" class="task_input selectable" name="summary"></textarea>
+        Descripción: <br />
+        <textarea placeholder="Descripcion...." style="width: 100%;" class="task_input selectable" name="summary"></textarea>
       </label>
       <label style="flex: 0.4;">
         URLs: <br />
-        <textarea placeholder="Seperate URLs via ','...." style="width: 100%;" class="task_input selectable" name="urls"></textarea>
+        <textarea placeholder="Separar por comas'...." style="width: 100%;" class="task_input selectable" name="urls"></textarea>
       </label> <br />
     </div>
     <label>
-      Files:
+      Archivos:
       <input type="file" style="display: none;" class="task_input" id="new_files" />
       <div class="dropzone selectable" id="task_file_dropzone">
-        Drop Files Here or Click To Upload
+        Dar click o arrastrar archivo..
       </div>
     </label>
     <div id="task_file_preview"></div>
@@ -54,7 +54,7 @@
 <div class="dialog-menu-mini" title="Create Task" id="task_create">
   <form class="content">
     <label>
-      Task's Name:<br />
+      Landmark:<br />
       <input type="text" placeholder="Task's name..." name="task_name"/>
     </label>
     <fieldset class="bar">
@@ -66,7 +66,7 @@
 <div class="dialog-menu-mini" title="Rename Task" id="task_rename">
   <form class="content">
     <label>
-      Task's New Name:<br />
+      Nuevo nombre de landmark:<br />
       <input type="text" placeholder="Task's new name..." name="task_name"/>
     </label>
     <fieldset class="bar">
@@ -77,7 +77,7 @@
 
 <div class="dialog-menu-mini" title="Remove Task" id="task_remove">
   <form class="content">
-    Remove task?
+    Eliminar landmark?
     <fieldset class="bar">
       <input type="button" value="Remove Task"  onclick="removeTask(current_table, current_task);" class="item" />
     </fieldset>
@@ -86,7 +86,7 @@
 
 <div class="dialog-menu-mini" title="Remove File" id="file_remove">
   <form class="content">
-    Remove file?
+    Eliminar archivo?
     <fieldset class="bar">
       <input type="button" value="Remove Task"  onclick="removeFile(current_file);" class="item" />
     </fieldset>
