@@ -11,7 +11,6 @@
           <input type="text" oninput="seachForUser(this.value);" />
         </label> |
         <input type="button" onclick="$('#user_create').dialog('open');" value="New User" class="item" /> |
-        <input type="button" onclick="logout();" value="Sign-out" class="item" />
       </fieldset>
       <div class="users">
         <?php
@@ -30,9 +29,10 @@
             while($row = $result->fetch_assoc()) {
               $icon = "";
               if ($row["id"] == $_SESSION["user_data"]["id"]) {
-                $icon = "&#9733; ";
-              }
-              echo '<div class="user" onclick="current_user = $(this).attr(\'data-id\');" data-id="' . $row["id"] . '"><span class="header">' . $icon . '<span class="name">' . $row["name"] . '</span></span> <input type="button" onclick="$(\'#user_rename\').dialog(\'open\');" value="Rename" class="option" /> <input type="button" onclick="$(\'#user_repassword\').dialog(\'open\'); " value="Change Password" class="option" /> <input type="button" onclick="$(\'#user_reaccess\').dialog(\'open\');" value="Change Access Level" class="option" /> <input type="button" onclick="$(\'#user_remove\').dialog(\'open\'); " value="Remove" class="option" /> </div>';
+									echo '<div class="user" onclick="current_user = $(this).attr(\'data-id\');" data-id="' . $row["id"] . '"><span class="header"> &#9733; <span class="name">' . $row["name"] . '</span></span> <input type="button" onclick="$(\'#user_rename\').dialog(\'open\');" value="Rename" class="option" /> <input type="button" onclick="$(\'#user_repassword\').dialog(\'open\'); " value="Change Password" class="option" /> <input type="button" onclick="$(\'#user_reaccess\').dialog(\'open\');" value="Change Access Level" class="option" /> <input type="button" onclick="$(\'#user_remove\').dialog(\'open\'); " value="Remove" class="option" /> | <input type="button" onclick="logout();" value="Sign-out" class="item" /></div>';
+              } else {
+								echo '<div class="user" onclick="current_user = $(this).attr(\'data-id\');" data-id="' . $row["id"] . '"><span class="header"><span class="name">' . $row["name"] . '</span></span> <input type="button" onclick="$(\'#user_rename\').dialog(\'open\');" value="Rename" class="option" /> <input type="button" onclick="$(\'#user_repassword\').dialog(\'open\'); " value="Change Password" class="option" /> <input type="button" onclick="$(\'#user_reaccess\').dialog(\'open\');" value="Change Access Level" class="option" /> <input type="button" onclick="$(\'#user_remove\').dialog(\'open\'); " value="Remove" class="option" /> </div>';
+							}
             }
           }
         ?>
