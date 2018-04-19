@@ -75,6 +75,7 @@ $(function() {
     autoOpen: false,
     width: window.innerWidth / 1.5,
     height: window.innerHeight / 1.2,
+    modal: false,
   });
 
   $("#task_file_dropzone").filedrop({
@@ -441,7 +442,7 @@ function createTable(name) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === "success") {
-        var doms = '<div class="table" onclick="current_table = $(this).attr(\'data-table-id\');" data-table-id="' + response.data.table.id + '"> <div class="header"> <span class="name selectable" onclick="$(\'#table_rename\').dialog(\'open\')">' + response.data.table.name + '</span> <hr /> <label> Search: <br /> <input type="text" placeholder="Search term..." data-table-id="' + response.data.table.id + '" oninput="seachForTaskInTable(current_table, this.value);" /> </label> <br /><span class="item selectable" onclick="$(\'#table_remove\').dialog(\'open\');"> &#128465; </span> <span class="item selectable" onclick="$(\'#task_create\').dialog(\'open\');"> Add + </span> </div> <div class="dragula-container" data-table-id="' + response.data.table.id + '"></div> </div>';
+        var doms = '<div class="table" onclick="current_table = $(this).attr(\'data-table-id\');" data-table-id="' + response.data.table.id + '"> <div class="header"> <span class="name selectable" onclick="$(\'#table_rename\').dialog(\'open\')">' + response.data.table.name + '</span> <hr /><span class="item selectable" onclick="$(\'#table_remove\').dialog(\'open\');"> &#128465; </span> <span class="item selectable" onclick="$(\'#task_create\').dialog(\'open\');"> Add + </span> </div> <div class="dragula-container" data-table-id="' + response.data.table.id + '"></div> </div>';
 
         $(".kanban").append(doms);
         $("#table_create").dialog("close");
