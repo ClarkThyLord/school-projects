@@ -1,5 +1,8 @@
 <div class="dialog-menu" title="Modify Task" id="task_modify">
   <form class="content">
+    <div name="task_id">
+
+    </div>
     <div name="task_name">
 
     </div>

@@ -589,6 +589,8 @@ function getAndSetTask(task_id) {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === "success") {
+        $(".content div[name='task_id']").html("<b>" + response.data.tasks[current_task].id + "</b>");
+        $(".content div[name='task_name']").html("<i><b>" + response.data.tasks[current_task].name + "</b></i>");
         $(".task_input[name='classification']").val(response.data.tasks[current_task].classification);
         $(".task_input[name='latitude']").val(response.data.tasks[current_task].latitude);
         $(".task_input[name='longitude']").val(response.data.tasks[current_task].longitude);
