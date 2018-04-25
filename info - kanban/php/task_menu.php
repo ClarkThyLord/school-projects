@@ -1,10 +1,16 @@
 <div class="dialog-menu" title="Modify Task" id="task_modify">
   <form class="content">
-    <div name="task_id">
-
+    <div>
+			<span name="task_name">
+			</span>
     </div>
-    <div name="task_name">
+    <div>
+			<span>
+				ID:
+			</span>
 
+			<span name="task_id">
+			</span>
     </div>
     <label>
       Clasificación: <br />
