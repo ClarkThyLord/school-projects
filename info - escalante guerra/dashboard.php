@@ -32,12 +32,12 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
-              <li data-location="desk" onclick="content_change('desk');" class="nav-item">
+              <li data-location="desk" onclick="content_change('desk');" class="nav-item border-bottom">
                 <a href="#" class="nav-link active">
                   Escritorio
                 </a>
               </li>
-              <li data-location="desk" onclick="content_change('search');" style="display: none;" class="nav-item">
+              <li data-location="desk" onclick="content_change('search');" style="display: none;" class="nav-item border-bottom">
                 <a href="#" class="nav-link active">
                   Búsqueda
                 </a>
