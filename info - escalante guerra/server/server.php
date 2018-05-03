@@ -30,11 +30,11 @@
 		 // If that it's not a empty string and it's not this file
     if (trim($route) != '') {
 			// Check if route is this file; meaning head
-	    if ($route == basename(__FILE__)) {
+	    if ($route === basename(__FILE__)) {
 				$head = true;
 			}
 			// If true then route is valid
-			else if ($head == true) {
+			else if ($head === true) {
 				array_push($routes, $route);
 			}
     }
@@ -55,24 +55,24 @@
 	if (count($routes) <= 0){
     $GLOBALS['response']['status'] = 'failure';
     $GLOBALS['response']['reason'] = 'no valid endpoint given';
-	} else if ($routes[0] == 'user'){
-		if (count($routes) == 2) {
-			if ($routes[1] == 'login' && $_SERVER['REQUEST_METHOD'] == 'POST') {
+	} else if ($routes[0] === 'user'){
+		if (count($routes) === 2) {
+			if ($routes[1] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
 				include 'DB.php';
 
 				user_login();
 			}
 
-			if ($routes[1] == 'logout' && $_SERVER['REQUEST_METHOD'] == 'POST') {
-				  session_unset();
+			if ($routes[1] === 'logout' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+			  session_unset();
 
-			    $GLOBALS['response']['status'] = 'success';
-			    $GLOBALS['response']['reason'] = 'sucesfully logged out';
+		    $GLOBALS['response']['status'] = 'success';
+		    $GLOBALS['response']['reason'] = 'sucesfully logged out';
 			}
 		}
 	} else {
     $GLOBALS['response']['status'] = 'failure';
-    $GLOBALS['response']['reason'] = '`' . json_encode($routes[0]) . '` endpoint not found';
+    $GLOBALS['response']['reason'] = "`{$routes[0]}` endpoint not found";
 	}
 
 	send_response();
