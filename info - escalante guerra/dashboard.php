@@ -18,7 +18,7 @@
 		<!-- MENU BAR -->
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <a onclick="content_change('desk');" class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Escalante Guerra</a>
-      <input class="form-control form-control-dark w-100" type="text" placeholder="Buscar... (e.j. puestos, candidatos, requisiciones)" aria-label="Buscar">
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Buscar... (e.j. puestos, candidatos, requisiciones y registros)" aria-label="Buscar">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
           <a class="nav-link" href="#">Cerrar Sesión</a>
@@ -33,27 +33,32 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li data-location="desk" onclick="content_change('desk');" class="nav-item">
-                <a class="nav-link active" href="#">
+                <a href="#" class="nav-link active">
                   Escritorio
                 </a>
               </li>
+              <li data-location="desk" onclick="content_change('search');" style="display: none;" class="nav-item">
+                <a href="#" class="nav-link active">
+                  Búsqueda
+                </a>
+              </li>
               <li data-location="jobs" onclick="content_change('jobs');" class="nav-item">
-                <a class="nav-link" href="#">
+                <a href="#" class="nav-link">
                   Puestos
                 </a>
               </li>
               <li data-location="requisitions" onclick="content_change('requisitions');" class="nav-item">
-                <a class="nav-link" href="#">
+                <a href="#" class="nav-link">
                   Requisiciones
                 </a>
               </li>
               <li data-location="candidates" onclick="content_change('candidates');" class="nav-item">
-                <a class="nav-link" href="#">
+                <a href="#" class="nav-link">
                   Candidatos
                 </a>
               </li>
               <li data-location="logs" onclick="content_change('logs');" class="nav-item">
-                <a class="nav-link" href="#">
+                <a href="#" class="nav-link">
                   Registros
                 </a>
               </li>
@@ -73,7 +78,7 @@
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th>No.</th>
+                  <th>ID.</th>
                   <th>Publicado</th>
                   <th>Puesto</th>
                   <th>Activo</th>
@@ -116,7 +121,7 @@
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th>No.</th>
+                  <th>ID.</th>
                   <th>Creado</th>
                   <th>Empresa</th>
                   <th>Teléfono</th>
@@ -138,11 +143,101 @@
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th>Fecha.</th>
-                  <th>Hora</th>
+                  <th>Fecha y Hora</th>
                   <th>Responsable</th>
                   <th>Movimiento</th>
-                  <th>ID./No.</th>
+                  <th>Identificador</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+
+				<!-- SEARCH -->
+        <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="search">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Búsqueda</h1>
+          </div>
+
+          <h2>Puestos Coincidentes</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>ID.</th>
+                  <th>Publicado</th>
+                  <th>Puesto</th>
+                  <th>Activo</th>
+                  <th>Acciónes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>Requisiciones Coincidentes</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>ID.</th>
+                  <th>Creado</th>
+                  <th>Candidato</th>
+                  <th>Correo</th>
+                  <th>Puesto</th>
+                  <th>Archivo de CV</th>
+									<th>Activo</th>
+                  <th>Acciónes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>Candidatos Coincidentes</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>ID.</th>
+                  <th>Creado</th>
+                  <th>Empresa</th>
+                  <th>Teléfono</th>
+                  <th>Puesto</th>
+                  <th>Activo</th>
+                  <th>Acciónes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>Registros Coincidentes</h2>
+          <div class="table-responsive">
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>Fecha y Hora</th>
+                  <th>Responsable</th>
+                  <th>Movimiento</th>
+                  <th>Identificador</th>
                 </tr>
               </thead>
               <tbody>
@@ -163,7 +258,7 @@
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th>No.</th>
+                  <th>ID.</th>
                   <th>Publicado</th>
                   <th>Puesto</th>
                   <th>Activo</th>
@@ -216,7 +311,7 @@
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th>No.</th>
+                  <th>ID.</th>
                   <th>Creado</th>
                   <th>Empresa</th>
                   <th>Teléfono</th>
@@ -243,11 +338,10 @@
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th>Fecha.</th>
-                  <th>Hora</th>
+                  <th>Fecha y Hora</th>
                   <th>Responsable</th>
                   <th>Movimiento</th>
-                  <th>ID./No.</th>
+                  <th>Identificador</th>
                 </tr>
               </thead>
               <tbody>
