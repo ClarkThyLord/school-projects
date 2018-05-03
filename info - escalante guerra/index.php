@@ -18,7 +18,7 @@
 <body class="text-center">
 	<form class="form-signin">
 		<img class="mb-4" src="./assets/escalante_guerra_logo.jpg" alt="" width="125" height="125">
-		<h1 class="h3 mb-3 font-weight-normal">Please Sign In</h1>
+		<h1 class="h3 mb-3 font-weight-normal">Por Favor, Ingresar</h1>
 
 		<label for="inputEmail" class="sr-only">Insertar un correo electrónico válido</label>
 		<input type="email" id="inputEmail" class="form-control" placeholder="Correo electrónico..." required autofocus>
@@ -26,7 +26,7 @@
 		<label for="inputPassword" class="sr-only">Insertar contraseña válida</label>
 		<input type="password" id="inputPassword" class="form-control" placeholder="Contraseña..." required>
 
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
 	</form>
 </body>
 
