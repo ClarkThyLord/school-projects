@@ -41,7 +41,7 @@
 	}
 
 	// FOR DEBUGGING
-	if ($_SERVER['debugging'] === true) {
+	if ($_SERVER['debugging'] == true) {
 		// Setup debug spot in response
 		$GLOBALS['response']['debug'] = Array();
 
@@ -56,18 +56,19 @@
     $GLOBALS['response']['status'] = 'failure';
     $GLOBALS['response']['reason'] = 'no valid endpoint given';
 	} else if ($routes[0] === 'user'){
-		if (count($routes) === 2) {
-			if ($routes[1] === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-				include 'DB.php';
+		if (count($routes) === 2 && $_SERVER['REQUEST_METHOD'] === 'POST') {
+			switch ($routes[1]) {
+				case 'login':
+					include 'DB.php';
 
-				user_login();
-			}
+					user_login();
+					break;
+				case 'logout':
+					session_unset();
 
-			if ($routes[1] === 'logout' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-			  session_unset();
-
-		    $GLOBALS['response']['status'] = 'success';
-		    $GLOBALS['response']['reason'] = 'sucesfully logged out';
+					$GLOBALS['response']['status'] = 'success';
+					$GLOBALS['response']['reason'] = 'sucesfully logged out';
+					break;
 			}
 		}
 	} else {
@@ -76,6 +77,7 @@
 	}
 
 	send_response();
+
 
 	/**
 	* Echo current resopnse end exit.
