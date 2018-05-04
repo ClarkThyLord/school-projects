@@ -94,10 +94,11 @@
 								$GLOBALS['response']['data']['password'] = true;
 
 								// Setup user data for session
-								$_SESSION['user_data'] = array('id' => $user['id'], 'username' => $user['username'], 'access' => $user['access']);
+								$_SESSION['user'] = array('id' => $user['id'], 'username' => $user['username'], 'access' => $user['access']);
 
 								$GLOBALS['response']['status'] = 'success';
 								$GLOBALS['response']['reason'] = 'sucesfully logged in';
+
 								break;
 							} else {
 								$GLOBALS['response']['status'] = 'failure';

@@ -1,4 +1,15 @@
-<!doctype html>
+<?php
+	// Initialize session if not already
+	if(!isset($_SESSION)) {
+		session_start();
+	}
+
+	// Check if client is in a session
+  if (array_key_exists('user', $_SESSION) && !empty($_SESSION['user'])) {
+		header('Location: dashboard.php');
+  }
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>

@@ -73,8 +73,8 @@
 	    session_start();
 	  }
 
-		// Check if user isn't in a session
-		if ((!array_key_exists('user', $_SESSION) || empty($_SESSION['user'])) && $_SESSION["user_data"]["access"] >= $required_level) {
+		// Check if client isn't in a session
+		if ((!array_key_exists('user', $_SESSION) || empty($_SESSION['user'])) && $_SESSION["user"]["access"] >= $required_level) {
 			$GLOBALS['response']['status'] = 'failure';
 			$GLOBALS['response']['reason'] = 'access not granted';
 
