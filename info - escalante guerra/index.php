@@ -20,10 +20,7 @@
 		<img class="mb-4" src="./assets/escalante_guerra_logo.jpg" alt="" width="125" height="125" />
 		<h1 class="h3 mb-3 font-weight-normal">Por Favor, Ingresar</h1>
 
-		<label for="username_input" class="sr-only">Inserte su nombre de usuario</label>
-		<input type="text" oninvalid="this.setCustomValidity('Por favor, inserte su nombre de usuario')" id="username_input" class="form-control" placeholder="Nombre de usuario..." required autofocus />
-
-		<label for="password_input" class="sr-only">Insertar contraseña válida</label>
+		<input type="text" onchange="try { setCustomValidity(''); } catch (e) {}" oninvalid="this.setCustomValidity('Por favor, inserte su nombre de usuario');" id="username_input" class="form-control" placeholder="Nombre de usuario..." required autofocus />
 		<input type="password" id="password_input" class="form-control" placeholder="Contraseña..." />
 
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>

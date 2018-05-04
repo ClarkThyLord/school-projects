@@ -3,6 +3,7 @@
 	// ~ API Endpoints ~
 	// Main:      | Sub:     | Methods:  | Access:
 	// -------------------------------------------
+	// db         | setup     | POST      | none
 	// user       | login     | POST      | none
 	// user       | logout    | POST      | none
 	// *******************************************
@@ -41,7 +42,7 @@
 	}
 
 	// FOR DEBUGGING
-	if ((array_key_exists('debugging', $_GET) || !empty($_GET['debugging'])) && $_GET['debugging'] == true) {
+	if (is_debugging()) {
 		// Setup debug spot in response
 		$GLOBALS['response']['debug'] = Array();
 
@@ -52,17 +53,40 @@
 	// Call according to client's request
 	// ***************************************************************************
 
-	if (count($routes) <= 0){
+	if (count($routes) <= 0) {
     $GLOBALS['response']['status'] = 'failure';
     $GLOBALS['response']['reason'] = 'no valid endpoint given';
-	} else if ($routes[0] === 'user'){
+	} else if ($routes[0] === 'db') {
+		if (count($routes) === 2 && $_SERVER['REQUEST_METHOD'] === 'POST') {
+			switch ($routes[1]) {
+				case 'setup':
+					// DB SETUP
+					// *******************************************************************
+
+					include_once './db/db.php';
+
+					database_setup();
+
+					break;
+			}
+		}
+	} else if ($routes[0] === 'user') {
 		if (count($routes) === 2 && $_SERVER['REQUEST_METHOD'] === 'POST') {
 			switch ($routes[1]) {
 				case 'login':
+					// USER LOGIN
+					// *******************************************************************
+
 					include_once './db/db.php';
 
 					// Get all users with given username
-					$result = $GLOBALS['conn']->query("SELECT * FROM `users` WHERE `name` =  '{$_POST['username']}'");
+					$sql = "SELECT * FROM `users` WHERE `username` =  '{$_POST['username']}'";
+
+					if (is_debugging()) {
+						$GLOBALS['response']['debug']['sql'] = $sql;
+					}
+
+					$result = $GLOBALS['conn']->query($sql);
 					if ($result->num_rows > 0) {
 						$GLOBALS['response']['data']['username'] = true;
 						while ($user = $result->fetch_assoc()) {
@@ -70,7 +94,7 @@
 								$GLOBALS['response']['data']['password'] = true;
 
 								// Setup user data for session
-								$_SESSION['user_data'] = array('id' => $user['id'], 'name' => $user['name'], 'access' => $user['access']);
+								$_SESSION['user_data'] = array('id' => $user['id'], 'username' => $user['username'], 'access' => $user['access']);
 
 								$GLOBALS['response']['status'] = 'success';
 								$GLOBALS['response']['reason'] = 'sucesfully logged in';
@@ -87,6 +111,9 @@
 
 					break;
 				case 'logout':
+					// USER LOGOUT
+					// *******************************************************************
+
 					session_unset();
 
 					$GLOBALS['response']['status'] = 'success';
@@ -100,6 +127,15 @@
 	}
 
 	send_response();
+
+	/**
+	* Check whether currently debugging.
+	* @return {boolean} Returns true, if debugging; false, if not debugging.
+	*/
+	function is_debugging() {
+		return (array_key_exists('debugging', $_GET) || !empty($_GET['debugging'])) && $_GET['debugging'] == true;
+	}
+
 
 	/**
 	* Echo current resopnse end exit.

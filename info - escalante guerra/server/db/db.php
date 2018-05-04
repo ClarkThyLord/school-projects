@@ -1,21 +1,5 @@
 <?php
 
-	// Check if current client has valid access
-	// ***************************************************************************
-
-	// Initialize session if not already
-  if (!isset($_SESSION)) {
-    session_start();
-  }
-
-	// Check if user isn't in a session
-	if (!array_key_exists('user', $_SESSION) || empty($_SESSION['user'])) {
-		$GLOBALS['response']['status'] = 'failure';
-		$GLOBALS['response']['reason'] = 'access not granted';
-
-		send_response();
-	}
-
 	// Credentials
   // ***************************************************************************
 
@@ -46,7 +30,7 @@
   }
 
 	// Check for database, and create it if it's not available
-	if ($mysqli->select_db($db_name) === false) {
+	if ($GLOBALS['conn']->select_db($db_name) === false) {
 		if ($conn->query("CREATE DATABASE {$db_name}") === true) {
 			// Temporary variable, used to store current query
 			$templine = '';
@@ -75,6 +59,29 @@
 		}
 	}
 
+ 	// Functions relative to SQL database
+   // ***************************************************************************
+
+	/**
+	* Checks whether client has required level of access; deny request if insufficient access level.
+	* @param {integer} required_level Level of access required.
+	* @return {boolean} Returns nothing.
+	*/
+	function access_check($required_level=0) {
+		// Initialize session if not already
+	  if (!isset($_SESSION)) {
+	    session_start();
+	  }
+
+		// Check if user isn't in a session
+		if ((!array_key_exists('user', $_SESSION) || empty($_SESSION['user'])) && $_SESSION["user_data"]["access"] >= $required_level) {
+			$GLOBALS['response']['status'] = 'failure';
+			$GLOBALS['response']['reason'] = 'access not granted';
+
+			send_response();
+		}
+	}
+
 	// Functions relative to SQL database
   // ***************************************************************************
 
@@ -89,6 +96,35 @@
 		}
 
 		$GLOBALS['conn']->close();
+	}
+
+
+	/**
+	* Setup SQL database's tables.
+	* @return {undefined} Returns nothing.
+	*/
+	function database_setup() {
+		access_check(2);
+
+		// Temporary variable, used to store current query
+		$templine = '';
+		// Read the entire file
+		$lines = file('./db_structure.sql');
+		// Loop through each line
+		foreach ($lines as $line) {
+			// Skip it if it's a comment
+			if (substr($line, 0, 2) == '--' || $line == '') { continue; }
+
+			// Add this line to the current segment
+			$templine .= $line;
+			// If it has a semicolon at the end, it's the end of the query
+			if (substr(trim($line), -1, 1) == ';') {
+					// Perform the query
+					mysql_query($templine) or print('Error performing query \'<strong>' . $templine . '\': ' . mysql_error() . '<br /><br />');
+					// Reset temp variable to empty
+					$templine = '';
+			}
+		}
 	}
 
 ?>

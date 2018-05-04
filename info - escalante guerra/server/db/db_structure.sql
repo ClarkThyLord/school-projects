@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 04, 2018 at 12:07 AM
+-- Generation Time: May 04, 2018 at 01:51 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -124,6 +124,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `username` text NOT NULL,
   `password` text NOT NULL,
+  `access` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
@@ -131,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `created`, `username`, `password`) VALUES (1, CURRENT_TIMESTAMP, 'root', '');
+INSERT INTO `users` (`id`, `created`, `username`, `password`, `access`) VALUES (1, CURRENT_TIMESTAMP, 'root', '', 2);
 
 COMMIT;
 

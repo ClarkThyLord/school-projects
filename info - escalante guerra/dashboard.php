@@ -20,7 +20,7 @@
       <a onclick="content_change('desk');" class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Escalante Guerra</a>
       <input class="form-control form-control-dark w-100" type="text" placeholder="Buscar... (e.j. puestos, candidatos, requisiciones y registros)" aria-label="Buscar">
       <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
+        <li onclick="logout();" class="nav-item text-nowrap">
           <a class="nav-link" href="#">Cerrar Sesión</a>
         </li>
       </ul>
