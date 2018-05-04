@@ -28,7 +28,7 @@ function login(username, password) {
  * @return {undefined} Returns nothing.
  */
 function logout() {
-  $.ajax({
+  $.post({
     url: './server/server.php/user/logout',
     success: function(response) {
       window.location.href = './index.php';

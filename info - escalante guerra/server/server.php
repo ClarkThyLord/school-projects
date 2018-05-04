@@ -41,7 +41,7 @@
 	}
 
 	// FOR DEBUGGING
-	if ($_SERVER['debugging'] == true) {
+	if ((array_key_exists('debugging', $_GET) || !empty($_GET['debugging'])) && $_GET['debugging'] == true) {
 		// Setup debug spot in response
 		$GLOBALS['response']['debug'] = Array();
 
@@ -59,7 +59,7 @@
 		if (count($routes) === 2 && $_SERVER['REQUEST_METHOD'] === 'POST') {
 			switch ($routes[1]) {
 				case 'login':
-					include_once 'DB.php';
+					include_once './db/db.php';
 
 					// Get all users with given username
 					$result = $GLOBALS['conn']->query("SELECT * FROM `users` WHERE `name` =  '{$_POST['username']}'");

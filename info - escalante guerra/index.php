@@ -16,15 +16,15 @@
 </head>
 
 <body class="text-center">
-	<form onsubmit="login(inputEmail.value, inputPassword.value); return false;" class="form-signin">
-		<img class="mb-4" src="./assets/escalante_guerra_logo.jpg" alt="" width="125" height="125">
+	<form onsubmit="login(username_input.value, password_input.value); return false;" class="form-signin">
+		<img class="mb-4" src="./assets/escalante_guerra_logo.jpg" alt="" width="125" height="125" />
 		<h1 class="h3 mb-3 font-weight-normal">Por Favor, Ingresar</h1>
 
-		<label for="inputEmail" class="sr-only">Insertar un correo electrónico válido</label>
-		<input type="email" id="inputEmail" class="form-control" placeholder="Correo electrónico..." required autofocus>
+		<label for="username_input" class="sr-only">Inserte su nombre de usuario</label>
+		<input type="text" oninvalid="this.setCustomValidity('Por favor, inserte su nombre de usuario')" id="username_input" class="form-control" placeholder="Nombre de usuario..." required autofocus />
 
-		<label for="inputPassword" class="sr-only">Insertar contraseña válida</label>
-		<input type="password" id="inputPassword" class="form-control" placeholder="Contraseña..." required>
+		<label for="password_input" class="sr-only">Insertar contraseña válida</label>
+		<input type="password" id="password_input" class="form-control" placeholder="Contraseña..." />
 
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
 	</form>

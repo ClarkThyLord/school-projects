@@ -84,7 +84,7 @@
 	*/
 	function conn_close() {
 		// FOR DEBUGGING
-		if ($_SERVER['debugging'] == true) {
+		if ((array_key_exists('debugging', $_GET) || !empty($_GET['debugging'])) && $_GET['debugging'] == true) {
 			$GLOBALS['response']['debug']['SQL'] = 'connection closed';
 		}
 
