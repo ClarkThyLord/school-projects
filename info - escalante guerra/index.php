@@ -16,7 +16,7 @@
 </head>
 
 <body class="text-center">
-	<form class="form-signin">
+	<form onsubmit="login(inputEmail.value, inputPassword.value); return false;" class="form-signin">
 		<img class="mb-4" src="./assets/escalante_guerra_logo.jpg" alt="" width="125" height="125">
 		<h1 class="h3 mb-3 font-weight-normal">Por Favor, Ingresar</h1>
 
@@ -28,6 +28,12 @@
 
 		<button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
 	</form>
+
+	<!-- JS Libraries -->
+	<script src="./js/libs/jquery-3.3.1.min.js"></script>
+
+	<!-- Custom JS -->
+	<script src="./js/common.js"></script>
 </body>
 
 </html>
