@@ -298,7 +298,7 @@
       </main>
 
 			<!-- JOBS -->
-      <main role="main" style="display: none;" class="page-content ccol-md-9 ml-sm-auto col-lg-10 px-4" id="jobs">
+      <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="jobs">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Puestos</h1>
         </div>
@@ -323,7 +323,7 @@
       </main>
 
 			<!-- REQUISITIONS -->
-      <main role="main" style="display: none;" class="page-content ccol-md-9 ml-sm-auto col-lg-10 px-4" id="requisitions">
+      <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="requisitions">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Requisiciones</h1>
         </div>
@@ -351,7 +351,7 @@
       </main>
 
 			<!-- CANDIDATES -->
-      <main role="main" style="display: none;" class="page-content ccol-md-9 ml-sm-auto col-lg-10 px-4" id="candidates">
+      <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="candidates">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Candidatos</h1>
         </div>
@@ -378,7 +378,7 @@
       </main>
 
 			<!-- LOGS -->
-      <main role="main" style="display: none;" class="page-content ccol-md-9 ml-sm-auto col-lg-10 px-4" id="logs">
+      <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="logs">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Vitácora</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
@@ -407,7 +407,7 @@
       </main>
 
 			<!-- USERS -->
-      <main role="main" style="display: none;" class="page-content ccol-md-9 ml-sm-auto col-lg-10 px-4" id="users">
+      <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="users">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Usuarios</h1>
         </div>
@@ -416,7 +416,7 @@
             <thead>
               <tr>
                 <th>ID.</th>
-                <th>Fecha y Hora</th>
+                <th>Creado</th>
                 <th>Nombre</th>
                 <th>Acceso</th>
                 <th>Acciónes</th>
