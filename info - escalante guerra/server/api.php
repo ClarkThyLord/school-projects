@@ -83,9 +83,7 @@
 	function access_check($required_level=0) {
 		// Check if client isn't in a session
 		if (isset($_SESSION['user']) && $_SESSION["user"]["access"] >= $required_level) {
-			response_status(false, 'access not granted');
-
-			response_send();
+			response_send(false, 'access not granted');
 		}
 	}
 
@@ -122,9 +120,13 @@
 
 	/**
 	* Echo current resopnse end exit.
+	* @param status [boolean] True, response is sucesfull; False, response is unsucesfull.
+	* @param reason [string] Reason for given status.
 	* @return {undefined} Returns nothing.
 	*/
-	function response_send() {
+	function response_send($status, $reason) {
+		if ($status) { response_status($status, $reason); }
+
 		// Close connection to SQL database if any
 		conn_close();
 

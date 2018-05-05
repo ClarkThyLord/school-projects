@@ -30,9 +30,7 @@
 
 	// Check connection
   if ($GLOBALS['conn']->connect_error) {
-		response_status(false, "connection to SQL server couldn't be initialize\n{$conn->connect_error}");
-
-		response_send();
+		response_send(false, "connection to SQL server couldn't be initialize\n{$conn->connect_error}");
   }
 
 	// FOR DEBUGGING
@@ -86,9 +84,7 @@
 				$GLOBALS['response']['debug']['database']['setup'] = 'finished setting up SQL database and tables';
 			}
 		} else {
-			response_status(false, 'SQL database couldn\'t be setup');
-
-			response_send();
+			response_send(false, 'SQL database couldn\'t be setup');
 		}
 	}
 
