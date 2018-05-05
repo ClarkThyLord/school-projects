@@ -3,9 +3,13 @@
 	// ~ API Endpoints ~
 	// Main:      | Sub:     | Methods:  | Access:
 	// -------------------------------------------
-	// database   | setup     | POST      | 2
+	// database   | setup     | POST      | 2^
+	// users      | get    	  | GET       | none
 	// users      | login     | POST      | none
 	// users      | logout    | POST      | none
+	// users      | add    	  | POST      | 2^
+	// users      | modify    | POST      | self, 2^
+	// users      | remove    | POST      | 2^
 	// *******************************************
 
 	// Initialize session if not already
@@ -82,6 +86,21 @@
 			response_status(false, 'access not granted');
 
 			response_send();
+		}
+	}
+
+
+	/**
+	* Checks whether client has required level of access.
+	* @param {integer} required_level Level of access required.
+	* @return {boolean} Returns True, if client has required access level; False, if client doesn't have required access level.
+	*/
+	function access_level_check($required_level=0) {
+		// Check if client isn't in a session
+		if (isset($_SESSION['user']) && $_SESSION["user"]["access"] >= $required_level) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 
