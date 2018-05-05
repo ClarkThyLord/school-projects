@@ -85,30 +85,31 @@
 	* @param data [array] Data to create user with.
 	* @return {undefined} Returns nothing.
 	*/
-	function user_add($data=array(), $options=array()) {
+	function user_add($data=array()) {
+    access_check(2);
 
-    // Check for access
-    if (!check_access(2)) {
-      $GLOBALS['response']['status'] = 'access denied';
-      $GLOBALS['response']['reason'] = 'insufficient access level';
-      send_response();
-    }
+    $sql = "INSERT INTO `users` (`id`, `created`, `username`, `password`, `access`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["username"]}', '{$data["password"]}', '{$data["access"]}')";
 
-    $sql = "INSERT INTO `users` (`id`, `name`, `password`, `access`) VALUES (NULL, '{$_POST["name"]}', '{$_POST["password"]}', '{$_POST["access"]}')";
-    // FOR DEBUGGING
-    $GLOBALS['response']['sql'] = $sql;
+		// FOR DEBUGGING
+		if (is_debugging()) {
+			array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+		}
+
     if ($GLOBALS['conn']->query($sql) === TRUE) {
       $insert_id = $GLOBALS['conn']->insert_id;
-      log_create('sucesfully created user `id` : ' . $insert_id);
-      $sql = "SELECT `id`, `name` FROM `users` WHERE `id` = '{$insert_id}' LIMIT 1";
-      // FOR DEBUGGING
-      $GLOBALS['response']['sub_sql'] = $sql;
+
+      $sql = "SELECT `id`, `username` FROM `users` WHERE `id` = '{$insert_id}' LIMIT 1";
+
+			// FOR DEBUGGING
+			if (is_debugging()) {
+				array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+			}
+
       $GLOBALS['response']['data']['user'] = $GLOBALS['conn']->query($sql)->fetch_assoc();
-      $GLOBALS['response']['status'] = 'success';
-      $GLOBALS['response']['reason'] = 'sucesfully created user';
+
+			response_status(true, 'sucesfully created user');
     } else {
-      $GLOBALS['response']['status'] = 'failure';
-      $GLOBALS['response']['reason'] = 'unsucesfully created user';
+			response_status(false, 'unsucesfully added user');
     }
 	}
 
