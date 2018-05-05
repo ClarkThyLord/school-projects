@@ -16,7 +16,7 @@
 	// Local Credentials
 	$user_name = 'root';
   $password = '';
-  $db_name = 'eg';
+  $db_name = 'test';
 
 	// Server Credentials
   // $user_name = '';
@@ -49,13 +49,15 @@
 		}
 
 		if ($conn->query("CREATE DATABASE {$db_name}") === true) {
+			$GLOBALS['conn']->select_db($db_name);
+
 			// FOR DEBUGGING
 			if (is_debugging()) {
 				$GLOBALS['response']['debug']['database']['setup'] = 'created SQL database';
 			}
 
 			// Temporary variable, used to store current query
-			$templine = '';
+			$sql = '';
 			// Read the entire file
 			$lines = file('./db/db_structure.sql');
 			// Loop through each line
@@ -64,13 +66,19 @@
 				if (substr($line, 0, 2) == '--' || $line == '') { continue; }
 
 				// Add this line to the current segment
-				$templine .= $line;
+				$sql .= $line;
 				// If it has a semicolon at the end, it's the end of the query
 				if (substr(trim($line), -1, 1) == ';') {
 						// Perform the query
-						mysql_query($templine) or print('Error performing query \'<strong>' . $templine . '\': ' . mysql_error() . '<br /><br />');
+						$GLOBALS["conn"]->query($sql) or print('Error performing query \'<strong>' . $sql . '\': ' . mysql_error() . '<br /><br />');
+
+						// FOR DEBUGGING
+						if (is_debugging()) {
+							array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+						}
+
 						// Reset temp variable to empty
-						$templine = '';
+						$sql = '';
 				}
 			}
 
