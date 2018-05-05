@@ -57,6 +57,7 @@
 
     $filter_sql = ' WHERE 1';
     foreach ($filter as $key => $value) {
+			if ($key === 'password') { continue; }
       $filter_sql .= " AND `{$key}` = '{$value}'";
     }
 
@@ -127,54 +128,62 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function user_modify($user_id=0, $data=array()) {
-   if ($user_id !== $_SESSION['user']['id'] || !access_level_check(2);) {
+		if ($user_id !== $_SESSION['user']['id'] || !access_level_check(2);) {
 		 access_check(2);
-	 }	else if ($user_id === 0) {
+		}	else if ($user_id === 0) {
 		 response_send(false, 'user ID wasn\'t given');
-	 } else if (count($data) === 0) {
+		} else if (count($data) === 0) {
 		 response_send(false, 'data to modify user with wasn\'t given');
-	 }
+		}
 
-   $data_sql = array();
-	 $valid_keys = array('username', 'password', 'access');
-   foreach ($_POST as $key => $value) {
-     if (!array_key_exists($key, $valid_keys) || ($key === 'access' || !access_level_check(2))) { continue; } else {
-       array_push($data_sql, "`{$key}` = '{$value}'");
-     }
-	 }
+		$data_sql = array();
+		$valid_keys = array('username', 'password', 'access');
+		foreach ($_POST as $key => $value) {
+		 if (!array_key_exists($key, $valid_keys) || ($key === 'access' || !access_level_check(2))) { continue; } else {
+		   array_push($data_sql, "`{$key}` = '{$value}'");
+		 }
+		}
 
-   $sql = "UPDATE `users` SET {join(", ", $data_sql)} WHERE `id` = {$user_id}";
+		$sql = "UPDATE `users` SET {join(", ", $data_sql)} WHERE `id` = {$user_id}";
 
-	 // FOR DEBUGGING
-	 if (is_debugging()) {
+		// FOR DEBUGGING
+		if (is_debugging()) {
 		 array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
-	 }
+		}
 
-	 if ($GLOBALS["conn"]->query($sql) === true) {
-     response_status(true, 'sucesfully modified user');
-   } else {
+		if ($GLOBALS["conn"]->query($sql) === true) {
+		 response_status(true, 'sucesfully modified user');
+		} else {
 		 response_status(false, 'unsucesfully modified user');
-   }
+		}
 	}
 
 
 	/**
-	* Remove a user in the SQL database.
-	* @param identifier [array] Properties to identify user(s) with.
+	* Remove a user from the SQL database.
+	* @param user_id [string] ID of user to be removed.
 	* @return {undefined} Returns nothing.
 	*/
-	function user_remove($identifier=array()) {
-		access_level_check(2);
+	function user_remove($user_id=0) {
+		if ($user_id !== $_SESSION['user']['id'] || !access_level_check(2);) {
+		 access_check(2);
+		}	else if ($user_id === 0) {
+		 response_send(false, 'user ID wasn\'t given');
+		}
 
-    $sql = 'DELETE FROM `users` WHERE `users`.`id` = ' . $_POST['user_id'];
-    if ($GLOBALS['conn']->query($sql) == True) {
-      log_create('sucesfully removed user `id` : ' . $_POST['user_id']);
-      $GLOBALS['response']['data']['user_id'] = $_POST['user_id'];
-      $GLOBALS['response']['status'] = 'success';
-      $GLOBALS['response']['reason'] = 'sucesfully removed user';
+    $sql = "DELETE FROM `users` WHERE `id` = {$user_id}";
+
+		// FOR DEBUGGING
+		if (is_debugging()) {
+		 array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+		}
+
+		if ($GLOBALS['conn']->query($sql) == True) {
+      $GLOBALS['response']['data']['id'] = $user_id;
+
+			response_status(true, 'sucesfully removed user');
     } else {
-      $GLOBALS['response']['status'] = 'failure';
-      $GLOBALS['response']['reason'] = 'unsucesfully removed user';
+			response_status(false, 'unsucesfully removed user');
     }
 	}
 
