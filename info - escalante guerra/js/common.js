@@ -1,3 +1,5 @@
+var DEBUGGING = true;
+
 /**
  * Log in with given credentials.
  * @param {string} username Username to login with.
@@ -6,7 +8,7 @@
  */
 function login(username, password) {
   $.post({
-    url: './server/server.php/user/login',
+    url: './server/api.php/users/login?debug=' + DEBUGGING,
     data: {
       'username': username,
       'password': password
@@ -29,7 +31,7 @@ function login(username, password) {
  */
 function logout() {
   $.post({
-    url: './server/server.php/user/logout',
+    url: './server/api.php/users/logout?debug=' + DEBUGGING,
     success: function(response) {
       window.location.href = './index.php';
     }
