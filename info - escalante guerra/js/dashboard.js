@@ -1,8 +1,3 @@
-window.onload = function() {
-  console.log('PAGE LOADED\n---');
-};
-
-
 /**
  * Change to content via their tag.
  * @param {string} content Content's tag.

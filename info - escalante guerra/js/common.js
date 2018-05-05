@@ -1,5 +1,9 @@
 var DEBUGGING = true;
 
+window.onload = function() {
+  console.log('PAGE LOADED\n---');
+};
+
 /**
  * Log in with given credentials.
  * @param {string} username Username to login with.

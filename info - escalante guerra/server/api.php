@@ -79,11 +79,25 @@
 	function access_check($required_level=0) {
 		// Check if client isn't in a session
 		if (isset($_SESSION['user']) && $_SESSION["user"]["access"] >= $required_level) {
-			$GLOBALS['response']['status'] = 'failure';
-			$GLOBALS['response']['reason'] = 'access not granted';
+			response_status(false, 'access not granted');
 
-			send_response();
+			response_send();
 		}
+	}
+
+
+	/**
+	* Modify response's status and reason.
+	* @param status [boolean] True, response is sucesfull; False, response is unsucesfull.
+	* @param reason [string] Reason for given status.
+	* @return {undefined} Returns nothing.
+	*/
+	function response_status($status=true, $reason='unknown') {
+		if ($status === true) { $status = 'success'; }
+		else { $status = 'failure'; }
+
+		$GLOBALS['response']['status'] = $status;
+		$GLOBALS['response']['reason'] = $reason;
 	}
 
 
@@ -91,7 +105,7 @@
 	* Echo current resopnse end exit.
 	* @return {undefined} Returns nothing.
 	*/
-	function send_response() {
+	function response_send() {
 		// Close connection to SQL database if any
 		conn_close();
 
@@ -106,8 +120,7 @@
 	// ***************************************************************************
 
 	if (count($routes) <= 0) {
-    $GLOBALS['response']['status'] = 'failure';
-    $GLOBALS['response']['reason'] = 'no valid endpoint given';
+		response_status(false, 'no valid endpoint given');
 	} else if ($routes[0] === 'database') {
 		include_once './endpoints/database.php';
 
@@ -132,10 +145,9 @@
 			}
 		}
 	} else {
-    $GLOBALS['response']['status'] = 'failure';
-    $GLOBALS['response']['reason'] = '`{$routes[0]}` endpoint not found';
+		response_status(false, "`{$routes[0]}` endpoint not found");
 	}
 
-	send_response();
+	response_send();
 
 ?>
