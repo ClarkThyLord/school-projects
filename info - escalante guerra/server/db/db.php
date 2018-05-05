@@ -2,7 +2,7 @@
 
 	// FOR DEBUGGING
 	if (is_debugging()) {
-		$GLOBALS['response']['debug']['database'] = array();
+		$GLOBALS['response']['debug']['database'] = array('sql' => array());
 
 		$GLOBALS['response']['debug']['database']['setup'] = false;
 	}

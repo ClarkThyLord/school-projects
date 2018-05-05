@@ -8,6 +8,11 @@
 	// users      | logout    | POST      | none
 	// *******************************************
 
+	// Initialize session if not already
+	if (!isset($_SESSION)) {
+		session_start();
+	}
+
 	// Response object that will be sent back
 	$response = array('status' => 'success', 'reason' => 'initial response', 'data' => array());
 
@@ -62,7 +67,7 @@
 	* @return {boolean} Returns true, if debugging; false, if not debugging.
 	*/
 	function is_debugging() {
-		return (array_key_exists('debugging', $_GET) || !empty($_GET['debugging'])) && $_GET['debugging'] == true;
+		return (array_key_exists('debug', $_GET) || !empty($_GET['debug'])) && $_GET['debug'] == true;
 	}
 
 

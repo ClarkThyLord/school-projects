@@ -8,8 +8,9 @@
 		// Get all users with given username
 		$sql = "SELECT * FROM `users` WHERE `username` =  '{$_POST['username']}'";
 
+		// FOR DEBUGGING
 		if (is_debugging()) {
-			$GLOBALS['response']['debug']['sql'] = $sql;
+			array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
 		}
 
 		$result = $GLOBALS['conn']->query($sql);

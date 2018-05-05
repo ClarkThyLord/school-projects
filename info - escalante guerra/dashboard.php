@@ -5,8 +5,8 @@
 	}
 
 	// Check if client isn't in a session
-	if (!array_key_exists("user", $_SESSION) || empty($_SESSION["user"])) {
-		header("Location: index.php");
+	if (!array_key_exists('user', $_SESSION) || empty($_SESSION['user'])) {
+		header('Location: index.php');
 	}
 ?>
 <!DOCTYPE html>
