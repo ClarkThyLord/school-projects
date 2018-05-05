@@ -25,16 +25,16 @@
 			$sql .= $line;
 			// If it has a semicolon at the end, it's the end of the query
 			if (substr(trim($line), -1, 1) == ';') {
-					// Perform the query
-					$GLOBALS["conn"]->query($sql) or print('Error performing query \'<strong>' . $sql . '\': ' . mysql_error() . '<br /><br />');
+				// Perform the query
+				$GLOBALS["conn"]->query($sql) or print('Error performing query \'<strong>' . $sql . '\': ' . mysql_error() . '<br /><br />');
 
-					// FOR DEBUGGING
-					if (is_debugging()) {
-						array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
-					}
+				// FOR DEBUGGING
+				if (is_debugging()) {
+					array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+				}
 
-					// Reset temp variable to empty
-					$sql = '';
+				// Reset temp variable to empty
+				$sql = '';
 			}
 		}
 
