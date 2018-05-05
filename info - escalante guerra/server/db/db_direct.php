@@ -1,12 +1,5 @@
 <?php
 
-	// FOR DEBUGGING
-	if (is_debugging()) {
-		$GLOBALS['response']['debug']['database'] = array('sql' => array());
-
-		$GLOBALS['response']['debug']['database']['setup'] = false;
-	}
-
 	// Credentials
   // ***************************************************************************
 
@@ -30,36 +23,19 @@
 
 	// Check connection
   if ($GLOBALS['conn']->connect_error) {
-		$GLOBALS['response']['status'] = 'failure';
-		$GLOBALS['response']['reason'] = "connection to SQL server couldn't be initialize\n{$conn->connect_error}";
-
-		send_response();
+		exit("connection to SQL server couldn't be initialize\n{$conn->connect_error}");
   }
-
-	// FOR DEBUGGING
-	if (is_debugging()) {
-		$GLOBALS['response']['debug']['database']['connection'] = true;
-	}
 
 	// Check for database, and create it if it's not available
 	if ($GLOBALS['conn']->select_db($db_name) === false) {
-		// FOR DEBUGGING
-		if (is_debugging()) {
-			$GLOBALS['response']['debug']['database']['setup'] = 'started setting up SQL database and tables';
-		}
 
 		if ($conn->query("CREATE DATABASE {$db_name}") === true) {
 			$GLOBALS['conn']->select_db($db_name);
 
-			// FOR DEBUGGING
-			if (is_debugging()) {
-				$GLOBALS['response']['debug']['database']['setup'] = 'created SQL database';
-			}
-
 			// Temporary variable, used to store current query
 			$sql = '';
 			// Read the entire file
-			$lines = file('./db/structure.sql');
+			$lines = file('./structure.sql');
 			// Loop through each line
 			foreach ($lines as $line) {
 				// Skip it if it's a comment
@@ -72,25 +48,12 @@
 					// Perform the query
 					$GLOBALS["conn"]->query($sql) or print('Error performing query \'<strong>' . $sql . '\': ' . mysql_error() . '<br /><br />');
 
-					// FOR DEBUGGING
-					if (is_debugging()) {
-						array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
-					}
-
 					// Reset temp variable to empty
 					$sql = '';
 				}
 			}
-
-			// FOR DEBUGGING
-			if (is_debugging()) {
-				$GLOBALS['response']['debug']['database']['setup'] = 'finished setting up SQL database and tables';
-			}
 		} else {
-			$GLOBALS['response']['status'] = 'failure';
-			$GLOBALS['response']['reason'] = 'SQL database couldn\'t be setup';
-
-			send_response();
+			exit('SQL database couldn\'t be setup');
 		}
 	}
 
@@ -102,11 +65,6 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function conn_close() {
-		// FOR DEBUGGING
-		if (is_debugging()) {
-			$GLOBALS['response']['debug']['database']['connection'] = false;
-		}
-
 		$GLOBALS['conn']->close();
 	}
 
