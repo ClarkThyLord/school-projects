@@ -49,31 +49,33 @@
 	/**
 	* Get user(s) from SQL datbase that fit the given filter.
 	* @param filter [array] Properties to get user(s) with.
-	* @param options [array] Action options.
 	* @return {undefined} Returns nothing.
 	*/
-	function user_get($filter=array(), $options=array()) {
-    $first = True;
-    $conditions = '';
-    foreach ($_GET as $key => $value) {
-      if ($first === True) {
-        $first = False;
-        $conditions .= ' WHERE ';
-      }
-      $conditions .= "`{$key}` = '{$value}'";
+	function user_get($filter=array()) {
+    $filter_sql = ' WHERE 1';
+    foreach ($filter as $key => $value) {
+      $filter_sql .= " AND `{$key}` = '{$value}'";
     }
 
-    $users = $GLOBALS['conn']->query('SELECT `id`, `name`, `access` FROM `users`' . $conditions);
+		$sql = 'SELECT `id`, `created`, `username`, `access` FROM `users`';
+
+		if ($filter_sql !== ' WHERE 1') { $sql .= $filter_sql; }
+
+		// FOR DEBUGGING
+		if (is_debugging()) {
+			array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+		}
+
+    $users = $GLOBALS['conn']->query($sql);
     if ($users->num_rows > 0) {
       $GLOBALS['response']['data']['users'] = array();
       while($user = $users->fetch_assoc()) {
         $GLOBALS['response']['data']['users'][$user['id']] = $user;
       }
-      $GLOBALS['response']['status'] = 'success';
-      $GLOBALS['response']['reason'] = 'found valid user(s)';
+
+			response_status(true, 'found valid user(s)');
     } else {
-      $GLOBALS['response']['status'] = 'failure';
-      $GLOBALS['response']['reason'] = 'found no valid user(s)';
+			response_status(false, 'found no valid user(s)');
     }
 	}
 
@@ -115,10 +117,9 @@
 	* Modify a user in the SQL database.
 	* @param identifier [array] Properties to identify user(s) with.
 	* @param data [array] Data to modify user with.
-	* @param options [array] Action options.
 	* @return {undefined} Returns nothing.
 	*/
-	function user_modify($identifier=array(), $data=array(), $options=array()) {
+	function user_modify($identifier=array(), $data=array()) {
    access_level_check(2);
 
    $another = False;
@@ -141,10 +142,9 @@
 	/**
 	* Remove a user in the SQL database.
 	* @param identifier [array] Properties to identify user(s) with.
-	* @param options [array] Action options.
 	* @return {undefined} Returns nothing.
 	*/
-	function user_remove($identifier=array(), $options=array()) {
+	function user_remove($identifier=array()) {
 		access_level_check(2);
 
     $sql = 'DELETE FROM `users` WHERE `users`.`id` = ' . $_POST['user_id'];
