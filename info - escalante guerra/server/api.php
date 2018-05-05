@@ -124,8 +124,8 @@
 	* @param reason [string] Reason for given status.
 	* @return {undefined} Returns nothing.
 	*/
-	function response_send($status, $reason) {
-		if ($status) { response_status($status, $reason); }
+	function response_send($status=null, $reason=null) {
+		if ($status !== null) { response_status($status, $reason); }
 
 		// Close connection to SQL database if any
 		conn_close();
@@ -155,14 +155,31 @@
 	} else if ($routes[0] === 'users') {
 		include_once './endpoints/users.php';
 
-		if (count($routes) === 2 && $_SERVER['REQUEST_METHOD'] === 'POST') {
-			switch ($routes[1]) {
-				case 'login':
-					user_login($_POST['username'], $_POST['password']);
-					break;
-				case 'logout':
-					user_logout();
-					break;
+		if (count($routes) === 2){
+			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+				switch ($routes[1]) {
+					case 'get':
+						user_get(json_decode($_GET['filter'], true));
+						break;
+				}
+			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				switch ($routes[1]) {
+					case 'login':
+						user_login($_POST['username'], $_POST['password']);
+						break;
+					case 'logout':
+						user_logout();
+						break;
+					case 'add':
+						user_add(json_decode($_POST['data'], true));
+						break;
+					case 'modify':
+						user_modify($_POST['id'], json_decode($_POST['data'], true));
+						break;
+					case 'remove':
+						user_logout($_POST['id']);
+						break;
+				}
 			}
 		}
 	} else {

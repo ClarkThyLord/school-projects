@@ -51,10 +51,6 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function user_get($filter=array()) {
-		if (count($filter) === 0) {
-			response_send(false, 'filter to get users with wasn\'t given');
-		}
-
     $filter_sql = ' WHERE 1';
     foreach ($filter as $key => $value) {
 			if ($key === 'password') { continue; }
@@ -128,7 +124,7 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function user_modify($user_id=0, $data=array()) {
-		if ($user_id !== $_SESSION['user']['id'] || !access_level_check(2);) {
+		if ($user_id !== $_SESSION['user']['id'] || !access_level_check(2)) {
 		 access_check(2);
 		}	else if ($user_id === 0) {
 		 response_send(false, 'user ID wasn\'t given');
@@ -144,7 +140,7 @@
 		 }
 		}
 
-		$sql = "UPDATE `users` SET {join(", ", $data_sql)} WHERE `id` = {$user_id}";
+		$sql = "UPDATE `users` SET " . join(', ', $data_sql) . " WHERE `id` = {$user_id}";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
@@ -165,7 +161,7 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function user_remove($user_id=0) {
-		if ($user_id !== $_SESSION['user']['id'] || !access_level_check(2);) {
+		if ($user_id !== $_SESSION['user']['id'] || !access_level_check(2)) {
 		 access_check(2);
 		}	else if ($user_id === 0) {
 		 response_send(false, 'user ID wasn\'t given');
