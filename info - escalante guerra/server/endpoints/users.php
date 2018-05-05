@@ -87,9 +87,8 @@
 	*/
 	function user_add($data=array()) {
     access_check(2);
-		if (count($data) === 0) {
-			response_send(false, 'data to create user with wasn\'t given');
-		}
+
+		$data = array_merge(array("username" => "New User", "password" => "", "access" => 0), $data);
 
     $sql = "INSERT INTO `users` (`id`, `created`, `username`, `password`, `access`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["username"]}', '{$data["password"]}', '{$data["access"]}')";
 
@@ -124,33 +123,35 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function user_modify($user_id=0, $data=array()) {
-		if ($user_id !== $_SESSION['user']['id'] || !access_level_check(2)) {
-		 access_check(2);
-		}	else if ($user_id === 0) {
-		 response_send(false, 'user ID wasn\'t given');
-		} else if (count($data) === 0) {
-		 response_send(false, 'data to modify user with wasn\'t given');
+		if ($user_id !== $_SESSION['user']['id'] && !access_level_check(2)) {
+			response_send(false, 'only admins, access level 2^, can modify other users');
+	 	}
+		if ($user_id <= 0) {
+			response_send(false, 'user ID wasn\'t given');
+		}
+		if (sizeof($data) === 0) {
+			response_send(false, 'data to modify user with wasn\'t given');
 		}
 
 		$data_sql = array();
 		$valid_keys = array('username', 'password', 'access');
-		foreach ($_POST as $key => $value) {
-		 if (!array_key_exists($key, $valid_keys) || ($key === 'access' || !access_level_check(2))) { continue; } else {
-		   array_push($data_sql, "`{$key}` = '{$value}'");
-		 }
+		foreach ($data as $key => $value) {
+			if (!in_array($key, $valid_keys) || ($key === 'access' && !access_level_check(2))) { continue; } else {
+				array_push($data_sql, "`{$key}` = '{$value}'");
+			}
 		}
 
 		$sql = "UPDATE `users` SET " . join(', ', $data_sql) . " WHERE `id` = {$user_id}";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
-		 array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+			array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
 		}
 
 		if ($GLOBALS["conn"]->query($sql) === true) {
-		 response_status(true, 'sucesfully modified user');
+			response_status(true, 'sucesfully modified user');
 		} else {
-		 response_status(false, 'unsucesfully modified user');
+			response_status(false, 'unsucesfully modified user');
 		}
 	}
 
@@ -161,8 +162,8 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function user_remove($user_id=0) {
-		if ($user_id !== $_SESSION['user']['id'] || !access_level_check(2)) {
-		 access_check(2);
+		if ($user_id !== $_SESSION['user']['id'] && !access_level_check(2)) {
+		 response_send(false, 'only admins, access level 2^, can modify other users');
 		}	else if ($user_id === 0) {
 		 response_send(false, 'user ID wasn\'t given');
 		}

@@ -55,6 +55,7 @@
 		// Setup debug spot in response
 		$GLOBALS['response']['debug'] = Array();
 
+		$GLOBALS['response']['debug']['session'] = $_SESSION;
 		$GLOBALS['response']['debug']['method'] = $_SERVER['REQUEST_METHOD'];
 		$GLOBALS['response']['debug']['routes'] = $routes;
 	}
@@ -82,7 +83,7 @@
 	*/
 	function access_check($required_level=0) {
 		// Check if client isn't in a session
-		if (isset($_SESSION['user']) && $_SESSION["user"]["access"] >= $required_level) {
+		if (isset($_SESSION['user']) && $_SESSION["user"]["access"] < $required_level) {
 			response_send(false, 'access not granted');
 		}
 	}
@@ -95,7 +96,7 @@
 	*/
 	function access_level_check($required_level=0) {
 		// Check if client isn't in a session
-		if (isset($_SESSION['user']) && $_SESSION["user"]["access"] >= $required_level) {
+		if (isset($_SESSION['user']) && $_SESSION["user"]["access"] < $required_level) {
 			return false;
 		} else {
 			return true;
@@ -177,7 +178,7 @@
 						user_modify($_POST['id'], json_decode($_POST['data'], true));
 						break;
 					case 'remove':
-						user_logout($_POST['id']);
+						user_remove($_POST['id']);
 						break;
 				}
 			}
