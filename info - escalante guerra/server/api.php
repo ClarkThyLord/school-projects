@@ -67,7 +67,7 @@
 	* @return {boolean} Returns true, if debugging; false, if not debugging.
 	*/
 	function is_debugging() {
-		return (array_key_exists('debug', $_GET) || !empty($_GET['debug'])) && $_GET['debug'] == true;
+		return (isset($_GET['debug']) && $_GET['debug'] == true);
 	}
 
 
@@ -77,13 +77,8 @@
 	* @return {boolean} Returns nothing.
 	*/
 	function access_check($required_level=0) {
-		// Initialize session if not already
-	  if (!isset($_SESSION)) {
-	    session_start();
-	  }
-
 		// Check if client isn't in a session
-		if ((!array_key_exists('user', $_SESSION) || empty($_SESSION['user'])) && $_SESSION["user"]["access"] >= $required_level) {
+		if (isset($_SESSION['user']) && $_SESSION["user"]["access"] >= $required_level) {
 			$GLOBALS['response']['status'] = 'failure';
 			$GLOBALS['response']['reason'] = 'access not granted';
 
@@ -98,9 +93,7 @@
 	*/
 	function send_response() {
 		// Close connection to SQL database if any
-		if ((array_key_exists('conn', $GLOBALS) || !empty($GLOBALS['conn'])) && mysqli_connect_errno() && mysqli_ping($link)) {
-			conn_close();
-		}
+		conn_close();
 
 		// Echo response
 		echo json_encode($GLOBALS['response']);
@@ -109,7 +102,7 @@
 		die();
 	}
 
-	// Call according to client's request
+	// Call on endpoint according to client's request
 	// ***************************************************************************
 
 	if (count($routes) <= 0) {

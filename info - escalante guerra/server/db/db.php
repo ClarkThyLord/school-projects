@@ -36,6 +36,11 @@
 		send_response();
   }
 
+	// FOR DEBUGGING
+	if (is_debugging()) {
+		$GLOBALS['response']['debug']['database']['connection'] = true;
+	}
+
 	// Check for database, and create it if it's not available
 	if ($GLOBALS['conn']->select_db($db_name) === false) {
 		// FOR DEBUGGING
@@ -91,7 +96,7 @@
 	function conn_close() {
 		// FOR DEBUGGING
 		if (is_debugging()) {
-			$GLOBALS['response']['debug']['SQL'] = 'connection closed';
+			$GLOBALS['response']['debug']['database']['connection'] = false;
 		}
 
 		$GLOBALS['conn']->close();
