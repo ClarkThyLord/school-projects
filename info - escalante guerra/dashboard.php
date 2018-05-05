@@ -90,12 +90,11 @@
           <h1 class="h2">Escritorio</h1>
         </div>
 
-
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
 	        <h2>Puestos Recientes</h2>
 					<div class="btn-toolbar">
 	          <div class="btn-group">
-	            <button class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	            <button onclick="content_change('jobs');" class="btn btn-sm btn-outline-secondary">Ver Todo</button>
 	          </div>
 	        </div>
 				</div>
@@ -122,7 +121,7 @@
 	        <h2>Requisiciones Recientes</h2>
 					<div class="btn-toolbar">
 	          <div class="btn-group">
-	            <button class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	            <button onclick="content_change('requisitions');" class="btn btn-sm btn-outline-secondary">Ver Todo</button>
 	          </div>
 	        </div>
 				</div>
@@ -148,12 +147,11 @@
           </table>
         </div>
 
-
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
 	        <h2>Candidatos Recientes</h2>
 					<div class="btn-toolbar">
 	          <div class="btn-group">
-	            <button class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	            <button onclick="content_change('candidates');" class="btn btn-sm btn-outline-secondary">Ver Todo</button>
 	          </div>
 	        </div>
 				</div>
@@ -178,12 +176,11 @@
           </table>
         </div>
 
-
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
 	        <h2>Registros Recientes</h2>
 					<div class="btn-toolbar">
 	          <div class="btn-group">
-	            <button class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	            <button onclick="content_change('logs');" class="btn btn-sm btn-outline-secondary">Ver Todo</button>
 	          </div>
 	        </div>
 				</div>
