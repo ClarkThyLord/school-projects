@@ -60,9 +60,13 @@
 		$GLOBALS['response']['debug']['routes'] = $routes;
 	}
 
-	// Include database script
+	// Include Extension
 	// ***************************************************************************
 	include_once './db/db.php';
+
+	// Common Endpoints
+	// ***************************************************************************
+	include_once './endpoints/logs.php';
 
 	// Common Functions
 	// ***************************************************************************

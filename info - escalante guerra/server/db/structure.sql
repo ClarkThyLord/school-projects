@@ -89,10 +89,10 @@ CREATE TABLE IF NOT EXISTS `jobs` (
 DROP TABLE IF EXISTS `logs`;
 CREATE TABLE IF NOT EXISTS `logs` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `responsible` int(11) NOT NULL,
-  `action` int(11) NOT NULL,
+  `responsible` text COMMENT 'ID of user within `users`',
+  `action` text,
   `asset_type` text COMMENT 'Type of asset modified',
-  `asset_id` int(11) DEFAULT NULL COMMENT 'ID to the asset that was modified'
+  `asset_id` text COMMENT 'ID to the asset that was modified'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

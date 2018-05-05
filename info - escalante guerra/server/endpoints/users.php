@@ -25,6 +25,9 @@
 					// Setup user data for session
 					$_SESSION['user'] = array('id' => $user['id'], 'username' => $user['username'], 'access' => $user['access']);
 
+					// LOG
+					qlog($_SESSION['user']['id'], 'conectado');
+
 					response_send(true, 'sucesfully logged in');
 				}
 			}
@@ -40,6 +43,9 @@
 	*/
 	function user_logout() {
 		session_unset();
+
+		// LOG
+		qlog($_SESSION['user']['id'], 'desconectado');
 
 		response_status(true, 'sucesfully logged out');
 	}
@@ -88,7 +94,7 @@
 	function user_add($data=array()) {
     access_check(2);
 
-		$data = array_merge(array("username" => "New User", "password" => "", "access" => 0), $data);
+		$data = array_merge(array('username' => 'New User', 'password' => '', 'access' => 0), $data);
 
     $sql = "INSERT INTO `users` (`id`, `created`, `username`, `password`, `access`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["username"]}', '{$data["password"]}', '{$data["access"]}')";
 
@@ -108,6 +114,9 @@
 			}
 
       $GLOBALS['response']['data']['user'] = $GLOBALS['conn']->query($sql)->fetch_assoc();
+
+			// LOG
+			qlog($_SESSION['user']['id'], 'usuario creado', 'users', "{$insert_id}");
 
 			response_status(true, 'sucesfully created user');
     } else {
@@ -149,6 +158,9 @@
 		}
 
 		if ($GLOBALS["conn"]->query($sql) === true) {
+			// LOG
+			qlog($_SESSION['user']['id'], 'usuario modificado', 'users', "{$user_id}");
+
 			response_status(true, 'sucesfully modified user');
 		} else {
 			response_status(false, 'unsucesfully modified user');
@@ -163,7 +175,7 @@
 	*/
 	function user_remove($user_id=0) {
 		if ($user_id !== $_SESSION['user']['id'] && !access_level_check(2)) {
-		 response_send(false, 'only admins, access level 2^, can modify other users');
+		 response_send(false, 'only admins, access level 2^, can remove other users');
 		}	else if ($user_id === 0) {
 		 response_send(false, 'user ID wasn\'t given');
 		}
@@ -177,6 +189,9 @@
 
 		if ($GLOBALS['conn']->query($sql) == True) {
       $GLOBALS['response']['data']['id'] = $user_id;
+
+			// LOG
+			qlog($_SESSION['user']['id'], 'usuario eliminado', 'users', "{$user_id}");
 
 			response_status(true, 'sucesfully removed user');
     } else {
