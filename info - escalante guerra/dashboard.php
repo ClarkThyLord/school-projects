@@ -69,9 +69,14 @@
                 Candidatos
               </a>
             </li>
-            <li data-location="logs" onclick="content_change('logs');" class="nav-item">
+            <li data-location="logs" onclick="content_change('logs');" class="nav-item border-bottom">
               <a href="#" class="nav-link">
                 Registros
+              </a>
+            </li>
+            <li data-location="users" onclick="content_change('users');" class="nav-item">
+              <a href="#" class="nav-link">
+                Usuarios
               </a>
             </li>
           </ul>
@@ -85,7 +90,15 @@
           <h1 class="h2">Escritorio</h1>
         </div>
 
-        <h2>Puestos Recientes</h2>
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+	        <h2>Puestos Recientes</h2>
+					<div class="btn-toolbar">
+	          <div class="btn-group">
+	            <button class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	          </div>
+	        </div>
+				</div>
         <div class="table-responsive">
           <table class="table table-striped table-sm">
             <thead>
@@ -105,7 +118,14 @@
           </table>
         </div>
 
-        <h2>Requisiciones Recientes</h2>
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+	        <h2>Requisiciones Recientes</h2>
+					<div class="btn-toolbar">
+	          <div class="btn-group">
+	            <button class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	          </div>
+	        </div>
+				</div>
         <div class="table-responsive">
           <table class="table table-striped table-sm">
             <thead>
@@ -128,7 +148,15 @@
           </table>
         </div>
 
-        <h2>Candidatos Recientes</h2>
+
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+	        <h2>Candidatos Recientes</h2>
+					<div class="btn-toolbar">
+	          <div class="btn-group">
+	            <button class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	          </div>
+	        </div>
+				</div>
         <div class="table-responsive">
           <table class="table table-striped table-sm">
             <thead>
@@ -150,7 +178,15 @@
           </table>
         </div>
 
-        <h2>Registros Recientes</h2>
+
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+	        <h2>Registros Recientes</h2>
+					<div class="btn-toolbar">
+	          <div class="btn-group">
+	            <button class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	          </div>
+	        </div>
+				</div>
         <div class="table-responsive">
           <table class="table table-striped table-sm">
             <thead>
@@ -345,6 +381,11 @@
       <main role="main" style="display: none;" class="page-content ccol-md-9 ml-sm-auto col-lg-10 px-4" id="logs">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Vitácora</h1>
+					<div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button class="btn btn-sm btn-outline-secondary">Borrar Registros</button>
+            </div>
+          </div>
         </div>
         <div class="table-responsive">
           <table class="table table-striped table-sm">
@@ -354,6 +395,31 @@
                 <th>Responsable</th>
                 <th>Movimiento</th>
                 <th>Identificador</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+
+			<!-- USERS -->
+      <main role="main" style="display: none;" class="page-content ccol-md-9 ml-sm-auto col-lg-10 px-4" id="users">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Usuarios</h1>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>ID.</th>
+                <th>Fecha y Hora</th>
+                <th>Nombre</th>
+                <th>Acceso</th>
+                <th>Acciónes</th>
               </tr>
             </thead>
             <tbody>

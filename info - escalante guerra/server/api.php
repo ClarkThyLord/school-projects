@@ -124,7 +124,7 @@
 		if (count($routes) === 2 && $_SERVER['REQUEST_METHOD'] === 'POST') {
 			switch ($routes[1]) {
 				case 'login':
-					user_login();
+					user_login($_POST['username'], $_POST['password']);
 					break;
 				case 'logout':
 					user_logout();
