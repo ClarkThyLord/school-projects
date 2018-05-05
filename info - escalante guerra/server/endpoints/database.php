@@ -7,6 +7,8 @@
 	function database_setup() {
 		access_check(2);
 
+		$username = $_SESSION['user']['username'];
+
 		// FOR DEBUGGING
 		if (is_debugging()) {
 			$GLOBALS['response']['debug']['database']['setup'] = 'started setting up SQL database and tables';
@@ -37,6 +39,9 @@
 				$sql = '';
 			}
 		}
+
+		// LOG
+		qlog($username, 'restablecer la base de datos', 'base de datos', '*');
 
 		// FOR DEBUGGING
 		if (is_debugging()) {

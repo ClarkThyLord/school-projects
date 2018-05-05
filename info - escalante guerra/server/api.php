@@ -60,7 +60,7 @@
 		$GLOBALS['response']['debug']['routes'] = $routes;
 	}
 
-	// Include Extension
+	// Include Extensions
 	// ***************************************************************************
 	include_once './db/db.php';
 
@@ -87,7 +87,9 @@
 	*/
 	function access_check($required_level=0) {
 		// Check if client isn't in a session
-		if (isset($_SESSION['user']) && $_SESSION["user"]["access"] < $required_level) {
+		if (!isset($_SESSION['user'])) {
+			response_send(false, 'access not granted');
+		} else if ($_SESSION["user"]["access"] < $required_level) {
 			response_send(false, 'access not granted');
 		}
 	}
@@ -100,7 +102,9 @@
 	*/
 	function access_level_check($required_level=0) {
 		// Check if client isn't in a session
-		if (isset($_SESSION['user']) && $_SESSION["user"]["access"] < $required_level) {
+		if (!isset($_SESSION['user'])) {
+			return false;
+		} else if ($_SESSION["user"]["access"] < $required_level) {
 			return false;
 		} else {
 			return true;

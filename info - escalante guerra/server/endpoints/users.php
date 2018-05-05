@@ -42,10 +42,10 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function user_logout() {
-		session_unset();
-
 		// LOG
 		qlog($_SESSION['user']['id'], 'desconectado');
+
+		session_unset();
 
 		response_status(true, 'sucesfully logged out');
 	}
