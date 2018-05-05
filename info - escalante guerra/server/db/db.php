@@ -59,7 +59,7 @@
 			// Temporary variable, used to store current query
 			$sql = '';
 			// Read the entire file
-			$lines = file('./db/db_structure.sql');
+			$lines = file('./db/structure.sql');
 			// Loop through each line
 			foreach ($lines as $line) {
 				// Skip it if it's a comment
