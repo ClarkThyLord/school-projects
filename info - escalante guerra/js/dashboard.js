@@ -9,17 +9,25 @@ function content_change(content) {
   $('#' + content).show();
 
   if (content === 'users') {
+    $('#' + content).waitMe({
+      'waitTime': -1,
+      'effect': 'stretch',
+      'text': 'Cargando...',
+      'bg': 'rgba(255, 255, 255, 0.7)',
+      'color': 'rgba(0, 0, 0)',
+    });
+
     $.get({
       url: './server/api.php/users/get?debug=' + DEBUGGING + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
       success: function(response) {
-        response = JSON.parse(response);
+        all_users_table.data = JSON.parse(response).data.dump;
 
-        all_users_table.data = response.data.users;
+        $('#' + content).waitMe('hide');
       }
     });
   }
 
-  // Change current in MENU
+  // Update selected in MENU
   $('.nav-item > .active').removeClass('active');
   $('.nav-item[data-location="' + content + '"] > a').addClass('active');
 }

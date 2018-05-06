@@ -75,9 +75,9 @@
 
     $users = $GLOBALS['conn']->query($sql);
     if ($users->num_rows > 0) {
-      $GLOBALS['response']['data']['users'] = array();
+      $GLOBALS['response']['data']['dump'] = array();
       while($user = $users->fetch_assoc()) {
-        array_push($GLOBALS['response']['data']['users'], $user);
+        array_push($GLOBALS['response']['data']['dump'], $user);
       }
 
 			response_status(true, 'found valid user(s)');

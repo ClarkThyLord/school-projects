@@ -21,6 +21,7 @@
 
 	<!-- CSS Libraries -->
 	<link href="./css/libs/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/libs/jquery-waitMe.min.css" rel="stylesheet">
 
 	<!-- Custom CSS -->
 	<link href="./css/dashboard.css" rel="stylesheet">
@@ -49,8 +50,8 @@
                 Escritorio
               </a>
             </li>
-            <li data-location="desk" onclick="content_change('search');" style="display: none;" class="nav-item border-bottom">
-              <a href="#" class="nav-link active">
+            <li data-location="search" onclick="content_change('search');" style="display: none;" class="nav-item border-bottom">
+              <a href="#" class="nav-link">
                 Búsqueda
               </a>
             </li>
@@ -405,13 +406,14 @@
 
 			<!-- USERS -->
       <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="users">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Usuarios</h1>
 
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button class="btn btn-sm btn-outline-secondary">Refrescar</button>
-              <button class="btn btn-sm btn-outline-secondary">Exportar</button>
+              <button class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button class="btn btn-sm btn-outline-secondary">+ Agregar Usuario</button>
+              <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
             </div>
             <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
           </div>
@@ -427,13 +429,14 @@
   <script src="./js/libs/jquery-3.3.1.min.js"></script>
   <script src="./js/libs/bootstrap.min.js"></script>
   <script src="./js/libs/vue.min.js"></script>
+  <script src="./js/libs/jquery-waitMe.min.js"></script>
 
 	<!-- VUE Templates -->
 	<script type="text/x-template" id="table-component">
 	  <table class="table table-striped table-sm">
 	    <thead>
 		    <tr>
-		      <th v-for="key in visual_columns" @click="sortBy(key)" :class="{ active: sortKey == key }">
+		      <th v-for="key in visual_columns" @click="sortBy(key)" :class="{ active: sortKey == key }" style="cursor: pointer;">
 						{{ key | capitalize }}
 		        <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
 		      </th>
