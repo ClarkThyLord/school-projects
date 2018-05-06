@@ -430,7 +430,7 @@
           </div>
         </div>
         <div class="table-responsive" id="all_users_table">
-				  <table-component :content="content" :modifiable="modifiable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
+				  <table-component :content="content" :modifiable="modifiable" :removable="removable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
         </div>
 			</main>
 
@@ -448,7 +448,7 @@
           </div>
         </div>
         <div class="table-responsive" id="all_logs_table">
-					<table-component :content="content" :modifiable="modifiable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
+					<table-component :content="content" :modifiable="modifiable" :removable="removable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
         </div>
       </main>
     </div>
@@ -491,7 +491,7 @@
 	  </div>
 	</div>
 
-	<div class="modal fade" id="users_edit" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
+	<div class="modal fade" id="users_modify" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 					<!-- HEADER -->
@@ -525,6 +525,35 @@
 		    </div>
 		  </div>
 		</div>
+
+	<div class="modal fade" id="users_remove" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Eliminar Usuario</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <p class="font-italic">
+						¿Seguro que quieres eliminar usuario?<br />
+						<span class="text-danger font-weight-bold">¡No es reversible!</span>
+					</p>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" class="btn btn-primary">Eliminar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 	<!-- LOG DIALOGS -->
 	<div class="modal fade" id="logs_clear" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
@@ -578,8 +607,9 @@
 	        <td v-for="key in real_columns">
 	          {{ entry[key] }}
 	        </td>
-					<td v-if="modifiable">
-						<span v-on:click="edit($event);" style="cursor: pointer;">&#9998;</span>
+					<td v-if="modifiable || removable">
+						<span v-if="modifiable" v-on:click="edit($event);" style="cursor: pointer;">✏️</span>
+						<span v-if="removable" v-on:click="remove($event);" style="cursor: pointer;">🗑️</span>
 					</td>
 	      </tr>
   		</tbody>

@@ -87,11 +87,12 @@ function users_get() {
 
 
 /**
- * Clear the all the logs.
+ * Add a user.
+ * @param {object} data Data to create user with; options: username, password and access.
  * @return {undefined} Returns nothing.
  */
-function users_add() {
-  $('#logs').waitMe({
+function users_add(data) {
+  $('#users').waitMe({
     waitTime: -1,
     effect: 'stretch',
     text: 'Cargando...',
@@ -100,13 +101,57 @@ function users_add() {
   });
 
   $.post({
-    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
+    url: './server/api.php/users/add?debug=' + DEBUGGING.server,
+    data: {
+      data: {
+        username: data.username || 'New User',
+        password: data.password || '',
+        access: 0
+      }
+    },
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.logs.data = response.data.dump;
+        VUE_ELEMENTS.users.data = response.data.dump;
 
-        $('#logs').waitMe('hide');
+        $('#users').waitMe('hide');
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Modify a user's data.
+ * @param {integer} id User's ID.
+ * @param {object} data Data to modify user with.
+ * @return {undefined} Returns nothing.
+ */
+function users_modify(id, data) {
+  $('#users').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/users/modify?debug=' + DEBUGGING.server,
+    data: {
+      id: id,
+      data: data
+    },
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.users.data = response.data.dump;
+
+        $('#users').waitMe('hide');
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -119,10 +164,11 @@ function users_add() {
 
 /**
  * Clear the all the logs.
+ * @param {integer} id User's ID.
  * @return {undefined} Returns nothing.
  */
-function users_modify() {
-  $('#logs').waitMe({
+function users_remove(id) {
+  $('#users').waitMe({
     waitTime: -1,
     effect: 'stretch',
     text: 'Cargando...',
@@ -131,44 +177,16 @@ function users_modify() {
   });
 
   $.post({
-    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
+    url: './server/api.php/users/remove?debug=' + DEBUGGING.server,
+    data: {
+      id: id
+    },
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === 'success') {
         VUE_ELEMENTS.logs.data = response.data.dump;
 
-        $('#logs').waitMe('hide');
-      }
-
-      if (response.status === 'failure' || DEBUGGING.popups) {
-        alert(response.reason);
-      }
-    }
-  });
-}
-
-
-/**
- * Clear the all the logs.
- * @return {undefined} Returns nothing.
- */
-function users_remove() {
-  $('#logs').waitMe({
-    waitTime: -1,
-    effect: 'stretch',
-    text: 'Cargando...',
-    bg: 'rgba(255, 255, 255, 0.7)',
-    color: 'rgba(0, 0, 0)',
-  });
-
-  $.post({
-    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
-    success: function(response) {
-      response = JSON.parse(response);
-      if (response.status === 'success') {
-        VUE_ELEMENTS.logs.data = response.data.dump;
-
-        $('#logs').waitMe('hide');
+        $('#users').waitMe('hide');
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -235,6 +253,7 @@ Vue.component('table-component', {
   props: {
     content: String,
     modifiable: Boolean,
+    removable: Boolean,
     search_term: String,
     visual_columns: Array,
     real_columns: Array,
@@ -284,7 +303,10 @@ Vue.component('table-component', {
       this.sortOrders[key] = this.sortOrders[key] * -1;
     },
     edit: function(event) {
-      $('#' + this.content + '_edit').modal('show');
+      $('#' + this.content + '_modify').modal('show');
+    },
+    remove: function(event) {
+      $('#' + this.content + '_remove').modal('show');
     }
   }
 });
@@ -295,6 +317,7 @@ VUE_ELEMENTS.users = new Vue({
   data: {
     content: 'users',
     modifiable: true,
+    removable: true,
     search_term: '',
     visual_columns: ['ID.', 'Creado', 'Nombre', 'Acceso', 'Acciónes'],
     real_columns: ['id', 'created', 'username', 'access'],
@@ -307,6 +330,7 @@ VUE_ELEMENTS.logs = new Vue({
   data: {
     content: 'logs',
     modifiable: false,
+    removable: false,
     search_term: '',
     visual_columns: ['Fecha y Hora.', 'Responsable', 'Movimiento', 'Identificador'],
     real_columns: ['created', 'responsible', 'action', 'asset_id'],
