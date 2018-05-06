@@ -14,8 +14,8 @@ function login(username, password) {
   $.post({
     url: './server/api.php/users/login?debug=' + DEBUGGING,
     data: {
-      'username': username,
-      'password': password
+      username: username,
+      password: password
     },
     success: function(response) {
       response = JSON.parse(response);

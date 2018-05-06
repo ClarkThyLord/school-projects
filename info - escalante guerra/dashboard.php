@@ -388,14 +388,14 @@
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <button onclick="content_refresh('users');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button onclick="$('#user_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Usuario</button>
+              <button onclick="$('#users_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Usuario</button>
               <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
             </div>
-            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
           </div>
         </div>
         <div class="table-responsive" id="all_users_table">
-				  <table-component :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
+				  <table-component :content="content" :modifiable="modifiable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
         </div>
 			</main>
 
@@ -406,12 +406,14 @@
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <button onclick="content_refresh('logs');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button onclick="$('#log_clear').modal('show');" class="btn btn-sm btn-outline-secondary">Borrar Registros</button>
-            </div>
+              <button onclick="$('#logs_clear').modal('show');" class="btn btn-sm btn-outline-secondary">Borrar Registros</button>
+							<button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+							<input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
+						</div>
           </div>
         </div>
         <div class="table-responsive" id="all_logs_table">
-					<table-component :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
+					<table-component :content="content" :modifiable="modifiable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
         </div>
       </main>
     </div>
@@ -419,7 +421,7 @@
 
 	<!-- DIALOGS -->
 	<!-- USER DIALOGS -->
-	<div class="modal fade" id="user_add" role="dialog" aria-labelledby="user_edit" aria-hidden="true">
+	<div class="modal fade" id="users_add" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 				<!-- HEADER -->
@@ -454,7 +456,7 @@
 	  </div>
 	</div>
 
-	<div class="modal fade" id="user_edit" role="dialog" aria-labelledby="user_edit" aria-hidden="true">
+	<div class="modal fade" id="users_edit" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 					<!-- HEADER -->
@@ -490,7 +492,7 @@
 		</div>
 
 	<!-- LOG DIALOGS -->
-	<div class="modal fade" id="log_clear" role="dialog" aria-labelledby="user_edit" aria-hidden="true">
+	<div class="modal fade" id="logs_clear" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
 				<!-- HEADER -->
@@ -541,6 +543,9 @@
 	        <td v-for="key in real_columns">
 	          {{ entry[key] }}
 	        </td>
+					<td v-if="modifiable">
+						<span v-on:click="edit($event);" style="cursor: pointer;">&#9998;</span>
+					</td>
 	      </tr>
   		</tbody>
 		</table>

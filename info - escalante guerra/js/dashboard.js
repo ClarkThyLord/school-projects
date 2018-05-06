@@ -23,11 +23,11 @@ function content_change(content) {
 function content_refresh(content) {
   if (content === 'users' || content === 'logs') {
     $('#' + content).waitMe({
-      'waitTime': -1,
-      'effect': 'stretch',
-      'text': 'Cargando...',
-      'bg': 'rgba(255, 255, 255, 0.7)',
-      'color': 'rgba(0, 0, 0)',
+      waitTime: -1,
+      effect: 'stretch',
+      text: 'Cargando...',
+      bg: 'rgba(255, 255, 255, 0.7)',
+      color: 'rgba(0, 0, 0)',
     });
 
     $.get({
@@ -49,6 +49,8 @@ var VUE_ELEMENTS = {};
 Vue.component('table-component', {
   template: '#table-component',
   props: {
+    content: String,
+    modifiable: Boolean,
     search_term: String,
     visual_columns: Array,
     real_columns: Array,
@@ -96,6 +98,9 @@ Vue.component('table-component', {
     sortBy: function(key) {
       this.search_term = key;
       this.sortOrders[key] = this.sortOrders[key] * -1;
+    },
+    edit: function(event) {
+      $('#' + this.content + '_edit').modal('show');
     }
   }
 });
@@ -104,10 +109,11 @@ Vue.component('table-component', {
 VUE_ELEMENTS.users = new Vue({
   el: '#all_users_table',
   data: {
+    content: 'users',
+    modifiable: true,
     search_term: '',
     visual_columns: ['ID.', 'Creado', 'Nombre', 'Acceso', 'Acciónes'],
     real_columns: ['id', 'created', 'username', 'access'],
-    special_columns: ['<td> <span onclick="$(\'#user_edit\').modal(\'show\');" style="cursor: pointer;">&#9998;</span> </td>'],
     data: []
   }
 });
@@ -115,10 +121,11 @@ VUE_ELEMENTS.users = new Vue({
 VUE_ELEMENTS.logs = new Vue({
   el: '#all_logs_table',
   data: {
+    content: 'logs',
+    modifiable: false,
     search_term: '',
     visual_columns: ['Fecha y Hora.', 'Responsable', 'Movimiento', 'Identificador'],
     real_columns: ['created', 'responsible', 'action', 'asset_id'],
-    special_columns: [],
     data: []
   }
 });
