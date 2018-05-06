@@ -31,7 +31,7 @@ function content_refresh(content) {
     });
 
     $.get({
-      url: './server/api.php/' + content + '/get?debug=' + DEBUGGING + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
+      url: './server/api.php/' + content + '/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
       success: function(response) {
         response = JSON.parse(response);
         if (response.status === 'success') {
@@ -40,7 +40,7 @@ function content_refresh(content) {
           $('#' + content).waitMe('hide');
         }
 
-        if (response.status === 'failure' || DEBUGGING) {
+        if (response.status === 'failure' || DEBUGGING.popups) {
           alert(response.reason);
         }
       }
@@ -62,7 +62,7 @@ function logs_clear() {
   });
 
   $.post({
-    url: './server/api.php/logs/clear?debug=' + DEBUGGING,
+    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === 'success') {
@@ -71,7 +71,7 @@ function logs_clear() {
         $('#logs').waitMe('hide');
       }
 
-      if (response.status === 'failure' || DEBUGGING) {
+      if (response.status === 'failure' || DEBUGGING.popups) {
         alert(response.reason);
       }
     }

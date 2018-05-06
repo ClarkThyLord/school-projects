@@ -1,4 +1,8 @@
-var DEBUGGING = true;
+var DEBUGGING = {
+  console: true,
+  popups: false,
+  server: true
+};
 
 window.onload = function() {
   console.log('PAGE LOADED\n---');
@@ -12,7 +16,7 @@ window.onload = function() {
  */
 function login(username, password) {
   $.post({
-    url: './server/api.php/users/login?debug=' + DEBUGGING,
+    url: './server/api.php/users/login?debug=' + DEBUGGING.server,
     data: {
       username: username,
       password: password
@@ -35,7 +39,7 @@ function login(username, password) {
  */
 function logout() {
   $.post({
-    url: './server/api.php/users/logout?debug=' + DEBUGGING,
+    url: './server/api.php/users/logout?debug=' + DEBUGGING.server,
     success: function(response) {
       window.location.href = './index.php';
     }
