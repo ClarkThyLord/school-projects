@@ -10,7 +10,7 @@
 	}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="width: 100%; height: 100%">
 
 <head>
   <meta charset="utf-8">
@@ -20,14 +20,19 @@
   <link rel="icon" href="./assets/escalante_guerra_logo.jpg">
 
 	<!-- CSS Libraries -->
-	<link href="./css/libs/bootstrap.min.css" rel="stylesheet">
 	<link href="./css/libs/jquery-waitMe.min.css" rel="stylesheet">
+	<link href="./css/libs/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Custom CSS -->
+	<style>
+		.page-content {
+			height: 100%;
+		}
+	</style>
 	<link href="./css/dashboard.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="width: 100%; height: 100%">
 	<!-- MENU BAR -->
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a onclick="content_change('desk');" class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Escalante Guerra</a>
@@ -39,8 +44,8 @@
     </ul>
   </nav>
 
-  <div class="container-fluid">
-    <div class="row">
+  <div style="height: 100%;" class="container-fluid">
+    <div style="height: 100%;" class="row">
 			<!-- MENU -->
       <nav class="col-md-2 d-none d-md-block bg-light sidebar">
         <div class="sidebar-sticky">
@@ -100,7 +105,7 @@
 	        </div>
 				</div>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>ID.</th>
@@ -127,7 +132,7 @@
 	        </div>
 				</div>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>ID.</th>
@@ -157,7 +162,7 @@
 	        </div>
 				</div>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>ID.</th>
@@ -186,7 +191,7 @@
 	        </div>
 				</div>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>Fecha y Hora</th>
@@ -212,7 +217,7 @@
 
         <h2>Puestos Coincidentes</h2>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>ID.</th>
@@ -232,7 +237,7 @@
 
         <h2>Requisiciones Coincidentes</h2>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>ID.</th>
@@ -255,7 +260,7 @@
 
         <h2>Candidatos Coincidentes</h2>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>ID.</th>
@@ -277,7 +282,7 @@
 
         <h2>Registros Coincidentes</h2>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>Fecha y Hora</th>
@@ -301,7 +306,7 @@
           <h1 class="h2">Puestos</h1>
         </div>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>ID.</th>
@@ -326,7 +331,7 @@
           <h1 class="h2">Requisiciones</h1>
         </div>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>ID.</th>
@@ -354,7 +359,7 @@
           <h1 class="h2">Candidatos</h1>
         </div>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>ID.</th>
@@ -386,7 +391,7 @@
           </div>
         </div>
         <div class="table-responsive">
-          <table class="table table-striped table-sm">
+          <table class="table table-striped table-hover table-sm">
             <thead>
               <tr>
                 <th>Fecha y Hora</th>
@@ -411,8 +416,8 @@
 
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button class="btn btn-sm btn-outline-secondary">+ Agregar Usuario</button>
+              <button onclick="content_refresh('users');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="$('#user_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Usuario</button>
               <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
             </div>
             <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
@@ -425,15 +430,85 @@
     </div>
   </div>
 
+		<div class="modal fade" id="user_add" role="dialog" aria-labelledby="user_edit" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+					<!-- HEADER -->
+		      <div class="modal-header">
+		        <h5 class="modal-title">Agregar Usuario</h5>
+
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+
+					<!-- BODY -->
+		      <div class="modal-body">
+		        <form>
+		          <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
+		            <input type="text" class="form-control" name="username">
+		            <label for="recipient-name" class="col-form-label">Contraseña:</label>
+		            <input type="password" class="form-control" name="password">
+		            <label for="recipient-name" class="col-form-label">Nivel de Acceso:</label>
+		            <input type="number" step="1" min="0" max="2" class="form-control" name="access">
+		          </div>
+		        </form>
+		      </div>
+
+					<!-- FOOTER -->
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="button" class="btn btn-primary">Agregar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class="modal fade" id="user_edit" role="dialog" aria-labelledby="user_edit" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+					<!-- HEADER -->
+		      <div class="modal-header">
+		        <h5 class="modal-title">Editar Usuario</h5>
+
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+
+					<!-- BODY -->
+		      <div class="modal-body">
+		        <form>
+		          <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
+		            <input type="text" class="form-control" name="username">
+		            <label for="recipient-name" class="col-form-label">Contraseña:</label>
+		            <input type="password" class="form-control" name="password">
+		            <label for="recipient-name" class="col-form-label">Nivel de Acceso:</label>
+		            <input type="number" step="1" min="0" max="2" class="form-control" name="access">
+		          </div>
+		        </form>
+		      </div>
+
+					<!-- FOOTER -->
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="button" class="btn btn-primary">Someter</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
   <!-- JS Libraries -->
   <script src="./js/libs/jquery-3.3.1.min.js"></script>
+  <script src="./js/libs/jquery-waitMe.min.js"></script>
   <script src="./js/libs/bootstrap.min.js"></script>
   <script src="./js/libs/vue.min.js"></script>
-  <script src="./js/libs/jquery-waitMe.min.js"></script>
 
 	<!-- VUE Templates -->
 	<script type="text/x-template" id="table-component">
-	  <table class="table table-striped table-sm">
+	  <table class="table table-striped table-hover table-sm">
 	    <thead>
 		    <tr>
 		      <th v-for="key in visual_columns" @click="sortBy(key)" :class="{ active: sortKey == key }" style="cursor: pointer;">
@@ -448,7 +523,7 @@
 	          {{ entry[key] }}
 	        </td>
 	        <td>
-						<span style="cursor: pointer;">&#9998;</span>
+						<span onclick="$('#user_edit').modal('show');" style="cursor: pointer;">&#9998;</span>
 					</td>
 	      </tr>
   		</tbody>
