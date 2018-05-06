@@ -54,9 +54,10 @@
 	/**
 	* Get user(s) from SQL datbase that fit the given filter.
 	* @param filter [array] Properties to get user(s) with.
+	* @param options [array] Options to get user(s) with.
 	* @return {undefined} Returns nothing.
 	*/
-	function user_get($filter=array()) {
+	function user_get($filter=array(), $options=array()) {
     $filter_sql = ' WHERE 1';
     foreach ($filter as $key => $value) {
 			if ($key === 'password') { continue; }

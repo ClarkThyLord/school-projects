@@ -10,6 +10,9 @@
 	// users      | add    	  | POST      | 2^
 	// users      | modify    | POST      | self, 2^
 	// users      | remove    | POST      | 2^
+	// logs       | get       | GET       | none
+	// logs       | add       | POST      | none
+	// logs       | clear     | POST      | 2^
 	// *******************************************
 
 	// Initialize session if not already
@@ -17,8 +20,8 @@
 		session_start();
 	}
 
-	// Response object that will be sent back
-	$response = array('status' => 'success', 'reason' => 'initial response', 'data' => array());
+	// Setup Response that will be sent back
+	$response = array('status' => 'success', 'reason' => 'initial response', 'data' => array(), 'user' => (isset($_SESSION['user']) ? $_SESSION['user'] : null));
 
 	// Stripping the base URL and getting all the 'routes'
 	// ***************************************************************************
@@ -161,6 +164,25 @@
 					break;
 			}
 		}
+	} else if ($routes[0] === 'logs') {
+		if (count($routes) === 2){
+			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+				switch ($routes[1]) {
+					case 'get':
+						user_get(json_decode($_GET['filter'], true), $_GET['options']);
+						break;
+				}
+			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				switch ($routes[1]) {
+					case 'add':
+						log_add(json_decode($_POST['data'], true));
+						break;
+					case 'clear':
+						log_clear();
+						break;
+				}
+			}
+		}
 	} else if ($routes[0] === 'users') {
 		include_once './endpoints/users.php';
 
@@ -168,7 +190,7 @@
 			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				switch ($routes[1]) {
 					case 'get':
-						user_get(json_decode($_GET['filter'], true));
+						user_get(json_decode($_GET['filter'], true), $_GET['options']);
 						break;
 				}
 			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {

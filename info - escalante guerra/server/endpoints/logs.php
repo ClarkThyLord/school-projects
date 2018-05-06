@@ -12,12 +12,14 @@
 		log_add(array('responsible' => $responsible, 'action' => $action, 'asset_type' => $asset_type, 'asset_id' => $asset_id));
 	}
 
+
 	/**
 	* Get log(s) from SQL datbase that fit the given filter.
 	* @param filter [array] Properties to get log(s) with.
+	* @param options [array] Options to get user(s) with.
 	* @return {undefined} Returns nothing.
 	*/
-	function log_get($filter=array()) {
+	function log_get($filter=array(), $options=array()) {
 		$filter_sql = ' WHERE 1';
 		foreach ($filter as $key => $value) {
 			if ($key === 'password') { continue; }
