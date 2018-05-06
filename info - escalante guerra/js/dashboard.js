@@ -33,12 +33,49 @@ function content_refresh(content) {
     $.get({
       url: './server/api.php/' + content + '/get?debug=' + DEBUGGING + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
       success: function(response) {
-        VUE_ELEMENTS[content].data = JSON.parse(response).data.dump;
+        response = JSON.parse(response);
+        if (response.status === 'success') {
+          VUE_ELEMENTS[content].data = response.data.dump;
 
-        $('#' + content).waitMe('hide');
+          $('#' + content).waitMe('hide');
+        }
+
+        if (response.status === 'failure' || DEBUGGING) {
+          alert(response.reason);
+        }
       }
     });
   }
+}
+
+/**
+ * Clear the all the logs.
+ * @return {undefined} Returns nothing.
+ */
+function logs_clear() {
+  $('#logs').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/logs/clear?debug=' + DEBUGGING,
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.logs.data = response.data.dump;
+
+        $('#logs').waitMe('hide');
+      }
+
+      if (response.status === 'failure' || DEBUGGING) {
+        alert(response.reason);
+      }
+    }
+  });
 }
 
 // VUE.js Code

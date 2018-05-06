@@ -26,7 +26,7 @@
 					$_SESSION['user'] = array('id' => $user['id'], 'username' => $user['username'], 'access' => $user['access']);
 
 					// LOG
-					qlog($_SESSION['user']['id'], 'conectado');
+					qlog($_SESSION['user']['id'], 'el usuario se ha conectado');
 
 					response_send(true, 'sucesfully logged in');
 				}
@@ -43,7 +43,7 @@
 	*/
 	function user_logout() {
 		// LOG
-		qlog($_SESSION['user']['id'], 'desconectado');
+		qlog($_SESSION['user']['id'], 'el usuario se ha desconectado');
 
 		session_unset();
 

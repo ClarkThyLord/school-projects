@@ -88,7 +88,9 @@
 
 		if ($GLOBALS['conn']->query($sql) === TRUE) {
 			// LOG
-			qlog($_SESSION['user']['id'], 'registro borrado', 'registro', '*');
+			qlog($_SESSION['user']['username'], 'registro borrado', 'registro', '*');
+
+			log_get();
 
 			response_status(true, 'sucesfully cleared log');
 		} else {
