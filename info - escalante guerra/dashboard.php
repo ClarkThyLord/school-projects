@@ -204,7 +204,7 @@
       </main>
 
 			<!-- SEARCH -->
-      <main data-search-term="" role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="search">
+      <main data-search_term="" role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="search">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Búsqueda</h1>
         </div>
@@ -408,23 +408,8 @@
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Usuarios</h1>
         </div>
-        <div class="table-responsive">
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th>ID.</th>
-                <th>Creado</th>
-                <th>Nombre</th>
-                <th>Acceso</th>
-                <th>Acciónes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="table-responsive" id="all_users_table">
+				  <table-component :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
         </div>
       </main>
     </div>
@@ -433,6 +418,28 @@
   <!-- JS Libraries -->
   <script src="./js/libs/jquery-3.3.1.min.js"></script>
   <script src="./js/libs/bootstrap.min.js"></script>
+  <script src="./js/libs/vue.min.js"></script>
+
+	<!-- VUE Templates -->
+	<script type="text/x-template" id="table-component">
+	  <table class="table table-striped table-sm">
+	    <thead>
+		    <tr>
+		      <th v-for="key in visual_columns" @click="sortBy(key)" :class="{ active: sortKey == key }">
+						{{ key | capitalize }}
+		        <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
+		      </th>
+		    </tr>
+	    </thead>
+	    <tbody>
+	      <tr v-for="entry in filteredData">
+	        <td v-for="key in real_columns">
+	          {{ entry[key] }}
+	        </td>
+	      </tr>
+  		</tbody>
+		</table>
+	</script>
 
   <!-- Custom JS -->
   <script src="./js/common.js"></script>
