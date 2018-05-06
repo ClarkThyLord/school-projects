@@ -42,9 +42,9 @@
 				array_push($GLOBALS['response']['data']['dump'], $log);
 			}
 
-			response_status(true, 'found valid log(s)');
+			response_status(true, 'se encontró registro(s) válido');
 		} else {
-			response_status(false, 'found no valid log(s)');
+			response_status(false, 'no se encontró registro(s) válido');
 		}
 	}
 
@@ -65,9 +65,9 @@
 		}
 
 		if ($GLOBALS['conn']->query($sql) === TRUE) {
-			response_status(true, 'sucesfully created log');
+			response_status(true, 'registro agregado exitosamente');
 		} else {
-			response_status(false, 'unsucesfully added log');
+			response_status(false, 'registro agregado sin éxito');
 		}
 	}
 
@@ -92,7 +92,7 @@
 
 			log_get();
 
-			response_status(true, 'sucesfully cleared log');
+			response_status(true, 'registro limpiado con sin éxito');
 		} else {
 			response_status(false, 'unsucesfully cleared log');
 		}

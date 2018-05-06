@@ -90,10 +90,8 @@
 	*/
 	function access_check($required_level=0) {
 		// Check if client isn't in a session
-		if (!isset($_SESSION['user'])) {
-			response_send(false, 'access not granted');
-		} else if ($_SESSION["user"]["access"] < $required_level) {
-			response_send(false, 'access not granted');
+		if (!isset($_SESSION['user']) || $_SESSION["user"]["access"] < $required_level) {
+			response_send(false, "acceso no concedido; solo los usuarios con {$required_level}^ acceso tienen permiso");
 		}
 	}
 

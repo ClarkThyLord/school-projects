@@ -28,12 +28,12 @@
 					// LOG
 					qlog($_SESSION['user']['id'], 'el usuario se ha conectado');
 
-					response_send(true, 'sucesfully logged in');
+					response_send(true, 'sesión se pudo iniciar');
 				}
 			}
 		}
 
-		response_status(false, 'unsucesfully logged in');
+		response_send(false, 'sesión no se pudo iniciar');
 	}
 
 
@@ -47,7 +47,7 @@
 
 		session_unset();
 
-		response_status(true, 'sucesfully logged out');
+		response_send(true, 'la sesión ha sido cerrada exitosamente');
 	}
 
 
@@ -80,9 +80,9 @@
         array_push($GLOBALS['response']['data']['dump'], $user);
       }
 
-			response_status(true, 'found valid user(s)');
+			response_send(true, 'se encontró usuario(s) válido');
     } else {
-			response_status(false, 'found no valid user(s)');
+			response_send(false, 'no se encontró usuario(s) válido');
     }
 	}
 
@@ -119,9 +119,9 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'usuario creado', 'users', "{$insert_id}");
 
-			response_status(true, 'sucesfully created user');
+			response_send(true, 'usuario agregado exitosamente');
     } else {
-			response_status(false, 'unsucesfully added user');
+			response_send(false, 'usuario agregado sin éxito');
     }
 	}
 
@@ -134,13 +134,13 @@
 	*/
 	function user_modify($user_id=0, $data=array()) {
 		if ($user_id !== $_SESSION['user']['id'] && !access_level_check(2)) {
-			response_send(false, 'only admins, access level 2^, can modify other users');
+			access_check(2);
 	 	}
 		if ($user_id <= 0) {
-			response_send(false, 'user ID wasn\'t given');
+			response_send(false, 'la identificación del usuario no fue dada');
 		}
 		if (sizeof($data) === 0) {
-			response_send(false, 'data to modify user with wasn\'t given');
+			response_send(false, 'datos, para modificar el usuario con, no se dio');
 		}
 
 		$data_sql = array();
@@ -162,9 +162,9 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'usuario modificado', 'users', "{$user_id}");
 
-			response_status(true, 'sucesfully modified user');
+			response_send(true, 'usuario modificado con éxito');
 		} else {
-			response_status(false, 'unsucesfully modified user');
+			response_send(false, 'usuario modificado sin éxito');
 		}
 	}
 
@@ -176,9 +176,9 @@
 	*/
 	function user_remove($user_id=0) {
 		if ($user_id !== $_SESSION['user']['id'] && !access_level_check(2)) {
-		 response_send(false, 'only admins, access level 2^, can remove other users');
+		 access_check(2);
 		}	else if ($user_id === 0) {
-		 response_send(false, 'user ID wasn\'t given');
+		 response_send(false, 'la identificación del usuario no fue dada');
 		}
 
     $sql = "DELETE FROM `users` WHERE `id` = {$user_id}";
@@ -194,9 +194,9 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'usuario eliminado', 'users', "{$user_id}");
 
-			response_status(true, 'sucesfully removed user');
+			response_send(true, 'usuario eliminado con éxito');
     } else {
-			response_status(false, 'unsucesfully removed user');
+			response_send(false, 'usuario eliminado sin éxito');
     }
 	}
 
