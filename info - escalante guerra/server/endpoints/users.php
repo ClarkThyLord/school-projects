@@ -47,7 +47,7 @@
 
 		session_unset();
 
-		response_send(true, 'la sesión ha sido cerrada exitosamente');
+		response_send(true, 'sesión cerrada exitosamente');
 	}
 
 
@@ -80,9 +80,9 @@
         array_push($GLOBALS['response']['data']['dump'], $user);
       }
 
-			response_send(true, 'se encontró usuario(s) válido');
+			response_send(true, 'se encontró usuario(s) válido(s)');
     } else {
-			response_send(false, 'no se encontró usuario(s) válido');
+			response_send(false, 'no se encontró usuario(s) válido(s)');
     }
 	}
 

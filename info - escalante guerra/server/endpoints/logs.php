@@ -42,9 +42,9 @@
 				array_push($GLOBALS['response']['data']['dump'], $log);
 			}
 
-			response_status(true, 'se encontró registro(s) válido');
+			response_status(true, 'se encontró registro(s) válido(s)');
 		} else {
-			response_status(false, 'no se encontró registro(s) válido');
+			response_status(false, 'no se encontró registro(s) válido(s)');
 		}
 	}
 
@@ -92,9 +92,9 @@
 
 			log_get();
 
-			response_status(true, 'registro limpiado con sin éxito');
+			response_status(true, 'registro limpiado exitosamente');
 		} else {
-			response_status(false, 'unsucesfully cleared log');
+			response_status(false, 'registro limpiado sin éxito');
 		}
 	}
 
