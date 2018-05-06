@@ -119,6 +119,8 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'usuario creado', 'users', "{$insert_id}");
 
+			user_get();
+
 			response_send(true, 'usuario agregado exitosamente');
     } else {
 			response_send(false, 'usuario agregado sin éxito');
@@ -162,6 +164,8 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'usuario modificado', 'users', "{$user_id}");
 
+			user_get();
+
 			response_send(true, 'usuario modificado con éxito');
 		} else {
 			response_send(false, 'usuario modificado sin éxito');
@@ -193,6 +197,8 @@
 
 			// LOG
 			qlog($_SESSION['user']['id'], 'usuario eliminado', 'users', "{$user_id}");
+
+			user_get();
 
 			response_send(true, 'usuario eliminado con éxito');
     } else {

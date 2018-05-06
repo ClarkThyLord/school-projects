@@ -213,6 +213,14 @@
       <main data-search_term="" role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="search">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Búsqueda</h1>
+
+					<div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button onclick="content_refresh('search');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
+            </div>
+          </div>
         </div>
 
         <h2>Puestos Coincidentes</h2>
@@ -304,6 +312,15 @@
       <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="jobs">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Puestos</h1>
+
+					<div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button onclick="content_refresh('jobs');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="" class="btn btn-sm btn-outline-secondary">+ Agregar Puesto</button>
+              <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
+            </div>
+          </div>
         </div>
         <div class="table-responsive">
           <table class="table table-striped table-hover table-sm">
@@ -329,6 +346,15 @@
       <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="requisitions">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Requisiciones</h1>
+
+					<div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button onclick="content_refresh('requisitions');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="" class="btn btn-sm btn-outline-secondary">+ Agregar Requisicion</button>
+              <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
+            </div>
+          </div>
         </div>
         <div class="table-responsive">
           <table class="table table-striped table-hover table-sm">
@@ -357,6 +383,15 @@
       <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="candidates">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Candidatos</h1>
+
+					<div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button onclick="content_refresh('candidates');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="" class="btn btn-sm btn-outline-secondary">+ Agregar Candidato</button>
+              <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
+            </div>
+          </div>
         </div>
         <div class="table-responsive">
           <table class="table table-striped table-hover table-sm">
@@ -515,7 +550,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button onclick="logs_clear();" type="button" class="btn btn-primary">Borrar</button>
+	        <button onclick="logs_clear(); $('#logs_clear').modal('hide');" type="button" class="btn btn-primary">Borrar</button>
 	      </div>
 	    </div>
 	  </div>

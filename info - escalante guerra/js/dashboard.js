@@ -1,3 +1,6 @@
+// CONTENT Functions
+// *****************************************************************************
+
 /**
  * Change to content via their tag.
  * @param {string} content Content's identifier.
@@ -14,6 +17,7 @@ function content_change(content) {
   $('.nav-item > .active').removeClass('active');
   $('.nav-item[data-location="' + content + '"] > a').addClass('active');
 }
+
 
 /**
  * Portrait given user and users in the page.
@@ -47,6 +51,149 @@ function content_refresh(content) {
     });
   }
 }
+
+// USERS Functions
+// *****************************************************************************
+
+/**
+ * Clear the all the logs.
+ * @return {undefined} Returns nothing.
+ */
+function users_get() {
+  $('#logs').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.logs.data = response.data.dump;
+
+        $('#logs').waitMe('hide');
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Clear the all the logs.
+ * @return {undefined} Returns nothing.
+ */
+function users_add() {
+  $('#logs').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.logs.data = response.data.dump;
+
+        $('#logs').waitMe('hide');
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Clear the all the logs.
+ * @return {undefined} Returns nothing.
+ */
+function users_modify() {
+  $('#logs').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.logs.data = response.data.dump;
+
+        $('#logs').waitMe('hide');
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Clear the all the logs.
+ * @return {undefined} Returns nothing.
+ */
+function users_remove() {
+  $('#logs').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.logs.data = response.data.dump;
+
+        $('#logs').waitMe('hide');
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+// LOGS Functions
+// *****************************************************************************
+
+/**
+ * Clear the all the logs.
+ * @return {undefined} Returns nothing.
+ */
+function logs_get() {}
+
+
+/**
+ * Clear the all the logs.
+ * @return {undefined} Returns nothing.
+ */
+function logs_add() {}
+
 
 /**
  * Clear the all the logs.
