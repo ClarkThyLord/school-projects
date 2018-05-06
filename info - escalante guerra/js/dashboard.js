@@ -14,7 +14,6 @@ function content_change(content) {
       success: function(response) {
         response = JSON.parse(response);
 
-        console.log(response);
         all_users_table.data = response.data.users;
       }
     });
