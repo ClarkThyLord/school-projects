@@ -37,9 +37,9 @@
 
 		$logs = $GLOBALS['conn']->query($sql);
 		if ($logs->num_rows > 0) {
-			$GLOBALS['response']['data']['logs'] = array();
+			$GLOBALS['response']['data']['dump'] = array();
 			while($log = $logs->fetch_assoc()) {
-				$GLOBALS['response']['data']['logs'][$log['id']] = $log;
+				array_push($GLOBALS['response']['data']['dump'], $log);
 			}
 
 			response_status(true, 'found valid log(s)');

@@ -70,19 +70,19 @@
                 Requisiciones
               </a>
             </li>
-            <li data-location="candidates" onclick="content_change('candidates');" class="nav-item">
+            <li data-location="candidates" onclick="content_change('candidates');" class="nav-item border-bottom">
               <a href="#" class="nav-link">
                 Candidatos
-              </a>
-            </li>
-            <li data-location="logs" onclick="content_change('logs');" class="nav-item border-bottom">
-              <a href="#" class="nav-link">
-                Registros
               </a>
             </li>
             <li data-location="users" onclick="content_change('users');" class="nav-item">
               <a href="#" class="nav-link">
                 Usuarios
+              </a>
+            </li>
+            <li data-location="logs" onclick="content_change('logs');" class="nav-item">
+              <a href="#" class="nav-link">
+                Registros
               </a>
             </li>
           </ul>
@@ -380,35 +380,6 @@
         </div>
       </main>
 
-			<!-- LOGS -->
-      <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="logs">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Registros</h1>
-					<div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <button class="btn btn-sm btn-outline-secondary">Borrar Registros</button>
-            </div>
-          </div>
-        </div>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>Fecha y Hora</th>
-                <th>Responsable</th>
-                <th>Movimiento</th>
-                <th>Identificador</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </main>
-
 			<!-- USERS -->
       <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="users">
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -426,46 +397,64 @@
         <div class="table-responsive" id="all_users_table">
 				  <table-component :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
         </div>
+			</main>
+
+			<!-- LOGS -->
+      <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="logs">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Registros</h1>
+					<div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button onclick="content_refresh('logs');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="$('#log_clear').modal('show');" class="btn btn-sm btn-outline-secondary">Borrar Registros</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive" id="all_logs_table">
+					<table-component :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
+        </div>
       </main>
     </div>
   </div>
 
-		<div class="modal fade" id="user_add" role="dialog" aria-labelledby="user_edit" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered" role="document">
-		    <div class="modal-content">
-					<!-- HEADER -->
-		      <div class="modal-header">
-		        <h5 class="modal-title">Agregar Usuario</h5>
+	<!-- DIALOGS -->
+	<!-- USER DIALOGS -->
+	<div class="modal fade" id="user_add" role="dialog" aria-labelledby="user_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Agregar Usuario</h5>
 
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
 
-					<!-- BODY -->
-		      <div class="modal-body">
-		        <form>
-		          <div class="form-group">
-		            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
-		            <input type="text" class="form-control" name="username">
-		            <label for="recipient-name" class="col-form-label">Contraseña:</label>
-		            <input type="password" class="form-control" name="password">
-		            <label for="recipient-name" class="col-form-label">Nivel de Acceso:</label>
-		            <input type="number" step="1" min="0" max="2" class="form-control" name="access">
-		          </div>
-		        </form>
-		      </div>
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <form>
+	          <div class="form-group">
+	            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
+	            <input type="text" class="form-control" name="username">
+	            <label for="recipient-name" class="col-form-label">Contraseña:</label>
+	            <input type="password" class="form-control" name="password">
+	            <label for="recipient-name" class="col-form-label">Nivel de Acceso:</label>
+	            <input type="number" step="1" min="0" max="2" class="form-control" name="access">
+	          </div>
+	        </form>
+	      </div>
 
-					<!-- FOOTER -->
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-		        <button type="button" class="btn btn-primary">Agregar</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" class="btn btn-primary">Agregar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
-		<div class="modal fade" id="user_edit" role="dialog" aria-labelledby="user_edit" aria-hidden="true">
+	<div class="modal fade" id="user_edit" role="dialog" aria-labelledby="user_edit" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 					<!-- HEADER -->
@@ -500,6 +489,36 @@
 		  </div>
 		</div>
 
+	<!-- LOG DIALOGS -->
+	<div class="modal fade" id="log_clear" role="dialog" aria-labelledby="user_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Borrar Registros</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <p class="font-italic">
+						¿Seguro que quieres borrar todos los registros?<br />
+						<span class="text-danger font-weight-bold">¡No es reversible!</span>
+					</p>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" class="btn btn-primary">Borrar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
   <!-- JS Libraries -->
   <script src="./js/libs/jquery-3.3.1.min.js"></script>
   <script src="./js/libs/jquery-waitMe.min.js"></script>
@@ -522,9 +541,6 @@
 	        <td v-for="key in real_columns">
 	          {{ entry[key] }}
 	        </td>
-	        <td>
-						<span onclick="$('#user_edit').modal('show');" style="cursor: pointer;">&#9998;</span>
-					</td>
 	      </tr>
   		</tbody>
 		</table>

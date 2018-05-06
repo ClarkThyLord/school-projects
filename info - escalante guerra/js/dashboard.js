@@ -21,7 +21,7 @@ function content_change(content) {
  * @return {undefined} Returns nothing.
  */
 function content_refresh(content) {
-  if (content === 'users') {
+  if (content === 'users' || content === 'logs') {
     $('#' + content).waitMe({
       'waitTime': -1,
       'effect': 'stretch',
@@ -31,9 +31,9 @@ function content_refresh(content) {
     });
 
     $.get({
-      url: './server/api.php/users/get?debug=' + DEBUGGING + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
+      url: './server/api.php/' + content + '/get?debug=' + DEBUGGING + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
       success: function(response) {
-        all_users_table.data = JSON.parse(response).data.dump;
+        VUE_ELEMENTS[content].data = JSON.parse(response).data.dump;
 
         $('#' + content).waitMe('hide');
       }
@@ -43,6 +43,7 @@ function content_refresh(content) {
 
 // VUE.js Code
 // *****************************************************************************
+var VUE_ELEMENTS = {};
 
 // Register Table component
 Vue.component('table-component', {
@@ -99,12 +100,25 @@ Vue.component('table-component', {
   }
 });
 
-var all_users_table = new Vue({
+// Register VUE Elements
+VUE_ELEMENTS.users = new Vue({
   el: '#all_users_table',
   data: {
     search_term: '',
     visual_columns: ['ID.', 'Creado', 'Nombre', 'Acceso', 'Acciónes'],
     real_columns: ['id', 'created', 'username', 'access'],
+    special_columns: ['<td> <span onclick="$(\'#user_edit\').modal(\'show\');" style="cursor: pointer;">&#9998;</span> </td>'],
+    data: []
+  }
+});
+
+VUE_ELEMENTS.logs = new Vue({
+  el: '#all_logs_table',
+  data: {
+    search_term: '',
+    visual_columns: ['Fecha y Hora.', 'Responsable', 'Movimiento', 'Identificador'],
+    real_columns: ['created', 'responsible', 'action', 'asset_id'],
+    special_columns: [],
     data: []
   }
 });

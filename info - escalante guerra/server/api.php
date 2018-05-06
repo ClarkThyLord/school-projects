@@ -169,7 +169,7 @@
 			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				switch ($routes[1]) {
 					case 'get':
-						user_get(json_decode($_GET['filter'], true), $_GET['options']);
+						log_get(json_decode($_GET['filter'], true), $_GET['options']);
 						break;
 				}
 			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
