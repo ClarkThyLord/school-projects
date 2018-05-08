@@ -418,26 +418,27 @@
 			<!-- USERS -->
       <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="users">
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Usuarios</h1>
+				  <h1 class="h2">Usuarios</h1>
 
 					<div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group mr-2">
-              <button onclick="content_refresh('users');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button onclick="$('#users_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Usuario</button>
-              <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
-	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
-            </div>
-          </div>
-        </div>
-        <div class="table-responsive" id="all_users_table">
-				  <table-component :content="content" :modifiable="modifiable" :removable="removable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
-        </div>
+				    <div class="btn-group mr-2">
+				      <button onclick="content_refresh('users');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+				      <button onclick="$('#users_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Usuario</button>
+				      <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+				      <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
+				    </div>
+				  </div>
+				</div>
+				<div class="table-responsive" id="all_users_table">
+				  <table-component :asset="asset" :modifiable="modifiable" :removable="removable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
+				</div>
 			</main>
 
 			<!-- LOGS -->
       <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="logs">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Registros</h1>
+
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <button onclick="content_refresh('logs');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
@@ -448,14 +449,15 @@
           </div>
         </div>
         <div class="table-responsive" id="all_logs_table">
-					<table-component :content="content" :modifiable="modifiable" :removable="removable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
+					<table-component :asset="asset" :modifiable="modifiable" :removable="removable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
         </div>
       </main>
     </div>
   </div>
 
 	<!-- DIALOGS -->
-	<!-- USER DIALOGS -->
+	<!-- USERS DIALOGS -->
+	<!-- USERS ADD -->
 	<div class="modal fade" id="users_add" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
@@ -470,7 +472,7 @@
 
 				<!-- BODY -->
 	      <div class="modal-body">
-	        <form>
+	        <form id="users_add_info">
 	          <div class="form-group">
 	            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
 	            <input type="text" class="form-control" name="username">
@@ -485,12 +487,13 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" class="btn btn-primary">Agregar</button>
+	        <button type="button" onclick="var data = {}; $('#users_add_info :input').each(function() { data[this.name] = $(this).val(); }); users_add(data); $('#users_add').modal('hide');" class="btn btn-primary">Agregar</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 
+	<!-- USERS MODIFY -->
 	<div class="modal fade" id="users_modify" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
@@ -505,7 +508,7 @@
 
 					<!-- BODY -->
 		      <div class="modal-body">
-		        <form>
+		        <form id="users_modify_info">
 		          <div class="form-group">
 		            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
 		            <input type="text" class="form-control" name="username">
@@ -520,12 +523,13 @@
 					<!-- FOOTER -->
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-		        <button type="button" class="btn btn-primary">Someter</button>
+		        <button onclick="var data = {}; $('#users_modify_info :input').each(function() { data[this.name] = $(this).val(); }); users_modify(GLOBALS.asset.id, data); $('#users_modify').modal('hide');" type="button" class="btn btn-primary">Someter</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
 
+	<!-- USERS REMOVE -->
 	<div class="modal fade" id="users_remove" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
@@ -541,7 +545,7 @@
 				<!-- BODY -->
 	      <div class="modal-body">
 	        <p class="font-italic">
-						¿Seguro que quieres eliminar usuario?<br />
+						¿Seguro que quieres eliminar ?<br />
 						<span class="text-danger font-weight-bold">¡No es reversible!</span>
 					</p>
 	      </div>
@@ -549,13 +553,14 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" class="btn btn-primary">Eliminar</button>
+	        <button onclick="users_remove(GLOBALS.asset.id);" type="button" class="btn btn-primary">Eliminar</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
 
-	<!-- LOG DIALOGS -->
+	<!-- LOGS DIALOGS -->
+	<!-- LOGS CLEAR -->
 	<div class="modal fade" id="logs_clear" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered" role="document">
 	    <div class="modal-content">
@@ -603,7 +608,7 @@
 		    </tr>
 	    </thead>
 	    <tbody>
-	      <tr v-for="entry in filteredData">
+	      <tr v-for="entry in filteredData" v-on:click="selected($event, entry);">
 	        <td v-for="key in real_columns">
 	          {{ entry[key] }}
 	        </td>

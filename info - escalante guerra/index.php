@@ -20,6 +20,7 @@
 	<link rel="icon" href="./assets/escalante_guerra_logo.jpg">
 
 	<!-- CSS Libraries -->
+	<link href="./css/libs/jquery-waitMe.min.css" rel="stylesheet">
 	<link href="./css/libs/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Custom CSS -->
@@ -39,6 +40,7 @@
 
 	<!-- JS Libraries -->
 	<script src="./js/libs/jquery-3.3.1.min.js"></script>
+  <script src="./js/libs/jquery-waitMe.min.js"></script>
 
 	<!-- Custom JS -->
 	<script src="./js/common.js"></script>

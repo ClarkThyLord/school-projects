@@ -173,7 +173,7 @@
 			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				switch ($routes[1]) {
 					case 'add':
-						log_add(json_decode($_POST['data'], true));
+						log_add($_POST['data']);
 						break;
 					case 'clear':
 						log_clear();
@@ -200,10 +200,10 @@
 						user_logout();
 						break;
 					case 'add':
-						user_add(json_decode($_POST['data'], true));
+						user_add($_POST['data']);
 						break;
 					case 'modify':
-						user_modify($_POST['id'], json_decode($_POST['data'], true));
+						user_modify($_POST['id'], $_POST['data']);
 						break;
 					case 'remove':
 						user_remove($_POST['id']);

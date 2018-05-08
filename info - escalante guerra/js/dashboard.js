@@ -1,3 +1,9 @@
+// GLOBAL Variables
+var GLOBALS = {
+  user: undefined, // Client's current user
+  asset: undefined // Current asset being interacted with
+};
+
 // CONTENT Functions
 // *****************************************************************************
 
@@ -37,11 +43,11 @@ function content_refresh(content) {
     $.get({
       url: './server/api.php/' + content + '/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
       success: function(response) {
+        $('#' + content).waitMe('hide');
+
         response = JSON.parse(response);
         if (response.status === 'success') {
           VUE_ELEMENTS[content].data = response.data.dump;
-
-          $('#' + content).waitMe('hide');
         }
 
         if (response.status === 'failure' || DEBUGGING.popups) {
@@ -54,6 +60,17 @@ function content_refresh(content) {
 
 // USERS Functions
 // *****************************************************************************
+
+$('#users_modify').on('shown.bs.modal', function(e) {
+  $('#users_modify_info :input').each(function() {
+    if (this.name === 'password') {
+      $(this).val('12345678910');
+    } else {
+      $(this).val(GLOBALS.asset[this.name]);
+    }
+  });
+});
+
 
 /**
  * Clear the all the logs.
@@ -71,11 +88,11 @@ function users_get() {
   $.post({
     url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
     success: function(response) {
+      $('#users').waitMe('hide');
+
       response = JSON.parse(response);
       if (response.status === 'success') {
         VUE_ELEMENTS.logs.data = response.data.dump;
-
-        $('#logs').waitMe('hide');
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -104,17 +121,17 @@ function users_add(data) {
     url: './server/api.php/users/add?debug=' + DEBUGGING.server,
     data: {
       data: {
-        username: data.username || 'New User',
+        username: data.username || 'Nuevo Usuario',
         password: data.password || '',
-        access: 0
+        access: data.access || 0
       }
     },
     success: function(response) {
+      $('#users').waitMe('hide');
+
       response = JSON.parse(response);
       if (response.status === 'success') {
         VUE_ELEMENTS.users.data = response.data.dump;
-
-        $('#users').waitMe('hide');
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -140,6 +157,11 @@ function users_modify(id, data) {
     color: 'rgba(0, 0, 0)',
   });
 
+  console.log(id);
+  console.log(data);
+
+  return;
+
   $.post({
     url: './server/api.php/users/modify?debug=' + DEBUGGING.server,
     data: {
@@ -147,11 +169,11 @@ function users_modify(id, data) {
       data: data
     },
     success: function(response) {
+      $('#users').waitMe('hide');
+
       response = JSON.parse(response);
       if (response.status === 'success') {
         VUE_ELEMENTS.users.data = response.data.dump;
-
-        $('#users').waitMe('hide');
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -182,11 +204,12 @@ function users_remove(id) {
       id: id
     },
     success: function(response) {
+      $('#users').waitMe('hide');
+
       response = JSON.parse(response);
+
       if (response.status === 'success') {
         VUE_ELEMENTS.logs.data = response.data.dump;
-
-        $('#users').waitMe('hide');
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -251,7 +274,7 @@ var VUE_ELEMENTS = {};
 Vue.component('table-component', {
   template: '#table-component',
   props: {
-    content: String,
+    asset: String,
     modifiable: Boolean,
     removable: Boolean,
     search_term: String,
@@ -302,11 +325,14 @@ Vue.component('table-component', {
       this.search_term = key;
       this.sortOrders[key] = this.sortOrders[key] * -1;
     },
+    selected: function(event, asset) {
+      GLOBALS.asset = asset;
+    },
     edit: function(event) {
-      $('#' + this.content + '_modify').modal('show');
+      $('#' + this.asset + '_modify').modal('show');
     },
     remove: function(event) {
-      $('#' + this.content + '_remove').modal('show');
+      $('#' + this.asset + '_remove').modal('show');
     }
   }
 });
@@ -315,7 +341,7 @@ Vue.component('table-component', {
 VUE_ELEMENTS.users = new Vue({
   el: '#all_users_table',
   data: {
-    content: 'users',
+    asset: 'users',
     modifiable: true,
     removable: true,
     search_term: '',
@@ -328,7 +354,7 @@ VUE_ELEMENTS.users = new Vue({
 VUE_ELEMENTS.logs = new Vue({
   el: '#all_logs_table',
   data: {
-    content: 'logs',
+    asset: 'logs',
     modifiable: false,
     removable: false,
     search_term: '',
