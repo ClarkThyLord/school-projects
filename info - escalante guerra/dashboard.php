@@ -513,7 +513,7 @@
 		            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
 		            <input type="text" class="form-control" name="username">
 		            <label for="recipient-name" class="col-form-label">Contraseña:</label>
-		            <input type="password" class="form-control" name="password">
+		            <input type="password" placeholder="Nueva contraseña..." class="form-control" name="password">
 		            <label for="recipient-name" class="col-form-label">Nivel de Acceso:</label>
 		            <input type="number" step="1" min="0" max="2" class="form-control" name="access">
 		          </div>

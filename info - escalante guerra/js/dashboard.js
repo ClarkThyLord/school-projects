@@ -63,11 +63,7 @@ function content_refresh(content) {
 
 $('#users_modify').on('shown.bs.modal', function(e) {
   $('#users_modify_info :input').each(function() {
-    if (this.name === 'password') {
-      $(this).val('12345678910');
-    } else {
-      $(this).val(GLOBALS.asset[this.name]);
-    }
+    $(this).val(GLOBALS.asset[this.name]);
   });
 });
 
@@ -157,10 +153,17 @@ function users_modify(id, data) {
     color: 'rgba(0, 0, 0)',
   });
 
-  console.log(id);
-  console.log(data);
-
-  return;
+  var valid = [
+    'username',
+    'password',
+    'access'
+  ];
+  var valid_data = {};
+  $.each(data, function(key, value) {
+    if (value && valid.indexOf(key) !== -1) {
+      valid_data[key] = value;
+    }
+  });
 
   $.post({
     url: './server/api.php/users/modify?debug=' + DEBUGGING.server,
