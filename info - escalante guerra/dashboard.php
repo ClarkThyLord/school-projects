@@ -487,7 +487,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = {}; $('#users_add_info :input').each(function() { data[this.name] = $(this).val(); }); users_add(data); $('#users_add').modal('hide');" class="btn btn-primary">Agregar</button>
+	        <button type="button" onclick="var data = {}; $('#users_add_info :input').each(function() { data[this.name] = $(this).val(); }); users_add(data); $('#users_add').modal('hide'); $('#users_add_info').trigger('reset')" class="btn btn-primary">Agregar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -553,7 +553,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button onclick="users_remove(GLOBALS.asset.id);" type="button" class="btn btn-primary">Eliminar</button>
+	        <button onclick="users_remove(GLOBALS.asset.id); $('#users_remove').modal('hide');" type="button" class="btn btn-primary">Eliminar</button>
 	      </div>
 	    </div>
 	  </div>

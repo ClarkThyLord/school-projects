@@ -209,7 +209,7 @@ function users_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.logs.data = response.data.dump;
+        VUE_ELEMENTS.users.data = response.data.dump;
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
