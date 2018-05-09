@@ -601,14 +601,14 @@
 	  <table class="table table-striped table-hover table-sm">
 	    <thead>
 		    <tr>
-		      <th v-for="key in visual_columns" @click="sortBy(key)" :class="{ active: sortKey == key }" style="cursor: pointer;">
+		      <th v-for="key in visual_columns" @click="sort_by(real_columns[visual_columns.indexOf(key)]);" :class="{ active: sortKey == key }" style="cursor: pointer;">
 						{{ key | capitalize }}
 		        <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
 		      </th>
 		    </tr>
 	    </thead>
 	    <tbody>
-	      <tr v-for="entry in filteredData" v-on:click="selected($event, entry);">
+	      <tr v-for="entry in filter_data" v-on:click="selected($event, entry);">
 	        <td v-for="key in real_columns">
 	          {{ entry[key] }}
 	        </td>

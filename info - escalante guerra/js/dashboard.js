@@ -290,24 +290,27 @@ Vue.component('table-component', {
     this.real_columns.forEach(function(key) {
       sortOrders[key] = 1;
     });
+
     return {
       sortKey: '',
       sortOrders: sortOrders
     };
   },
   computed: {
-    filteredData: function() {
+    filter_data: function() {
       var sortKey = this.sortKey;
-      var filterKey = this.search_term && this.search_term.toLowerCase();
+      var search_term = this.search_term && this.search_term.toLowerCase();
       var order = this.sortOrders[sortKey] || 1;
       var data = this.data;
-      if (filterKey) {
+
+      if (search_term) {
         data = data.filter(function(row) {
           return Object.keys(row).some(function(key) {
-            return String(row[key]).toLowerCase().indexOf(filterKey) > -1;
+            return String(row[key]).toLowerCase().indexOf(search_term) > -1;
           });
         });
       }
+
       if (sortKey) {
         data = data.slice().sort(function(a, b) {
           a = a[sortKey];
@@ -315,6 +318,9 @@ Vue.component('table-component', {
           return (a === b ? 0 : a > b ? 1 : -1) * order;
         });
       }
+
+      console.log(data);
+
       return data;
     }
   },
@@ -324,7 +330,7 @@ Vue.component('table-component', {
     }
   },
   methods: {
-    sortBy: function(key) {
+    sort_by: function(key) {
       this.search_term = key;
       this.sortOrders[key] = this.sortOrders[key] * -1;
     },

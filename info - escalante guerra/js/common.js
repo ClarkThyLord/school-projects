@@ -32,8 +32,6 @@ function login(username, password) {
     success: function(response) {
       response = JSON.parse(response);
 
-      $('body').waitMe('hide');
-
       if (response.status === 'success') {
         window.location.href = './dashboard.php';
       } else {
