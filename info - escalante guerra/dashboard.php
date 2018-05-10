@@ -28,6 +28,35 @@
 		.page-content {
 			height: 100%;
 		}
+
+		th.active {
+		  color: #fff;
+		}
+
+		th.active .arrow {
+		  opacity: 1;
+		}
+
+		.arrow {
+		  display: inline-block;
+		  vertical-align: middle;
+		  width: 0;
+		  height: 0;
+		  margin-left: 5px;
+		  opacity: 0.66;
+		}
+
+		.arrow.asc {
+		  border-left: 4px solid transparent;
+		  border-right: 4px solid transparent;
+		  border-bottom: 4px solid #fff;
+		}
+
+		.arrow.dsc {
+		  border-left: 4px solid transparent;
+		  border-right: 4px solid transparent;
+		  border-top: 4px solid #fff;
+		}
 	</style>
 	<link href="./css/dashboard.css" rel="stylesheet">
 </head>
@@ -601,9 +630,9 @@
 	  <table class="table table-striped table-hover table-sm">
 	    <thead>
 		    <tr>
-		      <th v-for="key in visual_columns" @click="sort_by(real_columns[visual_columns.indexOf(key)]);" :class="{ active: sortKey == key }" style="cursor: pointer;">
+		      <th v-for="key in visual_columns" @click="sort_by(real_columns[visual_columns.indexOf(key)]);" :class="{ active: sort_key == key }" style="cursor: pointer;">
 						{{ key | capitalize }}
-		        <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"></span>
+		        <span class="arrow" :class="sort_order[key] > 0 ? 'asc' : 'dsc'"></span>
 		      </th>
 		    </tr>
 	    </thead>

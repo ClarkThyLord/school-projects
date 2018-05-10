@@ -286,21 +286,21 @@ Vue.component('table-component', {
     data: Array
   },
   data: function() {
-    var sortOrders = {};
-    this.real_columns.forEach(function(key) {
-      sortOrders[key] = 1;
+    var sort_order = {};
+    this.visual_columns.forEach(function(key) {
+      sort_order[key] = 1;
     });
 
     return {
-      sortKey: '',
-      sortOrders: sortOrders
+      sort_key: '',
+      sort_order: sort_order
     };
   },
   computed: {
     filter_data: function() {
-      var sortKey = this.sortKey;
-      var search_term = this.search_term && this.search_term.toLowerCase();
-      var order = this.sortOrders[sortKey] || 1;
+      var sort_key = this.sort_key;
+      var search_term = this.search_term.toLowerCase();
+      var sort_order = this.sort_order[sort_key] || 1;
       var data = this.data;
 
       if (search_term) {
@@ -311,11 +311,11 @@ Vue.component('table-component', {
         });
       }
 
-      if (sortKey) {
+      if (sort_key) {
         data = data.slice().sort(function(a, b) {
-          a = a[sortKey];
-          b = b[sortKey];
-          return (a === b ? 0 : a > b ? 1 : -1) * order;
+          a = a[sort_key];
+          b = b[sort_key];
+          return (a === b ? 0 : a > b ? 1 : -1) * sort_order;
         });
       }
 
@@ -332,7 +332,7 @@ Vue.component('table-component', {
   methods: {
     sort_by: function(key) {
       this.search_term = key;
-      this.sortOrders[key] = this.sortOrders[key] * -1;
+      this.sort_order[key] = this.sort_order[key] * -1;
     },
     selected: function(event, asset) {
       GLOBALS.asset = asset;

@@ -36,6 +36,7 @@ function login(username, password) {
         window.location.href = './dashboard.php';
       } else {
         alert(((response.data.username === null || !response.data.username) ? 'nombre de usuario no existe!' : '') + ((response.data.password === null || !response.data.password) ? '\nla contraseña no esta correcta!' : ''));
+        $('body').waitMe("hide");
       }
     }
   });
