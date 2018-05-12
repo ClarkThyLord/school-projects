@@ -87,7 +87,7 @@ function content_refresh(content) {
 $('#jobs_modify').on('shown.bs.modal', function(e) {
   $('#jobs_modify_info :input').each(function() {
     if ($(this).attr('type') === 'checkbox') {
-      $(this).prop('checked', !!GLOBALS.asset[this.name]);
+      $(this).prop('checked', !!(GLOBALS.asset[this.name] * 1));
     } else {
       $(this).val(GLOBALS.asset[this.name]);
     }

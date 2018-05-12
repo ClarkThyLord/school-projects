@@ -518,7 +518,7 @@
 					<!-- FOOTER -->
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-		        <button onclick="var data = {}; $('#jobs_modify_info :input').each(function() { data[this.name] = $(this).val(); }); jobs_modify(GLOBALS.asset.id, data); $('#jobs_modify').modal('hide');" type="button" class="btn btn-primary">Someter</button>
+		        <button onclick="var data = {}; $('#jobs_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else { data[this.name] = $(this).val(); } }); jobs_modify(GLOBALS.asset.id, data); $('#jobs_modify').modal('hide');" type="button" class="btn btn-primary">Someter</button>
 		      </div>
 		    </div>
 		  </div>
@@ -715,7 +715,9 @@
 	    <tbody>
 	      <tr v-for="entry in filtered_data" v-on:click="selected($event, entry);">
 	        <td v-for="(val, key) in columns">
-	          {{ entry[val.referencing] }}
+	          <span v-if="key === 'Activo' && entry[val.referencing] === '0'">🔴</span>
+	          <span v-else-if="key === 'Activo' && entry[val.referencing] === '1'">🔵</span>
+						<span v-else>{{ entry[val.referencing] }}</span>
 	        </td>
 					<td v-if="modifiable || removable">
 						<span v-if="modifiable" v-on:click="edit($event);" style="cursor: pointer;">✏️</span>
