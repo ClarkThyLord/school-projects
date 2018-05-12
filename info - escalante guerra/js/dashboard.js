@@ -322,19 +322,19 @@ VUE_ELEMENTS.users = new Vue({
     search_term: '',
     columns: {
       'ID.': {
-        order: 'des',
+        order: '',
         referencing: 'id'
       },
       'Creado': {
-        order: 'des',
+        order: '',
         referencing: 'created'
       },
       'Nombre': {
-        order: 'des',
+        order: '',
         referencing: 'username'
       },
       'Acceso': {
-        order: 'des',
+        order: '',
         referencing: 'access'
       }
     },
@@ -351,19 +351,19 @@ VUE_ELEMENTS.logs = new Vue({
     search_term: '',
     columns: {
       'Fecha y Hora.': {
-        order: 'des',
+        order: '',
         referencing: 'created'
       },
       'Responsable': {
-        order: 'des',
+        order: '',
         referencing: 'responsible'
       },
       'Movimiento': {
-        order: 'des',
+        order: '',
         referencing: 'action'
       },
       'Identificador': {
-        order: 'des',
+        order: '',
         referencing: 'asset_id'
       }
     },
