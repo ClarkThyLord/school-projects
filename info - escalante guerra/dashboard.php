@@ -609,7 +609,7 @@
 	  <table class="table table-striped table-hover table-sm">
 	    <thead>
 		    <tr>
-		      <th v-for="(val, key) in columns" @click="sort_key = key; val.order = (val.order === 'des') ? 'asc' : 'des';" style="cursor: pointer;" class="unselectable" :class="{ active: sort_key == key }">
+		      <th v-for="(val, key) in columns" @click="val.order = (val.order === 'des') ? 'asc' : 'des'; sort_key = key;" style="cursor: pointer;" class="unselectable" :class="{ active: sort_key == key }">
 						{{ key | capitalize }}
 						<span v-if="key === sort_key && val.order === 'des'">↑</span>
 						<span v-if="key === sort_key && val.order === 'asc'">↓</span>
