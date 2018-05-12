@@ -446,7 +446,7 @@
 				  </div>
 				</div>
 				<div class="table-responsive" id="all_users_table">
-				  <table-component :asset="asset" :modifiable="modifiable" :removable="removable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
+				  <table-component :asset="asset" :modifiable="modifiable" :removable="removable" :search_term="search_term" :columns="columns" :data="data"></table-component>
 				</div>
 			</main>
 
@@ -465,7 +465,7 @@
           </div>
         </div>
         <div class="table-responsive" id="all_logs_table">
-					<table-component :asset="asset" :modifiable="modifiable" :removable="removable" :search_term="search_term" :visual_columns="visual_columns" :real_columns="real_columns" :data="data"></table-component>
+					<table-component :asset="asset" :modifiable="modifiable" :removable="removable" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
       </main>
     </div>
@@ -617,16 +617,19 @@
 	  <table class="table table-striped table-hover table-sm">
 	    <thead>
 		    <tr>
-		      <th v-for="key in visual_columns" @click="sort_key = key; return console.log(sort_key); sort_by(real_columns[visual_columns.indexOf(key)]);" style="cursor: pointer;" :class="{ active: sort_key == key }">
+		      <th v-for="(val, key) in columns" @click="sort_key = key;" style="cursor: pointer;" :class="{ active: sort_key == key }">
 						{{ key | capitalize }}
 						<span class="sort_arrow" :class="key === sort_key ? (true ? 'asc' : 'dsc') : ''">↑</span>
+		      </th>
+		      <th v-if="modifiable || removable">
+						Acciónes
 		      </th>
 		    </tr>
 	    </thead>
 	    <tbody>
-	      <tr v-for="entry in filter_data" v-on:click="selected($event, entry);">
-	        <td v-for="key in real_columns">
-	          {{ entry[key] }}
+	      <tr v-for="entry in filtered_data" v-on:click="selected($event, entry);">
+	        <td v-for="(val, key) in columns">
+	          {{ entry[val.referencing] }}
 	        </td>
 					<td v-if="modifiable || removable">
 						<span v-if="modifiable" v-on:click="edit($event);" style="cursor: pointer;">✏️</span>

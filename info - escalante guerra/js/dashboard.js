@@ -280,48 +280,15 @@ Vue.component('table-component', {
     asset: String,
     modifiable: Boolean,
     removable: Boolean,
+    sort_key: String,
     search_term: String,
-    visual_columns: Array,
-    real_columns: Array,
+    columns: Object,
     data: Array
   },
-  data: function() {
-    var sort_order = {};
-    this.visual_columns.forEach(function(key) {
-      sort_order[key] = 1;
-    });
-
-    return {
-      sort_key: '',
-      sort_order: sort_order
-    };
-  },
+  data: function() {},
   computed: {
-    filter_data: function() {
-      var sort_key = this.sort_key;
-      var search_term = this.search_term.toLowerCase();
-      var sort_order = this.sort_order[sort_key] || 1;
-      var data = this.data;
-
-      if (search_term) {
-        data = data.filter(function(row) {
-          return Object.keys(row).some(function(key) {
-            return String(row[key]).toLowerCase().indexOf(search_term) > -1;
-          });
-        });
-      }
-
-      if (sort_key) {
-        data = data.slice().sort(function(a, b) {
-          a = a[sort_key];
-          b = b[sort_key];
-          return (a === b ? 0 : a > b ? 1 : -1) * sort_order;
-        });
-      }
-
-      console.log(data);
-
-      return data;
+    filtered_data: function() {
+      return this.data;
     }
   },
   filters: {
@@ -332,7 +299,6 @@ Vue.component('table-component', {
   methods: {
     sort_by: function(key) {
       this.search_term = key;
-      this.sort_order[key] = this.sort_order[key] * -1;
     },
     selected: function(event, asset) {
       GLOBALS.asset = asset;
@@ -354,8 +320,24 @@ VUE_ELEMENTS.users = new Vue({
     modifiable: true,
     removable: true,
     search_term: '',
-    visual_columns: ['ID.', 'Creado', 'Nombre', 'Acceso', 'Acciónes'],
-    real_columns: ['id', 'created', 'username', 'access'],
+    columns: {
+      'ID.': {
+        order: 'des',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre': {
+        order: 'des',
+        referencing: 'username'
+      },
+      'Acceso': {
+        order: 'des',
+        referencing: 'access'
+      }
+    },
     data: []
   }
 });
@@ -367,8 +349,24 @@ VUE_ELEMENTS.logs = new Vue({
     modifiable: false,
     removable: false,
     search_term: '',
-    visual_columns: ['Fecha y Hora.', 'Responsable', 'Movimiento', 'Identificador'],
-    real_columns: ['created', 'responsible', 'action', 'asset_id'],
+    columns: {
+      'Fecha y Hora.': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Responsable': {
+        order: 'des',
+        referencing: 'responsible'
+      },
+      'Movimiento': {
+        order: 'des',
+        referencing: 'action'
+      },
+      'Identificador': {
+        order: 'des',
+        referencing: 'asset_id'
+      }
+    },
     data: []
   }
 });
