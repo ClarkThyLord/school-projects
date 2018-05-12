@@ -1,7 +1,14 @@
 // GLOBAL Variables
 var GLOBALS = {
   user: undefined, // Client's current user
-  asset: undefined // Current asset being interacted with
+  asset: undefined, // Current asset being interacted with
+  eng_to_spa: {
+    'jobs': 'puestos',
+    'requisitions': 'requisiciones',
+    'candidates': 'candidatos',
+    'users': 'usuarios',
+    'logs': 'registros'
+  }
 };
 
 // CONTENT Functions
@@ -33,7 +40,7 @@ function content_change(content) {
 function content_export(content) {
   html2pdf($('#' + content + ' table').first()[0], {
     margin: 10,
-    filename: content + ' export.pdf',
+    filename: GLOBALS.eng_to_spa[content] + ' exportación.pdf',
     html2canvas: {},
     jsPDF: {
       orientation: 'landscape'
