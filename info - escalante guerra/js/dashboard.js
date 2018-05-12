@@ -26,6 +26,22 @@ function content_change(content) {
 
 
 /**
+ * Export content's table.
+ * @param {string} content Content's identifier.
+ * @return {undefined} Returns nothing.
+ */
+function content_export(content) {
+  html2pdf($('#' + content + ' table').first()[0], {
+    margin: 10,
+    filename: content + ' export.pdf',
+    html2canvas: {},
+    jsPDF: {
+      orientation: 'landscape'
+    }
+  });
+}
+
+/**
  * Portrait given user and users in the page.
  * @param {string} content Content's identifier.
  * @return {undefined} Returns nothing.
@@ -305,7 +321,7 @@ Vue.component('table-component', {
         var sort_key = this.columns[this.sort_key].referencing;
         var sort_type = this.columns[this.sort_key].order === 'des' ? -1 : 1;
         data = data.slice().sort(function(a, b) {
-          if (typeof a[sort_key] === 'string') {
+          if (typeof a[sort_key] === 'string' && isNaN(a[sort_key])) {
             a = a[sort_key].toLowerCase();
             b = b[sort_key].toLowerCase();
 
@@ -317,7 +333,7 @@ Vue.component('table-component', {
               return 0;
             }
           } else {
-            return sort_type * (a[sort_key] - b[sort_key]);
+            return sort_type * ((a[sort_key] * 1) - b[sort_key]);
           }
         });
       }
