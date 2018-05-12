@@ -348,10 +348,11 @@ VUE_ELEMENTS.users = new Vue({
     asset: 'users',
     modifiable: true,
     removable: true,
+    sort_key: 'ID.',
     search_term: '',
     columns: {
       'ID.': {
-        order: '',
+        order: 'des',
         referencing: 'id'
       },
       'Creado': {
@@ -377,10 +378,11 @@ VUE_ELEMENTS.logs = new Vue({
     asset: 'logs',
     modifiable: false,
     removable: false,
+    sort_key: 'Fecha y Hora',
     search_term: '',
     columns: {
-      'Fecha y Hora.': {
-        order: '',
+      'Fecha y Hora': {
+        order: 'asc',
         referencing: 'created'
       },
       'Responsable': {

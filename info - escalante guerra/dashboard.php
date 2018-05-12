@@ -438,7 +438,7 @@
 				  </div>
 				</div>
 				<div class="table-responsive" id="all_users_table">
-				  <table-component :asset="asset" :modifiable="modifiable" :removable="removable" :search_term="search_term" :columns="columns" :data="data"></table-component>
+				  <table-component :asset="asset" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
 				</div>
 			</main>
 
@@ -457,7 +457,7 @@
           </div>
         </div>
         <div class="table-responsive" id="all_logs_table">
-					<table-component :asset="asset" :modifiable="modifiable" :removable="removable" :search_term="search_term" :columns="columns" :data="data"></table-component>
+					<table-component :asset="asset" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
       </main>
     </div>
