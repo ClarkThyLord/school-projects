@@ -293,6 +293,11 @@ Vue.component('table-component', {
       // Search data
       if (this.search_term) {
         var search_term = this.search_term;
+        data = data.filter(function(row) {
+          return Object.keys(row).some(function(key) {
+            return String(row[key]).toLowerCase().indexOf(search_term) > -1;
+          });
+        });
       }
 
       // Sort data

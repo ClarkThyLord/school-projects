@@ -433,7 +433,7 @@
 				      <button onclick="content_refresh('users');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
 				      <button onclick="$('#users_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Usuario</button>
 				      <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
-				      <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
+				      <input type="text" placeholder="Buscar..." oninput="VUE_ELEMENTS.users.search_term = this.value;" style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
 				    </div>
 				  </div>
 				</div>
@@ -452,7 +452,7 @@
               <button onclick="content_refresh('logs');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
               <button onclick="$('#logs_clear').modal('show');" class="btn btn-sm btn-outline-secondary">Borrar Registros</button>
 							<button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
-							<input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
+							<input type="text" placeholder="Buscar..." oninput="VUE_ELEMENTS.logs.search_term = this.value;" style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
 						</div>
           </div>
         </div>
