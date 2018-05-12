@@ -324,29 +324,14 @@
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <button onclick="content_refresh('jobs');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button onclick="" class="btn btn-sm btn-outline-secondary">+ Agregar Puesto</button>
-              <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+              <button onclick="$('#jobs_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Puesto</button>
+              <button onclick="content_export('jobs');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
             </div>
           </div>
         </div>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>ID.</th>
-                <th>Publicado</th>
-                <th>Puesto</th>
-                <th>Activo</th>
-                <th>Acciónes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="table-responsive" id="all_jobs_table">
+					<table-component :asset="asset" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
       </main>
 
@@ -464,6 +449,106 @@
   </div>
 
 	<!-- DIALOGS -->
+	<!-- JOBS DIALOGS -->
+	<!-- JOBS ADD -->
+	<div class="modal fade" id="jobs_add" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Agregar Puesto</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <form id="jobs_add_info">
+	          <div class="form-group">
+	            <label for="recipient-name" class="col-form-label">Título:</label>
+	            <input type="text" class="form-control" name="title">
+	            <label for="recipient-name" class="col-form-label">Descripción del Puesto:</label>
+							<textarea placeholder="" class="form-control" name="description"></textarea>
+	          </div>
+	        </form>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" onclick="var data = {}; $('#jobs_add_info :input').each(function() { data[this.name] = $(this).val(); }); jobs_add(data); $('#jobs_add').modal('hide'); $('#jobs_add_info').trigger('reset')" class="btn btn-primary">Agregar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- JOBS MODIFY -->
+	<div class="modal fade" id="jobs_modify" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+					<!-- HEADER -->
+		      <div class="modal-header">
+		        <h5 class="modal-title">Editar Puesto</h5>
+
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+
+					<!-- BODY -->
+		      <div class="modal-body">
+		        <form id="jobs_modify_info">
+		          <div class="form-group">
+		            <label for="recipient-name" class="col-form-label">Título:</label>
+		            <input type="text" class="form-control" name="title">
+		            <label for="recipient-name" class="col-form-label">Descripción del Puesto:</label>
+								<textarea placeholder="" class="form-control" name="description"></textarea>
+		          </div>
+		        </form>
+		      </div>
+
+					<!-- FOOTER -->
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button onclick="var data = {}; $('#jobs_modify_info :input').each(function() { data[this.name] = $(this).val(); }); jobs_modify(GLOBALS.asset.id, data); $('#jobs_modify').modal('hide');" type="button" class="btn btn-primary">Someter</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+	<!-- JOBS REMOVE -->
+	<div class="modal fade" id="jobs_remove" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Eliminar Usuario</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <p class="font-italic">
+						¿Seguro que quieres eliminar puesto?<br />
+						<span class="text-danger font-weight-bold">¡No es reversible!</span>
+					</p>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button onclick="jobs_remove(GLOBALS.asset.id); $('#jobs_remove').modal('hide');" type="button" class="btn btn-primary">Eliminar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
 	<!-- USERS DIALOGS -->
 	<!-- USERS ADD -->
 	<div class="modal fade" id="users_add" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
@@ -553,7 +638,7 @@
 				<!-- BODY -->
 	      <div class="modal-body">
 	        <p class="font-italic">
-						¿Seguro que quieres eliminar ?<br />
+						¿Seguro que quieres eliminar usuario?<br />
 						<span class="text-danger font-weight-bold">¡No es reversible!</span>
 					</p>
 	      </div>
@@ -566,6 +651,7 @@
 	    </div>
 	  </div>
 	</div>
+
 
 	<!-- LOGS DIALOGS -->
 	<!-- LOGS CLEAR -->

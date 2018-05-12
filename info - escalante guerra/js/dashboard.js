@@ -40,7 +40,7 @@ function content_change(content) {
 function content_export(content) {
   html2pdf($('#' + content + ' table').first()[0], {
     margin: 10,
-    filename: GLOBALS.eng_to_spa[content] + ' exportación.pdf',
+    filename: GLOBALS.eng_to_spa[content] + '.pdf',
     html2canvas: {},
     jsPDF: {
       orientation: 'landscape'
@@ -79,6 +79,168 @@ function content_refresh(content) {
       }
     });
   }
+}
+
+// JOBS Functions
+// *****************************************************************************
+
+$('#jobs_modify').on('shown.bs.modal', function(e) {
+  $('#jobs_modify_info :input').each(function() {
+    $(this).val(GLOBALS.asset[this.name]);
+  });
+});
+
+
+/**
+ * Clear the all the logs.
+ * @return {undefined} Returns nothing.
+ */
+function jobs_get() {
+  $('#jobs').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/jobs/clear?debug=' + DEBUGGING.server,
+    success: function(response) {
+      $('#jobs').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.jobs.data = response.data.dump;
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Add a job.
+ * @param {object} data Data to create job with.
+ * @return {undefined} Returns nothing.
+ */
+function jobs_add(data) {
+  $('#jobs').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/jobs/add?debug=' + DEBUGGING.server,
+    data: {
+      data: {
+        title: data.title || 'Nuevo Puesto',
+        description: data.description || 'Nueva posición abierta!'
+      }
+    },
+    success: function(response) {
+      $('#jobs').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.jobs.data = response.data.dump;
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Modify a job's data.
+ * @param {integer} id job's ID.
+ * @param {object} data Data to modify job with.
+ * @return {undefined} Returns nothing.
+ */
+function jobs_modify(id, data) {
+  $('#jobs').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  var valid = [
+    'title',
+    'description'
+  ];
+  var valid_data = {};
+  $.each(data, function(key, value) {
+    if (value && valid.indexOf(key) !== -1) {
+      valid_data[key] = value;
+    }
+  });
+
+  $.post({
+    url: './server/api.php/jobs/modify?debug=' + DEBUGGING.server,
+    data: {
+      id: id,
+      data: data
+    },
+    success: function(response) {
+      $('#jobs').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.jobs.data = response.data.dump;
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Clear the all the logs.
+ * @param {integer} id job's ID.
+ * @return {undefined} Returns nothing.
+ */
+function jobs_remove(id) {
+  $('#jobs').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/jobs/remove?debug=' + DEBUGGING.server,
+    data: {
+      id: id
+    },
+    success: function(response) {
+      $('#jobs').waitMe('hide');
+
+      response = JSON.parse(response);
+
+      if (response.status === 'success') {
+        VUE_ELEMENTS.jobs.data = response.data.dump;
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
 }
 
 // USERS Functions
@@ -366,6 +528,37 @@ Vue.component('table-component', {
     remove: function(event) {
       $('#' + this.asset + '_remove').modal('show');
     }
+  }
+});
+
+// Register VUE Elements
+VUE_ELEMENTS.jobs = new Vue({
+  el: '#all_jobs_table',
+  data: {
+    asset: 'jobs',
+    modifiable: true,
+    removable: true,
+    sort_key: 'Publicado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Publicado': {
+        order: 'asc',
+        referencing: 'created'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'title'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
   }
 });
 

@@ -95,7 +95,7 @@
 	function user_add($data=array()) {
     access_check(2);
 
-		$data = array_merge(array('username' => 'New User', 'password' => '', 'access' => 0), $data);
+		$data = array_merge(array('username' => 'Nuevo Usuario', 'password' => '', 'access' => 0), $data);
 
     $sql = "INSERT INTO `users` (`id`, `created`, `username`, `password`, `access`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["username"]}', '{$data["password"]}', '{$data["access"]}')";
 
