@@ -327,7 +327,7 @@
               <button onclick="content_refresh('jobs');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
               <button onclick="$('#jobs_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Puesto</button>
               <button onclick="content_export('jobs');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
-	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
+	            <input type="text" placeholder="Buscar..." oninput="VUE_ELEMENTS.jobs.search_term = this.value;" style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
             </div>
           </div>
         </div>
