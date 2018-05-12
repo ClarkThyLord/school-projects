@@ -22,6 +22,7 @@
 	<!-- CSS Libraries -->
 	<link href="./css/libs/jquery-waitMe.min.css" rel="stylesheet">
 	<link href="./css/libs/bootstrap.min.css" rel="stylesheet">
+	<link href="./css/libs/bootstrap-switch.min.css" rel="stylesheet">
 
 	<!-- Custom CSS -->
 	<style>
@@ -501,6 +502,11 @@
 		      <div class="modal-body">
 		        <form id="jobs_modify_info">
 		          <div class="form-group">
+								<label for="recipient-name" class="col-form-label">Activo:</label>
+								<div class="custom-switch custom-switch-label-onoff">
+								  <input type="checkbox" class="custom-switch-input" name="active" id="jobs_active_switch">
+								  <label class="custom-switch-btn" for="jobs_active_switch"></label>
+								</div>
 		            <label for="recipient-name" class="col-form-label">Título:</label>
 		            <input type="text" class="form-control" name="title">
 		            <label for="recipient-name" class="col-form-label">Descripción del Puesto:</label>

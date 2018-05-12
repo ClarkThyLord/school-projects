@@ -54,7 +54,7 @@ function content_export(content) {
  * @return {undefined} Returns nothing.
  */
 function content_refresh(content) {
-  if (content === 'users' || content === 'logs') {
+  if (content === 'jobs' || content === 'users' || content === 'logs') {
     $('#' + content).waitMe({
       waitTime: -1,
       effect: 'stretch',
@@ -86,7 +86,11 @@ function content_refresh(content) {
 
 $('#jobs_modify').on('shown.bs.modal', function(e) {
   $('#jobs_modify_info :input').each(function() {
-    $(this).val(GLOBALS.asset[this.name]);
+    if ($(this).attr('type') === 'checkbox') {
+      $(this).prop('checked', !!GLOBALS.asset[this.name]);
+    } else {
+      $(this).val(GLOBALS.asset[this.name]);
+    }
   });
 });
 

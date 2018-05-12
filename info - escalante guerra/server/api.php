@@ -152,31 +152,26 @@
 
 	if (count($routes) <= 0) {
 		response_status(false, 'no valid endpoint given');
-	} else if ($routes[0] === 'database') {
-		include_once './endpoints/database.php';
+	} else if ($routes[0] === 'jobs') {
+		include_once './endpoints/jobs.php';
 
-		if (count($routes) === 2 && $_SERVER['REQUEST_METHOD'] === 'POST') {
-			switch ($routes[1]) {
-				case 'setup':
-					database_setup();
-					break;
-			}
-		}
-	} else if ($routes[0] === 'logs') {
 		if (count($routes) === 2){
 			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				switch ($routes[1]) {
 					case 'get':
-						log_get(json_decode($_GET['filter'], true), $_GET['options']);
+						job_get(json_decode($_GET['filter'], true), $_GET['options']);
 						break;
 				}
 			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				switch ($routes[1]) {
 					case 'add':
-						log_add($_POST['data']);
+						job_add($_POST['data']);
 						break;
-					case 'clear':
-						log_clear();
+					case 'modify':
+						job_modify($_POST['id'], $_POST['data']);
+						break;
+					case 'remove':
+						job_remove($_POST['id']);
 						break;
 				}
 			}
@@ -207,6 +202,35 @@
 						break;
 					case 'remove':
 						user_remove($_POST['id']);
+						break;
+				}
+			}
+		}
+	} else if ($routes[0] === 'database') {
+		include_once './endpoints/database.php';
+
+		if (count($routes) === 2 && $_SERVER['REQUEST_METHOD'] === 'POST') {
+			switch ($routes[1]) {
+				case 'setup':
+					database_setup();
+					break;
+			}
+		}
+	} else if ($routes[0] === 'logs') {
+		if (count($routes) === 2){
+			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+				switch ($routes[1]) {
+					case 'get':
+						log_get(json_decode($_GET['filter'], true), $_GET['options']);
+						break;
+				}
+			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				switch ($routes[1]) {
+					case 'add':
+						log_add($_POST['data']);
+						break;
+					case 'clear':
+						log_clear();
 						break;
 				}
 			}

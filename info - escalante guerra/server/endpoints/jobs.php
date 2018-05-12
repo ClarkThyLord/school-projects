@@ -45,7 +45,7 @@
 
 		$data = array_merge(array('title' => 'Nueva Puesto', 'description' => 'Nueva posición abierta!'), $data);
 
-    $sql = "INSERT INTO `jobs` (`id`, `created`, `title`, `description`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, {$data["title"]}, {$data["description"]}, '1')";
+    $sql = "INSERT INTO `jobs` (`id`, `created`, `title`, `description`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["title"]}', '{$data["description"]}', '1')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
@@ -65,7 +65,7 @@
       $GLOBALS['response']['data']['job'] = $GLOBALS['conn']->query($sql)->fetch_assoc();
 
 			// LOG
-			qlog($_SESSION['job']['id'], 'puesto creado', 'jobs', "{$insert_id}");
+			qlog($_SESSION['user']['id'], 'puesto creado', 'jobs', "{$insert_id}");
 
 			job_get();
 
@@ -108,7 +108,7 @@
 
 		if ($GLOBALS["conn"]->query($sql) === true) {
 			// LOG
-			qlog($_SESSION['job']['id'], 'puesto modificado', 'jobs', "{$job_id}");
+			qlog($_SESSION['user']['id'], 'puesto modificado', 'jobs', "{$job_id}");
 
 			job_get();
 
@@ -141,7 +141,7 @@
       $GLOBALS['response']['data']['id'] = $job_id;
 
 			// LOG
-			qlog($_SESSION['job']['id'], 'puesto eliminado', 'jobs', "{$job_id}");
+			qlog($_SESSION['user']['id'], 'puesto eliminado', 'jobs', "{$job_id}");
 
 			job_get();
 
