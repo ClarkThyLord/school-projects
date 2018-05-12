@@ -298,7 +298,7 @@ Vue.component('table-component', {
       // Sort data
       if (this.sort_key) {
         var sort_key = this.columns[this.sort_key].referencing;
-        var sort_type = this.columns[this.sort_key].order === 'des' ? 1 : -1;
+        var sort_type = this.columns[this.sort_key].order === 'des' ? -1 : 1;
         data = data.slice().sort(function(a, b) {
           if (typeof a[sort_key] === 'string') {
             a = a[sort_key].toLowerCase();
@@ -352,7 +352,7 @@ VUE_ELEMENTS.users = new Vue({
     search_term: '',
     columns: {
       'ID.': {
-        order: 'des',
+        order: 'asc',
         referencing: 'id'
       },
       'Creado': {
@@ -382,7 +382,7 @@ VUE_ELEMENTS.logs = new Vue({
     search_term: '',
     columns: {
       'Fecha y Hora': {
-        order: 'asc',
+        order: 'des',
         referencing: 'created'
       },
       'Responsable': {
