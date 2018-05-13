@@ -12,8 +12,6 @@ function create_form_html(data) {
   for (var key in data) {
     value = data[key];
 
-    console.log(value);
-
     var dom;
     switch (value.type) {
       case 'break':
@@ -56,14 +54,6 @@ function create_form_html(data) {
 
     if (value.required) $(dom).prop("required", true);
 
-    console.log(dom);
-    console.log('---');
-
     form.append(dom);
   }
-
-  console.log(form);
-
-  var w = window.open();
-  $(w.document.body).html(form);
 }
