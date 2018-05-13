@@ -52,6 +52,10 @@ function create_form_html(data) {
         continue;
     }
 
+    if (value.label) dom = $(dom).wrap('<label>' + value.label + ': ' + (value.extra && value.extra.comment ? '<span style="font-size: 8px; opacity: 0.7;">' + value.extra.comment + '</span>' : '') + '</label>').parent()[0];
+
+    if (value.required) $(dom).prop("required", true);
+
     console.log(dom);
     console.log('---');
 
@@ -59,4 +63,7 @@ function create_form_html(data) {
   }
 
   console.log(form);
+
+  var w = window.open();
+  $(w.document.body).html(form);
 }

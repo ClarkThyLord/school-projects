@@ -1,17 +1,17 @@
 [{
 		"type": "text",
 		"required": true,
-		"label": "Nombre Completo:"
+		"label": "Nombre Completo"
 	},
 	{
 		"type": "email",
 		"required": true,
-		"label": "Correo:"
+		"label": "Correo"
 	},
 	{
 		"type": "dropdown",
 		"required": true,
-		"label": "Sexo:",
+		"label": "Sexo",
 		"extra": {
 			"options": [
 				"Masculino",
@@ -22,7 +22,7 @@
 	{
 		"type": "dropdown",
 		"required": true,
-		"label": "Estado Civil:",
+		"label": "Estado Civil",
 		"extra": {
 			"options": [
 				"Soltero",
@@ -35,17 +35,17 @@
 	{
 		"type": "date",
 		"required": true,
-		"label": "Fecha de Nacimiento:"
+		"label": "Fecha de Nacimiento"
 	},
 	{
 		"type": "phonenumber",
 		"required": true,
-		"label": "Teléfono:"
+		"label": "Teléfono"
 	},
 	{
 		"type": "phonenumber",
 		"required": false,
-		"label": "Celular:"
+		"label": "Celular"
 	},
 	{
 		"type": "break",
@@ -55,7 +55,7 @@
 	{
 		"type": "dropdown",
 		"required": true,
-		"label": "Último Grado de Estudios:",
+		"label": "Último Grado de Estudios",
 		"extra": {
 			"options": [
 				"Primaria",
@@ -72,22 +72,22 @@
 	{
 		"type": "text",
 		"required": false,
-		"label": "Escuela:"
+		"label": "Escuela"
 	},
 	{
 		"type": "text",
 		"required": false,
-		"label": "Oficios o Subespecialidades:"
+		"label": "Oficios o Subespecialidades"
 	},
 	{
 		"type": "text",
 		"required": false,
-		"label": "Licenciaturas o Ingenierías:"
+		"label": "Licenciaturas o Ingenierías"
 	},
 	{
 		"type": "dropdown",
 		"required": true,
-		"label": "Inglés %:",
+		"label": "Inglés %",
 		"extra": {
 			"options": [
 				"Básico 20-30%",
@@ -104,22 +104,22 @@
 	{
 		"type": "text",
 		"required": true,
-		"label": "Empleo Actual o Último:"
+		"label": "Empleo Actual o Último"
 	},
 	{
 		"type": "text",
 		"required": true,
-		"label": "Puesto:"
+		"label": "Puesto"
 	},
 	{
 		"type": "text",
 		"required": true,
-		"label": "Referencia de Empleo Actual/Último:"
+		"label": "Referencia de Empleo Actual/Último"
 	},
 	{
 		"type": "text",
 		"required": true,
-		"label": "Periodo en Experiencia Laboral:",
+		"label": "Periodo en Experiencia Laboral",
 		"extra": {
 			"comment": "fecha de inicio y final"
 		}
@@ -127,62 +127,62 @@
 	{
 		"type": "text",
 		"required": false,
-		"label": "Sueldo Mensual Bruto:"
+		"label": "Sueldo Mensual Bruto"
 	},
 	{
 		"type": "text",
 		"required": false,
-		"label": "Empleo Anterior 1:"
+		"label": "Empleo Anterior 1"
 	},
 	{
 		"type": "text",
 		"required": false,
-		"label": "Puesto Empleo Anterior 1:"
+		"label": "Puesto Empleo Anterior 1"
 	},
 	{
 		"type": "text",
 		"required": false,
-		"label": "Referencia de Empleo Anterior 1:"
+		"label": "Referencia de Empleo Anterior 1"
 	},
 	{
 		"type": "text",
 		"required": false,
-		"label": "Periodo Experiencia Laboral 1:"
+		"label": "Periodo Experiencia Laboral 1"
 	},
 	{
 		"type": "text",
 		"required": false,
-		"label": "Empleo Anterior 2:"
+		"label": "Empleo Anterior 2"
 	},
 	{
 		"type": "text",
 		"required": false,
-		"label": "Puesto Empleo Anterior 2:"
+		"label": "Puesto Empleo Anterior 2"
 	},
 	{
 		"type": "text",
 		"required": false,
-		"label": "Referencia de Empleo Anterior 2:"
+		"label": "Referencia de Empleo Anterior 2"
 	},
 	{
 		"type": "text",
 		"required": false,
-		"label": "Periodo Experiencia Laboral 2:"
+		"label": "Periodo Experiencia Laboral 2"
 	},
 	{
 		"type": "textarea",
 		"required": false,
-		"label": "Software que Maneja:"
+		"label": "Software que Maneja"
 	},
 	{
 		"type": "textarea",
 		"required": false,
-		"label": "Habilidades:"
+		"label": "Habilidades"
 	},
 	{
 		"type": "dropdown",
 		"required": false,
-		"label": "Cuenta con Auto?",
+		"label": "Cuenta con Auto",
 		"extra": {
 			"options": [
 				"Si",
@@ -193,7 +193,7 @@
 	{
 		"type": "text",
 		"required": false,
-		"label": "Tipo de Licencia de Manejo:"
+		"label": "Tipo de Licencia de Manejo"
 	},
 	{
 		"type": "break",
@@ -203,6 +203,6 @@
 	{
 		"type": "file",
 		"required": false,
-		"label": "Adjuntar Archivo:"
+		"label": "Adjuntar Archivo"
 	}
 ]
