@@ -731,6 +731,7 @@
   <!-- Custom JS -->
   <script src="./js/common.js"></script>
   <script src="./js/dashboard.js"></script>
+  <script src="./js/form_generator.js"></script>
 </body>
 
 </html>

@@ -1,5 +1,4 @@
-[
-	{
+[{
 		"type": "text",
 		"required": true,
 		"label": "Nombre Completo:"
@@ -23,14 +22,15 @@
 	{
 		"type": "dropdown",
 		"required": true,
-		"label": "Estado Civil:"
+		"label": "Estado Civil:",
 		"extra": {
 			"options": [
 				"Soltero",
 				"Casado",
 				"Union libre"
 			]
-		},
+		}
+
 	},
 	{
 		"type": "date",
@@ -95,7 +95,6 @@
 				"Avanzado 80-100%"
 			]
 		}
-		
 	},
 	{
 		"type": "break",
@@ -122,7 +121,7 @@
 		"required": true,
 		"label": "Periodo en Experiencia Laboral:",
 		"extra": {
-			"comment" : "fecha de inicio y final"
+			"comment": "fecha de inicio y final"
 		}
 	},
 	{
@@ -142,7 +141,7 @@
 	},
 	{
 		"type": "text",
-		"required": ,
+		"required": false,
 		"label": "Referencia de Empleo Anterior 1:"
 	},
 	{
@@ -162,7 +161,7 @@
 	},
 	{
 		"type": "text",
-		"required": ,
+		"required": false,
 		"label": "Referencia de Empleo Anterior 2:"
 	},
 	{
@@ -183,7 +182,7 @@
 	{
 		"type": "dropdown",
 		"required": false,
-		"label": "Cuenta con Auto?"
+		"label": "Cuenta con Auto?",
 		"extra": {
 			"options": [
 				"Si",
