@@ -52,7 +52,7 @@ function create_form_html(data) {
         continue;
     }
 
-    if (value.label) dom = $(dom).wrap('<label>' + value.label + ': ' + (value.extra && value.extra.comment ? '<span style="font-size: 8px; opacity: 0.7;">' + value.extra.comment + '</span>' : '') + '</label>').parent()[0];
+    if (value.label) dom = $(dom).wrap('<label>' + value.label + ': ' + (value.extra && value.extra.comment ? ('<span style="font-size: 10px; opacity: 0.7;">' + value.extra.comment + '</span>') : '') + '</label>').parent()[0];
 
     if (value.required) $(dom).prop("required", true);
 
