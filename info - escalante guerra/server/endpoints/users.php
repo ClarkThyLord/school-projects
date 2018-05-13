@@ -80,9 +80,9 @@
         array_push($GLOBALS['response']['data']['dump'], $user);
       }
 
-			response_send(true, 'se encontró usuario(s) válido(s)');
+			response_status(true, 'se encontró usuario(s) válido(s)');
     } else {
-			response_send(false, 'no se encontró usuario(s) válido(s)');
+			response_status(false, 'no se encontró usuario(s) válido(s)');
     }
 	}
 

@@ -28,9 +28,9 @@
         array_push($GLOBALS['response']['data']['dump'], $job);
       }
 
-			response_send(true, 'se encontró puesto(s) válido(s)');
+			response_status(true, 'se encontró puesto(s) válido(s)');
     } else {
-			response_send(false, 'no se encontró puesto(s) válido(s)');
+			response_status(false, 'no se encontró puesto(s) válido(s)');
     }
 	}
 

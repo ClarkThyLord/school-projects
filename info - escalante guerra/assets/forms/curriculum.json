@@ -198,7 +198,7 @@
 	},
 	{
 		"type": "break",
-		"required": false,
+		"required": true,
 		"label": ""
 	},
 	{
