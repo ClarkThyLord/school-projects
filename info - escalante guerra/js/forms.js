@@ -197,8 +197,8 @@ function form_to_html(data) {
       case 'dropdown':
         dom = $('<select></select>');
 
-        for (var sub_key in value.extra.options) {
-          $(dom).append('<option value="' + value.extra.options[sub_key] + '">' + value.extra.options[sub_key] + '</option>');
+        for (var option in value.extra.options) {
+          $(dom).append('<option value="' + value.extra.options[option] + '">' + value.extra.options[option] + '</option>');
         }
         break;
       case 'file':
