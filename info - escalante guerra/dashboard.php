@@ -450,6 +450,42 @@
   </div>
 
 	<!-- DIALOGS -->
+	<!-- FORM DIALOGS -->
+	<!-- FORM VIEW -->
+	<div class="modal fade" id="forms_view" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Viendo Formulario</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <form action="#" id="forms_view_info">
+	          <div class="form-group">
+	            <label for="recipient-name" class="col-form-label">Título:</label>
+	            <input type="text" class="form-control" name="title">
+	            <label for="recipient-name" class="col-form-label">Descripción del Puesto:</label>
+							<textarea placeholder="" class="form-control" name="description"></textarea>
+	          </div>
+	        </form>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" onclick="$('#forms_view').modal('hide'); $('#forms_view_info').trigger('reset')" class="btn btn-primary">Agregar</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
 	<!-- JOBS DIALOGS -->
 	<!-- JOBS ADD -->
 	<div class="modal fade" id="jobs_add" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">

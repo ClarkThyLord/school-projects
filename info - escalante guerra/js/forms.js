@@ -20,7 +20,7 @@ async function forms_format_get(identifier) {
  * @return {undefined} Returns nothing.
  */
 function forms_get() {
-  $('#forms').waitMe({
+  $('#forms_view').waitMe({
     waitTime: -1,
     effect: 'stretch',
     text: 'Cargando...',
@@ -31,7 +31,7 @@ function forms_get() {
   $.post({
     url: './server/api.php/forms/clear?debug=' + DEBUGGING.server,
     success: function(response) {
-      $('#forms').waitMe('hide');
+      $('#forms_view').waitMe('hide');
 
       response = JSON.parse(response);
       if (response.status === 'success') {
@@ -52,7 +52,7 @@ function forms_get() {
  * @return {undefined} Returns nothing.
  */
 function forms_add(data) {
-  $('#forms').waitMe({
+  $('#forms_view').waitMe({
     waitTime: -1,
     effect: 'stretch',
     text: 'Cargando...',
@@ -69,7 +69,7 @@ function forms_add(data) {
       }
     },
     success: function(response) {
-      $('#forms').waitMe('hide');
+      $('#forms_view').waitMe('hide');
 
       response = JSON.parse(response);
       if (response.status === 'success') {
@@ -91,7 +91,7 @@ function forms_add(data) {
  * @return {undefined} Returns nothing.
  */
 function forms_modify(id, data) {
-  $('#forms').waitMe({
+  $('#forms_view').waitMe({
     waitTime: -1,
     effect: 'stretch',
     text: 'Cargando...',
@@ -117,7 +117,7 @@ function forms_modify(id, data) {
       data: data
     },
     success: function(response) {
-      $('#forms').waitMe('hide');
+      $('#forms_view').waitMe('hide');
 
       response = JSON.parse(response);
       if (response.status === 'success') {
@@ -138,7 +138,7 @@ function forms_modify(id, data) {
  * @return {undefined} Returns nothing.
  */
 function forms_remove(id) {
-  $('#forms').waitMe({
+  $('#forms_view').waitMe({
     waitTime: -1,
     effect: 'stretch',
     text: 'Cargando...',
@@ -152,7 +152,7 @@ function forms_remove(id) {
       id: id
     },
     success: function(response) {
-      $('#forms').waitMe('hide');
+      $('#forms_view').waitMe('hide');
 
       response = JSON.parse(response);
 
