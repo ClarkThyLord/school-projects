@@ -767,7 +767,6 @@
   <!-- Custom JS -->
   <script src="./js/common.js"></script>
   <script src="./js/dashboard.js"></script>
-  <script src="./js/forms.js"></script>
 </body>
 
 </html>
