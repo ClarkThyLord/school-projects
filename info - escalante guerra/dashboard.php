@@ -468,10 +468,10 @@
 	      <div class="modal-body">
 	        <form action="#" id="forms_view_info">
 	          <div class="form-group">
-	            <label for="recipient-name" class="col-form-label">Título:</label>
+	            <label class="col-form-label">Título:</label>
 	            <input type="text" class="form-control" name="title">
-	            <label for="recipient-name" class="col-form-label">Descripción del Puesto:</label>
-							<textarea placeholder="" class="form-control" name="description"></textarea>
+	            <label class="col-form-label">Descripción del Puesto:</label>
+							<textarea class="form-control" name="description"></textarea>
 	          </div>
 	        </form>
 	      </div>
@@ -504,10 +504,10 @@
 	      <div class="modal-body">
 	        <form action="#" id="jobs_add_info">
 	          <div class="form-group">
-	            <label for="recipient-name" class="col-form-label">Título:</label>
+	            <label class="col-form-label">Título:</label>
 	            <input type="text" class="form-control" name="title">
-	            <label for="recipient-name" class="col-form-label">Descripción del Puesto:</label>
-							<textarea placeholder="" class="form-control" name="description"></textarea>
+	            <label class="col-form-label">Descripción del Puesto:</label>
+							<textarea class="form-control" name="description"></textarea>
 	          </div>
 	        </form>
 	      </div>
@@ -538,15 +538,15 @@
 		      <div class="modal-body">
 		        <form action="#" id="jobs_modify_info">
 		          <div class="form-group">
-								<label for="recipient-name" class="col-form-label">Activo:</label>
+								<label class="col-form-label">Activo:</label>
 								<div class="custom-switch custom-switch-label-onoff">
 								  <input type="checkbox" class="custom-switch-input" name="active" id="jobs_active_switch">
 								  <label class="custom-switch-btn" for="jobs_active_switch"></label>
 								</div>
-		            <label for="recipient-name" class="col-form-label">Título:</label>
+		            <label class="col-form-label">Título:</label>
 		            <input type="text" class="form-control" name="title">
-		            <label for="recipient-name" class="col-form-label">Descripción del Puesto:</label>
-								<textarea placeholder="" class="form-control" name="description"></textarea>
+		            <label class="col-form-label">Descripción del Puesto:</label>
+								<textarea class="form-control" name="description"></textarea>
 		          </div>
 		        </form>
 		      </div>
@@ -609,11 +609,11 @@
 	      <div class="modal-body">
 	        <form action="#" id="users_add_info">
 	          <div class="form-group">
-	            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
+	            <label class="col-form-label">Nombre de Usuario:</label>
 	            <input type="text" class="form-control" name="username">
-	            <label for="recipient-name" class="col-form-label">Contraseña:</label>
+	            <label class="col-form-label">Contraseña:</label>
 	            <input type="password" class="form-control" name="password">
-	            <label for="recipient-name" class="col-form-label">Nivel de Acceso:</label>
+	            <label class="col-form-label">Nivel de Acceso:</label>
 	            <input type="number" step="1" min="0" max="2" class="form-control" name="access">
 	          </div>
 	        </form>
@@ -645,11 +645,11 @@
 		      <div class="modal-body">
 		        <form action="#" id="users_modify_info">
 		          <div class="form-group">
-		            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
+		            <label class="col-form-label">Nombre de Usuario:</label>
 		            <input type="text" class="form-control" name="username">
-		            <label for="recipient-name" class="col-form-label">Contraseña:</label>
+		            <label class="col-form-label">Contraseña:</label>
 		            <input type="password" placeholder="Nueva contraseña..." class="form-control" name="password">
-		            <label for="recipient-name" class="col-form-label">Nivel de Acceso:</label>
+		            <label class="col-form-label">Nivel de Acceso:</label>
 		            <input type="number" step="1" min="0" max="2" class="form-control" name="access">
 		          </div>
 		        </form>
