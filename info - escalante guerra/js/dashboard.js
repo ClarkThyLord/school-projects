@@ -166,7 +166,7 @@ function jobs_add(data) {
 
 /**
  * Modify a job's data.
- * @param {integer} id job's ID.
+ * @param {integer} id Job's ID.
  * @param {object} data Data to modify job with.
  * @return {undefined} Returns nothing.
  */
@@ -214,7 +214,7 @@ function jobs_modify(id, data) {
 
 /**
  * Clear the all the logs.
- * @param {integer} id job's ID.
+ * @param {integer} id Job's ID.
  * @return {undefined} Returns nothing.
  */
 function jobs_remove(id) {

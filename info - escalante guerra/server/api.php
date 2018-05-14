@@ -152,6 +152,30 @@
 
 	if (count($routes) <= 0) {
 		response_status(false, 'no valid endpoint given');
+	} else if ($routes[0] === 'forms') {
+		include_once './endpoints/forms.php';
+
+		if (count($routes) === 2){
+			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+				switch ($routes[1]) {
+					case 'get':
+						form_get(json_decode($_GET['filter'], true), $_GET['options']);
+						break;
+				}
+			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				switch ($routes[1]) {
+					case 'add':
+						form_add($_POST['data']);
+						break;
+					case 'modify':
+						form_modify($_POST['id'], $_POST['data']);
+						break;
+					case 'remove':
+						form_remove($_POST['id']);
+						break;
+				}
+			}
+		}
 	} else if ($routes[0] === 'jobs') {
 		include_once './endpoints/jobs.php';
 
