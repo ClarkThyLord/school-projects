@@ -1,7 +1,3 @@
-window.onload = async function() {
-  console.log(form_to_html(await forms_format_get('curriculum')));
-};
-
 // FORMS Functions
 // *****************************************************************************
 
