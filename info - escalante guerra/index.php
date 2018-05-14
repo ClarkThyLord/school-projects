@@ -28,7 +28,7 @@
 </head>
 
 <body class="text-center">
-	<form onsubmit="login(username_input.value, password_input.value); return false;" class="form-signin">
+	<form action="#" onsubmit="login(username_input.value, password_input.value); return false;" class="form-signin">
 		<img class="mb-4" src="./assets/escalante_guerra_logo.jpg" alt="" width="125" height="125" />
 		<h1 class="h3 mb-3 font-weight-normal">Por Favor, Ingresar</h1>
 

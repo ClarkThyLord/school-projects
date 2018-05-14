@@ -466,7 +466,7 @@
 
 				<!-- BODY -->
 	      <div class="modal-body">
-	        <form id="jobs_add_info">
+	        <form action="#" id="jobs_add_info">
 	          <div class="form-group">
 	            <label for="recipient-name" class="col-form-label">Título:</label>
 	            <input type="text" class="form-control" name="title">
@@ -500,7 +500,7 @@
 
 					<!-- BODY -->
 		      <div class="modal-body">
-		        <form id="jobs_modify_info">
+		        <form action="#" id="jobs_modify_info">
 		          <div class="form-group">
 								<label for="recipient-name" class="col-form-label">Activo:</label>
 								<div class="custom-switch custom-switch-label-onoff">
@@ -571,7 +571,7 @@
 
 				<!-- BODY -->
 	      <div class="modal-body">
-	        <form id="users_add_info">
+	        <form action="#" id="users_add_info">
 	          <div class="form-group">
 	            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
 	            <input type="text" class="form-control" name="username">
@@ -607,7 +607,7 @@
 
 					<!-- BODY -->
 		      <div class="modal-body">
-		        <form id="users_modify_info">
+		        <form action="#" id="users_modify_info">
 		          <div class="form-group">
 		            <label for="recipient-name" class="col-form-label">Nombre de Usuario:</label>
 		            <input type="text" class="form-control" name="username">
