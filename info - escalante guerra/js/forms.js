@@ -199,15 +199,11 @@ function form_to_html(data) {
         dom = $('<input type="tel" placeholder="(###) ### - ####" />');
         break;
       case 'dropdown':
-        var dom_string = '<select>';
+        dom = $('<select></select>');
 
         for (var sub_key in value.extra.options) {
-          dom_string += '<option value="' + value.extra.options[sub_key] + '">' + value.extra.options[sub_key] + '</option>';
+          $(dom).append('<option value="' + value.extra.options[sub_key] + '">' + value.extra.options[sub_key] + '</option>');
         }
-
-        dom_string += '</select>';
-
-        dom = $(dom_string);
         break;
       case 'file':
         dom = $('<input type="file" />');
