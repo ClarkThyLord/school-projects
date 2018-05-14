@@ -243,7 +243,7 @@ function html_to_data(dom) {
     if ($(this).attr('type') === 'checkbox') {
       data[$(this).attr('name')] = $(this).prop('checked');
     } else if ($(this).attr('type') === 'file') {
-      data[$(this).attr('name')] = [];
+      data[$(this).attr('name')] = this.files;
     } else {
       data[$(this).attr('name')] = $(this).val(GLOBALS.asset[this.name]);
     }
