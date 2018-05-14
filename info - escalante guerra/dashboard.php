@@ -457,7 +457,7 @@
 	    <div class="modal-content">
 				<!-- HEADER -->
 	      <div class="modal-header">
-	        <h5 class="modal-title">Viendo Formulario</h5>
+	        <h5 class="modal-title">Modificando Formulario</h5>
 
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
@@ -479,7 +479,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="$('#forms_view').modal('hide'); $('#forms_view_info').trigger('reset')" class="btn btn-primary">Agregar</button>
+	        <button type="button" onclick="$('#forms_view').modal('hide'); $('#forms_view_info').trigger('reset')" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
