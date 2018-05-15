@@ -22,7 +22,6 @@
 	function log_get($filter=array(), $options=array()) {
 		$filter_sql = ' WHERE 1';
 		foreach ($filter as $key => $value) {
-			if ($key === 'password') { continue; }
 			$filter_sql .= " AND `{$key}` = '{$value}'";
 		}
 
