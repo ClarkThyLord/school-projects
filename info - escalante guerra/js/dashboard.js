@@ -50,7 +50,7 @@ function content_export(content) {
 
 /**
  * Portrait given user and users in the page.
- * @param {string} content Content's identifier.
+ * @param {String} content Content's identifier.
  * @return {undefined} Returns nothing.
  */
 function content_refresh(content) {
@@ -85,7 +85,7 @@ function content_refresh(content) {
 // *****************************************************************************
 
 /**
- * Clear the all the logs.
+ * Retrieve a form's format.
  * @param {string} identifier Form's identifier.
  * @return {undefined} Returns nothing.
  */
@@ -95,10 +95,12 @@ async function forms_format_get(identifier) {
 
 
 /**
- * Clear the all the logs.
+ * Retrive data from forms.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
  * @return {undefined} Returns nothing.
  */
-function forms_get() {
+function forms_get(filter, options) {
   $('#forms_view').waitMe({
     waitTime: -1,
     effect: 'stretch',
@@ -107,8 +109,11 @@ function forms_get() {
     color: 'rgba(0, 0, 0)',
   });
 
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? filter : {};
+
   $.post({
-    url: './server/api.php/forms/clear?debug=' + DEBUGGING.server,
+    url: './server/api.php/forms/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#forms_view').waitMe('hide');
 
@@ -212,7 +217,7 @@ function forms_modify(id, data) {
 
 
 /**
- * Clear the all the logs.
+ * Remove a form from forms.
  * @param {integer} id Form's ID.
  * @return {undefined} Returns nothing.
  */
@@ -342,10 +347,12 @@ $('#jobs_modify').on('shown.bs.modal', function(e) {
 
 
 /**
- * Clear the all the logs.
+ * Retrieve a job from jobs.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
  * @return {undefined} Returns nothing.
  */
-function jobs_get() {
+function jobs_get(filter, options) {
   $('#jobs').waitMe({
     waitTime: -1,
     effect: 'stretch',
@@ -354,8 +361,11 @@ function jobs_get() {
     color: 'rgba(0, 0, 0)',
   });
 
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? filter : {};
+
   $.post({
-    url: './server/api.php/jobs/clear?debug=' + DEBUGGING.server,
+    url: './server/api.php/jobs/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#jobs').waitMe('hide');
 
@@ -459,7 +469,7 @@ function jobs_modify(id, data) {
 
 
 /**
- * Clear the all the logs.
+ * Remove a job.
  * @param {integer} id Job's ID.
  * @return {undefined} Returns nothing.
  */
@@ -493,6 +503,348 @@ function jobs_remove(id) {
   });
 }
 
+// REQUISITIONS Functions
+// *****************************************************************************
+
+$('#requisitions_modify').on('shown.bs.modal', function(e) {
+  $('#requisitions_modify_info :input').each(function() {
+    if ($(this).attr('type') === 'checkbox') {
+      $(this).prop('checked', !!(GLOBALS.asset[this.name] * 1));
+    } else {
+      $(this).val(GLOBALS.asset[this.name]);
+    }
+  });
+});
+
+
+/**
+ * Retrieve a requisition from requisitions.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
+ * @return {undefined} Returns nothing.
+ */
+function requisitions_get(filter, options) {
+  $('#requisitions').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? filter : {};
+
+  $.post({
+    url: './server/api.php/requisitions/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+    success: function(response) {
+      $('#requisitions').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.requisitions.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Add a requisition.
+ * @param {object} data Data to create requisition with.
+ * @return {undefined} Returns nothing.
+ */
+function requisitions_add(data) {
+  $('#requisitions').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/requisitions/add?debug=' + DEBUGGING.server,
+    data: {
+      data: {
+        title: data.title || 'Nuevo Puesto',
+        description: data.description || 'Nueva posición abierta!'
+      }
+    },
+    success: function(response) {
+      $('#requisitions').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.requisitions.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Modify a requisition's data.
+ * @param {integer} id requisition's ID.
+ * @param {object} data Data to modify requisition with.
+ * @return {undefined} Returns nothing.
+ */
+function requisitions_modify(id, data) {
+  $('#requisitions').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  var valid = [
+    'title',
+    'description'
+  ];
+  var valid_data = {};
+  $.each(data, function(key, value) {
+    if (value && valid.indexOf(key) !== -1) {
+      valid_data[key] = value;
+    }
+  });
+
+  $.post({
+    url: './server/api.php/requisitions/modify?debug=' + DEBUGGING.server,
+    data: {
+      id: id,
+      data: data
+    },
+    success: function(response) {
+      $('#requisitions').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.requisitions.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Remove a requisition.
+ * @param {integer} id requisition's ID.
+ * @return {undefined} Returns nothing.
+ */
+function requisitions_remove(id) {
+  $('#requisitions').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/requisitions/remove?debug=' + DEBUGGING.server,
+    data: {
+      id: id
+    },
+    success: function(response) {
+      $('#requisitions').waitMe('hide');
+
+      response = JSON.parse(response);
+
+      if (response.status === 'success') {
+        VUE_ELEMENTS.requisitions.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+// CANDIDATES Functions
+// *****************************************************************************
+
+$('#candidates_modify').on('shown.bs.modal', function(e) {
+  $('#candidates_modify_info :input').each(function() {
+    if ($(this).attr('type') === 'checkbox') {
+      $(this).prop('checked', !!(GLOBALS.asset[this.name] * 1));
+    } else {
+      $(this).val(GLOBALS.asset[this.name]);
+    }
+  });
+});
+
+
+/**
+ * Retrieve a candidate from candidates.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
+ * @return {undefined} Returns nothing.
+ */
+function candidates_get(filter, options) {
+  $('#candidates').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? filter : {};
+
+  $.post({
+    url: './server/api.php/candidates/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+    success: function(response) {
+      $('#candidates').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.candidates.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Add a candidate.
+ * @param {object} data Data to create candidate with.
+ * @return {undefined} Returns nothing.
+ */
+function candidates_add(data) {
+  $('#candidates').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/candidates/add?debug=' + DEBUGGING.server,
+    data: {
+      data: {
+        title: data.title || 'Nuevo Puesto',
+        description: data.description || 'Nueva posición abierta!'
+      }
+    },
+    success: function(response) {
+      $('#candidates').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.candidates.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Modify a candidate's data.
+ * @param {integer} id candidate's ID.
+ * @param {object} data Data to modify candidate with.
+ * @return {undefined} Returns nothing.
+ */
+function candidates_modify(id, data) {
+  $('#candidates').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  var valid = [
+    'title',
+    'description'
+  ];
+  var valid_data = {};
+  $.each(data, function(key, value) {
+    if (value && valid.indexOf(key) !== -1) {
+      valid_data[key] = value;
+    }
+  });
+
+  $.post({
+    url: './server/api.php/candidates/modify?debug=' + DEBUGGING.server,
+    data: {
+      id: id,
+      data: data
+    },
+    success: function(response) {
+      $('#candidates').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.candidates.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Remove a candidate.
+ * @param {integer} id candidate's ID.
+ * @return {undefined} Returns nothing.
+ */
+function candidates_remove(id) {
+  $('#candidates').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/candidates/remove?debug=' + DEBUGGING.server,
+    data: {
+      id: id
+    },
+    success: function(response) {
+      $('#candidates').waitMe('hide');
+
+      response = JSON.parse(response);
+
+      if (response.status === 'success') {
+        VUE_ELEMENTS.candidates.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
 // USERS Functions
 // *****************************************************************************
 
@@ -504,10 +856,12 @@ $('#users_modify').on('shown.bs.modal', function(e) {
 
 
 /**
- * Clear the all the logs.
+ * Retrieve a user from users.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
  * @return {undefined} Returns nothing.
  */
-function users_get() {
+function users_get(filter, options) {
   $('#logs').waitMe({
     waitTime: -1,
     effect: 'stretch',
@@ -516,8 +870,11 @@ function users_get() {
     color: 'rgba(0, 0, 0)',
   });
 
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? filter : {};
+
   $.post({
-    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
+    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#users').waitMe('hide');
 
@@ -623,7 +980,7 @@ function users_modify(id, data) {
 
 
 /**
- * Clear the all the logs.
+ * Remove a user from users.
  * @param {integer} id User's ID.
  * @return {undefined} Returns nothing.
  */
@@ -661,14 +1018,43 @@ function users_remove(id) {
 // *****************************************************************************
 
 /**
- * Clear the all the logs.
+ * Retrieve a log from logs.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
  * @return {undefined} Returns nothing.
  */
-function logs_get() {}
+function logs_get(filter, options) {
+  $('#forms_view').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? filter : {};
+
+  $.post({
+    url: './server/api.php/forms/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+    success: function(response) {
+      $('#forms_view').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.forms.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
 
 
 /**
- * Clear the all the logs.
+ * Add a log to logs.
  * @return {undefined} Returns nothing.
  */
 function logs_add() {}
