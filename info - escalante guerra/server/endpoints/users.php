@@ -58,15 +58,13 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function user_get($filter=array(), $options=array()) {
-    $filter_sql = ' WHERE 1';
+    $filter_sql = '';
     foreach ($filter as $key => $value) {
 			if ($key === 'password') { continue; }
       $filter_sql .= " AND `{$key}` = '{$value}'";
     }
 
-		$sql = 'SELECT `id`, `created`, `username`, `access` FROM `users`';
-
-		if ($filter_sql !== ' WHERE 1') { $sql .= $filter_sql; }
+		$sql = 'SELECT `id`, `created`, `username`, `access` FROM `users` WHERE 1' . $filter_sql;
 
 		// FOR DEBUGGING
 		if (is_debugging()) {

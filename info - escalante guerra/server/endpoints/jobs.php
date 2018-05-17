@@ -7,14 +7,12 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function job_get($filter=array(), $options=array()) {
-    $filter_sql = ' WHERE 1';
+    $filter_sql = '';
     foreach ($filter as $key => $value) {
       $filter_sql .= " AND `{$key}` = '{$value}'";
     }
 
-		$sql = 'SELECT * FROM `jobs`';
-
-		if ($filter_sql !== ' WHERE 1') { $sql .= $filter_sql; }
+		$sql = 'SELECT * FROM `jobs` WHERE 1' . $filter_sql;
 
 		// FOR DEBUGGING
 		if (is_debugging()) {

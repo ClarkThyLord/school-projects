@@ -200,6 +200,54 @@
 				}
 			}
 		}
+	} else if ($routes[0] === 'requisitions') {
+		include_once './endpoints/requisitions.php';
+
+		if (count($routes) === 2){
+			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+				switch ($routes[1]) {
+					case 'get':
+						requisition_get(json_decode($_GET['filter'], true), $_GET['options']);
+						break;
+				}
+			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				switch ($routes[1]) {
+					case 'add':
+						requisition_add($_POST['data']);
+						break;
+					case 'modify':
+						requisition_modify($_POST['id'], $_POST['data']);
+						break;
+					case 'remove':
+						requisition_remove($_POST['id']);
+						break;
+				}
+			}
+		}
+	} else if ($routes[0] === 'candidates') {
+		include_once './endpoints/candidates.php';
+
+		if (count($routes) === 2){
+			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+				switch ($routes[1]) {
+					case 'get':
+						candidate_get(json_decode($_GET['filter'], true), $_GET['options']);
+						break;
+				}
+			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				switch ($routes[1]) {
+					case 'add':
+						candidate_add($_POST['data']);
+						break;
+					case 'modify':
+						candidate_modify($_POST['id'], $_POST['data']);
+						break;
+					case 'remove':
+						candidate_remove($_POST['id']);
+						break;
+				}
+			}
+		}
 	} else if ($routes[0] === 'users') {
 		include_once './endpoints/users.php';
 

@@ -20,14 +20,12 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function log_get($filter=array(), $options=array()) {
-		$filter_sql = ' WHERE 1';
+		$filter_sql = '';
 		foreach ($filter as $key => $value) {
 			$filter_sql .= " AND `{$key}` = '{$value}'";
 		}
 
-		$sql = 'SELECT * FROM `logs`';
-
-		if ($filter_sql !== ' WHERE 1') { $sql .= $filter_sql; }
+		$sql = 'SELECT * FROM `logs` WHERE 1' . $filter_sql;
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
