@@ -30,7 +30,7 @@
 
 			response_status(true, 'se encontró puesto(s) válido(s)');
     } else {
-			response_status(false, 'no se encontró puesto(s) válido(s)');
+			response_status(true, 'no se encontró puesto(s) válido(s)');
     }
 	}
 

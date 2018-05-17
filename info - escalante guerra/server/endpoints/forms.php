@@ -30,7 +30,7 @@
 
 			response_status(true, 'se encontró forma(s) válido(s)');
     } else {
-			response_status(false, 'no se encontró forma(s) válido(s)');
+			response_status(true, 'no se encontró forma(s) válido(s)');
     }
 	}
 

@@ -70,7 +70,7 @@ function content_refresh(content) {
 
         response = JSON.parse(response);
         if (response.status === 'success') {
-          VUE_ELEMENTS[content].data = response.data.dump;
+          VUE_ELEMENTS[content].data = response.data.dump || [];
         }
 
         if (response.status === 'failure' || DEBUGGING.popups) {
@@ -114,7 +114,7 @@ function forms_get() {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.forms.data = response.data.dump;
+        VUE_ELEMENTS.forms.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -152,7 +152,7 @@ function forms_add(data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.forms.data = response.data.dump;
+        VUE_ELEMENTS.forms.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -200,7 +200,7 @@ function forms_modify(id, data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.forms.data = response.data.dump;
+        VUE_ELEMENTS.forms.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -236,7 +236,7 @@ function forms_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.forms.data = response.data.dump;
+        VUE_ELEMENTS.forms.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -361,7 +361,7 @@ function jobs_get() {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.jobs.data = response.data.dump;
+        VUE_ELEMENTS.jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -399,7 +399,7 @@ function jobs_add(data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.jobs.data = response.data.dump;
+        VUE_ELEMENTS.jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -447,7 +447,7 @@ function jobs_modify(id, data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.jobs.data = response.data.dump;
+        VUE_ELEMENTS.jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -483,7 +483,7 @@ function jobs_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.jobs.data = response.data.dump;
+        VUE_ELEMENTS.jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -523,7 +523,7 @@ function users_get() {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.logs.data = response.data.dump;
+        VUE_ELEMENTS.logs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -562,7 +562,7 @@ function users_add(data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.users.data = response.data.dump;
+        VUE_ELEMENTS.users.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -611,7 +611,7 @@ function users_modify(id, data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.users.data = response.data.dump;
+        VUE_ELEMENTS.users.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -647,7 +647,7 @@ function users_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.users.data = response.data.dump;
+        VUE_ELEMENTS.users.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -692,7 +692,7 @@ function logs_clear() {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.logs.data = response.data.dump;
+        VUE_ELEMENTS.logs.data = response.data.dump || [];
 
         $('#logs').waitMe('hide');
       }
@@ -723,41 +723,45 @@ Vue.component('table-component', {
   data: function() {},
   computed: {
     filtered_data: function() {
-      var data = this.data;
+      if ((this.sort_key || this.search_term) && this.data.length > 0) {
+        var data = this.data;
 
-      // Search data
-      if (this.search_term) {
-        var search_term = this.search_term;
-        data = data.filter(function(row) {
-          return Object.keys(row).some(function(key) {
-            return String(row[key]).toLowerCase().indexOf(search_term) > -1;
+        // Search data
+        if (this.search_term) {
+          var search_term = this.search_term;
+          data = data.filter(function(row) {
+            return Object.keys(row).some(function(key) {
+              return String(row[key]).toLowerCase().indexOf(search_term) > -1;
+            });
           });
-        });
-      }
+        }
 
-      // Sort data
-      if (this.sort_key) {
-        var sort_key = this.columns[this.sort_key].referencing;
-        var sort_type = this.columns[this.sort_key].order === 'des' ? -1 : 1;
-        data = data.slice().sort(function(a, b) {
-          if (typeof a[sort_key] === 'string' && isNaN(a[sort_key])) {
-            a = a[sort_key].toLowerCase();
-            b = b[sort_key].toLowerCase();
+        // Sort data
+        if (this.sort_key) {
+          var sort_key = this.columns[this.sort_key].referencing;
+          var sort_type = this.columns[this.sort_key].order === 'des' ? -1 : 1;
+          data = data.slice().sort(function(a, b) {
+            if (typeof a[sort_key] === 'string' && isNaN(a[sort_key])) {
+              a = a[sort_key].toLowerCase();
+              b = b[sort_key].toLowerCase();
 
-            if (a < b) {
-              return sort_type * (-1);
-            } else if (a > b) {
-              return sort_type * (1);
+              if (a < b) {
+                return sort_type * (-1);
+              } else if (a > b) {
+                return sort_type * (1);
+              } else {
+                return 0;
+              }
             } else {
-              return 0;
+              return sort_type * ((a[sort_key] * 1) - b[sort_key]);
             }
-          } else {
-            return sort_type * ((a[sort_key] * 1) - b[sort_key]);
-          }
-        });
-      }
+          });
+        }
 
-      return data;
+        return data;
+      } else {
+        return this.data;
+      }
     }
   },
   filters: {

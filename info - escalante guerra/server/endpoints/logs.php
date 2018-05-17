@@ -43,7 +43,7 @@
 
 			response_status(true, 'se encontró registro(s) válido(s)');
 		} else {
-			response_status(false, 'no se encontró registro(s) válido(s)');
+			response_status(true, 'no se encontró registro(s) válido(s)');
 		}
 	}
 
