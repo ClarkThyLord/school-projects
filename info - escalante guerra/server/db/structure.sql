@@ -32,6 +32,7 @@ DROP TABLE IF EXISTS `candidates`;
 CREATE TABLE IF NOT EXISTS `candidates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `name` text NOT NULL,
   `form` int(11) NOT NULL COMMENT 'ID to form with in `forms`',
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)

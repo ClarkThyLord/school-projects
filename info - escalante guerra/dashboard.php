@@ -332,7 +332,7 @@
           </div>
         </div>
         <div class="table-responsive" id="all_jobs_table">
-					<table-component :asset="asset" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
       </main>
 
@@ -350,26 +350,8 @@
             </div>
           </div>
         </div>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>ID.</th>
-                <th>Creado</th>
-                <th>Candidato</th>
-                <th>Correo</th>
-                <th>Puesto</th>
-                <th>Archivo de CV</th>
-								<th>Activo</th>
-                <th>Acciónes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="table-responsive" id="all_requisitions_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
       </main>
 
@@ -387,25 +369,8 @@
             </div>
           </div>
         </div>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>ID.</th>
-                <th>Creado</th>
-                <th>Empresa</th>
-                <th>Teléfono</th>
-                <th>Puesto</th>
-                <th>Activo</th>
-                <th>Acciónes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="table-responsive" id="all_candidates_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
       </main>
 
@@ -424,7 +389,7 @@
 				  </div>
 				</div>
 				<div class="table-responsive" id="all_users_table">
-				  <table-component :asset="asset" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
+				  <table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
 				</div>
 			</main>
 
@@ -443,11 +408,12 @@
           </div>
         </div>
         <div class="table-responsive" id="all_logs_table">
-					<table-component :asset="asset" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
       </main>
     </div>
   </div>
+
 
 	<!-- DIALOGS -->
 	<!-- FORM DIALOGS -->
@@ -743,18 +709,24 @@
 						<span v-if="key === sort_key && val.order === 'des'">↑</span>
 						<span v-if="key === sort_key && val.order === 'asc'">↓</span>
 		      </th>
+		      <th v-if="more" class="unselectable">
+						Información
+		      </th>
 		      <th v-if="modifiable || removable" class="unselectable">
 						Acciónes
 		      </th>
 		    </tr>
 	    </thead>
 	    <tbody>
-	      <tr v-for="entry in filtered_data" v-on:click="selected($event, entry);">
+	      <tr v-for="entry in filtered_data" v-on:click="select($event, entry);">
 	        <td v-for="(val, key) in columns">
 	          <span v-if="key === 'Activo' && entry[val.referencing] === '0'">🔴</span>
 	          <span v-else-if="key === 'Activo' && entry[val.referencing] === '1'">🔵</span>
 						<span v-else>{{ entry[val.referencing] }}</span>
 	        </td>
+		      <th v-if="more" class="unselectable">
+						<a onclick="$('#forms_view').modal('show');">Ver Más</a>
+		      </th>
 					<td v-if="modifiable || removable">
 						<span v-if="modifiable" v-on:click="edit($event);" style="cursor: pointer;">✏️</span>
 						<span v-if="removable" v-on:click="remove($event);" style="cursor: pointer;">🗑️</span>

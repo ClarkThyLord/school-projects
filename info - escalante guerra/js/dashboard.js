@@ -713,6 +713,7 @@ Vue.component('table-component', {
   template: '#table-component',
   props: {
     asset: String,
+    more: Boolean,
     modifiable: Boolean,
     removable: Boolean,
     sort_key: String,
@@ -773,7 +774,7 @@ Vue.component('table-component', {
     sort_by: function(key) {
       this.search_term = key;
     },
-    selected: function(event, asset) {
+    select: function(event, asset) {
       GLOBALS.asset = asset;
     },
     edit: function(event) {
@@ -790,6 +791,7 @@ VUE_ELEMENTS.jobs = new Vue({
   el: '#all_jobs_table',
   data: {
     asset: 'jobs',
+    more: false,
     modifiable: true,
     removable: true,
     sort_key: 'Publicado',
@@ -816,11 +818,77 @@ VUE_ELEMENTS.jobs = new Vue({
   }
 });
 
-// Register VUE Elements
+VUE_ELEMENTS.requisitions = new Vue({
+  el: '#all_requisitions_table',
+  data: {
+    asset: 'candidates',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'asc',
+        referencing: 'created'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'job'
+      },
+      'Candidato': {
+        order: '',
+        referencing: 'candidate'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
+
+VUE_ELEMENTS.candidates = new Vue({
+  el: '#all_candidates_table',
+  data: {
+    asset: 'candidates',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'asc',
+        referencing: 'created'
+      },
+      'Nombre': {
+        order: '',
+        referencing: 'name'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
+
 VUE_ELEMENTS.users = new Vue({
   el: '#all_users_table',
   data: {
     asset: 'users',
+    more: false,
     modifiable: true,
     removable: true,
     sort_key: 'ID.',
@@ -851,6 +919,7 @@ VUE_ELEMENTS.logs = new Vue({
   el: '#all_logs_table',
   data: {
     asset: 'logs',
+    more: false,
     modifiable: false,
     removable: false,
     sort_key: 'Fecha y Hora',
