@@ -22,7 +22,7 @@
 				if ($password === $user['password']) {
 					$GLOBALS['response']['data']['password'] = true;
 
-					// Setup user data for session
+					// Setup user's data for session
 					$_SESSION['user'] = array('id' => $user['id'], 'username' => $user['username'], 'access' => $user['access']);
 
 					// LOG
@@ -135,7 +135,7 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function user_modify($user_id=0, $data=array()) {
-		if ($user_id !== $_SESSION['user']['id'] && !access_level_check(2)) {
+		if (isset($_SESSION['user']) && $user_id !== $_SESSION['user']['id'] && !access_level_check(2)) {
 			access_check(2);
 	 	}
 		if ($user_id <= 0) {
@@ -179,7 +179,7 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function user_remove($user_id=0) {
-		if ($user_id !== $_SESSION['user']['id'] && !access_level_check(2)) {
+		if (isset($_SESSION['user']) && $user_id !== $_SESSION['user']['id'] && !access_level_check(2)) {
 		 access_check(2);
 		}	else if ($user_id === 0) {
 		 response_send(false, 'la identificación del usuario no fue dada');

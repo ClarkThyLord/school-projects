@@ -63,8 +63,6 @@
 		array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
 	}
 
-	$GLOBALS['response']['WTF'] = $GLOBALS['conn']->query($sql)->fetch_assoc();
-
 	if (!$GLOBALS['conn']->query($sql)->num_rows > 0) {
 		// FOR DEBUGGING
 		if (is_debugging()) {
@@ -103,6 +101,29 @@
 		}
 	}
 
+	// Check whether current client's user, if any, is valid
+	if (isset($_SESSION['user'])) {
+		$sql = "SELECT `id`, `created`, `username`, `access` FROM `users` WHERE `id` =  '{$_SESSION["user"]["id"]}' LIMIT 1";
+
+		// FOR DEBUGGING
+		if (is_debugging()) {
+			array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+		}
+
+		$result = $GLOBALS['conn']->query($sql);
+		if ($result->num_rows > 0) {
+			$user = $result->fetch_assoc();
+
+			// Update user's data for session
+			$_SESSION['user'] = array('id' => $user['id'], 'username' => $user['username'], 'access' => $user['access']);
+		} else {
+			session_unset();
+			
+			header('Location: ../../../index.php');
+
+			response_send(false, 'usuario ya no es válido');
+		}
+	}
 
 	// Functions relative to SQL database
   // ***************************************************************************
