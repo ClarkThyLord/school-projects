@@ -2,9 +2,7 @@
 
 	// FOR DEBUGGING
 	if (is_debugging()) {
-		$GLOBALS['response']['debug']['database'] = array('sql' => array());
-
-		$GLOBALS['response']['debug']['database']['setup'] = false;
+		$GLOBALS['response']['debug']['database'] = array('connection' => false, 'msg' => '', 'sql' => array(), 'setup' => array('database' => false, 'tables' => false));
 	}
 
 	// Credentials
@@ -38,11 +36,11 @@
 		$GLOBALS['response']['debug']['database']['connection'] = true;
 	}
 
-	// Check for database, and create it if it's not available
+	// Connect to databse, or setup database if not found
 	if ($GLOBALS['conn']->select_db($db_name) === false) {
 		// FOR DEBUGGING
 		if (is_debugging()) {
-			$GLOBALS['response']['debug']['database']['setup'] = 'started setting up SQL database and tables';
+			$GLOBALS['response']['debug']['database']['msg'] = 'started setting up SQL database';
 		}
 
 		if ($conn->query("CREATE DATABASE {$db_name}") === true) {
@@ -50,43 +48,61 @@
 
 			// FOR DEBUGGING
 			if (is_debugging()) {
-				$GLOBALS['response']['debug']['database']['setup'] = 'created SQL database';
-			}
-
-			// Temporary variable, used to store current query
-			$sql = '';
-			// Read the entire file
-			$lines = file('./db/structure.sql');
-			// Loop through each line
-			foreach ($lines as $line) {
-				// Skip it if it's a comment
-				if (substr($line, 0, 2) == '--' || $line == '') { continue; }
-
-				// Add this line to the current segment
-				$sql .= $line;
-				// If it has a semicolon at the end, it's the end of the query
-				if (substr(trim($line), -1, 1) == ';') {
-					// Perform the query
-					$GLOBALS["conn"]->query($sql) or print('Error performing query \'<strong>' . $sql . '\': ' . mysql_error() . '<br /><br />');
-
-					// FOR DEBUGGING
-					if (is_debugging()) {
-						array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
-					}
-
-					// Reset temp variable to empty
-					$sql = '';
-				}
-			}
-
-			// FOR DEBUGGING
-			if (is_debugging()) {
-				$GLOBALS['response']['debug']['database']['setup'] = 'finished setting up SQL database and tables';
+				$GLOBALS['response']['debug']['database']['setup']['database'] = true;
 			}
 		} else {
 			response_send(false, 'SQL database couldn\'t be setup');
 		}
 	}
+
+	// Check whether database has tables setup; if not setup
+	$sql = "SHOW TABLES FROM `{$db_name}`";
+
+	// FOR DEBUGGING
+	if (is_debugging()) {
+		array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+	}
+
+	$GLOBALS['response']['WTF'] = $GLOBALS['conn']->query($sql)->fetch_assoc();
+
+	if (!$GLOBALS['conn']->query($sql)->num_rows > 0) {
+		// FOR DEBUGGING
+		if (is_debugging()) {
+			$GLOBALS['response']['debug']['database']['msg'] = 'started setting up SQL tables';
+		}
+
+		// Temporary variable, used to store current query
+		$sql = '';
+		// Read the entire file
+		$lines = file('./db/structure.sql');
+		// Loop through each line
+		foreach ($lines as $line) {
+			// Skip it if it's a comment
+			if (substr($line, 0, 2) == '--' || $line == '') { continue; }
+
+			// Add this line to the current segment
+			$sql .= $line;
+			// If it has a semicolon at the end, it's the end of the query
+			if (substr(trim($line), -1, 1) == ';') {
+				// Perform the query
+				$GLOBALS["conn"]->query($sql) or response_send(false, 'Error Performing SQL Query: \'<strong>' . $sql . '\': ' . mysql_error() . '<br /><br />');
+
+				// FOR DEBUGGING
+				if (is_debugging()) {
+					array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+				}
+
+				// Reset temp variable to empty
+				$sql = '';
+			}
+		}
+
+		// FOR DEBUGGING
+		if (is_debugging()) {
+			$GLOBALS['response']['debug']['database']['setup']['tables'] = true;
+		}
+	}
+
 
 	// Functions relative to SQL database
   // ***************************************************************************
