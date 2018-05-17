@@ -794,15 +794,15 @@ VUE_ELEMENTS.jobs = new Vue({
     more: false,
     modifiable: true,
     removable: true,
-    sort_key: 'Publicado',
+    sort_key: 'Creado',
     search_term: '',
     columns: {
       'ID.': {
         order: '',
         referencing: 'id'
       },
-      'Publicado': {
-        order: 'asc',
+      'Creado': {
+        order: 'des',
         referencing: 'created'
       },
       'Puesto': {
@@ -833,7 +833,7 @@ VUE_ELEMENTS.requisitions = new Vue({
         referencing: 'id'
       },
       'Creado': {
-        order: 'asc',
+        order: 'des',
         referencing: 'created'
       },
       'Puesto': {
@@ -868,7 +868,7 @@ VUE_ELEMENTS.candidates = new Vue({
         referencing: 'id'
       },
       'Creado': {
-        order: 'asc',
+        order: 'des',
         referencing: 'created'
       },
       'Nombre': {
