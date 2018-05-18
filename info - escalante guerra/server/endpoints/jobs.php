@@ -23,14 +23,6 @@
 
 		$sql = "SELECT * FROM `jobs` WHERE 1 {$filter_sql} {$options_sql}";
 
-
-    $filter_sql = '';
-    foreach ($filter as $key => $value) {
-      $filter_sql .= " AND `{$key}` = '{$value}'";
-    }
-
-		$sql = 'SELECT * FROM `jobs` WHERE 1' . $filter_sql;
-
 		// FOR DEBUGGING
 		if (is_debugging()) {
 			array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
