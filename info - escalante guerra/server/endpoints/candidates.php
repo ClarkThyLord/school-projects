@@ -50,9 +50,16 @@
 	function candidate_add($data=array()) {
     access_check(1);
 
-		$data = array_merge(array('name' => 'Nueva Candidato', 'form' => ''), $data);
+		$data = array_merge(array('name' => 'Nueva Candidato', 'data' => 'NULL'), $data);
+		if ($data['data'] != 'NULL') {
+  		if (json_decode($data['data']) == NULL) {
+				$data['data'] = 'NULL';
+			} else {
+				$data['data'] = "'{$data["data"]}'";
+			}
+		}
 
-    $sql = "INSERT INTO `candidates` (`id`, `created`, `name`, `form`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["data"]}', '{$data["form"]}', '1')";
+    $sql = "INSERT INTO `candidates` (`id`, `created`, `name`, `data`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["name"]}', {$data["data"]}, '1')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {

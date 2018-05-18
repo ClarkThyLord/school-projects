@@ -50,9 +50,16 @@
 	function requisition_add($data=array()) {
     access_check(1);
 
-		$data = array_merge(array('candidate' => 'Desconocido', 'form' => '', 'job' => 'Desconocido'), $data);
+		$data = array_merge(array('job' => 'Desconocido', 'candidate' => 'Desconocido', 'data' => 'NULL',), $data);
+		if ($data['data'] != 'NULL') {
+  		if (json_decode($data['data']) == NULL) {
+				$data['data'] = 'NULL';
+			} else {
+				$data['data'] = "'{$data["data"]}'";
+			}
+		}
 
-    $sql = "INSERT INTO `requisitions` (`id`, `created`, `candidate`, `form`, `job`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["candidate"]}', '{$data["form"]}', '{$data["job"]}', '1')";
+    $sql = "INSERT INTO `requisitions` (`id`, `created`, `job`, `candidate`, `data`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["job"]}', '{$data["candidate"]}', {$data["data"]}, '1')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {

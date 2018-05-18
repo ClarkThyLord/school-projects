@@ -10,20 +10,16 @@
 	// users          | add    	  | POST      | 2^
 	// users          | modify    | POST      | self, 2^
 	// users          | remove    | POST      | 2^
-	// forms          | get       | GET       | none
-	// forms          | add       | POST      | none
-	// forms          | modify    | POST      | 1^
-	// forms          | remove    | POST      | 1^
 	// jobs           | get       | GET       | none
 	// jobs           | add       | POST      | 1^
 	// jobs           | modify    | POST      | 1^
 	// jobs           | remove    | POST      | 1^
 	// requisitions   | get       | GET       | none
-	// requisitions   | add       | POST      | 1^
+	// requisitions   | add       | POST      | none
 	// requisitions   | modify    | POST      | 1^
 	// requisitions   | remove    | POST      | 1^
 	// candidates     | get       | GET       | none
-	// candidates     | add       | POST      | 1^
+	// candidates     | add       | POST      | none
 	// candidates     | modify    | POST      | 1^
 	// candidates     | remove    | POST      | 1^
 	// logs           | get       | GET       | none
@@ -168,30 +164,6 @@
 
 	if (count($routes) <= 0) {
 		response_status(false, 'no valid endpoint given');
-	} else if ($routes[0] === 'forms') {
-		include_once './endpoints/forms.php';
-
-		if (count($routes) === 2){
-			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-				switch ($routes[1]) {
-					case 'get':
-						form_get(json_decode($_GET['filter'], true), json_decode($_GET['options'], true));
-						break;
-				}
-			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-				switch ($routes[1]) {
-					case 'add':
-						form_add($_POST['data']);
-						break;
-					case 'modify':
-						form_modify($_POST['id'], $_POST['data']);
-						break;
-					case 'remove':
-						form_remove($_POST['id']);
-						break;
-				}
-			}
-		}
 	} else if ($routes[0] === 'jobs') {
 		include_once './endpoints/jobs.php';
 
