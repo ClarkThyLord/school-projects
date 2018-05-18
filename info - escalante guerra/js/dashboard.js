@@ -382,9 +382,7 @@ async function jobs_get(filter, options) {
       $('#jobs').waitMe('hide');
 
       response = JSON.parse(response);
-      if (response.status === 'success') {
-        VUE_ELEMENTS.all_jobs.data = VUE_ELEMENTS.recent_jobs.data = response.data.dump || [];
-      }
+      if (response.status === 'success') {}
 
       if (response.status === 'failure' || DEBUGGING.popups) {
         alert(response.reason);
@@ -553,9 +551,7 @@ async function requisitions_get(filter, options) {
       $('#requisitions').waitMe('hide');
 
       response = JSON.parse(response);
-      if (response.status === 'success') {
-        VUE_ELEMENTS.all_requisitions.data = VUE_ELEMENTS.recent_requisitions.data = response.data.dump || [];
-      }
+      if (response.status === 'success') {}
 
       if (response.status === 'failure' || DEBUGGING.popups) {
         alert(response.reason);
@@ -724,9 +720,7 @@ async function candidates_get(filter, options) {
       $('#candidates').waitMe('hide');
 
       response = JSON.parse(response);
-      if (response.status === 'success') {
-        VUE_ELEMENTS.all_candidates.data = VUE_ELEMENTS.recent_candidates.data = response.data.dump || [];
-      }
+      if (response.status === 'success') {}
 
       if (response.status === 'failure' || DEBUGGING.popups) {
         alert(response.reason);
@@ -891,9 +885,7 @@ async function users_get(filter, options) {
       $('#users').waitMe('hide');
 
       response = JSON.parse(response);
-      if (response.status === 'success') {
-        VUE_ELEMENTS.all_logs.data = VUE_ELEMENTS.recent_logs.data = VUE_ELEMENTS.recent_logs.data = response.data.dump || [];
-      }
+      if (response.status === 'success') {}
 
       if (response.status === 'failure' || DEBUGGING.popups) {
         alert(response.reason);
@@ -1053,9 +1045,7 @@ async function logs_get(filter, options) {
       $('#forms_view').waitMe('hide');
 
       response = JSON.parse(response);
-      if (response.status === 'success') {
-        VUE_ELEMENTS.all_logs.data = VUE_ELEMENTS.recent_logs.data = response.data.dump || [];
-      }
+      if (response.status === 'success') {}
 
       if (response.status === 'failure' || DEBUGGING.popups) {
         alert(response.reason);
