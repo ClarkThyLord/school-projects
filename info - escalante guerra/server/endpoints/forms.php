@@ -7,12 +7,21 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function form_get($filter=array(), $options=array()) {
-    $filter_sql = '';
-    foreach ($filter as $key => $value) {
-      $filter_sql .= " AND `{$key}` = '{$value}'";
-    }
+		$filter_sql = '';
+		foreach ($filter as $key => $value) {
+			$filter_sql .= " AND `{$key}` = '{$value}'";
+		}
 
-		$sql = 'SELECT * FROM `forms` WHERE 1' . $filter_sql;
+		$options_sql = '';
+		foreach ($options as $key => $value) {
+			switch ($key) {
+				case 'limit':
+				$options_sql .= " LIMIT {$value}";
+					break;
+			}
+		}
+
+		$sql = "SELECT * FROM `forms` WHERE 1 {$filter_sql} {$options_sql}";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {

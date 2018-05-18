@@ -7,6 +7,23 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function job_get($filter=array(), $options=array()) {
+		$filter_sql = '';
+		foreach ($filter as $key => $value) {
+			$filter_sql .= " AND `{$key}` = '{$value}'";
+		}
+
+		$options_sql = '';
+		foreach ($options as $key => $value) {
+			switch ($key) {
+				case 'limit':
+				$options_sql .= " LIMIT {$value}";
+					break;
+			}
+		}
+
+		$sql = "SELECT * FROM `jobs` WHERE 1 {$filter_sql} {$options_sql}";
+
+
     $filter_sql = '';
     foreach ($filter as $key => $value) {
       $filter_sql .= " AND `{$key}` = '{$value}'";

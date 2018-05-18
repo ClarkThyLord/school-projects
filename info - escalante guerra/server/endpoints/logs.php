@@ -25,7 +25,16 @@
 			$filter_sql .= " AND `{$key}` = '{$value}'";
 		}
 
-		$sql = 'SELECT * FROM `logs` WHERE 1' . $filter_sql;
+		$options_sql = '';
+		foreach ($options as $key => $value) {
+			switch ($key) {
+				case 'limit':
+				$options_sql .= " LIMIT {$value}";
+					break;
+			}
+		}
+
+		$sql = "SELECT * FROM `logs` WHERE 1 {$filter_sql} {$options_sql}";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {

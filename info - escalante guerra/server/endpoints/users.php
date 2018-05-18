@@ -58,13 +58,22 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function user_get($filter=array(), $options=array()) {
-    $filter_sql = '';
-    foreach ($filter as $key => $value) {
+		$filter_sql = '';
+		foreach ($filter as $key => $value) {
 			if ($key === 'password') { continue; }
-      $filter_sql .= " AND `{$key}` = '{$value}'";
-    }
+			$filter_sql .= " AND `{$key}` = '{$value}'";
+		}
 
-		$sql = 'SELECT `id`, `created`, `username`, `access` FROM `users` WHERE 1' . $filter_sql;
+		$options_sql = '';
+		foreach ($options as $key => $value) {
+			switch ($key) {
+				case 'limit':
+				$options_sql .= " LIMIT {$value}";
+					break;
+			}
+		}
+
+		$sql = "SELECT `id`, `created`, `username`, `access` FROM `users` WHERE 1' {$filter_sql} {$options_sql}";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {

@@ -175,7 +175,7 @@
 			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				switch ($routes[1]) {
 					case 'get':
-						form_get(json_decode($_GET['filter'], true), $_GET['options']);
+						form_get(json_decode($_GET['filter'], true), json_decode($_GET['options'], true));
 						break;
 				}
 			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -199,7 +199,7 @@
 			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				switch ($routes[1]) {
 					case 'get':
-						job_get(json_decode($_GET['filter'], true), $_GET['options']);
+						job_get(json_decode($_GET['filter'], true), json_decode($_GET['options'], true));
 						break;
 				}
 			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -223,7 +223,7 @@
 			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				switch ($routes[1]) {
 					case 'get':
-						requisition_get(json_decode($_GET['filter'], true), $_GET['options']);
+						requisition_get(json_decode($_GET['filter'], true), json_decode($_GET['options'], true));
 						break;
 				}
 			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -247,7 +247,7 @@
 			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				switch ($routes[1]) {
 					case 'get':
-						candidate_get(json_decode($_GET['filter'], true), $_GET['options']);
+						candidate_get(json_decode($_GET['filter'], true), json_decode($_GET['options'], true));
 						break;
 				}
 			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -271,7 +271,7 @@
 			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				switch ($routes[1]) {
 					case 'get':
-						user_get(json_decode($_GET['filter'], true), $_GET['options']);
+						user_get(json_decode($_GET['filter'], true), json_decode($_GET['options'], true));
 						break;
 				}
 			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -309,7 +309,7 @@
 			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 				switch ($routes[1]) {
 					case 'get':
-						log_get(json_decode($_GET['filter'], true), $_GET['options']);
+						log_get(json_decode($_GET['filter'], true), json_decode($_GET['options'], true));
 						break;
 				}
 			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {

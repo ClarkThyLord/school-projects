@@ -68,13 +68,21 @@ function content_refresh(content) {
 
   if (content === 'desk') {
     (async function() {
-      VUE_ELEMENTS.recent_jobs.data = JSON.parse(await jobs_get()).data.dump || [];
+      VUE_ELEMENTS.recent_jobs.data = JSON.parse(await jobs_get({}, {
+        limit: 5
+      })).data.dump || [];
 
-      VUE_ELEMENTS.recent_requisitions.data = JSON.parse(await requisitions_get()).data.dump || [];
+      VUE_ELEMENTS.recent_requisitions.data = JSON.parse(await requisitions_get({}, {
+        limit: 5
+      })).data.dump || [];
 
-      VUE_ELEMENTS.recent_candidates.data = JSON.parse(await candidates_get()).data.dump || [];
+      VUE_ELEMENTS.recent_candidates.data = JSON.parse(await candidates_get({}, {
+        limit: 5
+      })).data.dump || [];
 
-      VUE_ELEMENTS.recent_logs.data = JSON.parse(await logs_get()).data.dump || [];
+      VUE_ELEMENTS.recent_logs.data = JSON.parse(await logs_get({}, {
+        limit: 5
+      })).data.dump || [];
 
       $('#' + content).waitMe('hide');
     })();
