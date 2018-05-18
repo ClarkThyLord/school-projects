@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 04, 2018 at 01:51 AM
+-- Generation Time: May 18, 2018 at 08:38 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -33,37 +33,8 @@ CREATE TABLE IF NOT EXISTS `candidates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` text NOT NULL,
-  `form` int(11) NOT NULL COMMENT 'ID to form with in `forms`',
+  `data` json DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `files`
---
-
-DROP TABLE IF EXISTS `files`;
-CREATE TABLE IF NOT EXISTS `files` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `forms`
---
-
-DROP TABLE IF EXISTS `forms`;
-CREATE TABLE IF NOT EXISTS `forms` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `type` text NOT NULL,
-  `data` json NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -108,9 +79,9 @@ DROP TABLE IF EXISTS `requisitions`;
 CREATE TABLE IF NOT EXISTS `requisitions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `candidate` int(11) NOT NULL COMMENT 'ID to candidate within `candidates`',
-  `form` int(11) NOT NULL COMMENT 'ID to form within `forms`',
   `job` int(11) NOT NULL COMMENT 'ID to jobs within `jobs`',
+  `candidate` int(11) NOT NULL COMMENT 'ID to candidate within `candidates`',
+  `data` json DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
