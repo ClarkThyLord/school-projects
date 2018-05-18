@@ -41,9 +41,9 @@
 	function requisition_add($data=array()) {
     access_check(1);
 
-		$data = array_merge(array('title' => 'Nueva requisición', 'description' => 'Nueva posición abierta!'), $data);
+		$data = array_merge(array('candidate' => 'Desconocido', 'form' => '', 'job' => 'Desconocido'), $data);
 
-    $sql = "INSERT INTO `requisitions` (`id`, `created`, `title`, `description`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["title"]}', '{$data["description"]}', '1')";
+    $sql = "INSERT INTO `requisitions` (`id`, `created`, `candidate`, `form`, `job`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["candidate"]}', '{$data["form"]}', '{$data["job"]}', '1')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {

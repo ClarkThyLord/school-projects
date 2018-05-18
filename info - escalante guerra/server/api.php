@@ -11,7 +11,7 @@
 	// users          | modify    | POST      | self, 2^
 	// users          | remove    | POST      | 2^
 	// forms          | get       | GET       | none
-	// forms          | add       | POST      | 1^
+	// forms          | add       | POST      | none
 	// forms          | modify    | POST      | 1^
 	// forms          | remove    | POST      | 1^
 	// jobs           | get       | GET       | none

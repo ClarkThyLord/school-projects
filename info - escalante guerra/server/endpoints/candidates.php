@@ -41,9 +41,9 @@
 	function candidate_add($data=array()) {
     access_check(1);
 
-		$data = array_merge(array('title' => 'Nueva candidato', 'description' => 'Nueva posición abierta!'), $data);
+		$data = array_merge(array('name' => 'Nueva Candidato', 'form' => ''), $data);
 
-    $sql = "INSERT INTO `candidates` (`id`, `created`, `title`, `description`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["title"]}', '{$data["description"]}', '1')";
+    $sql = "INSERT INTO `candidates` (`id`, `created`, `name`, `form`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["data"]}', '{$data["form"]}', '1')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
