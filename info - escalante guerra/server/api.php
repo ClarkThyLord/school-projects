@@ -3,16 +3,32 @@
 	// ~ API Endpoints ~
 	// Main:      | Sub:     | Methods:  | Access:
 	// -------------------------------------------
-	// database   | setup     | POST      | 2^
-	// users      | get    	  | GET       | none
-	// users      | login     | POST      | none
-	// users      | logout    | POST      | none
-	// users      | add    	  | POST      | 2^
-	// users      | modify    | POST      | self, 2^
-	// users      | remove    | POST      | 2^
-	// logs       | get       | GET       | none
-	// logs       | add       | POST      | none
-	// logs       | clear     | POST      | 2^
+	// database       | setup     | POST      | 2^
+	// users          | get    	  | GET       | none
+	// users          | login     | POST      | none
+	// users          | logout    | POST      | none
+	// users          | add    	  | POST      | 2^
+	// users          | modify    | POST      | self, 2^
+	// users          | remove    | POST      | 2^
+	// forms          | get       | GET       | none
+	// forms          | add       | POST      | 1^
+	// forms          | modify    | POST      | 1^
+	// forms          | remove    | POST      | 1^
+	// jobs           | get       | GET       | none
+	// jobs           | add       | POST      | 1^
+	// jobs           | modify    | POST      | 1^
+	// jobs           | remove    | POST      | 1^
+	// requisitions   | get       | GET       | none
+	// requisitions   | add       | POST      | 1^
+	// requisitions   | modify    | POST      | 1^
+	// requisitions   | remove    | POST      | 1^
+	// candidates     | get       | GET       | none
+	// candidates     | add       | POST      | 1^
+	// candidates     | modify    | POST      | 1^
+	// candidates     | remove    | POST      | 1^
+	// logs           | get       | GET       | none
+	// logs           | add       | POST      | none
+	// logs           | clear     | POST      | 2^
 	// *******************************************
 
 	// Initialize session if not already
