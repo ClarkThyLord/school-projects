@@ -113,23 +113,9 @@
 	          </div>
 	        </div>
 				</div>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>ID.</th>
-                <th>Publicado</th>
-                <th>Puesto</th>
-                <th>Activo</th>
-                <th>Acciónes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+
+        <div class="table-responsive" id="recent_jobs_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
 
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
@@ -140,26 +126,9 @@
 	          </div>
 	        </div>
 				</div>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>ID.</th>
-                <th>Creado</th>
-                <th>Candidato</th>
-                <th>Correo</th>
-                <th>Puesto</th>
-                <th>Archivo de CV</th>
-								<th>Activo</th>
-                <th>Acciónes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+
+        <div class="table-responsive" id="recent_requisitions_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
 
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
@@ -170,25 +139,9 @@
 	          </div>
 	        </div>
 				</div>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>ID.</th>
-                <th>Creado</th>
-                <th>Empresa</th>
-                <th>Teléfono</th>
-                <th>Puesto</th>
-                <th>Activo</th>
-                <th>Acciónes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+
+        <div class="table-responsive" id="recent_candidates_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
 
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
@@ -199,22 +152,9 @@
 	          </div>
 	        </div>
 				</div>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>Fecha y Hora</th>
-                <th>Responsable</th>
-                <th>Movimiento</th>
-                <th>Identificador</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+
+        <div class="table-responsive" id="recent_logs_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
       </main>
 

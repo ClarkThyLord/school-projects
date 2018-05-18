@@ -11,6 +11,10 @@ var GLOBALS = {
   }
 };
 
+window.onload = function() {
+  content_change('desk');
+};
+
 // CONTENT Functions
 // *****************************************************************************
 
@@ -62,21 +66,35 @@ function content_refresh(content) {
     color: 'rgba(0, 0, 0)',
   });
 
-  $.get({
-    url: './server/api.php/' + content + '/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
-    success: function(response) {
+  if (content === 'desk') {
+    (async function() {
+      VUE_ELEMENTS.recent_jobs.data = JSON.parse(await jobs_get()).data.dump || [];
+
+      VUE_ELEMENTS.recent_requisitions.data = JSON.parse(await requisitions_get()).data.dump || [];
+
+      VUE_ELEMENTS.recent_candidates.data = JSON.parse(await candidates_get()).data.dump || [];
+
+      VUE_ELEMENTS.recent_logs.data = JSON.parse(await logs_get()).data.dump || [];
+
       $('#' + content).waitMe('hide');
+    })();
+  } else {
+    $.get({
+      url: './server/api.php/' + content + '/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
+      success: function(response) {
+        $('#' + content).waitMe('hide');
 
-      response = JSON.parse(response);
-      if (response.status === 'success') {
-        VUE_ELEMENTS[content].data = response.data.dump || [];
-      }
+        response = JSON.parse(response);
+        if (response.status === 'success') {
+          VUE_ELEMENTS[content].data = response.data.dump || [];
+        }
 
-      if (response.status === 'failure' || DEBUGGING.popups) {
-        alert(response.reason);
+        if (response.status === 'failure' || DEBUGGING.popups) {
+          alert(response.reason);
+        }
       }
-    }
-  });
+    });
+  }
 }
 
 // FORMS Functions
@@ -98,7 +116,7 @@ async function forms_format_get(identifier) {
  * @param {Object} options Options used to retrieve with.
  * @return {undefined} Returns nothing.
  */
-function forms_get(filter, options) {
+async function forms_get(filter, options) {
   $('#forms_view').waitMe({
     waitTime: -1,
     effect: 'stretch',
@@ -108,17 +126,15 @@ function forms_get(filter, options) {
   });
 
   filter = typeof filter === 'object' ? filter : {};
-  options = typeof options === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
 
-  $.get({
+  return await $.get({
     url: './server/api.php/forms/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#forms_view').waitMe('hide');
 
       response = JSON.parse(response);
-      if (response.status === 'success') {
-        VUE_ELEMENTS.forms.data = response.data.dump || [];
-      }
+      if (response.status === 'success') {}
 
       if (response.status === 'failure' || DEBUGGING.popups) {
         alert(response.reason);
@@ -350,7 +366,7 @@ $('#jobs_modify').on('shown.bs.modal', function(e) {
  * @param {Object} options Options used to retrieve with.
  * @return {undefined} Returns nothing.
  */
-function jobs_get(filter, options) {
+async function jobs_get(filter, options) {
   $('#jobs').waitMe({
     waitTime: -1,
     effect: 'stretch',
@@ -360,16 +376,16 @@ function jobs_get(filter, options) {
   });
 
   filter = typeof filter === 'object' ? filter : {};
-  options = typeof options === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
 
-  $.get({
+  return await $.get({
     url: './server/api.php/jobs/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#jobs').waitMe('hide');
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.jobs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -407,7 +423,7 @@ function jobs_add(data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.jobs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -455,7 +471,7 @@ function jobs_modify(id, data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.jobs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -491,7 +507,7 @@ function jobs_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.jobs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -521,7 +537,7 @@ $('#requisitions_modify').on('shown.bs.modal', function(e) {
  * @param {Object} options Options used to retrieve with.
  * @return {undefined} Returns nothing.
  */
-function requisitions_get(filter, options) {
+async function requisitions_get(filter, options) {
   $('#requisitions').waitMe({
     waitTime: -1,
     effect: 'stretch',
@@ -531,16 +547,16 @@ function requisitions_get(filter, options) {
   });
 
   filter = typeof filter === 'object' ? filter : {};
-  options = typeof options === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
 
-  $.get({
+  return await $.get({
     url: './server/api.php/requisitions/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#requisitions').waitMe('hide');
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.requisitions.data = response.data.dump || [];
+        VUE_ELEMENTS.all_requisitions.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -578,7 +594,7 @@ function requisitions_add(data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.requisitions.data = response.data.dump || [];
+        VUE_ELEMENTS.all_requisitions.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -626,7 +642,7 @@ function requisitions_modify(id, data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.requisitions.data = response.data.dump || [];
+        VUE_ELEMENTS.all_requisitions.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -662,7 +678,7 @@ function requisitions_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.requisitions.data = response.data.dump || [];
+        VUE_ELEMENTS.all_requisitions.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -692,7 +708,7 @@ $('#candidates_modify').on('shown.bs.modal', function(e) {
  * @param {Object} options Options used to retrieve with.
  * @return {undefined} Returns nothing.
  */
-function candidates_get(filter, options) {
+async function candidates_get(filter, options) {
   $('#candidates').waitMe({
     waitTime: -1,
     effect: 'stretch',
@@ -702,16 +718,16 @@ function candidates_get(filter, options) {
   });
 
   filter = typeof filter === 'object' ? filter : {};
-  options = typeof options === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
 
-  $.get({
+  return await $.get({
     url: './server/api.php/candidates/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#candidates').waitMe('hide');
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.candidates.data = response.data.dump || [];
+        VUE_ELEMENTS.all_candidates.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -749,7 +765,7 @@ function candidates_add(data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.candidates.data = response.data.dump || [];
+        VUE_ELEMENTS.all_candidates.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -797,7 +813,7 @@ function candidates_modify(id, data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.candidates.data = response.data.dump || [];
+        VUE_ELEMENTS.all_candidates.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -833,7 +849,7 @@ function candidates_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.candidates.data = response.data.dump || [];
+        VUE_ELEMENTS.all_candidates.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -859,7 +875,7 @@ $('#users_modify').on('shown.bs.modal', function(e) {
  * @param {Object} options Options used to retrieve with.
  * @return {undefined} Returns nothing.
  */
-function users_get(filter, options) {
+async function users_get(filter, options) {
   $('#logs').waitMe({
     waitTime: -1,
     effect: 'stretch',
@@ -869,16 +885,16 @@ function users_get(filter, options) {
   });
 
   filter = typeof filter === 'object' ? filter : {};
-  options = typeof options === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
 
-  $.get({
-    url: './server/api.php/logs/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+  return await $.get({
+    url: './server/api.php/users/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#users').waitMe('hide');
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.logs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_logs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -917,7 +933,7 @@ function users_add(data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.users.data = response.data.dump || [];
+        VUE_ELEMENTS.all_users.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -966,7 +982,7 @@ function users_modify(id, data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.users.data = response.data.dump || [];
+        VUE_ELEMENTS.all_users.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -1002,7 +1018,7 @@ function users_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.users.data = response.data.dump || [];
+        VUE_ELEMENTS.all_users.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -1021,7 +1037,7 @@ function users_remove(id) {
  * @param {Object} options Options used to retrieve with.
  * @return {undefined} Returns nothing.
  */
-function logs_get(filter, options) {
+async function logs_get(filter, options) {
   $('#forms_view').waitMe({
     waitTime: -1,
     effect: 'stretch',
@@ -1031,16 +1047,16 @@ function logs_get(filter, options) {
   });
 
   filter = typeof filter === 'object' ? filter : {};
-  options = typeof options === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
 
-  $.get({
-    url: './server/api.php/forms/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+  return await $.get({
+    url: './server/api.php/logs/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#forms_view').waitMe('hide');
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.forms.data = response.data.dump || [];
+        VUE_ELEMENTS.all_logs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -1049,13 +1065,6 @@ function logs_get(filter, options) {
     }
   });
 }
-
-
-/**
- * Add a log to logs.
- * @return {undefined} Returns nothing.
- */
-function logs_add() {}
 
 
 /**
@@ -1076,7 +1085,7 @@ function logs_clear() {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.logs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_logs.data = response.data.dump || [];
 
         $('#logs').waitMe('hide');
       }
@@ -1171,7 +1180,7 @@ Vue.component('table-component', {
 });
 
 // Register VUE Elements
-VUE_ELEMENTS.jobs = new Vue({
+VUE_ELEMENTS.all_jobs = new Vue({
   el: '#all_jobs_table',
   data: {
     asset: 'jobs',
@@ -1202,7 +1211,38 @@ VUE_ELEMENTS.jobs = new Vue({
   }
 });
 
-VUE_ELEMENTS.requisitions = new Vue({
+VUE_ELEMENTS.recent_jobs = new Vue({
+  el: '#recent_jobs_table',
+  data: {
+    asset: 'jobs',
+    more: false,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'title'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
+
+VUE_ELEMENTS.all_requisitions = new Vue({
   el: '#all_requisitions_table',
   data: {
     asset: 'candidates',
@@ -1237,7 +1277,42 @@ VUE_ELEMENTS.requisitions = new Vue({
   }
 });
 
-VUE_ELEMENTS.candidates = new Vue({
+VUE_ELEMENTS.recent_requisitions = new Vue({
+  el: '#recent_requisitions_table',
+  data: {
+    asset: 'candidates',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'job'
+      },
+      'Candidato': {
+        order: '',
+        referencing: 'candidate'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
+
+VUE_ELEMENTS.all_candidates = new Vue({
   el: '#all_candidates_table',
   data: {
     asset: 'candidates',
@@ -1268,7 +1343,38 @@ VUE_ELEMENTS.candidates = new Vue({
   }
 });
 
-VUE_ELEMENTS.users = new Vue({
+VUE_ELEMENTS.recent_candidates = new Vue({
+  el: '#recent_candidates_table',
+  data: {
+    asset: 'candidates',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre': {
+        order: '',
+        referencing: 'name'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
+
+VUE_ELEMENTS.all_users = new Vue({
   el: '#all_users_table',
   data: {
     asset: 'users',
@@ -1299,8 +1405,39 @@ VUE_ELEMENTS.users = new Vue({
   }
 });
 
-VUE_ELEMENTS.logs = new Vue({
+VUE_ELEMENTS.all_logs = new Vue({
   el: '#all_logs_table',
+  data: {
+    asset: 'logs',
+    more: false,
+    modifiable: false,
+    removable: false,
+    sort_key: 'Fecha y Hora',
+    search_term: '',
+    columns: {
+      'Fecha y Hora': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Responsable': {
+        order: '',
+        referencing: 'responsible'
+      },
+      'Movimiento': {
+        order: '',
+        referencing: 'action'
+      },
+      'Identificador': {
+        order: '',
+        referencing: 'asset_id'
+      }
+    },
+    data: []
+  }
+});
+
+VUE_ELEMENTS.recent_logs = new Vue({
+  el: '#recent_logs_table',
   data: {
     asset: 'logs',
     more: false,
