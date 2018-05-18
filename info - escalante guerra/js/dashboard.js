@@ -54,31 +54,29 @@ function content_export(content) {
  * @return {undefined} Returns nothing.
  */
 function content_refresh(content) {
-  if (content === 'jobs' || content === 'users' || content === 'logs') {
-    $('#' + content).waitMe({
-      waitTime: -1,
-      effect: 'stretch',
-      text: 'Cargando...',
-      bg: 'rgba(255, 255, 255, 0.7)',
-      color: 'rgba(0, 0, 0)',
-    });
+  $('#' + content).waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
 
-    $.get({
-      url: './server/api.php/' + content + '/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
-      success: function(response) {
-        $('#' + content).waitMe('hide');
+  $.get({
+    url: './server/api.php/' + content + '/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
+    success: function(response) {
+      $('#' + content).waitMe('hide');
 
-        response = JSON.parse(response);
-        if (response.status === 'success') {
-          VUE_ELEMENTS[content].data = response.data.dump || [];
-        }
-
-        if (response.status === 'failure' || DEBUGGING.popups) {
-          alert(response.reason);
-        }
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS[content].data = response.data.dump || [];
       }
-    });
-  }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
 }
 
 // FORMS Functions
@@ -95,7 +93,7 @@ async function forms_format_get(identifier) {
 
 
 /**
- * Retrive data from forms.
+ * Retrieve data from forms.
  * @param {Object} filter Filter used to retrieve with.
  * @param {Object} options Options used to retrieve with.
  * @return {undefined} Returns nothing.
@@ -112,8 +110,8 @@ function forms_get(filter, options) {
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? filter : {};
 
-  $.post({
-    url: './server/api.php/forms/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+  $.get({
+    url: './server/api.php/forms?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#forms_view').waitMe('hide');
 
@@ -131,7 +129,7 @@ function forms_get(filter, options) {
 
 
 /**
- * Add a form.
+ * Add a form to forms.
  * @param {object} data Data to create form with.
  * @return {undefined} Returns nothing.
  */
@@ -364,8 +362,8 @@ function jobs_get(filter, options) {
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? filter : {};
 
-  $.post({
-    url: './server/api.php/jobs/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+  $.get({
+    url: './server/api.php/jobs?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#jobs').waitMe('hide');
 
@@ -535,7 +533,7 @@ function requisitions_get(filter, options) {
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? filter : {};
 
-  $.post({
+  $.get({
     url: './server/api.php/requisitions/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#requisitions').waitMe('hide');
@@ -706,8 +704,8 @@ function candidates_get(filter, options) {
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? filter : {};
 
-  $.post({
-    url: './server/api.php/candidates/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+  $.get({
+    url: './server/api.php/candidates?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#candidates').waitMe('hide');
 
@@ -873,8 +871,8 @@ function users_get(filter, options) {
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? filter : {};
 
-  $.post({
-    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+  $.get({
+    url: './server/api.php/logs?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#users').waitMe('hide');
 
@@ -1035,8 +1033,8 @@ function logs_get(filter, options) {
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? filter : {};
 
-  $.post({
-    url: './server/api.php/forms/clear?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+  $.get({
+    url: './server/api.php/forms?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
       $('#forms_view').waitMe('hide');
 
