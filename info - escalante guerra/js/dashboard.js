@@ -86,7 +86,7 @@ function content_refresh(content) {
 
         response = JSON.parse(response);
         if (response.status === 'success') {
-          VUE_ELEMENTS[content].data = response.data.dump || [];
+          VUE_ELEMENTS['all_' + content].data = response.data.dump || [];
         }
 
         if (response.status === 'failure' || DEBUGGING.popups) {
@@ -117,14 +117,6 @@ async function forms_format_get(identifier) {
  * @return {undefined} Returns nothing.
  */
 async function forms_get(filter, options) {
-  $('#forms_view').waitMe({
-    waitTime: -1,
-    effect: 'stretch',
-    text: 'Cargando...',
-    bg: 'rgba(255, 255, 255, 0.7)',
-    color: 'rgba(0, 0, 0)',
-  });
-
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? options : {};
 
@@ -170,9 +162,7 @@ function forms_add(data) {
       $('#forms_view').waitMe('hide');
 
       response = JSON.parse(response);
-      if (response.status === 'success') {
-        VUE_ELEMENTS.forms.data = response.data.dump || [];
-      }
+      if (response.status === 'success') {}
 
       if (response.status === 'failure' || DEBUGGING.popups) {
         alert(response.reason);
@@ -385,7 +375,7 @@ async function jobs_get(filter, options) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_jobs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_jobs.data = VUE_ELEMENTS.recent_jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -423,7 +413,7 @@ function jobs_add(data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_jobs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_jobs.data = VUE_ELEMENTS.recent_jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -471,7 +461,7 @@ function jobs_modify(id, data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_jobs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_jobs.data = VUE_ELEMENTS.recent_jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -507,7 +497,7 @@ function jobs_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_jobs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_jobs.data = VUE_ELEMENTS.recent_jobs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -556,7 +546,7 @@ async function requisitions_get(filter, options) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_requisitions.data = response.data.dump || [];
+        VUE_ELEMENTS.all_requisitions.data = VUE_ELEMENTS.recent_requisitions.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -594,7 +584,7 @@ function requisitions_add(data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_requisitions.data = response.data.dump || [];
+        VUE_ELEMENTS.all_requisitions.data = VUE_ELEMENTS.recent_requisitions.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -642,7 +632,7 @@ function requisitions_modify(id, data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_requisitions.data = response.data.dump || [];
+        VUE_ELEMENTS.all_requisitions.data = VUE_ELEMENTS.recent_requisitions.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -678,7 +668,7 @@ function requisitions_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_requisitions.data = response.data.dump || [];
+        VUE_ELEMENTS.all_requisitions.data = VUE_ELEMENTS.recent_requisitions.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -727,7 +717,7 @@ async function candidates_get(filter, options) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_candidates.data = response.data.dump || [];
+        VUE_ELEMENTS.all_candidates.data = VUE_ELEMENTS.recent_candidates.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -765,7 +755,7 @@ function candidates_add(data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_candidates.data = response.data.dump || [];
+        VUE_ELEMENTS.all_candidates.data = VUE_ELEMENTS.recent_candidates.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -813,7 +803,7 @@ function candidates_modify(id, data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_candidates.data = response.data.dump || [];
+        VUE_ELEMENTS.all_candidates.data = VUE_ELEMENTS.recent_candidates.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -849,7 +839,7 @@ function candidates_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_candidates.data = response.data.dump || [];
+        VUE_ELEMENTS.all_candidates.data = VUE_ELEMENTS.recent_candidates.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -894,7 +884,7 @@ async function users_get(filter, options) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_logs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_logs.data = VUE_ELEMENTS.recent_logs.data = VUE_ELEMENTS.recent_logs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -933,7 +923,7 @@ function users_add(data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_users.data = response.data.dump || [];
+        VUE_ELEMENTS.all_users.data = VUE_ELEMENTS.recent_users.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -982,7 +972,7 @@ function users_modify(id, data) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_users.data = response.data.dump || [];
+        VUE_ELEMENTS.all_users.data = VUE_ELEMENTS.recent_users.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -1018,7 +1008,7 @@ function users_remove(id) {
       response = JSON.parse(response);
 
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_users.data = response.data.dump || [];
+        VUE_ELEMENTS.all_users.data = VUE_ELEMENTS.recent_users.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -1056,7 +1046,7 @@ async function logs_get(filter, options) {
 
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_logs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_logs.data = VUE_ELEMENTS.recent_logs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -1085,7 +1075,7 @@ function logs_clear() {
     success: function(response) {
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_logs.data = response.data.dump || [];
+        VUE_ELEMENTS.all_logs.data = VUE_ELEMENTS.recent_logs.data = response.data.dump || [];
 
         $('#logs').waitMe('hide');
       }
