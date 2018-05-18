@@ -73,7 +73,7 @@
 			}
 		}
 
-		$sql = "SELECT `id`, `created`, `username`, `access` FROM `users` WHERE 1' {$filter_sql} {$options_sql}";
+		$sql = "SELECT `id`, `created`, `username`, `access` FROM `users` WHERE 1 {$filter_sql} {$options_sql}";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
