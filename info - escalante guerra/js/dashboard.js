@@ -219,22 +219,12 @@ $('#jobs_modify').on('shown.bs.modal', function(e) {
  * @return {undefined} Returns nothing.
  */
 async function jobs_get(filter, options) {
-  $('#jobs').waitMe({
-    waitTime: -1,
-    effect: 'stretch',
-    text: 'Cargando...',
-    bg: 'rgba(255, 255, 255, 0.7)',
-    color: 'rgba(0, 0, 0)',
-  });
-
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? options : {};
 
   return await $.get({
     url: './server/api.php/jobs/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
-      $('#jobs').waitMe('hide');
-
       response = JSON.parse(response);
       if (response.status === 'success') {}
 
@@ -388,22 +378,12 @@ $('#requisitions_modify').on('shown.bs.modal', function(e) {
  * @return {undefined} Returns nothing.
  */
 async function requisitions_get(filter, options) {
-  $('#requisitions').waitMe({
-    waitTime: -1,
-    effect: 'stretch',
-    text: 'Cargando...',
-    bg: 'rgba(255, 255, 255, 0.7)',
-    color: 'rgba(0, 0, 0)',
-  });
-
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? options : {};
 
   return await $.get({
     url: './server/api.php/requisitions/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
-      $('#requisitions').waitMe('hide');
-
       response = JSON.parse(response);
       if (response.status === 'success') {}
 
@@ -557,22 +537,12 @@ $('#candidates_modify').on('shown.bs.modal', function(e) {
  * @return {undefined} Returns nothing.
  */
 async function candidates_get(filter, options) {
-  $('#candidates').waitMe({
-    waitTime: -1,
-    effect: 'stretch',
-    text: 'Cargando...',
-    bg: 'rgba(255, 255, 255, 0.7)',
-    color: 'rgba(0, 0, 0)',
-  });
-
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? options : {};
 
   return await $.get({
     url: './server/api.php/candidates/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
-      $('#candidates').waitMe('hide');
-
       response = JSON.parse(response);
       if (response.status === 'success') {}
 
@@ -722,22 +692,12 @@ $('#users_modify').on('shown.bs.modal', function(e) {
  * @return {undefined} Returns nothing.
  */
 async function users_get(filter, options) {
-  $('#logs').waitMe({
-    waitTime: -1,
-    effect: 'stretch',
-    text: 'Cargando...',
-    bg: 'rgba(255, 255, 255, 0.7)',
-    color: 'rgba(0, 0, 0)',
-  });
-
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? options : {};
 
   return await $.get({
     url: './server/api.php/users/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
-      $('#users').waitMe('hide');
-
       response = JSON.parse(response);
       if (response.status === 'success') {}
 
@@ -882,22 +842,12 @@ function users_remove(id) {
  * @return {undefined} Returns nothing.
  */
 async function logs_get(filter, options) {
-  $('#forms_view').waitMe({
-    waitTime: -1,
-    effect: 'stretch',
-    text: 'Cargando...',
-    bg: 'rgba(255, 255, 255, 0.7)',
-    color: 'rgba(0, 0, 0)',
-  });
-
   filter = typeof filter === 'object' ? filter : {};
   options = typeof options === 'object' ? options : {};
 
   return await $.get({
     url: './server/api.php/logs/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
     success: function(response) {
-      $('#forms_view').waitMe('hide');
-
       response = JSON.parse(response);
       if (response.status === 'success') {}
 
