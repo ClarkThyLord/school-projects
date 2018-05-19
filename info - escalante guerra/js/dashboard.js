@@ -509,8 +509,10 @@ function quotations_modify(id, data) {
   });
 
   var valid = [
-    'title',
-    'description'
+    'company name',
+    'job',
+    'data',
+    'active'
   ];
   var valid_data = {};
   $.each(data, function(key, value) {

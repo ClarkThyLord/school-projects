@@ -358,7 +358,7 @@
       </main>
 
 			<!-- USERS -->
-      <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="users">
+			<main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="users">
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 				  <h1 class="h2">Usuarios</h1>
 
@@ -372,8 +372,8 @@
 				  </div>
 				</div>
 				<div class="table-responsive" id="all_users_table">
-				  <table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
-				</div>
+			  <table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
+			</div>
 			</main>
 
 			<!-- LOGS -->
@@ -585,15 +585,15 @@
 							<label class="custom-switch-btn" for="quotations_active_switch"></label>
 						</div>
 						<label class="col-form-label">Información:</label>
-						<input type="button" value="Modificar" onclick="" class="form-control" />
-						<input type="button" value="Despejar" onclick="" class="form-control" />
+						<input type="button" value="✏️ Modificar" onclick="$('#quotations_data_modify').modal('show');" class="form-control" />
+						<input type="button" value="🗑️ Despejar" onclick="$('#quotations_data_remove').modal('show');" class="form-control" />
 					</form>
 	      </div>
 
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="$('#quotations_modify').modal('hide'); $('#quotations_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="var data = {}; $('#quotations_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else if (this.type !== 'button') { data[this.name] = $(this).val(); } }); quotations_modify(GLOBALS.asset.id, data); $('#quotations_modify').modal('hide');" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
@@ -627,9 +627,9 @@
 	  </div>
 	</div>
 
-<!-- USERS REMOVE -->
-<div class="modal fade" id="quotations_remove" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
+	<!-- QUOTATIONS REMOVE -->
+	<div class="modal fade" id="quotations_remove" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<!-- HEADER -->
 			<div class="modal-header">
@@ -655,7 +655,37 @@
 			</div>
 		</div>
 	</div>
-</div>
+	</div>
+
+	<!-- QUOTATIONS DATA REMOVE -->
+	<div class="modal fade" id="quotations_data_remove" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<!-- HEADER -->
+			<div class="modal-header">
+				<h5 class="modal-title">Eliminar Información de Cotización</h5>
+
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<!-- BODY -->
+			<div class="modal-body">
+				<p class="font-italic">
+					¿Seguro que quieres eliminar la información de la cotización?<br />
+					<span class="text-danger font-weight-bold">¡No es reversible!</span>
+				</p>
+			</div>
+
+			<!-- FOOTER -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				<button onclick="quotations_modify(GLOBALS.asset.id, {data: {clear: true}}); $('#quotations_data_remove').modal('hide');" type="button" class="btn btn-primary">Eliminar</button>
+			</div>
+		</div>
+	</div>
+	</div>
 
 
 	<!-- USERS DIALOGS -->
