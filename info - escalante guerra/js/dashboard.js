@@ -139,14 +139,17 @@ async function forms_format_get(identifier) {
 
 /**
  * Setup a form in form's view.
- * @param {String} form_type Type of form to setup.
- * @param {String} type Type of form action to setup.
+ * @param {String} identifier Form's ID to be setup.
  * @param {Object} data Data to setup form with.
  * @return {undefined} Returns nothing.
  */
-function setup_form_view(form_type, type, data) {
+function setup_form(identifier, data) {
+  if (typeof data === 'string') {
+    data = JSON.parse(data);
+  }
+
   if (typeof data === 'object') {
-    $('#' + type + '_view_info :input').each(function() {
+    $('#' + identifier + '_data_modify :input').each(function() {
       if ($(this).attr('type') === 'checkbox') {
         $(this).prop('checked', !!(data[this.name] * 1));
       } else {
@@ -155,7 +158,7 @@ function setup_form_view(form_type, type, data) {
     });
   }
 
-  $('#' + form_type + '_' + type).modal('show');
+  $('#' + identifier + '_data_modify').modal('show');
 }
 
 
@@ -1183,8 +1186,8 @@ Vue.component('table-component', {
     select: function(event, asset) {
       GLOBALS.asset = asset;
     },
-    information: function(event) {
-      $('#' + this.asset + '_data_modify').modal('show');
+    information: function(event, asset) {
+      setup_form(this.asset, asset.data || {});
     },
     edit: function(event) {
       $('#' + this.asset + '_modify').modal('show');

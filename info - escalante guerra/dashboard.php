@@ -585,8 +585,7 @@
 							<label class="custom-switch-btn" for="quotations_active_switch"></label>
 						</div>
 						<label class="col-form-label">Información:</label>
-						<input type="button" value="✏️ Modificar" onclick="$('#quotations_data_modify').modal('show');" class="form-control" />
-						<input type="button" value="🗑️ Despejar" onclick="$('#quotations_data_remove').modal('show');" class="form-control" />
+						<input type="button" value="✏️ Modificar" onclick="setup_form('quotations', (GLOBALS.asset ? GLOBALS.asset.data : {}));" class="form-control" />
 					</form>
 	      </div>
 
@@ -621,7 +620,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="$('#quotations_modify').modal('hide'); $('#quotations_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="var data = html_to_data($('#quotations_data_modify_info').first()[0]); if (!data) { return; } $('#quotations_data_modify').modal('hide'); quotations_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#quotations_data_modify_info :input[name=\'Nombre de la Empresa\']').val(), job: $('#quotations_data_modify_info:input[name=\'Nombre del Puesto\']').val(), data: data}); $('#quotations_data_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
@@ -652,36 +651,6 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 				<button onclick="quotations_remove(GLOBALS.asset.id); $('#quotations_remove').modal('hide');" type="button" class="btn btn-primary">Eliminar</button>
-			</div>
-		</div>
-	</div>
-	</div>
-
-	<!-- QUOTATIONS DATA REMOVE -->
-	<div class="modal fade" id="quotations_data_remove" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<!-- HEADER -->
-			<div class="modal-header">
-				<h5 class="modal-title">Eliminar Información de Cotización</h5>
-
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-
-			<!-- BODY -->
-			<div class="modal-body">
-				<p class="font-italic">
-					¿Seguro que quieres eliminar la información de la cotización?<br />
-					<span class="text-danger font-weight-bold">¡No es reversible!</span>
-				</p>
-			</div>
-
-			<!-- FOOTER -->
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-				<button onclick="quotations_modify(GLOBALS.asset.id, {data: {clear: true}}); $('#quotations_data_remove').modal('hide');" type="button" class="btn btn-primary">Eliminar</button>
 			</div>
 		</div>
 	</div>
@@ -823,6 +792,7 @@
 	  </div>
 	</div>
 
+
   <!-- JS Libraries -->
   <script src="./js/libs/jquery-3.3.1.min.js"></script>
   <script src="./js/libs/jquery-waitMe.min.js"></script>
@@ -856,7 +826,7 @@
 						<span v-else>{{ entry[val.referencing] }}</span>
 	        </td>
 		      <th v-if="more" class="unselectable">
-						<a href="#" v-on:click="information($event, asset)">Ver Más</a>
+						<a href="#" v-on:click="information($event, entry);">Ver Más</a>
 		      </th>
 					<td v-if="modifiable || removable">
 						<span v-if="modifiable" v-on:click="edit($event);" style="cursor: pointer;">✏️</span>
