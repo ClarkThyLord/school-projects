@@ -51,12 +51,20 @@
     access_check(1);
 
 		$data = array_merge(array('name' => 'Nueva Candidato', 'data' => 'NULL'), $data);
-		if ($data['data'] != 'NULL') {
-  		if (json_decode($data['data']) == NULL) {
-				$data['data'] = 'NULL';
-			} else {
-				$data['data'] = "'{$data["data"]}'";
+		if (gettype($data['data']) !== 'array') {
+			$data['data'] = 'NULL';
+		}else {
+			$data['data'] = json_encode($data["data"]);
+		}
+
+		foreach ($data as $key => $value) {
+			if (gettype($value) === 'string') {
+				$data[$key] = str_replace("'", "''", $value);
 			}
+		}
+
+		if ($data['data'] !== 'NULL') {
+			$data['data'] = "'" . $data['data'] . "'";
 		}
 
     $sql = "INSERT INTO `candidates` (`id`, `created`, `name`, `data`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["name"]}', {$data["data"]}, '1')";

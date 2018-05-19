@@ -1181,6 +1181,9 @@ Vue.component('table-component', {
     select: function(event, asset) {
       GLOBALS.asset = asset;
     },
+    information: function(event) {
+      $('#' + this.asset + '_data_modify').modal('show');
+    },
     edit: function(event) {
       $('#' + this.asset + '_modify').modal('show');
     },

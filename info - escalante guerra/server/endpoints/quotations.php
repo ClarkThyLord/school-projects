@@ -54,7 +54,17 @@
 		if (gettype($data['data']) !== 'array') {
 			$data['data'] = 'NULL';
 		}else {
-			$data['data'] = "'" . json_encode($data["data"]) . "'";
+			$data['data'] = json_encode($data["data"]);
+		}
+
+		foreach ($data as $key => $value) {
+			if (gettype($value) === 'string') {
+				$data[$key] = str_replace("'", "''", $value);
+			}
+		}
+
+		if ($data['data'] !== 'NULL') {
+			$data['data'] = "'" . $data['data'] . "'";
 		}
 
     $sql = "INSERT INTO `quotations` (`id`, `created`, `company name`, `job`, `data`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["company name"]}', '{$data["job"]}', {$data["data"]}, '1')";

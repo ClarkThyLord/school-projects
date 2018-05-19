@@ -627,6 +627,36 @@
 	  </div>
 	</div>
 
+<!-- USERS REMOVE -->
+<div class="modal fade" id="quotations_remove" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<!-- HEADER -->
+			<div class="modal-header">
+				<h5 class="modal-title">Eliminar Cotización</h5>
+
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<!-- BODY -->
+			<div class="modal-body">
+				<p class="font-italic">
+					¿Seguro que quieres eliminar cotización?<br />
+					<span class="text-danger font-weight-bold">¡No es reversible!</span>
+				</p>
+			</div>
+
+			<!-- FOOTER -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				<button onclick="quotations_remove(GLOBALS.asset.id); $('#quotations_remove').modal('hide');" type="button" class="btn btn-primary">Eliminar</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 	<!-- USERS DIALOGS -->
 	<!-- USERS ADD -->
@@ -796,7 +826,7 @@
 						<span v-else>{{ entry[val.referencing] }}</span>
 	        </td>
 		      <th v-if="more" class="unselectable">
-						<a onclick="$('#forms_view').modal('show');">Ver Más</a>
+						<a href="#" v-on:click="information($event, asset)">Ver Más</a>
 		      </th>
 					<td v-if="modifiable || removable">
 						<span v-if="modifiable" v-on:click="edit($event);" style="cursor: pointer;">✏️</span>
