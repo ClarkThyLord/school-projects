@@ -6,10 +6,6 @@ var DEBUGGING = {
 
 window.onload = function() {
   console.log('PAGE LOADED\n---');
-
-  $.ajaxSetup({
-    cache: false
-  });
 };
 
 /**

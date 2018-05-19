@@ -4,6 +4,7 @@ var GLOBALS = {
   asset: undefined, // Current asset being interacted with
   eng_to_spa: {
     jobs: 'puestos',
+    quotations: 'cotizaciónes',
     requisitions: 'requisiciones',
     candidates: 'candidatos',
     users: 'usuarios',
@@ -83,6 +84,10 @@ function content_refresh(content) {
   if (content === 'desk') {
     (async function() {
       VUE_ELEMENTS.recent_jobs.data = JSON.parse(await jobs_get({}, {
+        limit: 5
+      })).data.dump || [];
+
+      VUE_ELEMENTS.recent_quotations.data = JSON.parse(await quotations_get({}, {
         limit: 5
       })).data.dump || [];
 
@@ -416,7 +421,7 @@ $('#quotations_modify').on('shown.bs.modal', function(e) {
   $('#quotations_modify_info :input').each(function() {
     if ($(this).attr('type') === 'checkbox') {
       $(this).prop('checked', !!(GLOBALS.asset[this.name] * 1));
-    } else {
+    } else if (GLOBALS.asset[this.name]) {
       $(this).val(GLOBALS.asset[this.name]);
     }
   });

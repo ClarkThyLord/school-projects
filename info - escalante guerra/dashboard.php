@@ -581,8 +581,8 @@
 	        <form action="#" id="quotations_modify_info">
 						<label class="col-form-label">Activo:</label>
 						<div class="custom-switch custom-switch-label-onoff">
-							<input type="checkbox" class="custom-switch-input" name="active" id="jobs_active_switch">
-							<label class="custom-switch-btn" for="jobs_active_switch"></label>
+							<input type="checkbox" class="custom-switch-input" name="active" id="quotations_active_switch">
+							<label class="custom-switch-btn" for="quotations_active_switch"></label>
 						</div>
 						<label class="col-form-label">Información:</label>
 						<input type="button" value="Modificar" onclick="" class="form-control" />
