@@ -314,8 +314,8 @@
             </div>
           </div>
         </div>
-        <div class="table-responsive" id="all_quotation_table">
-					<!-- <table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component> -->
+        <div class="table-responsive" id="all_quotations_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
       </main>
 

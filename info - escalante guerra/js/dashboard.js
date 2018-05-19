@@ -373,6 +373,165 @@ function jobs_remove(id) {
   });
 }
 
+// QUOTATIONS Functions
+// *****************************************************************************
+
+$('#quotations_modify').on('shown.bs.modal', function(e) {
+  $('#quotations_modify_info :input').each(function() {
+    if ($(this).attr('type') === 'checkbox') {
+      $(this).prop('checked', !!(GLOBALS.asset[this.name] * 1));
+    } else {
+      $(this).val(GLOBALS.asset[this.name]);
+    }
+  });
+});
+
+
+/**
+ * Retrieve a quotation from quotations.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
+ * @return {undefined} Returns nothing.
+ */
+async function quotations_get(filter, options) {
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
+
+  return await $.get({
+    url: './server/api.php/quotations/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {}
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Add a quotation.
+ * @param {object} data Data to create quotation with.
+ * @return {undefined} Returns nothing.
+ */
+function quotations_add(data) {
+  $('#quotations').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/quotations/add?debug=' + DEBUGGING.server,
+    data: {
+      data: {
+        title: data.title || 'Nuevo Puesto',
+        description: data.description || 'Nueva posición abierta!'
+      }
+    },
+    success: function(response) {
+      $('#quotations').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.all_quotations.data = VUE_ELEMENTS.recent_quotations.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Modify a quotation's data.
+ * @param {integer} id quotation's ID.
+ * @param {object} data Data to modify quotation with.
+ * @return {undefined} Returns nothing.
+ */
+function quotations_modify(id, data) {
+  $('#quotations').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  var valid = [
+    'title',
+    'description'
+  ];
+  var valid_data = {};
+  $.each(data, function(key, value) {
+    if (value && valid.indexOf(key) !== -1) {
+      valid_data[key] = value;
+    }
+  });
+
+  $.post({
+    url: './server/api.php/quotations/modify?debug=' + DEBUGGING.server,
+    data: {
+      id: id,
+      data: data
+    },
+    success: function(response) {
+      $('#quotations').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.all_quotations.data = VUE_ELEMENTS.recent_quotations.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Remove a quotation.
+ * @param {integer} id quotation's ID.
+ * @return {undefined} Returns nothing.
+ */
+function quotations_remove(id) {
+  $('#quotations').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/quotations/remove?debug=' + DEBUGGING.server,
+    data: {
+      id: id
+    },
+    success: function(response) {
+      $('#quotations').waitMe('hide');
+
+      response = JSON.parse(response);
+
+      if (response.status === 'success') {
+        VUE_ELEMENTS.all_quotations.data = VUE_ELEMENTS.recent_quotations.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
 // REQUISITIONS Functions
 // *****************************************************************************
 
@@ -1024,6 +1183,68 @@ VUE_ELEMENTS.recent_jobs = new Vue({
   data: {
     asset: 'jobs',
     more: false,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'title'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
+
+VUE_ELEMENTS.all_quotations = new Vue({
+  el: '#all_quotations_table',
+  data: {
+    asset: 'quotations',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'title'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
+
+VUE_ELEMENTS.recent_quotations = new Vue({
+  el: '#recent_quotations_table',
+  data: {
+    asset: 'quotations',
+    more: true,
     modifiable: true,
     removable: true,
     sort_key: 'Creado',
