@@ -114,10 +114,14 @@
 		}
 
 		$data_sql = array();
-		$valid_keys = array('title', 'description', 'active');
+		$valid_keys = array('job', 'candidate', 'data', 'active');
 		foreach ($data as $key => $value) {
 			if (!in_array($key, $valid_keys)) { continue; } else {
-				array_push($data_sql, "`{$key}` = '{$value}'");
+				if (gettype($value) === 'array') {
+					array_push($data_sql, "`{$key}` = '" . json_encode($value) . "'");
+				} else {
+					array_push($data_sql, "`{$key}` = '{$value}'");
+				}
 			}
 		}
 

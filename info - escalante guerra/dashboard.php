@@ -308,7 +308,7 @@
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <button onclick="content_refresh('quotations');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button onclick="setup_form_view('quotations', 'add');" class="btn btn-sm btn-outline-secondary">+ Agregar Cotización</button>
+              <button onclick="$('#quotations_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Cotización</button>
               <button onclick="content_export('quotations');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." oninput="VUE_ELEMENTS.all_quotations.search_term = this.value;" style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
             </div>
@@ -327,7 +327,7 @@
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <button onclick="content_refresh('requisitions');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button onclick="setup_form_view('requisitions', 'add');" class="btn btn-sm btn-outline-secondary">+ Agregar Requisicion</button>
+              <button onclick="$('#requisitions_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Requisicion</button>
               <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
             </div>
@@ -346,7 +346,7 @@
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <button onclick="content_refresh('candidates');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button onclick="setup_form_view('candidates', 'add');" class="btn btn-sm btn-outline-secondary">+ Agregar Candidato</button>
+              <button onclick="$('#candidates_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Candidato</button>
               <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
             </div>
@@ -620,7 +620,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = html_to_data($('#quotations_data_modify_info').first()[0]); if (!data) { return; } $('#quotations_data_modify').modal('hide'); quotations_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#quotations_data_modify_info :input[name=\'Nombre de la Empresa\']').val(), job: $('#quotations_data_modify_info:input[name=\'Nombre del Puesto\']').val(), data: data}); $('#quotations_data_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="var data = html_to_data($('#quotations_data_modify_info').first()[0]); if (!data) { return; } $('#quotations_data_modify').modal('hide'); quotations_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#quotations_data_modify_info :input[name=\'Nombre de la Empresa\']').val(), job: $('#quotations_data_modify_info :input[name=\'Nombre del Puesto\']').val(), data: data}); $('#quotations_data_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
