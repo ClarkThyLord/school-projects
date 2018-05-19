@@ -2,22 +2,30 @@
 var GLOBALS = {
   user: undefined, // Client's current user
   asset: undefined, // Current asset being interacted with
+  forms: {
+    quotations: [],
+    requisitions: [],
+    candidates: []
+  },
   eng_to_spa: {
-    'jobs': 'puestos',
-    'requisitions': 'requisiciones',
-    'candidates': 'candidatos',
-    'users': 'usuarios',
-    'logs': 'registros'
+    jobs: 'puestos',
+    requisitions: 'requisiciones',
+    candidates: 'candidatos',
+    users: 'usuarios',
+    logs: 'registros'
   }
 };
 
 window.onload = function() {
   content_change('desk');
 
-  // (async function() {
-  //   $('#forms_view_info').html(form_to_html(await forms_format_get('candidates')));
-  //   $('#forms_view').modal('show');
-  // })();
+  // Setup forms
+  (async function() {
+    var forms = Object.keys(GLOBALS.forms);
+    for (var key in forms) {
+      GLOBALS.forms[forms[key]] = form_to_html(await forms_format_get(forms[key]));
+    }
+  })();
 };
 
 // CONTENT Functions
@@ -115,7 +123,7 @@ function content_refresh(content) {
 
 /**
  * Retrieve a form's format.
- * @param {string} identifier Form's identifier.
+ * @param {String} identifier Form's identifier.
  * @return {undefined} Returns nothing.
  */
 async function forms_format_get(identifier) {
@@ -124,9 +132,32 @@ async function forms_format_get(identifier) {
 
 
 /**
+ * Setup a form in form's view.
+ * @param {String} type Type of form to setup.
+ * @param {Object} data Data to setup form with.
+ * @return {undefined} Returns nothing.
+ */
+function setup_form_view(type, data) {
+  $('#forms_view_info').data('current-step', 0).html(GLOBALS.forms[type]);
+
+  if (typeof data === 'object') {
+    $('#forms_view_info :input').each(function() {
+      if ($(this).attr('type') === 'checkbox') {
+        $(this).prop('checked', !!(data[this.name] * 1));
+      } else {
+        $(this).val(data[this.name]);
+      }
+    });
+  }
+
+  $('#forms_view').modal('show');
+}
+
+
+/**
  * Convert a object form to a html.
- * @param {object} dom Object form.
- * @return {undefined} Returns html.
+ * @param {Object} dom Object form.
+ * @return {Array} Returns array with html.
  */
 function form_to_html(data) {
   var num = 0;

@@ -308,7 +308,7 @@
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <button onclick="content_refresh('quotations');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button onclick="$('#quotations_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Cotización</button>
+              <button onclick="setup_form_view('quotations');" class="btn btn-sm btn-outline-secondary">+ Agregar Cotización</button>
               <button onclick="content_export('quotations');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." oninput="VUE_ELEMENTS.all_quotations.search_term = this.value;" style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
             </div>
@@ -327,7 +327,7 @@
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <button onclick="content_refresh('requisitions');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button onclick="" class="btn btn-sm btn-outline-secondary">+ Agregar Requisicion</button>
+              <button onclick="setup_form_view('requisitions');" class="btn btn-sm btn-outline-secondary">+ Agregar Requisicion</button>
               <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
             </div>
@@ -346,7 +346,7 @@
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
               <button onclick="content_refresh('candidates');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button onclick="" class="btn btn-sm btn-outline-secondary">+ Agregar Candidato</button>
+              <button onclick="setup_form_view('candidates');" class="btn btn-sm btn-outline-secondary">+ Agregar Candidato</button>
               <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
             </div>
@@ -415,14 +415,14 @@
 
 				<!-- BODY -->
 	      <div class="modal-body">
-	        <form action="#" data-current-step="0" data-max-steps="" id="forms_view_info">
+	        <form action="#" data-current-step="0" id="forms_view_info">
 					</form>
 	      </div>
 
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="$('#forms_view').modal('hide'); $('#forms_view_info').trigger('reset')" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="$('#forms_view').modal('hide'); $('#forms_view_info').trigger('reset');" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
@@ -458,7 +458,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = {}; $('#jobs_add_info :input').each(function() { data[this.name] = $(this).val(); }); jobs_add(data); $('#jobs_add').modal('hide'); $('#jobs_add_info').trigger('reset')" class="btn btn-primary">Agregar</button>
+	        <button type="button" onclick="var data = {}; $('#jobs_add_info :input').each(function() { data[this.name] = $(this).val(); }); jobs_add(data); $('#jobs_add').modal('hide'); $('#jobs_add_info').trigger('reset');" class="btn btn-primary">Agregar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -533,6 +533,36 @@
 	  </div>
 	</div>
 
+	
+	<!-- QUOTATIONS DIALOGS -->
+	<!-- QUOTATIONS MODIFY -->
+	<div class="modal fade" id="quotations_modify" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Visualización de Datos</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <form action="#" data-current-step="0" id="forms_view_info">
+					</form>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" onclick="$('#forms_view').modal('hide'); $('#forms_view_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
 
 	<!-- USERS DIALOGS -->
 	<!-- USERS ADD -->
@@ -565,7 +595,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = {}; $('#users_add_info :input').each(function() { data[this.name] = $(this).val(); }); users_add(data); $('#users_add').modal('hide'); $('#users_add_info').trigger('reset')" class="btn btn-primary">Agregar</button>
+	        <button type="button" onclick="var data = {}; $('#users_add_info :input').each(function() { data[this.name] = $(this).val(); }); users_add(data); $('#users_add').modal('hide'); $('#users_add_info').trigger('reset');" class="btn btn-primary">Agregar</button>
 	      </div>
 	    </div>
 	  </div>
