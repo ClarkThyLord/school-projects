@@ -1,4 +1,5 @@
-[{
+[
+	{
 		"type": "text",
 		"required": true,
 		"label": "Nombre Completo"

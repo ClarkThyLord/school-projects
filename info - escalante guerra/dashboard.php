@@ -74,6 +74,11 @@
                 Puestos
               </a>
             </li>
+            <li data-location="quotations" onclick="content_change('quotations');" class="nav-item">
+              <a href="#" class="nav-link">
+                Cotizaciónes
+              </a>
+            </li>
             <li data-location="requisitions" onclick="content_change('requisitions');" class="nav-item">
               <a href="#" class="nav-link">
                 Requisiciones
@@ -99,7 +104,7 @@
       </nav>
 
 			<!-- CONTENT -->
-			<!-- RECENT -->
+			<!-- DESK -->
       <main role="main" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="desk">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 class="h2">Escritorio</h1>
@@ -121,6 +126,19 @@
 				</div>
 
         <div class="table-responsive" id="recent_jobs_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
+        </div>
+
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+	        <h2>Cotizaciónes Recientes</h2>
+					<div class="btn-toolbar">
+	          <div class="btn-group">
+	            <button onclick="content_change('quotations');" class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	          </div>
+	        </div>
+				</div>
+
+        <div class="table-responsive" id="recent_quotations_table">
 					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
 
@@ -279,6 +297,25 @@
         </div>
         <div class="table-responsive" id="all_jobs_table">
 					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
+        </div>
+      </main>
+
+			<!-- QUOTATIONS -->
+      <main role="main" style="display: none;" class="page-content col-md-9 ml-sm-auto col-lg-10 px-4" id="quotations">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <h1 class="h2">Cotizaciónes</h1>
+
+					<div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+              <button onclick="content_refresh('quotations');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="$('#quotations_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Cotización</button>
+              <button onclick="content_export('quotations');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+	            <input type="text" placeholder="Buscar..." oninput="VUE_ELEMENTS.quotations.search_term = this.value;" style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive" id="all_quotation_table">
+					<!-- <table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component> -->
         </div>
       </main>
 
