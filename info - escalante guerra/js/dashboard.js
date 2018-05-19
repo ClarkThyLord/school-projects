@@ -14,10 +14,10 @@ var GLOBALS = {
 window.onload = function() {
   content_change('desk');
 
-  (async function() {
-    $('#forms_view_info').html(form_to_html(await forms_format_get('candidate')));
-    $('#forms_view').modal('show');
-  })();
+  // (async function() {
+  //   $('#forms_view_info').html(form_to_html(await forms_format_get('candidate')));
+  //   $('#forms_view').modal('show');
+  // })();
 };
 
 // CONTENT Functions

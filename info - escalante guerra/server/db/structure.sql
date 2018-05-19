@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 18, 2018 at 08:38 PM
+-- Generation Time: May 19, 2018 at 04:44 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -67,6 +67,23 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `action` text,
   `asset_type` text COMMENT 'Type of asset modified',
   `asset_id` text COMMENT 'ID to the asset that was modified'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quotations`
+--
+
+DROP TABLE IF EXISTS `quotations`;
+CREATE TABLE IF NOT EXISTS `quotations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `company name` int(11) NOT NULL,
+  `job` text NOT NULL,
+  `data` json DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
