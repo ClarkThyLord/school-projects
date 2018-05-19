@@ -680,7 +680,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = html_to_data($('#requisitions_add_info').first()[0]); if (!data) { return; } $('#requisitions_add').modal('hide'); requisitions_add({'company name': $('#requisitions_add_info :input[name=\'Nombre de la Empresa\']').val(), job: $('#requisitions_add_info :input[name=\'Nombre del Puesto\']').val(), data: data}); $('#requisitions_add_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="var data = html_to_data($('#requisitions_add_info').first()[0]); console.log(data); if (!data) { return; } $('#requisitions_add').modal('hide'); requisitions_add({'company name': $('#requisitions_add_info :input[name=\'Nombre de la Empresa\']').val(), data: data}); $('#requisitions_add_info').trigger('reset');" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>

@@ -240,12 +240,37 @@ function html_to_data(dom) {
   var required_fields = [];
   var data = {};
   $(dom).find(':input').each(function() {
+    console.log(this);
     if ($(this).prop('required') && !($(this).val() || (this.files && this.files.length < 0))) {
       return required = true && required_fields.push($(this).attr('name'));
     } else if ($(this).attr('type') === 'checkbox') {
       data[$(this).attr('name')] = $(this).prop('checked');
-    } else if ($(this).attr('type') === 'file') {
-      data[$(this).attr('name')] = this.files;
+    } else if ($(this).attr('type') === 'file' || $(this).attr('type') === 'files') {
+      files = this.files;
+      if (files.length > 0) {
+        data[$(this).attr('name')] = {};
+
+        console.log(files);
+
+        for (var file in files) {
+          file = files[file];
+
+          console.log(file);
+
+          var reader = new FileReader();
+          reader.addEventListener("load", function() {
+            console.log(reader.result);
+
+            data[$(this).attr('name')][file.name] = reader.result;
+          }, false);
+
+          if (file) {
+            reader.readAsDataURL(file);
+          }
+        }
+      } else {
+        data[$(this).attr('name')] = $(this).val();
+      }
     } else {
       data[$(this).attr('name')] = $(this).val();
     }
@@ -637,8 +662,8 @@ function requisitions_add(data) {
     url: './server/api.php/requisitions/add?debug=' + DEBUGGING.server,
     data: {
       data: {
-        title: data.title || 'Nuevo Puesto',
-        description: data.description || 'Nueva posición abierta!'
+        'company name': data['company name'] || 'Nueva Empresa',
+        data: data.data
       }
     },
     success: function(response) {
@@ -1349,13 +1374,9 @@ VUE_ELEMENTS.all_requisitions = new Vue({
         order: 'des',
         referencing: 'created'
       },
-      'Puesto': {
+      'Nombre de Empresa': {
         order: '',
-        referencing: 'job'
-      },
-      'Candidato': {
-        order: '',
-        referencing: 'candidate'
+        referencing: 'company name'
       },
       'Activo': {
         order: '',
@@ -1384,13 +1405,9 @@ VUE_ELEMENTS.recent_requisitions = new Vue({
         order: 'des',
         referencing: 'created'
       },
-      'Puesto': {
+      'Nombre de Empresa': {
         order: '',
-        referencing: 'job'
-      },
-      'Candidato': {
-        order: '',
-        referencing: 'candidate'
+        referencing: 'company name'
       },
       'Activo': {
         order: '',

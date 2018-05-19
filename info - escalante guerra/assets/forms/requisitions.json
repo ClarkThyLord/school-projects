@@ -2,7 +2,7 @@
 	{
 		"type": "dropdown",
 		"required": false,
-		"label": "Cuenta con Auto",
+		"label": "Servicio Requerido",
 		"extra": {
 			"options": [
 				"Reclutamiento y Selección",
@@ -22,7 +22,7 @@
 	},
 	{
 		"type": "text",
-		"required": false,
+		"required": true,
 		"label": "Nombre de la Empresa"
 	},
 	{

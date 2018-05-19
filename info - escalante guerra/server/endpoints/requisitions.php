@@ -67,7 +67,7 @@
 			$data['data'] = "'" . $data['data'] . "'";
 		}
 
-    $sql = "INSERT INTO `requisitions` (`id`, `created`, `job`, `candidate`, `data`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["job"]}', '{$data["candidate"]}', {$data["data"]}, '1')";
+    $sql = "INSERT INTO `requisitions` (`id`, `created`, `company name`, `data`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["company name"]}', {$data["data"]}, '1')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
