@@ -378,14 +378,8 @@
 
 				<!-- BODY -->
 	      <div class="modal-body">
-	        <form action="#" id="forms_view_info">
-	          <div class="form-group">
-	            <label class="col-form-label">Título:</label>
-	            <input type="text" class="form-control" name="title">
-	            <label class="col-form-label">Descripción del Puesto:</label>
-							<textarea class="form-control" name="description"></textarea>
-	          </div>
-	        </form>
+	        <form action="#" data-current-step="0" data-max-steps="" id="forms_view_info">
+					</form>
 	      </div>
 
 				<!-- FOOTER -->

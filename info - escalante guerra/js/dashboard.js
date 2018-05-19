@@ -13,6 +13,11 @@ var GLOBALS = {
 
 window.onload = function() {
   content_change('desk');
+
+  (async function() {
+    $('#forms_view_info').html(form_to_html(await forms_format_get('candidate')));
+    $('#forms_view').modal('show');
+  })();
 };
 
 // CONTENT Functions
@@ -119,69 +124,76 @@ async function forms_format_get(identifier) {
 
 
 /**
- * Convert a object form to a html form.
+ * Convert a object form to a html.
  * @param {object} dom Object form.
- * @return {undefined} Returns nothing.
+ * @return {undefined} Returns html.
  */
 function form_to_html(data) {
   var num = 0;
-  var form = $('<form></form>');
+  var current_step = 0;
+  var steps = [$('<div class="form-group" data-step="0"></div>')];
   for (var key in data) {
     value = data[key];
 
     num++;
 
-    var dom;
+    var dom = $('<div></div>');
+
+    // Setup label
+    if (value.label) $(dom).append('<label class="col-form-label">' + value.label + ':' + (value.extra && value.extra.comment ? (' <span style="font-size: 10px; opacity: 0.7;">' + value.extra.comment + '</span>') : '') + '</label>');
+
     switch (value.type) {
       case 'break':
-        dom = $('<hr />');
+        current_step++;
+        steps.push($('<div data-step="' + current_step + '" style="display: none;" class="form-group"></div>'))
         break;
       case 'text':
-        dom = $('<input type="text" placeholder="Inserte aquí..." />');
+        $(dom).append('<input type="text" placeholder="Inserte aquí..." class="form-control" />').prop("required", value.required);
         break;
       case 'textarea':
-        dom = $('<textarea placeholder="Inserte aquí..."></textarea>');
+        $(dom).append('<textarea placeholder="Inserte aquí..." class="form-control"></textarea>').prop("required", value.required);
         break;
       case 'email':
-        dom = $('<input type="email" placeholder="ejemplo@gmail.com" />');
+        $(dom).append('<input type="email" placeholder="ejemplo@gmail.com" class="form-control" />').prop("required", value.required);
         break;
       case 'phonenumber':
-        dom = $('<input type="tel" placeholder="(###) ### - ####" />');
+        $(dom).append('<input type="tel" placeholder="(###) ### - ####" class="form-control" />').prop("required", value.required);
         break;
       case 'dropdown':
-        dom = $('<select></select>');
+        $(dom).append('<select class="form-control"></select>').prop("required", value.required);
 
         for (var option in value.extra.options) {
-          $(dom).append('<option value="' + value.extra.options[option] + '">' + value.extra.options[option] + '</option>');
+          $(dom).children('select').append('<option value="' + value.extra.options[option] + '">' + value.extra.options[option] + '</option>');
         }
         break;
       case 'file':
-        dom = $('<input type="file" />');
+        $(dom).append('<input type="file" class="form-control" />').prop("required", value.required);
         break;
       case 'files':
-        dom = $('<input type="file" multiple />');
+        $(dom).append('<input type="file" multiple class="form-control" />').prop("required", value.required);
         break;
       default:
         continue;
     }
 
+    // Give proper DOM attributes
     $(dom).attr('name', value.label || ('new_value_' + num));
 
-    if (value.label) dom = $(dom).wrap('<label>' + value.label + ': ' + (value.extra && value.extra.comment ? ('<span style="font-size: 10px; opacity: 0.7;">' + value.extra.comment + '</span>') : '') + '</label>').parent()[0];
-
-    if (value.required) $(dom).prop("required", true);
-
-    form.append(dom);
+    steps[current_step].append($(dom).children());
   }
 
-  return form;
+  if (steps.length > 0) {
+    steps.push($('<button type="button" onclick="var form = $(this).parent(); if (parseInt(form.data(\'current-step\')) > 0) { form.children(\'.form-group[data-step=\' + form.data(\'current-step\') + \']\').hide(); form.data(\'current-step\', \'\' + (parseInt(form.data(\'current-step\')) - 1)); form.children(\'.form-group[data-step=\' + form.data(\'current-step\') + \']\').show(); }" class="btn btn-primary">Anterior</button> <button type="button" onclick="var form = $(this).parent(); if ((parseInt(form.data(\'current-step\')) + 1) < form.children(\'.form-group\').length) { form.children(\'.form-group[data-step=\' + form.data(\'current-step\') + \']\').hide(); form.data(\'current-step\', \'\' + (parseInt(form.data(\'current-step\')) + 1)); form.children(\'.form-group[data-step=\' + form.data(\'current-step\') + \']\').show(); }" class="btn btn-primary">Siguiente</button>'))
+  }
+
+  return steps;
 }
 
 
 /**
  * Convert a html form to a object containing form's data.
  * @param {object} dom DOM form.
- * @return {undefined} Returns nothing.
+ * @return {undefined} Returns data.
  */
 function html_to_data(dom) {
   var data = {};
