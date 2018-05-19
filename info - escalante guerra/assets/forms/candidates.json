@@ -7,7 +7,7 @@
 	{
 		"type": "email",
 		"required": true,
-		"label": "Correo"
+		"label": "Email"
 	},
 	{
 		"type": "dropdown",
@@ -51,7 +51,10 @@
 	{
 		"type": "break",
 		"required": true,
-		"label": ""
+		"label": "",
+		"extra": {
+			"title": "Estudios"
+		}
 	},
 	{
 		"type": "dropdown",
@@ -101,7 +104,10 @@
 	{
 		"type": "break",
 		"required": true,
-		"label": ""
+		"label": "",
+		"extra": {
+			"title": "Experiencia Laboral"
+		}
 	},
 	{
 		"type": "text",

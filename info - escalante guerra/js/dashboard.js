@@ -15,7 +15,7 @@ window.onload = function() {
   content_change('desk');
 
   // (async function() {
-  //   $('#forms_view_info').html(form_to_html(await forms_format_get('candidate')));
+  //   $('#forms_view_info').html(form_to_html(await forms_format_get('candidates')));
   //   $('#forms_view').modal('show');
   // })();
 };
@@ -145,13 +145,16 @@ function form_to_html(data) {
     switch (value.type) {
       case 'break':
         current_step++;
-        steps.push($('<div data-step="' + current_step + '" style="display: none;" class="form-group"></div>'))
+        steps.push($('<div data-step="' + current_step + '" style="display: none;" class="form-group">' + (value.extra && value.extra.title ? '<h1 class="h2">' + value.extra.title + '</h1>' : '') + '</div>'));
         break;
       case 'text':
         $(dom).append('<input type="text" placeholder="Inserte aquí..." class="form-control" />').prop("required", value.required);
         break;
       case 'textarea':
         $(dom).append('<textarea placeholder="Inserte aquí..." class="form-control"></textarea>').prop("required", value.required);
+        break;
+      case 'date':
+        $(dom).append('<input type="date" class="form-control" />').prop("required", value.required);
         break;
       case 'email':
         $(dom).append('<input type="email" placeholder="ejemplo@gmail.com" class="form-control" />').prop("required", value.required);
@@ -173,6 +176,7 @@ function form_to_html(data) {
         $(dom).append('<input type="file" multiple class="form-control" />').prop("required", value.required);
         break;
       default:
+        console.log(value.type);
         continue;
     }
 
@@ -182,7 +186,7 @@ function form_to_html(data) {
     steps[current_step].append($(dom).children());
   }
 
-  if (steps.length > 0) {
+  if (steps.length > 1) {
     steps.push($('<button type="button" onclick="var form = $(this).parent(); if (parseInt(form.data(\'current-step\')) > 0) { form.children(\'.form-group[data-step=\' + form.data(\'current-step\') + \']\').hide(); form.data(\'current-step\', \'\' + (parseInt(form.data(\'current-step\')) - 1)); form.children(\'.form-group[data-step=\' + form.data(\'current-step\') + \']\').show(); }" class="btn btn-primary">Anterior</button> <button type="button" onclick="var form = $(this).parent(); if ((parseInt(form.data(\'current-step\')) + 1) < form.children(\'.form-group\').length) { form.children(\'.form-group[data-step=\' + form.data(\'current-step\') + \']\').hide(); form.data(\'current-step\', \'\' + (parseInt(form.data(\'current-step\')) + 1)); form.children(\'.form-group[data-step=\' + form.data(\'current-step\') + \']\').show(); }" class="btn btn-primary">Siguiente</button>'))
   }
 

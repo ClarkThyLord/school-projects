@@ -1,1 +1,234 @@
-[]
+[
+	{
+		"type": "dropdown",
+		"required": false,
+		"label": "Cuenta con Auto",
+		"extra": {
+			"options": [
+				"Reclutamiento y Selección",
+				"Outsourcing",
+				"Psicometricos",
+				"Socioeconomicos"
+			]
+		}
+	},
+	{
+		"type": "break",
+		"required": false,
+		"label": "",
+		"extra": {
+			"title": "Datos de la Empresa Solicitante"
+		}
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Nombre de la Empresa"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Giro de la Empresa"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Nombre y Cargo de Solicitante"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Dirección"
+	},
+	{
+		"type": "phonenumber",
+		"required": false,
+		"label": "Telefono"
+	},
+	{
+		"type": "email",
+		"required": false,
+		"label": "Email"
+	},
+	{
+		"type": "break",
+		"required": false,
+		"label": "",
+		"extra": {
+			"title": "Datos del Puesto Vacante"
+		}
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Puesto Vacante"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Area del Puesto"
+	},
+	{
+		"type": "textarea",
+		"required": false,
+		"label": "Objetivo del Puesto"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Causa de la Vacante"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Elaborada por"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Autorizada por"
+	},
+	{
+		"type": "break",
+		"required": false,
+		"label": "",
+		"extra": {
+			"title": "Descripción de la Vacante"
+		}
+	},
+	{
+		"type": "dropdown",
+		"required": false,
+		"label": "Sexo",
+		"extra": {
+			"options": [
+				"Masculino",
+				"Femenino"
+			]
+		}
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Carrera"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Formación Adicional",
+		"extra": {
+			"comment": "cursos, diplomados, etc."
+		}
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Rango de Edad"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Estado Civil"
+	},
+	{
+		"type": "dropdown",
+		"required": true,
+		"label": "Inglés %",
+		"extra": {
+			"options": [
+				"Nada 0%",
+				"Básico 20-30%",
+				"Intermedio 50-70%",
+				"Avanzado 80-100%"
+			]
+		}
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Situación Académica"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Experiencia"
+	},
+	{
+		"type": "textarea",
+		"required": false,
+		"label": "Conocimientos Requeridos"
+	},
+	{
+		"type": "break",
+		"required": false,
+		"label": ""
+	},
+	{
+		"type": "textarea",
+		"required": false,
+		"label": "Actividades a Desempeñar"
+	},
+	{
+		"type": "textarea",
+		"required": false,
+		"label": "Habilidades y Actitudes"
+	},
+	{
+		"type": "textarea",
+		"required": false,
+		"label": "Otras Caracteristicas"
+	},
+	{
+		"type": "textarea",
+		"required": false,
+		"label": "Horario y Dias de Trabajo"
+	},
+	{
+		"type": "textarea",
+		"required": false,
+		"label": "Sueldo Bruto Mensual y Prestaciones"
+	},
+	{
+		"type": "break",
+		"required": false,
+		"label": "",
+		"extra": {
+			"title": "Ponderacion"
+		}
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Entrevista Curricular"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Entrevistas"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Evaluación Psicometrica"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Evaluación Tecnica"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Presentación y Actitud"
+	},
+	{
+		"type": "file",
+		"required": false,
+		"label": "Adjuntar Psicometrico"
+	},
+	{
+		"type": "textarea",
+		"required": false,
+		"label": "Notas Confidenciales"
+	}
+]
