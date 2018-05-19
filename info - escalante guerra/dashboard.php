@@ -657,6 +657,252 @@
 	</div>
 
 
+	<!-- REQUISITIONS DIALOGS -->
+	<!-- REQUISITIONS ADD -->
+	<div class="modal fade" id="requisitions_add" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Agregar Requisición</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <form action="#" data-current-step="0" id="requisitions_add_info">
+					</form>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" onclick="var data = html_to_data($('#requisitions_add_info').first()[0]); if (!data) { return; } $('#requisitions_add').modal('hide'); requisitions_add({'company name': $('#requisitions_add_info :input[name=\'Nombre de la Empresa\']').val(), job: $('#requisitions_add_info :input[name=\'Nombre del Puesto\']').val(), data: data}); $('#requisitions_add_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- REQUISITIONS MODIFY -->
+	<div class="modal fade" id="requisitions_modify" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Modifica Requisición</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <form action="#" id="requisitions_modify_info">
+						<label class="col-form-label">Activo:</label>
+						<div class="custom-switch custom-switch-label-onoff">
+							<input type="checkbox" class="custom-switch-input" name="active" id="requisitions_active_switch">
+							<label class="custom-switch-btn" for="requisitions_active_switch"></label>
+						</div>
+						<label class="col-form-label">Información:</label>
+						<input type="button" value="✏️ Modificar" onclick="setup_form('requisitions', (GLOBALS.asset ? GLOBALS.asset.data : {}));" class="form-control" />
+					</form>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" onclick="var data = {}; $('#requisitions_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else if (this.type !== 'button') { data[this.name] = $(this).val(); } }); requisitions_modify(GLOBALS.asset.id, data); $('#requisitions_modify').modal('hide');" class="btn btn-primary">Someter</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- REQUISITIONS DATA MODIFY -->
+	<div class="modal fade" id="requisitions_data_modify" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Modifica Requisición</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <form action="#" data-current-step="0" id="requisitions_data_modify_info">
+					</form>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" onclick="var data = html_to_data($('#requisitions_data_modify_info').first()[0]); if (!data) { return; } $('#requisitions_data_modify').modal('hide'); requisitions_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#requisitions_data_modify_info :input[name=\'Nombre de la Empresa\']').val(), job: $('#requisitions_data_modify_info :input[name=\'Nombre del Puesto\']').val(), data: data}); $('#requisitions_data_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- REQUISITIONS REMOVE -->
+	<div class="modal fade" id="requisitions_remove" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<!-- HEADER -->
+			<div class="modal-header">
+				<h5 class="modal-title">Eliminar Requisición</h5>
+
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<!-- BODY -->
+			<div class="modal-body">
+				<p class="font-italic">
+					¿Seguro que quieres eliminar Requisición?<br />
+					<span class="text-danger font-weight-bold">¡No es reversible!</span>
+				</p>
+			</div>
+
+			<!-- FOOTER -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				<button onclick="requisitions_remove(GLOBALS.asset.id); $('#requisitions_remove').modal('hide');" type="button" class="btn btn-primary">Eliminar</button>
+			</div>
+		</div>
+	</div>
+	</div>
+
+
+	<!-- CANDIDATES DIALOGS -->
+	<!-- CANDIDATES ADD -->
+	<div class="modal fade" id="candidates_add" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Agregar Candidato</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <form action="#" data-current-step="0" id="candidates_add_info">
+					</form>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" onclick="var data = html_to_data($('#candidates_add_info').first()[0]); if (!data) { return; } $('#candidates_add').modal('hide'); candidates_add({'company name': $('#candidates_add_info :input[name=\'Nombre de la Empresa\']').val(), job: $('#candidates_add_info :input[name=\'Nombre del Puesto\']').val(), data: data}); $('#candidates_add_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- CANDIDATES MODIFY -->
+	<div class="modal fade" id="candidates_modify" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Modifica Candidato</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <form action="#" id="candidates_modify_info">
+						<label class="col-form-label">Activo:</label>
+						<div class="custom-switch custom-switch-label-onoff">
+							<input type="checkbox" class="custom-switch-input" name="active" id="candidates_active_switch">
+							<label class="custom-switch-btn" for="candidates_active_switch"></label>
+						</div>
+						<label class="col-form-label">Información:</label>
+						<input type="button" value="✏️ Modificar" onclick="setup_form('candidates', (GLOBALS.asset ? GLOBALS.asset.data : {}));" class="form-control" />
+					</form>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" onclick="var data = {}; $('#candidates_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else if (this.type !== 'button') { data[this.name] = $(this).val(); } }); candidates_modify(GLOBALS.asset.id, data); $('#candidates_modify').modal('hide');" class="btn btn-primary">Someter</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- CANDIDATES DATA MODIFY -->
+	<div class="modal fade" id="candidates_data_modify" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Modifica Candidato</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <form action="#" data-current-step="0" id="candidates_data_modify_info">
+					</form>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" onclick="var data = html_to_data($('#candidates_data_modify_info').first()[0]); if (!data) { return; } $('#candidates_data_modify').modal('hide'); candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#candidates_data_modify_info :input[name=\'Nombre de la Empresa\']').val(), job: $('#candidates_data_modify_info :input[name=\'Nombre del Puesto\']').val(), data: data}); $('#candidates_data_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- CANDIDATES REMOVE -->
+	<div class="modal fade" id="candidates_remove" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<!-- HEADER -->
+			<div class="modal-header">
+				<h5 class="modal-title">Eliminar Candidato</h5>
+
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<!-- BODY -->
+			<div class="modal-body">
+				<p class="font-italic">
+					¿Seguro que quieres eliminar Candidato?<br />
+					<span class="text-danger font-weight-bold">¡No es reversible!</span>
+				</p>
+			</div>
+
+			<!-- FOOTER -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				<button onclick="candidates_remove(GLOBALS.asset.id); $('#candidates_remove').modal('hide');" type="button" class="btn btn-primary">Eliminar</button>
+			</div>
+		</div>
+	</div>
+	</div>
+
+
 	<!-- USERS DIALOGS -->
 	<!-- USERS ADD -->
 	<div class="modal fade" id="users_add" role="dialog" aria-labelledby="users_edit" aria-hidden="true">
