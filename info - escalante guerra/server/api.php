@@ -14,6 +14,10 @@
 	// jobs           | add       | POST      | 1^
 	// jobs           | modify    | POST      | 1^
 	// jobs           | remove    | POST      | 1^
+	// quotations     | get       | GET       | none
+	// quotations     | add       | POST      | none
+	// quotations     | modify    | POST      | 1^
+	// quotations     | remove    | POST      | 1^
 	// requisitions   | get       | GET       | none
 	// requisitions   | add       | POST      | none
 	// requisitions   | modify    | POST      | 1^
@@ -184,6 +188,30 @@
 						break;
 					case 'remove':
 						job_remove($_POST['id']);
+						break;
+				}
+			}
+		}
+	} else if ($routes[0] === 'quotations') {
+		include_once './endpoints/quotations.php';
+
+		if (count($routes) === 2){
+			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+				switch ($routes[1]) {
+					case 'get':
+						quotation_get(json_decode($_GET['filter'], true), json_decode($_GET['options'], true));
+						break;
+				}
+			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+				switch ($routes[1]) {
+					case 'add':
+						quotation_add($_POST['data']);
+						break;
+					case 'modify':
+						quotation_modify($_POST['id'], $_POST['data']);
+						break;
+					case 'remove':
+						quotation_remove($_POST['id']);
 						break;
 				}
 			}
