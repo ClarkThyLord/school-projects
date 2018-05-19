@@ -79,7 +79,7 @@ DROP TABLE IF EXISTS `quotations`;
 CREATE TABLE IF NOT EXISTS `quotations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `company name` int(11) NOT NULL,
+  `company name` text NOT NULL,
   `job` text NOT NULL,
   `data` json DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',

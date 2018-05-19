@@ -1,17 +1,17 @@
 [
 	{
 		"type": "text",
-		"required": false,
+		"required": true,
 		"label": "Nombre de la Empresa"
 	},
 	{
 		"type": "text",
-		"required": false,
-		"label": "Nombre de Puesto"
+		"required": true,
+		"label": "Nombre del Puesto"
 	},
 	{
 		"type": "text",
-		"required": false,
+		"required": true,
 		"label": "Contacto"
 	},
 	{

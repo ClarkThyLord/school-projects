@@ -51,12 +51,10 @@
     access_check(1);
 
 		$data = array_merge(array('name' => 'Nueva cotización', 'data' => 'NULL'), $data);
-		if ($data['data'] != 'NULL') {
-  		if (json_decode($data['data']) == NULL) {
-				$data['data'] = 'NULL';
-			} else {
-				$data['data'] = "'{$data["data"]}'";
-			}
+		if (gettype($data['data']) !== 'array') {
+			$data['data'] = 'NULL';
+		}else {
+			$data['data'] = "'" . json_encode($data["data"]) . "'";
 		}
 
     $sql = "INSERT INTO `quotations` (`id`, `created`, `company name`, `job`, `data`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["company name"]}', '{$data["job"]}', {$data["data"]}, '1')";

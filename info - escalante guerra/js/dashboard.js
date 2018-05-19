@@ -2,11 +2,6 @@
 var GLOBALS = {
   user: undefined, // Client's current user
   asset: undefined, // Current asset being interacted with
-  forms: {
-    quotations: [],
-    requisitions: [],
-    candidates: []
-  },
   eng_to_spa: {
     jobs: 'puestos',
     requisitions: 'requisiciones',
@@ -21,9 +16,15 @@ window.onload = function() {
 
   // Setup forms
   (async function() {
-    var forms = Object.keys(GLOBALS.forms);
-    for (var key in forms) {
-      GLOBALS.forms[forms[key]] = form_to_html(await forms_format_get(forms[key]));
+    var forms = [
+      'quotations',
+      'requisitions',
+      'candidates'
+    ];
+
+    for (var form in forms) {
+      $('#' + forms[form] + '_add_info').html(form_to_html(await forms_format_get(forms[form])));
+      $('#' + forms[form] + '_data_modify_info').html(form_to_html(await forms_format_get(forms[form])));
     }
   })();
 };
@@ -133,15 +134,14 @@ async function forms_format_get(identifier) {
 
 /**
  * Setup a form in form's view.
- * @param {String} type Type of form to setup.
+ * @param {String} form_type Type of form to setup.
+ * @param {String} type Type of form action to setup.
  * @param {Object} data Data to setup form with.
  * @return {undefined} Returns nothing.
  */
-function setup_form_view(type, data) {
-  $('#forms_view_info').data('current-step', 0).html(GLOBALS.forms[type]);
-
+function setup_form_view(form_type, type, data) {
   if (typeof data === 'object') {
-    $('#forms_view_info :input').each(function() {
+    $('#' + type + '_view_info :input').each(function() {
       if ($(this).attr('type') === 'checkbox') {
         $(this).prop('checked', !!(data[this.name] * 1));
       } else {
@@ -150,7 +150,7 @@ function setup_form_view(type, data) {
     });
   }
 
-  $('#forms_view').modal('show');
+  $('#' + form_type + '_' + type).modal('show');
 }
 
 
@@ -179,40 +179,37 @@ function form_to_html(data) {
         steps.push($('<div data-step="' + current_step + '" style="display: none;" class="form-group">' + (value.extra && value.extra.title ? '<h1 class="h2">' + value.extra.title + '</h1>' : '') + '</div>'));
         break;
       case 'text':
-        $(dom).append('<input type="text" placeholder="Inserte aquí..." class="form-control" />').prop("required", value.required);
+        $(dom).append('<input type="text" placeholder="Inserte aquí..."' + (value.required ? ' required=""' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />').prop("required", value.required);
         break;
       case 'textarea':
-        $(dom).append('<textarea placeholder="Inserte aquí..." class="form-control"></textarea>').prop("required", value.required);
+        $(dom).append('<textarea placeholder="Inserte aquí..."' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '"></textarea>').prop("required", value.required);
         break;
       case 'date':
-        $(dom).append('<input type="date" class="form-control" />').prop("required", value.required);
+        $(dom).append('<input type="date"' + (value.required ? ' required' : '') + ' class="form-control" name="' + +'" />').prop("required", value.required);
         break;
       case 'email':
-        $(dom).append('<input type="email" placeholder="ejemplo@gmail.com" class="form-control" />').prop("required", value.required);
+        $(dom).append('<input type="email" placeholder="ejemplo@gmail.com"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />').prop("required", value.required);
         break;
       case 'phonenumber':
-        $(dom).append('<input type="tel" placeholder="(###) ### - ####" class="form-control" />').prop("required", value.required);
+        $(dom).append('<input type="tel" placeholder="(###) ### - ####"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />').prop("required", value.required);
         break;
       case 'dropdown':
-        $(dom).append('<select class="form-control"></select>').prop("required", value.required);
+        $(dom).append('<select' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '"></select>').prop("required", value.required);
 
         for (var option in value.extra.options) {
           $(dom).children('select').append('<option value="' + value.extra.options[option] + '">' + value.extra.options[option] + '</option>');
         }
         break;
       case 'file':
-        $(dom).append('<input type="file" class="form-control" />').prop("required", value.required);
+        $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />').prop("required", value.required);
         break;
       case 'files':
-        $(dom).append('<input type="file" multiple class="form-control" />').prop("required", value.required);
+        $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' multiple class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />').prop("required", value.required);
         break;
       default:
         console.log(value.type);
         continue;
     }
-
-    // Give proper DOM attributes
-    $(dom).attr('name', value.label || ('new_value_' + num));
 
     steps[current_step].append($(dom).children());
   }
@@ -231,18 +228,26 @@ function form_to_html(data) {
  * @return {undefined} Returns data.
  */
 function html_to_data(dom) {
+  var required = false;
+  var required_fields = [];
   var data = {};
   $(dom).find(':input').each(function() {
-    if ($(this).attr('type') === 'checkbox') {
+    if ($(this).prop('required') && !($(this).val() || (this.files && this.files.length < 0))) {
+      return required = true && required_fields.push($(this).attr('name'));
+    } else if ($(this).attr('type') === 'checkbox') {
       data[$(this).attr('name')] = $(this).prop('checked');
     } else if ($(this).attr('type') === 'file') {
       data[$(this).attr('name')] = this.files;
     } else {
-      data[$(this).attr('name')] = $(this).val(GLOBALS.asset[this.name]);
+      data[$(this).attr('name')] = $(this).val();
     }
   });
 
-  return data;
+  if (required) {
+    alert('Debe completar lo siguiente:\n' + required_fields.join('\n '));
+  } else {
+    return data;
+  }
 }
 
 // JOBS Functions
@@ -456,12 +461,15 @@ function quotations_add(data) {
     color: 'rgba(0, 0, 0)',
   });
 
+  console.log(data);
+
   $.post({
     url: './server/api.php/quotations/add?debug=' + DEBUGGING.server,
     data: {
       data: {
-        title: data.title || 'Nuevo Puesto',
-        description: data.description || 'Nueva posición abierta!'
+        'company name': data['company name'] || 'Nuevo Empresa',
+        job: data.job || 'Posición Vacante',
+        data: data.data || {}
       }
     },
     success: function(response) {
@@ -1258,9 +1266,13 @@ VUE_ELEMENTS.all_quotations = new Vue({
         order: 'des',
         referencing: 'created'
       },
+      'Nombre de Empresa': {
+        order: '',
+        referencing: 'company name'
+      },
       'Puesto': {
         order: '',
-        referencing: 'title'
+        referencing: 'job'
       },
       'Activo': {
         order: '',
@@ -1289,9 +1301,13 @@ VUE_ELEMENTS.recent_quotations = new Vue({
         order: 'des',
         referencing: 'created'
       },
+      'Nombre de Empresa': {
+        order: '',
+        referencing: 'company name'
+      },
       'Puesto': {
         order: '',
-        referencing: 'title'
+        referencing: 'job'
       },
       'Activo': {
         order: '',
