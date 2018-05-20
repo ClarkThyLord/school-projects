@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 19, 2018 at 04:44 AM
+-- Generation Time: May 20, 2018 at 12:20 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -96,8 +96,7 @@ DROP TABLE IF EXISTS `requisitions`;
 CREATE TABLE IF NOT EXISTS `requisitions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `job` int(11) NOT NULL COMMENT 'ID to jobs within `jobs`',
-  `candidate` int(11) NOT NULL COMMENT 'ID to candidate within `candidates`',
+  `company name` text NOT NULL,
   `data` json DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
