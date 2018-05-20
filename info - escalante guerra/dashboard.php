@@ -803,7 +803,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = html_to_data($('#candidates_add_info').first()[0]); if (!data) { return; } $('#candidates_add').modal('hide'); candidates_add({'company name': $('#candidates_add_info :input[name=\'Nombre de la Empresa\']').val(), job: $('#candidates_add_info :input[name=\'Nombre del Puesto\']').val(), data: data}); $('#candidates_add_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="var data = html_to_data($('#candidates_add_info').first()[0]); if (!data) { return; } $('#candidates_add').modal('hide'); candidates_add({'name': $('#candidates_add_info :input[name=\'Nombre Completo\']').val(), data: data}); $('#candidates_add_info').trigger('reset');" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
@@ -866,7 +866,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = html_to_data($('#candidates_data_modify_info').first()[0]); if (!data) { return; } $('#candidates_data_modify').modal('hide'); candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#candidates_data_modify_info :input[name=\'Nombre de la Empresa\']').val(), job: $('#candidates_data_modify_info :input[name=\'Nombre del Puesto\']').val(), data: data}); $('#candidates_data_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="var data = html_to_data($('#candidates_data_modify_info').first()[0]); if (!data) { return; } $('#candidates_data_modify').modal('hide'); candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'name': $('#candidates_data_modify_info :input[name=\'Nombre Completo\']').val(), data: data}); $('#candidates_data_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
@@ -888,7 +888,7 @@
 			<!-- BODY -->
 			<div class="modal-body">
 				<p class="font-italic">
-					¿Seguro que quieres eliminar Candidato?<br />
+					¿Seguro que quieres eliminar candidato?<br />
 					<span class="text-danger font-weight-bold">¡No es reversible!</span>
 				</p>
 			</div>

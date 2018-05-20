@@ -187,32 +187,32 @@ function form_to_html(data) {
         steps.push($('<div data-step="' + current_step + '" style="display: none;" class="form-group">' + (value.extra && value.extra.title ? '<h1 class="h2">' + value.extra.title + '</h1>' : '') + '</div>'));
         break;
       case 'text':
-        $(dom).append('<input type="text" placeholder="Inserte aquí..."' + (value.required ? ' required=""' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />').prop("required", value.required);
+        $(dom).append('<input type="text" placeholder="Inserte aquí..."' + (value.required ? ' required=""' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
         break;
       case 'textarea':
-        $(dom).append('<textarea placeholder="Inserte aquí..."' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '"></textarea>').prop("required", value.required);
+        $(dom).append('<textarea placeholder="Inserte aquí..."' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '"></textarea>');
         break;
       case 'date':
-        $(dom).append('<input type="date"' + (value.required ? ' required' : '') + ' class="form-control" name="' + +'" />').prop("required", value.required);
+        $(dom).append('<input type="date"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
         break;
       case 'email':
-        $(dom).append('<input type="email" placeholder="ejemplo@gmail.com"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />').prop("required", value.required);
+        $(dom).append('<input type="email" placeholder="ejemplo@gmail.com"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
         break;
       case 'phonenumber':
-        $(dom).append('<input type="tel" placeholder="(###) ### - ####"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />').prop("required", value.required);
+        $(dom).append('<input type="tel" placeholder="(###) ### - ####"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
         break;
       case 'dropdown':
-        $(dom).append('<select' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '"></select>').prop("required", value.required);
+        $(dom).append('<select' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '"></select>');
 
         for (var option in value.extra.options) {
           $(dom).children('select').append('<option value="' + value.extra.options[option] + '">' + value.extra.options[option] + '</option>');
         }
         break;
       case 'file':
-        $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />').prop("required", value.required);
+        $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
         break;
       case 'files':
-        $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' multiple class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />').prop("required", value.required);
+        $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' multiple class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
         break;
       default:
         console.log(value.type);
@@ -270,7 +270,7 @@ function html_to_data(dom) {
   });
 
   if (required) {
-    alert('Debe completar lo siguiente:\n' + required_fields.join('\n '));
+    alert('Debe completar lo siguiente:\n' + required_fields.join('\n'));
   } else {
     return data;
   }
@@ -721,6 +721,7 @@ function requisitions_modify(id, data) {
 }
 
 
+
 /**
  * Remove a requisition.
  * @param {integer} id requisition's ID.
@@ -812,8 +813,8 @@ function candidates_add(data) {
     url: './server/api.php/candidates/add?debug=' + DEBUGGING.server,
     data: {
       data: {
-        title: data.title || 'Nuevo Puesto',
-        description: data.description || 'Nueva posición abierta!'
+        name: data.name || 'Nuevo Candidato',
+        data: data.data || {}
       }
     },
     success: function(response) {
