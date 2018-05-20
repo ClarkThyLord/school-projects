@@ -328,7 +328,7 @@
             <div class="btn-group mr-2">
               <button onclick="content_refresh('requisitions');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
               <button onclick="$('#requisitions_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Requisicion</button>
-              <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+              <button onclick="content_export('requisitions');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
             </div>
           </div>
@@ -347,7 +347,7 @@
             <div class="btn-group mr-2">
               <button onclick="content_refresh('candidates');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
               <button onclick="$('#candidates_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Candidato</button>
-              <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+              <button onclick="content_export('candidates');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
             </div>
           </div>

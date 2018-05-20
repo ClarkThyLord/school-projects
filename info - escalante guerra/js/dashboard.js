@@ -150,7 +150,6 @@ function setup_form(identifier, data) {
 
   if (typeof data === 'object') {
     $('#' + identifier + '_data_modify_info :input').each(function(num) {
-      console.log('id_' + num);
 
       if ($(this).attr('type') === 'checkbox') {
         $(this).prop('checked', !!(data['id_' + num] * 1));
