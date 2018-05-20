@@ -149,11 +149,13 @@ function setup_form(identifier, data) {
   }
 
   if (typeof data === 'object') {
-    $('#' + identifier + '_data_modify :input').each(function() {
+    $('#' + identifier + '_data_modify_info :input').each(function(num) {
+      console.log('id_' + num);
+
       if ($(this).attr('type') === 'checkbox') {
-        $(this).prop('checked', !!(data[this.name] * 1));
+        $(this).prop('checked', !!(data['id_' + num] * 1));
       } else {
-        $(this).val(data[this.name]);
+        $(this).val(data['id_' + num]);
       }
     });
   }
@@ -168,13 +170,10 @@ function setup_form(identifier, data) {
  * @return {Array} Returns array with html.
  */
 function form_to_html(data) {
-  var num = 0;
   var current_step = 0;
   var steps = [$('<div class="form-group" data-step="0"></div>')];
-  for (var key in data) {
-    value = data[key];
-
-    num++;
+  for (var num in data) {
+    var value = data[num];
 
     var dom = $('<div></div>');
 
@@ -187,35 +186,35 @@ function form_to_html(data) {
         steps.push($('<div data-step="' + current_step + '" style="display: none;" class="form-group">' + (value.extra && value.extra.title ? '<h1 class="h2">' + value.extra.title + '</h1>' : '') + '</div>'));
         break;
       case 'text':
-        $(dom).append('<input type="text" placeholder="Inserte aquí..."' + (value.required ? ' required=""' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
+        $(dom).append('<input type="text" placeholder="Inserte aquí..."' + (value.required ? ' required=""' : '') + ' class="form-control" data-backup="' + (value.label || '') + '" name="' + ('id_' + num) + '" />');
         break;
       case 'textarea':
-        $(dom).append('<textarea placeholder="Inserte aquí..."' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '"></textarea>');
+        $(dom).append('<textarea placeholder="Inserte aquí..."' + (value.required ? ' required' : '') + ' class="form-control" data-backup="' + (value.label || '') + '" name="' + ('id_' + num) + '"></textarea>');
         break;
       case 'date':
-        $(dom).append('<input type="date"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
+        $(dom).append('<input type="date"' + (value.required ? ' required' : '') + ' class="form-control" data-backup="' + (value.label || '') + '" name="' + ('id_' + num) + '" />');
         break;
       case 'email':
-        $(dom).append('<input type="email" placeholder="ejemplo@gmail.com"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
+        $(dom).append('<input type="email" placeholder="ejemplo@gmail.com"' + (value.required ? ' required' : '') + ' class="form-control" data-backup="' + (value.label || '') + '" name="' + ('id_' + num) + '" />');
         break;
       case 'phonenumber':
-        $(dom).append('<input type="tel" placeholder="(###) ### - ####"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
+        $(dom).append('<input type="tel" placeholder="(###) ### - ####"' + (value.required ? ' required' : '') + ' class="form-control" data-backup="' + (value.label || '') + '" name="' + ('id_' + num) + '" />');
         break;
       case 'dropdown':
-        $(dom).append('<select' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '"></select>');
+        $(dom).append('<select' + (value.required ? ' required' : '') + ' class="form-control" data-backup="' + (value.label || '') + '" name="' + ('id_' + num) + '"></select>');
 
         for (var option in value.extra.options) {
           $(dom).children('select').append('<option value="' + value.extra.options[option] + '">' + value.extra.options[option] + '</option>');
         }
         break;
       case 'file':
-        $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
+        $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' class="form-control" data-backup="' + (value.label || '') + '" name="' + ('id_' + num) + '" />');
         break;
       case 'files':
-        $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' multiple class="form-control" name="' + (value.label || ('new_value_' + num)) + '" />');
+        $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' multiple class="form-control" data-backup="' + (value.label || '') + '" name="' + ('id_' + num) + '" />');
         break;
       default:
-        console.log(value.type);
+        console.log('NON REGISTRED INPUT TYPE:\n' + value.type + '\n---');
         continue;
     }
 
@@ -239,22 +238,22 @@ function html_to_data(dom) {
   var required = false;
   var required_fields = [];
   var data = {};
-  $(dom).find(':input').each(function() {
+  $(dom).find(':input').each(function(num) {
     if ($(this).prop('required') && !($(this).val() || (this.files && this.files.length < 0))) {
-      return required = true && required_fields.push($(this).attr('name'));
+      return required = true && required_fields.push($(this).data('backup'));
     } else if ($(this).attr('type') === 'checkbox') {
-      data[$(this).attr('name')] = $(this).prop('checked');
+      data['id_' + num] = $(this).prop('checked');
     } else if ($(this).attr('type') === 'file' || $(this).attr('type') === 'files') {
       files = this.files;
       if (files.length > 0) {
-        data[$(this).attr('name')] = {};
+        data['id_' + num] = {};
         for (var file in files) {
           file = files[file];
 
           var reader = new FileReader();
           reader.addEventListener("load", function() {
 
-            data[$(this).attr('name')][file.name] = reader.result;
+            data['id_' + num][file.name] = reader.result;
           }, false);
 
           if (file) {
@@ -262,10 +261,10 @@ function html_to_data(dom) {
           }
         }
       } else {
-        data[$(this).attr('name')] = $(this).val();
+        data['id_' + num] = $(this).val();
       }
     } else {
-      data[$(this).attr('name')] = $(this).val();
+      data['id_' + num] = $(this).val();
     }
   });
 

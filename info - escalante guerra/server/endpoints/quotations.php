@@ -118,9 +118,9 @@
 		foreach ($data as $key => $value) {
 			if (!in_array($key, $valid_keys)) { continue; } else {
 				if (gettype($value) === 'array') {
-					array_push($data_sql, "`{$key}` = '" . json_encode($value) . "'");
+					array_push($data_sql, "`{$key}` = '" . str_replace("'", "''", json_encode($value)) . "'");
 				} else {
-					array_push($data_sql, "`{$key}` = '{$value}'");
+					array_push($data_sql, "`{$key}` = '" . str_replace("'", "''", $value) . "'");
 				}
 			}
 		}

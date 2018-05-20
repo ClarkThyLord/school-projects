@@ -52,6 +52,12 @@
 
 		$data = array_merge(array('title' => 'Nueva Puesto', 'description' => 'Nueva posición abierta!'), $data);
 
+		foreach ($data as $key => $value) {
+			if (gettype($value) === 'string') {
+				$data[$key] = str_replace("'", "''", $value);
+			}
+		}
+
     $sql = "INSERT INTO `jobs` (`id`, `created`, `title`, `description`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["title"]}', '{$data["description"]}', '1')";
 
 		// FOR DEBUGGING
@@ -102,7 +108,11 @@
 		$valid_keys = array('title', 'description', 'active');
 		foreach ($data as $key => $value) {
 			if (!in_array($key, $valid_keys)) { continue; } else {
-				array_push($data_sql, "`{$key}` = '{$value}'");
+				if (gettype($value) === 'array') {
+					array_push($data_sql, "`{$key}` = '" . str_replace("'", "''", json_encode($value)) . "'");
+				} else {
+					array_push($data_sql, "`{$key}` = '" . str_replace("'", "''", $value) . "'");
+				}
 			}
 		}
 
