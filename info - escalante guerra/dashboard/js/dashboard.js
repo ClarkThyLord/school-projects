@@ -306,7 +306,7 @@ function html_to_data(dom) {
   var data = {};
   $(dom).find(':input').each(function(num) {
     if ($(this).prop('required') && !($(this).val() || (this.files && this.files.length < 0))) {
-      return required = true && required_fields.push($(this).data('backup'));
+      return required = true && required_fields.push($(this).data('backup')) && $(this).val(undefined);
     } else if ($(this).attr('type') === 'checkbox') {
       data['id_' + num] = $(this).prop('checked');
     } else if ($(this).attr('type') === 'file' || $(this).attr('type') === 'files') {
