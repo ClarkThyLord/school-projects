@@ -59,7 +59,24 @@ function content_change(content) {
 function content_export(content) {
   html2pdf($('#' + content + ' table').first()[0], {
     margin: 10,
-    filename: GLOBALS.eng_to_spa[content] + '.pdf',
+    filename: (GLOBALS.eng_to_spa[content] || 'custom') + '.pdf',
+    html2canvas: {},
+    jsPDF: {
+      orientation: 'landscape'
+    }
+  });
+}
+
+
+/**
+ * Export html to a PDF.
+ * @param {string} html HTML to export to a PDF.
+ * @return {undefined} Returns nothing.
+ */
+function html_export(html) {
+  html2pdf(html, {
+    margin: 10,
+    filename: (GLOBALS.eng_to_spa[content] || 'custom') + '.pdf',
     html2canvas: {},
     jsPDF: {
       orientation: 'landscape'
@@ -105,6 +122,12 @@ function content_refresh(content) {
 
       $('#' + content).waitMe('hide');
     })();
+  } else if (content === 'search') {
+    (async function() {
+      await search_setup($('#search').data('search-term'));
+
+      $('#' + content).waitMe('hide');
+    })();
   } else {
     $.get({
       url: './server/api.php/' + content + '/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify({}) + '&options=' + JSON.stringify({}),
@@ -128,7 +151,29 @@ function content_refresh(content) {
 // *****************************************************************************
 
 /**
- * Retrieve a job from jobs.
+ * Search and setup matching data from database.
+ * @param {String} term Term to search databse with.
+ * @return {undefined} Returns nothing.
+ */
+async function search_setup(term) {
+  await (async function(term) {
+    search_get(term).then(function(data) {
+      data = JSON.parse(data);
+
+      VUE_ELEMENTS.search_jobs.data = data.data.jobs;
+
+      VUE_ELEMENTS.search_quotations.data = data.data.quotations;
+
+      VUE_ELEMENTS.search_requisitions.data = data.data.requisitions;
+
+      VUE_ELEMENTS.search_candidates.data = data.data.candidates;
+    });
+  })(term || '');
+}
+
+
+/**
+ * Search databse for matching data.
  * @param {String} term Term to search databse with.
  * @return {undefined} Returns nothing.
  */
@@ -137,9 +182,7 @@ async function search_get(term) {
     url: './server/api.php/search?debug=' + DEBUGGING.server + '&term=' + term || '',
     success: function(response) {
       response = JSON.parse(response);
-      if (response.status === 'success') {
-        console.log(response);
-      }
+      if (response.status === 'success') {}
 
       if (response.status === 'failure' || DEBUGGING.popups) {
         alert(response.reason);
@@ -1269,6 +1312,37 @@ VUE_ELEMENTS.all_jobs = new Vue({
   }
 });
 
+VUE_ELEMENTS.search_jobs = new Vue({
+  el: '#search_jobs_table',
+  data: {
+    asset: 'jobs',
+    more: false,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'title'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
+
 VUE_ELEMENTS.recent_jobs = new Vue({
   el: '#recent_jobs_table',
   data: {
@@ -1302,6 +1376,41 @@ VUE_ELEMENTS.recent_jobs = new Vue({
 
 VUE_ELEMENTS.all_quotations = new Vue({
   el: '#all_quotations_table',
+  data: {
+    asset: 'quotations',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre de Empresa': {
+        order: '',
+        referencing: 'company name'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'job'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
+
+VUE_ELEMENTS.search_quotations = new Vue({
+  el: '#search_quotations_table',
   data: {
     asset: 'quotations',
     more: true,
@@ -1401,6 +1510,37 @@ VUE_ELEMENTS.all_requisitions = new Vue({
   }
 });
 
+VUE_ELEMENTS.search_requisitions = new Vue({
+  el: '#search_requisitions_table',
+  data: {
+    asset: 'requisitions',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre de Empresa': {
+        order: '',
+        referencing: 'company name'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
+
 VUE_ELEMENTS.recent_requisitions = new Vue({
   el: '#recent_requisitions_table',
   data: {
@@ -1434,6 +1574,37 @@ VUE_ELEMENTS.recent_requisitions = new Vue({
 
 VUE_ELEMENTS.all_candidates = new Vue({
   el: '#all_candidates_table',
+  data: {
+    asset: 'candidates',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre': {
+        order: '',
+        referencing: 'name'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
+
+VUE_ELEMENTS.search_candidates = new Vue({
+  el: '#search_candidates_table',
   data: {
     asset: 'candidates',
     more: true,

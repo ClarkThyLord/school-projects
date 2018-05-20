@@ -45,7 +45,7 @@
 	<!-- MENU BAR -->
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a onclick="content_change('desk');" class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Escalante Guerra</a>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Buscar... (e.j. puestos, cotizaciónes, requisiciones y candidatos)" aria-label="Buscar">
+    <input onchange="$('.nav-item[data-location=\'search\']').show(); $('#search').data('search-term', this.value); content_change('search');" class="form-control form-control-dark w-100" type="text" placeholder="Buscar... (e.j. puestos, cotizaciónes, requisiciones y candidatos)" aria-label="Buscar">
     <ul class="navbar-nav px-3">
       <li onclick="logout();" class="nav-item text-nowrap">
         <a class="nav-link" href="#">Cerrar Sesión</a>
@@ -189,95 +189,65 @@
 
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button onclick="content_refresh('search');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
-              <button class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
-	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
+              <button onclick="content_change('search');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
             </div>
           </div>
         </div>
 
-        <h2>Puestos Coincidentes</h2>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>ID.</th>
-                <th>Publicado</th>
-                <th>Puesto</th>
-                <th>Activo</th>
-                <th>Acciónes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+	        <h2>Puestos Relevantes</h2>
+					<div class="btn-toolbar">
+	          <div class="btn-group">
+							<button onclick="html_export($('#search_jobs_table').first()[0]);" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+	            <button onclick="content_change('jobs');" class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	          </div>
+	        </div>
+				</div>
+
+        <div class="table-responsive" id="search_jobs_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
 
-        <h2>Requisiciones Coincidentes</h2>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>ID.</th>
-                <th>Creado</th>
-                <th>Candidato</th>
-                <th>Correo</th>
-                <th>Puesto</th>
-                <th>Archivo de CV</th>
-								<th>Activo</th>
-                <th>Acciónes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+	        <h2>Cotizaciónes Relevantes</h2>
+					<div class="btn-toolbar">
+	          <div class="btn-group">
+							<button onclick="html_export($('#search_quotations_table').first()[0]);" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+	            <button onclick="content_change('quotations');" class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	          </div>
+	        </div>
+				</div>
+
+        <div class="table-responsive" id="search_quotations_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
 
-        <h2>Candidatos Coincidentes</h2>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>ID.</th>
-                <th>Creado</th>
-                <th>Empresa</th>
-                <th>Teléfono</th>
-                <th>Puesto</th>
-                <th>Activo</th>
-                <th>Acciónes</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+	        <h2>Requisiciones Relevantes</h2>
+					<div class="btn-toolbar">
+	          <div class="btn-group">
+							<button onclick="html_export($('#search_requisitions_table').first()[0]);" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+	            <button onclick="content_change('requisitions');" class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	          </div>
+	        </div>
+				</div>
+
+        <div class="table-responsive" id="search_requisitions_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
 
-        <h2>Registros Coincidentes</h2>
-        <div class="table-responsive">
-          <table class="table table-striped table-hover table-sm">
-            <thead>
-              <tr>
-                <th>Fecha y Hora</th>
-                <th>Responsable</th>
-                <th>Movimiento</th>
-                <th>Identificador</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center">
+	        <h2>Candidatos Relevantes</h2>
+					<div class="btn-toolbar">
+	          <div class="btn-group">
+							<button onclick="html_export($('#search_candidates_table').first()[0]);" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
+	            <button onclick="content_change('candidates');" class="btn btn-sm btn-outline-secondary">Ver Todo</button>
+	          </div>
+	        </div>
+				</div>
+
+        <div class="table-responsive" id="search_candidates_table">
+					<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
         </div>
       </main>
 
