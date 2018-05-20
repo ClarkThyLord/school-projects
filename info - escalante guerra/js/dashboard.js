@@ -240,7 +240,6 @@ function html_to_data(dom) {
   var required_fields = [];
   var data = {};
   $(dom).find(':input').each(function() {
-    console.log(this);
     if ($(this).prop('required') && !($(this).val() || (this.files && this.files.length < 0))) {
       return required = true && required_fields.push($(this).attr('name'));
     } else if ($(this).attr('type') === 'checkbox') {
@@ -249,17 +248,11 @@ function html_to_data(dom) {
       files = this.files;
       if (files.length > 0) {
         data[$(this).attr('name')] = {};
-
-        console.log(files);
-
         for (var file in files) {
           file = files[file];
 
-          console.log(file);
-
           var reader = new FileReader();
           reader.addEventListener("load", function() {
-            console.log(reader.result);
 
             data[$(this).attr('name')][file.name] = reader.result;
           }, false);
@@ -494,8 +487,6 @@ function quotations_add(data) {
     color: 'rgba(0, 0, 0)',
   });
 
-  console.log(data);
-
   $.post({
     url: './server/api.php/quotations/add?debug=' + DEBUGGING.server,
     data: {
@@ -613,7 +604,7 @@ $('#requisitions_modify').on('shown.bs.modal', function(e) {
   $('#requisitions_modify_info :input').each(function() {
     if ($(this).attr('type') === 'checkbox') {
       $(this).prop('checked', !!(GLOBALS.asset[this.name] * 1));
-    } else {
+    } else if (GLOBALS.asset[this.name]) {
       $(this).val(GLOBALS.asset[this.name]);
     }
   });
@@ -772,7 +763,7 @@ $('#candidates_modify').on('shown.bs.modal', function(e) {
   $('#candidates_modify_info :input').each(function() {
     if ($(this).attr('type') === 'checkbox') {
       $(this).prop('checked', !!(GLOBALS.asset[this.name] * 1));
-    } else {
+    } else if (GLOBALS.asset[this.name]) {
       $(this).val(GLOBALS.asset[this.name]);
     }
   });
@@ -1359,7 +1350,7 @@ VUE_ELEMENTS.recent_quotations = new Vue({
 VUE_ELEMENTS.all_requisitions = new Vue({
   el: '#all_requisitions_table',
   data: {
-    asset: 'candidates',
+    asset: 'requisitions',
     more: true,
     modifiable: true,
     removable: true,
@@ -1390,7 +1381,7 @@ VUE_ELEMENTS.all_requisitions = new Vue({
 VUE_ELEMENTS.recent_requisitions = new Vue({
   el: '#recent_requisitions_table',
   data: {
-    asset: 'candidates',
+    asset: 'requisitions',
     more: true,
     modifiable: true,
     removable: true,

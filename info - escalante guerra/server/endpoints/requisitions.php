@@ -114,7 +114,7 @@
 		}
 
 		$data_sql = array();
-		$valid_keys = array('job', 'candidate', 'data', 'active');
+		$valid_keys = array('company name', 'data', 'active');
 		foreach ($data as $key => $value) {
 			if (!in_array($key, $valid_keys)) { continue; } else {
 				if (gettype($value) === 'array') {

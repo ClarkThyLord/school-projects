@@ -132,7 +132,7 @@
 	},
 	{
 		"type": "dropdown",
-		"required": true,
+		"required": false,
 		"label": "Inglés %",
 		"extra": {
 			"options": [
