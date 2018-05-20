@@ -1,0 +1,216 @@
+[
+	{
+		"type": "text",
+		"required": true,
+		"label": "Nombre Completo"
+	},
+	{
+		"type": "email",
+		"required": true,
+		"label": "Email"
+	},
+	{
+		"type": "dropdown",
+		"required": true,
+		"label": "Sexo",
+		"extra": {
+			"options": [
+				"Masculino",
+				"Femenino"
+			]
+		}
+	},
+	{
+		"type": "dropdown",
+		"required": true,
+		"label": "Estado Civil",
+		"extra": {
+			"options": [
+				"Soltero",
+				"Casado",
+				"Union libre"
+			]
+		}
+
+	},
+	{
+		"type": "date",
+		"required": true,
+		"label": "Fecha de Nacimiento"
+	},
+	{
+		"type": "phonenumber",
+		"required": true,
+		"label": "Teléfono"
+	},
+	{
+		"type": "phonenumber",
+		"required": false,
+		"label": "Celular"
+	},
+	{
+		"type": "break",
+		"required": true,
+		"label": "",
+		"extra": {
+			"title": "Estudios"
+		}
+	},
+	{
+		"type": "dropdown",
+		"required": true,
+		"label": "Último Grado de Estudios",
+		"extra": {
+			"options": [
+				"Primaria",
+				"Secundaria",
+				"Preparatoria",
+				"Carrera Técnica",
+				"Licenciatura",
+				"Posgrado",
+				"Maestria",
+				"Doctorado"
+			]
+		}
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Escuela"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Oficios o Subespecialidades"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Licenciaturas o Ingenierías"
+	},
+	{
+		"type": "dropdown",
+		"required": true,
+		"label": "Inglés %",
+		"extra": {
+			"options": [
+				"Nada 0%",
+				"Básico 20-30%",
+				"Intermedio 50-70%",
+				"Avanzado 80-100%"
+			]
+		}
+	},
+	{
+		"type": "break",
+		"required": true,
+		"label": "",
+		"extra": {
+			"title": "Experiencia Laboral"
+		}
+	},
+	{
+		"type": "text",
+		"required": true,
+		"label": "Empleo Actual o Último"
+	},
+	{
+		"type": "text",
+		"required": true,
+		"label": "Puesto"
+	},
+	{
+		"type": "text",
+		"required": true,
+		"label": "Referencia de Empleo Actual/Último"
+	},
+	{
+		"type": "text",
+		"required": true,
+		"label": "Periodo en Experiencia Laboral",
+		"extra": {
+			"comment": "fecha de inicio y final"
+		}
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Sueldo Mensual Bruto"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Empleo Anterior 1"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Puesto Empleo Anterior 1"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Referencia de Empleo Anterior 1"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Periodo Experiencia Laboral 1"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Empleo Anterior 2"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Puesto Empleo Anterior 2"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Referencia de Empleo Anterior 2"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Periodo Experiencia Laboral 2"
+	},
+	{
+		"type": "textarea",
+		"required": false,
+		"label": "Software que Maneja"
+	},
+	{
+		"type": "textarea",
+		"required": false,
+		"label": "Habilidades"
+	},
+	{
+		"type": "dropdown",
+		"required": false,
+		"label": "Cuenta con Auto",
+		"extra": {
+			"options": [
+				"No",
+				"Si"
+			]
+		}
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Tipo de Licencia de Manejo"
+	},
+	{
+		"type": "break",
+		"required": true,
+		"label": ""
+	},
+	{
+		"type": "file",
+		"required": false,
+		"label": "Adjuntar Archivo"
+	}
+]

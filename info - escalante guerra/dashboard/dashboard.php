@@ -189,7 +189,7 @@
 
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button onclick="content_change('search');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="content_refresh('search');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
             </div>
           </div>
         </div>

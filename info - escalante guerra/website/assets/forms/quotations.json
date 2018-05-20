@@ -1,0 +1,37 @@
+[
+	{
+		"type": "text",
+		"required": true,
+		"label": "Nombre de la Empresa"
+	},
+	{
+		"type": "text",
+		"required": true,
+		"label": "Nombre del Puesto"
+	},
+	{
+		"type": "text",
+		"required": true,
+		"label": "Contacto"
+	},
+	{
+		"type": "phonenumber",
+		"required": false,
+		"label": "Telefono"
+	},
+	{
+		"type": "email",
+		"required": false,
+		"label": "Email"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Salario Bruto"
+	},
+	{
+		"type": "text",
+		"required": false,
+		"label": "Periodo de Pago"
+	}
+]
