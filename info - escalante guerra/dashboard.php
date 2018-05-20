@@ -45,7 +45,7 @@
 	<!-- MENU BAR -->
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a onclick="content_change('desk');" class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Escalante Guerra</a>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Buscar... (e.j. puestos, cotizaciónes, requisiciones, candidatos y registros)" aria-label="Buscar">
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Buscar... (e.j. puestos, cotizaciónes, requisiciones y candidatos)" aria-label="Buscar">
     <ul class="navbar-nav px-3">
       <li onclick="logout();" class="nav-item text-nowrap">
         <a class="nav-link" href="#">Cerrar Sesión</a>

@@ -4,6 +4,7 @@
 	// Main:      | Sub:     | Methods:  | Access:
 	// -------------------------------------------
 	// database       | setup     | POST      | 2^
+	// search         | setup     | POST      | 0^
 	// users          | get    	  | GET       | none
 	// users          | login     | POST      | none
 	// users          | logout    | POST      | none
@@ -168,6 +169,12 @@
 
 	if (count($routes) <= 0) {
 		response_status(false, 'no valid endpoint given');
+	} else if ($routes[0] === 'search') {
+		include_once './endpoints/search.php';
+
+		if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+			search($_GET['term']);
+		}
 	} else if ($routes[0] === 'jobs') {
 		include_once './endpoints/jobs.php';
 

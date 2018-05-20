@@ -124,6 +124,30 @@ function content_refresh(content) {
   }
 }
 
+// SEARCH Functions
+// *****************************************************************************
+
+/**
+ * Retrieve a job from jobs.
+ * @param {String} term Term to search databse with.
+ * @return {undefined} Returns nothing.
+ */
+async function search_get(term) {
+  return await $.get({
+    url: './server/api.php/search?debug=' + DEBUGGING.server + '&term=' + term || '',
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        console.log(response);
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
 // FORMS Functions
 // *****************************************************************************
 
