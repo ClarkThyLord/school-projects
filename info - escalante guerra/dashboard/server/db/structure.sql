@@ -122,8 +122,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `created`, `username`, `password`, `access`) VALUES
-(1, '2018-05-21 17:35:42', 'root', '', 2);
+INSERT INTO `users` (`id`, `created`, `username`, `password`, `access`) VALUES (1, CURRENT_TIMESTAMP, 'root', '', 2);
 
 COMMIT;
 
