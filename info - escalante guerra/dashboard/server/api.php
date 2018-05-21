@@ -12,7 +12,7 @@
 	// users          | modify    | POST      | self, 2^
 	// users          | remove    | POST      | 2^
 	// jobs           | get       | GET       | none
-	// jobs           | add       | POST      | 1^
+	// jobs           | add       | POST      | none
 	// jobs           | modify    | POST      | 1^
 	// jobs           | remove    | POST      | 1^
 	// quotations     | get       | GET       | none

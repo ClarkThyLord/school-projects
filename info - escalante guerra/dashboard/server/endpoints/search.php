@@ -18,7 +18,7 @@
 		foreach ($tables as $table => $columbs) {
 			$filters = array();
 			foreach ($columbs as $columb) {
-				array_push($filters, "`{$columb}` LIKE '%{$term}%'");
+				array_push($filters, "`{$columb}` LIKE '%{$term}%' ORDER BY `created` DESC");
 			}
 			$sql = "SELECT * FROM `{$table}` WHERE " . join(' OR ', $filters);
 

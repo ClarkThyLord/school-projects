@@ -21,7 +21,7 @@
 			}
 		}
 
-		$sql = "SELECT * FROM `quotations` WHERE 1 {$filter_sql} {$options_sql}";
+		$sql = "SELECT * FROM `quotations` WHERE 1 {$filter_sql} ORDER BY `created` DESC {$options_sql}";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
@@ -48,8 +48,6 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function quotation_add($data=array()) {
-    access_check(1);
-
 		$data = array_merge(array('name' => 'Nueva cotización', 'data' => 'NULL'), $data);
 		if (gettype($data['data']) !== 'array') {
 			$data['data'] = 'NULL';
@@ -87,7 +85,11 @@
       $GLOBALS['response']['data']['quotation'] = $GLOBALS['conn']->query($sql)->fetch_assoc();
 
 			// LOG
-			qlog($_SESSION['user']['id'], 'cotización creado', 'quotations', "{$insert_id}");
+			if (isset($_SESSION['user'])) {
+				qlog($_SESSION['user']['id'], 'cotización creado', 'quotations', "{$insert_id}");
+			} else {
+				qlog($_SERVER['REMOTE_ADDR'], 'cotización creado', 'quotations', "{$insert_id}");
+			}
 
 			quotation_get();
 

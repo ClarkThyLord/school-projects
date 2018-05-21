@@ -34,7 +34,7 @@
 			}
 		}
 
-		$sql = "SELECT * FROM `logs` WHERE 1 {$filter_sql} {$options_sql}";
+		$sql = "SELECT * FROM `logs` WHERE 1 {$filter_sql} ORDER BY `created` DESC {$options_sql}";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
