@@ -1,5 +1,30 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<title>EG - Cotización</title>
+	<link rel="icon" href="./assets/escalante_guerra_logo.jpg">
 
-?>
+	<!-- CSS Libraries -->
+	<link href="./css/libs/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link href="./css/index.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+	<form action="#" data-current-step="0" id="quotation">
+	</form>
+
+	<!-- JS Libraries -->
+	<script src="./js/libs/jquery-3.3.1.min.js"></script>
+	<script src="./js/libs/bootstrap.min.js"></script>
+
+	<!-- Custom JS -->
+	<script src="./js/cotizacion.js"></script>
+</body>
+
+</html>

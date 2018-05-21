@@ -1,3 +1,5 @@
+var PATH = '../dashboard/';
+
 window.onload = function() {
   $.getJSON('./assets/forms/candidates.json').then(function(data) {
     if (typeof data !== 'object') {
@@ -78,6 +80,10 @@ function form_submit(form) {
   var required_fields = [];
   var data = {};
   $(form).find(':input').each(function(num) {
+    if (!$(this).attr('name')) {
+      return;
+    }
+
     if ($(this).prop('required') && !($(this).val() || (this.files && this.files.length < 0))) {
       return required = true && required_fields.push($(this).data('backup')) && $(this).val(undefined);
     } else if ($(this).attr('type') === 'checkbox') {
@@ -110,6 +116,24 @@ function form_submit(form) {
   if (required) {
     alert('Debe completar lo siguiente:\n' + required_fields.join('\n'));
   } else {
-    console.log(data);
+    $.post({
+      url: PATH + '/server/api.php/candidates/add?debug=true',
+      data: {
+        data: {
+          name: $(':input[data-backup=\'Nombre Completo\']').val() || 'Nuevo Candidato',
+          data: data || {}
+        }
+      },
+      success: function(response) {
+        response = JSON.parse(response);
+        if (response.status === 'success') {
+          alert('enviado con éxito!');
+        }
+
+        if (response.status === 'failure') {
+          alert(response.reason);
+        }
+      }
+    });
   }
 }
