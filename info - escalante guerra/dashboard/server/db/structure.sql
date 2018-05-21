@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 20, 2018 at 12:20 AM
+-- Generation Time: May 21, 2018 at 06:10 PM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `candidates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` text NOT NULL,
-  `data` json DEFAULT NULL,
+  `data` text,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
 
 DROP TABLE IF EXISTS `logs`;
 CREATE TABLE IF NOT EXISTS `logs` (
-  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `responsible` text COMMENT 'ID of user within `users`',
   `action` text,
   `asset_type` text COMMENT 'Type of asset modified',
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `quotations` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `company name` text NOT NULL,
   `job` text NOT NULL,
-  `data` json DEFAULT NULL,
+  `data` text,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `requisitions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `company name` text NOT NULL,
-  `data` json DEFAULT NULL,
+  `data` text,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -122,7 +122,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `created`, `username`, `password`, `access`) VALUES (1, CURRENT_TIMESTAMP, 'root', '', 2);
+INSERT INTO `users` (`id`, `created`, `username`, `password`, `access`) VALUES
+(1, '2018-05-21 17:35:42', 'root', '', 2);
 
 COMMIT;
 
