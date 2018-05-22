@@ -80,11 +80,11 @@
 			echo '<br /><br />';
 			echo "SQL : INSERT INTO `{$new_table}` (`id`, `created`, `name`, `data`, `active`) VALUES (NULL, '{$result["created"]}', '{$result["name"]}', '" . json_encode($result["data"]) . "', '{$result["active"]}')<br />";
 
-			// if ($GLOBALS['conn']->query("INSERT INTO `{$new_table}` (`id`, `created`, `company name`, `job`, `data`, `active`) VALUES (NULL, '{$result["created"]}', '{$result["company name"]}', '{$result["job"]}', {$result["data"]}, '{$result["active"]}')") === TRUE) {
-			// 	echo "{$GLOBALS['conn']->insert_id} SUCCESS!!!";
-			// } else {
-			// 	echo 'FAILER!!!';
-			// }
+			if ($GLOBALS['conn']->query("INSERT INTO `{$new_table}` (`id`, `created`, `name`, `data`, `active`) VALUES (NULL, '{$result["created"]}', '{$result["name"]}', '" . json_encode($result["data"]) . "', '{$result["active"]}')") === TRUE) {
+				echo "{$GLOBALS['conn']->insert_id} SUCCESS!!!";
+			} else {
+				echo 'FAILER!!!';
+			}
 			echo '<br />------<br />';
 		}
 	}

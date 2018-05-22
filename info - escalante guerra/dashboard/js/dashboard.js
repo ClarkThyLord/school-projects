@@ -215,16 +215,15 @@ function setup_form(identifier, data) {
     data = JSON.parse(data);
   }
 
-  if (typeof data === 'object') {
-    $('#' + identifier + '_data_modify_info :input').each(function(num) {
-
-      if ($(this).attr('type') === 'checkbox') {
-        $(this).prop('checked', !!(data['id_' + num] * 1));
-      } else {
-        $(this).val(data['id_' + num]);
-      }
-    });
-  }
+  $('#' + identifier + '_data_modify_info :input').each(function(num) {
+    if ($(this).attr('type') === 'checkbox') {
+      $(this).prop('checked', !!(data['id_' + num] * 1));
+    } else if ($(this).attr('type') === 'file') {
+      $(this).after('<a href="">Descargar Archivo</a>');
+    } else {
+      $(this).val(data['id_' + num]);
+    }
+  });
 
   $('#' + identifier + '_data_modify').modal('show');
 }
@@ -317,12 +316,11 @@ function html_to_data(dom) {
       files = this.files;
       if (files.length > 0) {
         data['id_' + num] = {};
-        for (var file in files) {
+        for (var file in Object.keys(files)) {
           file = files[file];
 
           var reader = new FileReader();
           reader.addEventListener("load", function() {
-
             data['id_' + num][file.name] = reader.result;
           }, false);
 
@@ -330,8 +328,6 @@ function html_to_data(dom) {
             reader.readAsDataURL(file);
           }
         }
-      } else {
-        data['id_' + num] = $(this).val();
       }
     } else {
       data['id_' + num] = $(this).val();
