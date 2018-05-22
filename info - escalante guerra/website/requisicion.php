@@ -24,6 +24,7 @@
 	<script src="./js/libs/bootstrap.min.js"></script>
 
 	<!-- Custom JS -->
+	<script src="./js/common.js"></script>
 	<script src="./js/requisicion.js"></script>
 </body>
 
