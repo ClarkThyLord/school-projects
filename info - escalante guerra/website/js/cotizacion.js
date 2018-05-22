@@ -39,8 +39,10 @@ window.onload = function() {
         case 'dropdown':
           $(dom).append('<select' + (value.required ? ' required' : '') + ' class="form-control" data-backup="' + (value.label || '') + '" name="' + ('id_' + num) + '"></select>');
 
+          var option_val = 0;
           for (var option in value.extra.options) {
-            $(dom).children('select').append('<option value="' + value.extra.options[option] + '">' + value.extra.options[option] + '</option>');
+            $(dom).children('select').append('<option value="' + option_val + '">' + value.extra.options[option] + '</option>');
+            option_val += 1;
           }
           break;
         case 'file':
@@ -117,7 +119,7 @@ function form_submit(form) {
     alert('Debe completar lo siguiente:\n' + required_fields.join('\n'));
   } else {
     $.post({
-      url: PATH + '/server/api.php/quotations/add?debug=true',
+      url: PATH + '/server/api.php/quotations/add?debug=' + DEBUGGING.server,
       data: {
         data: {
           'company name': $(':input[data-backup=\'Nombre de la Empresa\']').val() || 'Nueva Empresa',
