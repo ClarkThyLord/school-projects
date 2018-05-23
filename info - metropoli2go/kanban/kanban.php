@@ -63,6 +63,10 @@
 	  </div>
 	</nav>
 
+	<div class="kanban" id="kanban">
+		<kanban-component :search_term="search_term" :data="data"></kanban-component>
+	</div>
+
   <!-- Javascript -->
   <script src="./js/libs/jquery-3.3.1.min.js"></script>
   <script src="./js/libs/jquery-FileDrop.js"></script>
@@ -110,6 +114,19 @@
 	      </tr>
   		</tbody>
 		</table>
+	</script>
+
+
+	<script type="text/x-template" id="kanban-component">
+		<div v-for="entry in filtered_data" class="section">
+			<div>
+				<span> {{ entry.name | capitalize }} </span>
+				<input type="button" value="+ Agregar Landmark" />
+			</div>
+			<div v-for="landmark in entry.landmarks" class="landmark">
+				<span> {{ landmark.name | capitalize }} </span>
+			</div>
+		</div>
 	</script>
 
 </body>

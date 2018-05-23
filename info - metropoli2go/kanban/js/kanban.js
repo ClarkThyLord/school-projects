@@ -188,7 +188,90 @@ window.onload = function() {
     }
   });
 
+  // Register Table component
+  Vue.component('kanban-component', {
+    template: '#kanban-component',
+    props: {
+      search_term: String,
+      data: Array
+    },
+    data: function() {},
+    computed: {
+      filtered_data: function() {
+        if ((this.sort_key || this.search_term) && this.data.length > 0) {
+          var data = this.data;
+
+          // Search data
+          if (this.search_term) {
+            var search_term = this.search_term;
+            data = data.filter(function(row) {
+              return Object.keys(row).some(function(key) {
+                return String(row[key]).toLowerCase().indexOf(search_term) > -1;
+              });
+            });
+          }
+
+          // Sort data
+          if (this.sort_key) {
+            var sort_key = this.columns[this.sort_key].referencing;
+            var sort_type = this.columns[this.sort_key].order === 'des' ? -1 : 1;
+            data = data.slice().sort(function(a, b) {
+              if (typeof a[sort_key] === 'string' && isNaN(a[sort_key])) {
+                a = a[sort_key].toLowerCase();
+                b = b[sort_key].toLowerCase();
+
+                if (a < b) {
+                  return sort_type * (-1);
+                } else if (a > b) {
+                  return sort_type * (1);
+                } else {
+                  return 0;
+                }
+              } else {
+                return sort_type * ((a[sort_key] * 1) - b[sort_key]);
+              }
+            });
+          }
+
+          return data;
+        } else {
+          return this.data;
+        }
+      }
+    },
+    filters: {
+      capitalize: function(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+      }
+    },
+    methods: {
+      sort_by: function(key) {
+        this.search_term = key;
+      },
+      select: function(event, asset) {
+        GLOBALS.asset = asset;
+      },
+      information: function(event, asset) {
+        setup_form(this.asset, asset.data || {});
+      },
+      edit: function(event) {
+        $('#' + this.asset + '_modify').modal('show');
+      },
+      remove: function(event) {
+        $('#' + this.asset + '_remove').modal('show');
+      }
+    }
+  });
+
   // Register VUE Elements
+  VUE_ELEMENTS.kanban = new Vue({
+    el: '#kanban',
+    data: {
+      search_term: '',
+      data: []
+    }
+  });
+
   VUE_ELEMENTS.users = new Vue({
     el: '#users',
     data: {

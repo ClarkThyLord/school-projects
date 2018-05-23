@@ -29,7 +29,7 @@
 			          <div class="form-group">
 									<label class="col-form-label">Autorefrescar:</label>
 									<div class="custom-switch custom-switch-label-onoff">
-									  <input type="checkbox" class="custom-switch-input" name="autorefresh" id="autorefresh">
+									  <input type="checkbox" checked="true" class="custom-switch-input" name="autorefresh" id="autorefresh">
 									  <label class="custom-switch-btn" for="autorefresh"></label>
 									</div>
 								</div>
