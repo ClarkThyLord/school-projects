@@ -10,7 +10,7 @@
 	}
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 	<meta charset="utf-8">
@@ -18,6 +18,10 @@
 
 	<title>EG - Ingresar</title>
 	<link rel="icon" href="./assets/escalante_guerra_logo.jpg">
+
+  <!-- Meta -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<!-- CSS Libraries -->
 	<link href="./css/libs/jquery-waitMe.min.css" rel="stylesheet">
