@@ -115,7 +115,7 @@
 
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button onclick="content_refresh('desk');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="content_refresh('desk');" class="btn btn-sm btn-outline-secondary">↻ Refrescar</button>
             </div>
           </div>
         </div>
@@ -193,7 +193,7 @@
 
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button onclick="content_refresh('search');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="content_refresh('search');" class="btn btn-sm btn-outline-secondary">↻ Refrescar</button>
             </div>
           </div>
         </div>
@@ -262,7 +262,7 @@
 
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button onclick="content_refresh('jobs');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="content_refresh('jobs');" class="btn btn-sm btn-outline-secondary">↻ Refrescar</button>
               <button onclick="$('#jobs_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Puesto</button>
               <button onclick="content_export('jobs');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." oninput="VUE_ELEMENTS.all_jobs.search_term = this.value;" style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
@@ -281,7 +281,7 @@
 
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button onclick="content_refresh('quotations');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="content_refresh('quotations');" class="btn btn-sm btn-outline-secondary">↻ Refrescar</button>
               <button onclick="$('#quotations_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Cotización</button>
               <button onclick="content_export('quotations');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." oninput="VUE_ELEMENTS.all_quotations.search_term = this.value;" style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
@@ -300,7 +300,7 @@
 
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button onclick="content_refresh('requisitions');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="content_refresh('requisitions');" class="btn btn-sm btn-outline-secondary">↻ Refrescar</button>
               <button onclick="$('#requisitions_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Requisicion</button>
               <button onclick="content_export('requisitions');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
@@ -319,7 +319,7 @@
 
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button onclick="content_refresh('candidates');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="content_refresh('candidates');" class="btn btn-sm btn-outline-secondary">↻ Refrescar</button>
               <button onclick="$('#candidates_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Candidato</button>
               <button onclick="content_export('candidates');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 	            <input type="text" placeholder="Buscar..." style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
@@ -338,7 +338,7 @@
 
 					<div class="btn-toolbar mb-2 mb-md-0">
 				    <div class="btn-group mr-2">
-				      <button onclick="content_refresh('users');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+				      <button onclick="content_refresh('users');" class="btn btn-sm btn-outline-secondary">↻ Refrescar</button>
 				      <button onclick="$('#users_add').modal('show');" class="btn btn-sm btn-outline-secondary">+ Agregar Usuario</button>
 				      <button onclick="content_export('users');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 				      <input type="text" placeholder="Buscar..." oninput="VUE_ELEMENTS.all_users.search_term = this.value;" style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
@@ -357,7 +357,7 @@
 
 					<div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-              <button onclick="content_refresh('logs');" class="btn btn-sm btn-outline-secondary">&#8635; Refrescar</button>
+              <button onclick="content_refresh('logs');" class="btn btn-sm btn-outline-secondary">↻ Refrescar</button>
               <button onclick="$('#logs_clear').modal('show');" class="btn btn-sm btn-outline-secondary">Borrar Registros</button>
 							<button onclick="content_export('logs');" class="btn btn-sm btn-outline-secondary">&#8689; Exportar</button>
 							<input type="text" placeholder="Buscar..." oninput="VUE_ELEMENTS.all_logs.search_term = this.value;" style="text-align: left;" class="btn btn-sm btn-outline-secondary" />
