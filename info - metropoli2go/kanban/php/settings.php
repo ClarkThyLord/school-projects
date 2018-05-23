@@ -42,7 +42,8 @@
 				        <h2>Usuarios</h2>
 								<div class="btn-toolbar">
 				          <div class="btn-group">
-				            <button onclick="" class="btn btn-sm btn-outline-secondary">↻ Refrescar</button>
+										<input type="text" oninput="VUE_ELEMENTS.users.search_term = this.value;" placeholder="🔍 Buscar..." class="form-control btn-sm" />
+				            <button onclick="" class="form-control btn btn-sm btn-outline-secondary">↻ Refrescar</button>
 				          </div>
 				        </div>
 							</div>
@@ -58,7 +59,8 @@
 				        <h2>Registros</h2>
 								<div class="btn-toolbar">
 				          <div class="btn-group">
-				            <button onclick="" class="btn btn-sm btn-outline-secondary">↻ Refrescar</button>
+										<input type="text" oninput="VUE_ELEMENTS.logs.search_term = this.value;" placeholder="🔍 Buscar..." class="form-control btn-sm" />
+				            <button onclick="" class="form-control btn btn-sm btn-outline-secondary">↻ Refrescar</button>
 				          </div>
 				        </div>
 							</div>

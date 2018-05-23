@@ -50,7 +50,7 @@
 	    </ul>
 
 	    <div class="form-inline my-2 my-lg-0">
-	      <input class="form-control mr-sm-2" type="text" placeholder="🔍 Buscar..." aria-label="🔍 Buscar...">
+	      <input class="form-control mr-sm-2" type="text" oninput="VUE_ELEMENTS.kanban.search_term = this.value;" placeholder="🔍 Buscar..." aria-label="🔍 Buscar...">
 				<div class="btn-group mr-sm-2" role="group">
 					<button onclick="" class="form-control btn btn-outline-secondary my-2 my-sm-0">↻ Refrescar</button>
 					<button onclick="" class="form-control btn btn-outline-secondary my-2 my-sm-0">⇱ Exportar</button>
