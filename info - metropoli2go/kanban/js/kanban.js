@@ -872,7 +872,8 @@ window.onload = function() {
   });
 
   GLOBALS.dad.on("drop", function(el, target, source, sibling) {
-    console.log(el);
+    return false;
+
     landmarks_modify($(el).data('landmark-id'), {
       section: $(target).parent().data('section-id')
     });
