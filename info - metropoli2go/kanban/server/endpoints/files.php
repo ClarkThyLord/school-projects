@@ -167,7 +167,7 @@
 		if (count($file) > 0) {
       $GLOBALS['response']['data']['id'] = $file_id;
 
-			unlink("./files/{$file["unique name"]}");
+			@unlink("./files/{$file["unique name"]}");
 
 			$sql = "DELETE FROM `files` WHERE `id` = {$file_id}";
 
