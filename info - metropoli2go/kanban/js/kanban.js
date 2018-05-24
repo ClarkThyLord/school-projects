@@ -51,7 +51,9 @@ $(function() {
     },
     uploadStarted: function(i, file, len) {},
     uploadFinished: function(i, file, response, time) {
-      if (response.status === 'failure' || DEBUGGING.popups) {
+      if (response.status === 'success') {
+        VUE_ELEMENTS.kanban.data = response.data.dump;
+      } else if (response.status === 'failure' || DEBUGGING.popups) {
         alert(response.reason);
       }
     },
@@ -858,6 +860,20 @@ $(function() {
       data: Array
     },
     data: function() {},
+    updated: function() {
+      if (GLOBALS.section) {
+        GLOBALS.section = Object.assign({}, VUE_ELEMENTS.kanban.data.find(function(section) {
+          return section.id === GLOBALS.section.id;
+        }));
+      }
+
+      if (GLOBALS.landmark) {
+        GLOBALS.landmark = Object.assign({}, GLOBALS.section.data.find(function(landmark) {
+          return landmark.id === GLOBALS.landmark.id;
+        }));
+        VUE_ELEMENTS.files.files = GLOBALS.landmark.files;
+      }
+    },
     computed: {
       filtered_data: function() {
         var data = this.data;

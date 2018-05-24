@@ -89,7 +89,7 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'archivo creado', 'files', "{$insert_id}");
 
-			file_get();
+			kanban_get();
 
 			response_send(true, 'archivo agregado exitosamente');
     } else {
@@ -181,7 +181,7 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'archivo eliminado', 'files', "{$file_id}");
 
-			file_get();
+			kanban_get();
 
 			response_send(true, 'archivo eliminado con éxito');
     } else {
