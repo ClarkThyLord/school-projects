@@ -168,6 +168,20 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'landmark eliminado', 'landmarks', "{$landmark_id}");
 
+			$sql = "SELECT * FROM `files` WHERE `landmark`='{$landmark_id}' ORDER BY `id` ASC";
+
+			// FOR DEBUGGING
+			if (is_debugging()) {
+				array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+			}
+
+			$files = $GLOBALS['conn']->query($sql);
+			if ($files->num_rows > 0) {
+				while($file = $files->fetch_assoc()) {
+					file_remove($file['id']);
+				}
+			}
+
 			kanban_get();
 
 			response_send(true, 'landmark eliminado con éxito');

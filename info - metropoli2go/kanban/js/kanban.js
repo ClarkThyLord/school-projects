@@ -48,6 +48,8 @@ function refresh(identifier) {
     case 'kanban':
       (async function() {
         VUE_ELEMENTS.kanban.data = JSON.parse(await kanban_get()).data.dump || [];
+
+        landmarks_files_setup();
       })();
 
       break;
@@ -247,12 +249,22 @@ $('#landmark_modify').on('shown.bs.modal', function(e) {
     $(this).val(GLOBALS.landmark[this.name]);
   });
 
-  $('#landmark_files_preview').html('');
-  for (var file in GLOBALS.landmark.files) {
-    file = GLOBALS.landmark.files[file];
-    $('#landmark_files_preview').append('<div onclick="window.open(\'' + file['url'] + '\');" style="margin: 5px;" class="btn-group border rounded" role="group"><button class="btn btn-link btn-sm"> ' + file['visual name'] + ' </button> <button class="btn btn-danger">X</button></div>');
-  }
+  landmarks_files_setup();
 });
+
+/**
+ * Updates files in form.
+ * @return {undefined} Returns nothing.
+ */
+function landmarks_files_setup() {
+  if (GLOBALS.landmark) {
+    $('#landmark_files_preview').html('');
+    for (var file in GLOBALS.landmark.files) {
+      file = GLOBALS.landmark.files[file];
+      $('#landmark_files_preview').append('<div style="margin: 5px;" class="btn-group border rounded" role="group"><button onclick="window.open(\'' + file['url'] + '\');" class="btn btn-link btn-sm"> ' + file['visual name'] + ' </button> <button class="btn btn-danger" onclick="files_remove(\'' + file.id + '\');">X</button></div>');
+    }
+  }
+}
 
 /**
  * Retrieve a landmark from landmarks.
@@ -484,7 +496,7 @@ function files_remove(id) {
   });
 
   $.post({
-    url: './server/api.php/landmarks/remove?debug=' + DEBUGGING.server,
+    url: './server/api.php/files/remove?debug=' + DEBUGGING.server,
     data: {
       id: id
     },
@@ -495,6 +507,8 @@ function files_remove(id) {
 
       if (response.status === 'success') {
         VUE_ELEMENTS.kanban.data = response.data.dump || [];
+
+        landmarks_files_setup();
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -962,7 +976,13 @@ window.onload = function() {
     },
     uploadStarted: function(i, file, len) {},
     uploadFinished: function(i, file, response, time) {
-      console.log(response);
+      if (response.status === 'success') {
+        refresh('kanban');
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
     },
     progressUpdated: function(i, file, progress) {},
     globalProgressUpdated: function(progress) {},

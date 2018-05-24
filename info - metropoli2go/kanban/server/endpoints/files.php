@@ -67,7 +67,7 @@
       file_put_contents("./files/" . $insert_id . "." . pathinfo($file["name"], PATHINFO_EXTENSION), $file_content);
 
 			// Update file in database
-      $sql = "UPDATE `files` SET `unique name`='{$insert_id}.{$file_extension}', `url`='" . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http") . "://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}/../../../files/{$insert_id}.{$file_extension}' WHERE `id` = '{$insert_id}'";
+      $sql = "UPDATE `files` SET `unique name`='{$insert_id}.{$file_extension}', `url`='" . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http") . "://{$_SERVER["SERVER_NAME"]}{$_SERVER["REQUEST_URI"]}/../../../files/{$insert_id}.{$file_extension}' WHERE `id` = '{$insert_id}'";
 
 			// FOR DEBUGGING
 			if (is_debugging()) {
@@ -156,17 +156,27 @@
 		 response_send(false, 'la identificación del usuario no fue dada');
 		}
 
-    $sql = "DELETE FROM `files` WHERE `id` = {$file_id}";
+    $sql = "SELECT * FROM `files` WHERE `id` = {$file_id}";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
 		 array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
 		}
 
-		if ($GLOBALS['conn']->query($sql) == True) {
+		$file = $GLOBALS['conn']->query($sql)->fetch_assoc();
+		if (count($file) > 0) {
       $GLOBALS['response']['data']['id'] = $file_id;
 
-			unlink("../files/{$_POST["file_id"]}." . pathinfo($file_id, PATHINFO_EXTENSION));
+			unlink("./files/{$file["unique name"]}");
+
+			$sql = "DELETE FROM `files` WHERE `id` = {$file_id}";
+
+			// FOR DEBUGGING
+			if (is_debugging()) {
+			 array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+			}
+
+			$GLOBALS['conn']->query($sql);
 
 			// LOG
 			qlog($_SESSION['user']['id'], 'archivo eliminado', 'files', "{$file_id}");

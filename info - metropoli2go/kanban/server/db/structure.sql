@@ -32,7 +32,7 @@ DROP TABLE IF EXISTS `files`;
 CREATE TABLE IF NOT EXISTS `files` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `task` int(11) NOT NULL COMMENT 'ID of Task from `task` to which this belongs',
+  `landmark` int(11) NOT NULL COMMENT 'ID of Task from `task` to which this belongs',
   `visual name` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `unique name` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `url` mediumtext COLLATE utf8_unicode_ci NOT NULL,
