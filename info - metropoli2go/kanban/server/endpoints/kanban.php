@@ -30,6 +30,21 @@
 				$landmarks = $GLOBALS['conn']->query($sql);
 		    if ($landmarks->num_rows > 0) {
 					while($landmark = $landmarks->fetch_assoc()) {
+						$sql = "SELECT * FROM `files` WHERE `landmark`='{$landmark["id"]}' ORDER BY `id` ASC";
+
+						// FOR DEBUGGING
+						if (is_debugging()) {
+							array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+						}
+
+						$landmark["files"] = array();
+
+						$files = $GLOBALS['conn']->query($sql);
+				    if ($files->num_rows > 0) {
+							while($file = $files->fetch_assoc()) {
+								array_push($landmark["files"], $file);
+							}
+						}
 						array_push($GLOBALS['response']['data']['dump'][$section_index]['data'], $landmark);
 					}
 				}

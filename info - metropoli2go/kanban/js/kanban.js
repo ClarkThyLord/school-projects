@@ -6,60 +6,7 @@ var GLOBALS = {
 };
 
 window.onload = function() {
-  // Setup FileDrop.js
-  $("#task_file_dropzone").filedrop({
-    fallback_id: "new_files",
-    fallback_dropzoneClick: true,
-    withCredentials: true,
-    data: {
-      "task_id": function() {
-        return current_task;
-      }
-    },
-    url: "./php/API.php/files/create",
-    error: function(err, file) {
-      console.log(err);
-      switch (err) {
-        case 'BrowserNotSupported':
-          alert('browser does not support HTML5 drag and drop');
-          break;
-        case 'TooManyFiles':
-          break;
-        case 'FileTooLarge':
-          break;
-        case 'FileTypeNotAllowed':
-          break;
-        case 'FileExtensionNotAllowed':
-          break;
-        default:
-          break;
-      }
-    },
-    uploadStarted: function(i, file, len) {},
-    uploadFinished: function(i, file, response, time) {
-      if (response.status === "success") {
-        for (var file in Object.keys(response.data.files)) {
-          file = response.data.files[file];
-          $("#task_file_preview").append('<div onclick="current_file = $(this).attr(\'data-file-id\');" class="file" data-table-id="' + current_table + '" data-task-id="' + current_task + '" data-file-id="' + file.id + '" data-file-url="' + file.url + '"> <span class="name selectable" onclick="$(\'.file-preview\').attr(\'src\',\'' + file.url + '\'); $(\'#file_preview\').dialog(\'open\');"> ' + file.name + ' </span> <input type="button" value="&#10006;" onclick="removeFile(' + file.id + ');" /> </div>');
-        }
 
-        if (prevent_popups == false) {
-          alert(response.reason);
-        }
-      } else {
-        alert(response.reason);
-      }
-    },
-    progressUpdated: function(i, file, progress) {},
-    globalProgressUpdated: function(progress) {},
-    speedUpdated: function(i, file, speed) {},
-    rename: function(name) {},
-    beforeEach: function(file) {},
-    beforeSend: function(file, i, done) {
-      done();
-    },
-    afterAll: function() {}
-  });
 };
 
 // CONTENT Functions
@@ -299,6 +246,12 @@ $('#landmark_modify').on('shown.bs.modal', function(e) {
   $(this).find('form :input').each(function() {
     $(this).val(GLOBALS.landmark[this.name]);
   });
+
+  $('#landmark_files_preview').html('');
+  for (var file in GLOBALS.landmark.files) {
+    file = GLOBALS.landmark.files[file];
+    $('#landmark_files_preview').append('<div onclick="window.open(\'' + file['url'] + '\');" style="margin: 5px;" class="btn-group border rounded" role="group"><button class="btn btn-link btn-sm"> ' + file['visual name'] + ' </button> <button class="btn btn-danger">X</button></div>');
+  }
 });
 
 /**
@@ -422,6 +375,106 @@ function landmarks_modify(id, data) {
  * @return {undefined} Returns nothing.
  */
 function landmarks_remove(id) {
+  $('body').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/landmarks/remove?debug=' + DEBUGGING.server,
+    data: {
+      id: id
+    },
+    success: function(response) {
+      $('body').waitMe('hide');
+
+      response = JSON.parse(response);
+
+      if (response.status === 'success') {
+        VUE_ELEMENTS.kanban.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+// FILE Functions
+// *****************************************************************************
+
+/**
+ * Retrieve a file from files.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
+ * @return {undefined} Returns nothing.
+ */
+async function files_get(filter, options) {
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
+
+  return await $.get({
+    url: './server/api.php/files/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {}
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Add a file.
+ * @param {object} data Data to create file with.
+ * @return {undefined} Returns nothing.
+ */
+function files_add(data) {
+  $('body').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/files/add?debug=' + DEBUGGING.server,
+    data: {
+      data: {
+        section: data.section || 0,
+        name: data.name || 'Nuevo file'
+      }
+    },
+    success: function(response) {
+      $('body').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.kanban.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Remove a file from files.
+ * @param {integer} id file's ID.
+ * @return {undefined} Returns nothing.
+ */
+function files_remove(id) {
   $('body').waitMe({
     waitTime: -1,
     effect: 'stretch',
@@ -867,7 +920,7 @@ window.onload = function() {
   // Setup Dragula.js
   GLOBALS.dad = dragula({
     isContainer: function(el) {
-      return el.classList.contains("landmarks");
+      return el.classList.contains("files");
     }
   });
 
@@ -876,5 +929,49 @@ window.onload = function() {
     landmarks_modify($(el).data('landmark-id'), {
       section: $(target).parent().data('section-id')
     });
+  });
+
+  // Setup FileDrop.js
+  $("#landmark_files_dropzone").filedrop({
+    fallback_id: "landmark_files",
+    fallback_dropzoneClick: true,
+    withCredentials: true,
+    data: {
+      'landmark': function() {
+        return GLOBALS.landmark.id;
+      }
+    },
+    url: "./server/api.php/files/add",
+    error: function(err, file) {
+      console.log(err);
+      switch (err) {
+        case 'BrowserNotSupported':
+          alert('browser does not support HTML5 drag and drop');
+          break;
+        case 'TooManyFiles':
+          break;
+        case 'FileTooLarge':
+          break;
+        case 'FileTypeNotAllowed':
+          break;
+        case 'FileExtensionNotAllowed':
+          break;
+        default:
+          break;
+      }
+    },
+    uploadStarted: function(i, file, len) {},
+    uploadFinished: function(i, file, response, time) {
+      console.log(response);
+    },
+    progressUpdated: function(i, file, progress) {},
+    globalProgressUpdated: function(progress) {},
+    speedUpdated: function(i, file, speed) {},
+    rename: function(name) {},
+    beforeEach: function(file) {},
+    beforeSend: function(file, i, done) {
+      done();
+    },
+    afterAll: function() {}
   });
 };

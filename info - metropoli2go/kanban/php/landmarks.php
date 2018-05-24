@@ -45,7 +45,7 @@
 
 			<!-- BODY -->
       <div class="modal-body">
-        <form onsubmit="#">
+        <form action="#" onsubmit="return false;">
 					<div class="form-group form-row">
 						<label class="col-sm-5 col-form-label">ID del Landmark:</label>
 						<input type="text" disabled class="col-sm-7 form-control" name="id" />
@@ -80,10 +80,10 @@
 						<textarea placeholder="URLs... (separar con ,)" class="form-control" name="summary"></textarea>
 						<label class="col-form-label">Archivos:</label>
 				    <input type="file" style="display: none;" class="task_input" id="landmark_files" />
-				    <button onclick="landmark_files.click();" class="btn btn-info btn-block" id="landmark_files_dropzone">
+				    <div class="btn btn-info btn-block" id="landmark_files_dropzone">
 				        Dar click o arrastrar archivo..
-				    </button>
-						<div id="landmark_files_preview"></div>
+				    </div>
+						<div class="" id="landmark_files_preview"></div>
 					</div>
 				</form>
       </div>

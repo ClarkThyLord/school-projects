@@ -220,7 +220,11 @@
 			} else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 				switch ($routes[1]) {
 					case 'add':
-						file_add($_POST['data']);
+						if (count($_FILES) > 0) {
+							foreach ($_FILES as $file) {
+								file_add($_POST["landmark"], $file);
+							}
+						}
 						break;
 					// case 'modify':
 					// 	file_modify($_POST['id'], $_POST['data']);

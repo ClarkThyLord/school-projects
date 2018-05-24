@@ -48,15 +48,10 @@
 	* @param file [File] File object to save.
 	* @return {undefined} Returns nothing.
 	*/
-	function file_add($task_id=array(), $file) {
+	function file_add($task_id='', $file) {
     access_check(1);
-		foreach ($data as $key => $value) {
-			if (gettype($value) === 'string') {
-				$data[$key] = str_replace("'", "''", $value);
-			}
-		}
 
-    $sql = "INSERT INTO `files` (`id`, `created`, `task`, `visual name`, `unique name`, `url`) VALUES (NULL, CURRENT_TIMESTAMP, '{$task_id}', '{$file["name"]}', '', '')";
+    $sql = "INSERT INTO `files` (`id`, `created`, `landmark`, `visual name`, `unique name`, `url`) VALUES (NULL, CURRENT_TIMESTAMP, '{$task_id}', '{$file["name"]}', '', '')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
@@ -69,17 +64,17 @@
 			// Create file on server
 			$file_content = file_get_contents($file["tmp_name"]);
 			$file_extension = pathinfo($file["name"], PATHINFO_EXTENSION);
-      file_put_contents("../files/" . $insert_id . "." . pathinfo($file["name"], PATHINFO_EXTENSION), $file_content);
+      file_put_contents("./files/" . $insert_id . "." . pathinfo($file["name"], PATHINFO_EXTENSION), $file_content);
 
 			// Update file in database
-      $sql = "UPDATE `files` SET `unique name`='{$insert_id}.{$file_extension}', `url`='{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}/{$insert_id}.{$file_extension}' WHERE `id` = '{$insert_id}'";
+      $sql = "UPDATE `files` SET `unique name`='{$insert_id}.{$file_extension}', `url`='" . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && $_SERVER['HTTPS'] != "off") ? "https" : "http") . "://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}/../../../files/{$insert_id}.{$file_extension}' WHERE `id` = '{$insert_id}'";
 
 			// FOR DEBUGGING
 			if (is_debugging()) {
 				array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
 			}
 
-      $GLOBALS['conn']->query($sql)->fetch_assoc();
+      $GLOBALS['conn']->query($sql);
 
 			// Retrieve all files
       $sql = "SELECT * FROM `files` WHERE `id` = '{$insert_id}' LIMIT 1";
@@ -129,7 +124,7 @@
 	// 			}
 	// 		}
 	// 	}
-	// 
+	//
 	// 	$sql = "UPDATE `files` SET " . join(', ', $data_sql) . " WHERE `id` = {$file_id}";
 	//
 	// 	// FOR DEBUGGING
