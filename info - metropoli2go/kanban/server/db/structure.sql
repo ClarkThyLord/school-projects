@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 22, 2018 at 10:02 PM
+-- Generation Time: May 24, 2018 at 01:42 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -31,8 +31,8 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `files`;
 CREATE TABLE IF NOT EXISTS `files` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `task` int(11) NOT NULL COMMENT 'ID of Task from `task` to which this belongs',
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `visual name` text NOT NULL,
   `unique name` text NOT NULL,
   `url` text NOT NULL,
@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS `files` (
 
 DROP TABLE IF EXISTS `landmarks`;
 CREATE TABLE IF NOT EXISTS `landmarks` (
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `section` int(11) NOT NULL COMMENT 'ID of Section from `sections` to which this belongs',
   `name` text NOT NULL,
   `classification` text,
@@ -69,8 +69,10 @@ DROP TABLE IF EXISTS `logs`;
 CREATE TABLE IF NOT EXISTS `logs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user` int(11) NOT NULL COMMENT 'ID of user from `users` to which this belongs',
+  `perpetrator` text NOT NULL COMMENT 'ID of user from `users` to which this belongs',
   `action` text NOT NULL,
+  `asset type` text NOT NULL,
+  `asset` int(11) NOT NULL COMMENT 'ID of this asset',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

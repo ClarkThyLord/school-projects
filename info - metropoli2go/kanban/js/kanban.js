@@ -1,5 +1,6 @@
 var GLOBALS = {
-  dad: undefined
+  dad: undefined, // Dragula instance
+  asset: undefined // Asset being handled
 };
 
 window.onload = function() {
@@ -102,6 +103,245 @@ function scroll_right() {
   }, 100);
 }
 
+
+/**
+ * Refresh content with given identifier.
+ * @param {String} identifier Identifier of content to be refreshed.
+ * @return {undefined} Returns nothing.
+ */
+function refresh(identifier) {
+  switch (identifier) {
+    case 'kanban':
+      break;
+    case 'users':
+      (async function() {
+        VUE_ELEMENTS.users.data = JSON.parse(await users_get()).data.dump || [];
+      })();
+
+      break;
+    case 'logs':
+      (async function() {
+        VUE_ELEMENTS.logs.data = JSON.parse(await logs_get()).data.dump || [];
+      })();
+
+      break;
+    default:
+      return;
+  }
+}
+
+// USER Functions
+// *****************************************************************************
+$('#user_modify').on('shown.bs.modal', function(e) {
+  $(this).find('form :input').each(function() {
+    $(this).val(GLOBALS.asset[this.name]);
+  });
+});
+
+/**
+ * Retrieve user(s) from users.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
+ * @return {undefined} Returns nothing.
+ */
+async function users_get(filter, options) {
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
+
+  return await $.get({
+    url: './server/api.php/users/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {}
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Add a user.
+ * @param {object} data Data to create user with; options: username, password and access.
+ * @return {undefined} Returns nothing.
+ */
+function users_add(data) {
+  $('#settings-users').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/users/add?debug=' + DEBUGGING.server,
+    data: {
+      data: {
+        username: data.username || 'Nuevo Usuario',
+        password: data.password || '',
+        access: data.access || 0
+      }
+    },
+    success: function(response) {
+      $('#settings-users').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.users.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Modify a user's data.
+ * @param {integer} id User's ID.
+ * @param {object} data Data to modify user with.
+ * @return {undefined} Returns nothing.
+ */
+function users_modify(id, data) {
+  $('#settings-users').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  var valid = [
+    'username',
+    'password',
+    'access'
+  ];
+  var valid_data = {};
+  $.each(data, function(key, value) {
+    if (value && valid.indexOf(key) !== -1) {
+      valid_data[key] = value;
+    }
+  });
+
+  $.post({
+    url: './server/api.php/users/modify?debug=' + DEBUGGING.server,
+    data: {
+      id: id,
+      data: data
+    },
+    success: function(response) {
+      $('#settings-users').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.users.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Remove a user from users.
+ * @param {integer} id User's ID.
+ * @return {undefined} Returns nothing.
+ */
+function users_remove(id) {
+  $('#settings-users').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/users/remove?debug=' + DEBUGGING.server,
+    data: {
+      id: id
+    },
+    success: function(response) {
+      $('#settings-users').waitMe('hide');
+
+      response = JSON.parse(response);
+
+      if (response.status === 'success') {
+        VUE_ELEMENTS.users.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+// LOG Functions
+// *****************************************************************************
+
+/**
+ * Retrieve log(s) from logs.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
+ * @return {undefined} Returns nothing.
+ */
+async function logs_get(filter, options) {
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
+
+  return await $.get({
+    url: './server/api.php/logs/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {}
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Clear the log of all logs.
+ * @return {undefined} Returns nothing.
+ */
+function logs_clear() {
+  $('#logs').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.all_logs.data = VUE_ELEMENTS.recent_logs.data = response.data.dump || [];
+
+        $('#logs').waitMe('hide');
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
 // VUE.js Code
 // *****************************************************************************
 var VUE_ELEMENTS = {};
@@ -112,7 +352,6 @@ window.onload = function() {
     template: '#table-component',
     props: {
       asset: String,
-      more: Boolean,
       modifiable: Boolean,
       removable: Boolean,
       sort_key: String,
@@ -248,8 +487,7 @@ window.onload = function() {
   VUE_ELEMENTS.users = new Vue({
     el: '#users',
     data: {
-      asset: 'users',
-      more: false,
+      asset: 'user',
       modifiable: true,
       removable: true,
       sort_key: 'ID.',
@@ -279,8 +517,7 @@ window.onload = function() {
   VUE_ELEMENTS.logs = new Vue({
     el: '#logs',
     data: {
-      asset: 'logs',
-      more: false,
+      asset: 'log',
       modifiable: false,
       removable: false,
       sort_key: 'Fecha y Hora',

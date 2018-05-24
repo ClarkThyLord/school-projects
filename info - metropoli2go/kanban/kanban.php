@@ -27,6 +27,16 @@
   <link rel="stylesheet" href="./css/libs/dragula.min.css">
 
   <link rel="stylesheet" href="./css/kanban.css">
+
+	<style>
+		.unselectable {
+			user-select: none;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -o-user-select: none;
+		}
+	</style>
 </head>
 
 <body>
@@ -53,7 +63,7 @@
 	    <div class="form-inline my-2 my-lg-0">
 	      <input class="form-control mr-sm-2" type="text" oninput="VUE_ELEMENTS.kanban.search_term = this.value;" placeholder="🔍 Buscar..." aria-label="🔍 Buscar...">
 				<div class="btn-group mr-sm-2" role="group">
-					<button onclick="" class="form-control btn btn-outline-secondary my-2 my-sm-0">↻ Refrescar</button>
+					<button onclick="refresh('kanban');" class="form-control btn btn-outline-secondary my-2 my-sm-0">↻ Refrescar</button>
 					<button onclick="" class="form-control btn btn-outline-secondary my-2 my-sm-0">⇱ Exportar</button>
 				</div>
 				<div class="btn-group mr-sm-2" role="group">
@@ -90,9 +100,6 @@
 						<span v-if="key === sort_key && val.order === 'des'">↑</span>
 						<span v-if="key === sort_key && val.order === 'asc'">↓</span>
 		      </th>
-		      <th v-if="more" class="unselectable">
-						Información
-		      </th>
 		      <th v-if="modifiable || removable" class="unselectable">
 						Acciónes
 		      </th>
@@ -101,13 +108,8 @@
 	    <tbody>
 	      <tr v-for="entry in filtered_data" v-on:click="select($event, entry);">
 	        <td v-for="(val, key) in columns">
-	          <span v-if="key === 'Activo' && entry[val.referencing] === '0'">🔴</span>
-	          <span v-else-if="key === 'Activo' && entry[val.referencing] === '1'">🔵</span>
-						<span v-else>{{ entry[val.referencing] }}</span>
+						<span> {{ entry[val.referencing] }} </span>
 	        </td>
-		      <th v-if="more" class="unselectable">
-						<a href="#" v-on:click="information($event, entry);">Ver Más</a>
-		      </th>
 					<td v-if="modifiable || removable">
 						<span v-if="modifiable" v-on:click="edit($event);" style="cursor: pointer;">✏️</span>
 						<span v-if="removable" v-on:click="remove($event);" style="cursor: pointer;">🗑️</span>

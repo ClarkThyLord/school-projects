@@ -1045,9 +1045,9 @@
 	          <span v-else-if="key === 'Activo' && entry[val.referencing] === '1'">🔵</span>
 						<span v-else>{{ entry[val.referencing] }}</span>
 	        </td>
-		      <th v-if="more" class="unselectable">
+		      <td v-if="more" class="unselectable">
 						<a href="#" v-on:click="information($event, entry);">Ver Más</a>
-		      </th>
+		      </td>
 					<td v-if="modifiable || removable">
 						<span v-if="modifiable" v-on:click="edit($event);" style="cursor: pointer;">✏️</span>
 						<span v-if="removable" v-on:click="remove($event);" style="cursor: pointer;">🗑️</span>
