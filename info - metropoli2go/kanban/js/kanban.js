@@ -4,21 +4,22 @@ var GLOBALS = {
 };
 
 window.onload = function() {
-  // // Setup Dragula.js
-  // var dad = dragula({
-  //   isContainer: function(el) {
-  //     return el.classList.contains("dragula-container");
-  //   }
-  // });
-  //
-  // dad.on("drop", function(el, target, source, sibling) {
-  //   $(el).attr("data-table-id", $(target).attr("data-table-id"));
-  //
-  //   modifyTask($(el).attr("data-task-id"), {
-  //     "table_id": $(target).attr("data-table-id")
-  //   });
-  // });
-  //
+
+  // Setup Dragula.js
+  var dad = dragula({
+    isContainer: function(el) {
+      return el.classList.contains("landmarks");
+    }
+  });
+
+  dad.on("drop", function(el, target, source, sibling) {
+    $(el).attr("data-table-id", $(target).attr("data-table-id"));
+
+    modifyTask($(el).attr("data-task-id"), {
+      "table_id": $(target).attr("data-table-id")
+    });
+  });
+
   // // Setup FileDrop.js
   // $("#task_file_dropzone").filedrop({
   //   fallback_id: "new_files",
@@ -205,9 +206,7 @@ function sections_add(data) {
     url: './server/api.php/sections/add?debug=' + DEBUGGING.server,
     data: {
       data: {
-        sectionname: data.sectionname || 'Nuevo Usuario',
-        password: data.password || '',
-        access: data.access || 0
+        name: data.name || 'Nueva Sección'
       }
     },
     success: function(response) {
@@ -289,6 +288,157 @@ function sections_remove(id) {
 
   $.post({
     url: './server/api.php/sections/remove?debug=' + DEBUGGING.server,
+    data: {
+      id: id
+    },
+    success: function(response) {
+      $('body').waitMe('hide');
+
+      response = JSON.parse(response);
+
+      if (response.status === 'success') {
+        VUE_ELEMENTS.kanban.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+// LANDMARK Functions
+// *****************************************************************************
+$('#landmark_modify').on('shown.bs.modal', function(e) {
+  $(this).find('form :input').each(function() {
+    $(this).val(GLOBALS.asset[this.name]);
+  });
+});
+
+/**
+ * Retrieve a landmark from landmarks.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
+ * @return {undefined} Returns nothing.
+ */
+async function landmarks_get(filter, options) {
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
+
+  return await $.get({
+    url: './server/api.php/landmarks/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {}
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Add a landmark.
+ * @param {object} data Data to create landmark with.
+ * @return {undefined} Returns nothing.
+ */
+function landmarks_add(data) {
+  $('body').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/landmarks/add?debug=' + DEBUGGING.server,
+    data: {
+      data: {
+        name: data.name || 'Nuevo Landmark'
+      }
+    },
+    success: function(response) {
+      $('body').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.kanban.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Modify a landmark's data.
+ * @param {integer} id landmark's ID.
+ * @param {object} data Data to modify landmark with.
+ * @return {undefined} Returns nothing.
+ */
+function landmarks_modify(id, data) {
+  $('body').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  var valid = [
+    'name'
+  ];
+  var valid_data = {};
+  $.each(data, function(key, value) {
+    if (value && valid.indexOf(key) !== -1) {
+      valid_data[key] = value;
+    }
+  });
+
+  $.post({
+    url: './server/api.php/landmarks/modify?debug=' + DEBUGGING.server,
+    data: {
+      id: id,
+      data: data
+    },
+    success: function(response) {
+      $('body').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.kanban.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Remove a landmark from landmarks.
+ * @param {integer} id landmark's ID.
+ * @return {undefined} Returns nothing.
+ */
+function landmarks_remove(id) {
+  $('body').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/landmarks/remove?debug=' + DEBUGGING.server,
     data: {
       id: id
     },
@@ -629,8 +779,6 @@ window.onload = function() {
         //   }
         // }
 
-        console.log(data);
-
         return data;
       }
     },
@@ -723,4 +871,6 @@ window.onload = function() {
       data: []
     }
   });
+
+  refresh('kanban');
 };

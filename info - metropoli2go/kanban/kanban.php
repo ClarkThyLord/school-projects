@@ -75,7 +75,7 @@
 	</nav>
 
 	<!-- KANBAN -->
-	<div class="kanban" id="kanban">
+	<div class="kanban-parent" id="kanban">
 		<kanban-component :search_term="search_term" :data="data"></kanban-component>
 	</div>
 
@@ -107,13 +107,13 @@
 		    </tr>
 	    </thead>
 	    <tbody>
-	      <tr v-for="entry in filtered_data" v-on:click="select($event, entry);">
+	      <tr v-for="entry in filtered_data" @click="select($event, entry);">
 	        <td v-for="(val, key) in columns">
 						<span> {{ entry[val.referencing] }} </span>
 	        </td>
 					<td v-if="modifiable || removable">
-						<span v-if="modifiable" v-on:click="edit($event);" style="cursor: pointer;">✏️</span>
-						<span v-if="removable" v-on:click="remove($event);" style="cursor: pointer;">🗑️</span>
+						<span v-if="modifiable" @click="edit($event);" style="cursor: pointer;">✏️</span>
+						<span v-if="removable" @click="remove($event);" style="cursor: pointer;">🗑️</span>
 					</td>
 	      </tr>
   		</tbody>
@@ -122,14 +122,16 @@
 
 
 	<script type="text/x-template" id="kanban-component">
-		<div>
-			<div v-for="section in filtered_data" class="section">
-				<div>
-					<span> {{ section.info.name | capitalize }} </span>
-					<input type="button" value="+ Agregar Landmark" />
+		<div class="kanban">
+			<div v-for="section in filtered_data" @click="select($event, section);" class="section shadow-sm">
+				<div class="header border-bottom">
+					<button onclick="$('#landmark_modify').modal('show');" class="name btn btn-link"> {{ section.info.name | capitalize }} </button> <br />
+					<input type="button" onclick="$('#landmark_add').modal('show');" value="+ Agregar Landmark" class="btn btn-primar" />
 				</div>
-				<div v-for="landmark in section.data" class="landmark">
-					<span> {{ landmark.name | capitalize }} </span>
+				<div class="landmarks border">
+					<div v-for="landmark in section.data" @click="select($event, landmark);" class="landmark">
+						<span> {{ landmark.name | capitalize }} </span>
+					</div>
 				</div>
 			</div>
 		</div>

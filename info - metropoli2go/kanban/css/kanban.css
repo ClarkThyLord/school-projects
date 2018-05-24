@@ -1,140 +1,65 @@
-/* Nav classes */
+.kanban-parent {}
 
-.nav {
-  /* Effects */
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px var(--shadow-color);
-}
-
-.nav .menu {
-  /* Content */
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  background-color: var(--secondary);
-}
-
-.nav .menu .title {
-  /* Content */
-  float: left;
-  /* Font */
-  font-size: 24px;
-}
-
-.nav .menu .item {
-  /* Content */
-  right: 0;
-  padding: 5px;
-  border-radius: 10px;
-  /* Font */
-  text-align: right;
-}
-
-.nav .toolbar {
-  /* Content */
-  border: solid var(--secondary);
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  /* box-shadow: 0px 0px 5px var(--shadow-color); */
-  /* Font */
-  text-align: center;
-  font-size: 20px;
-}
-
-.nav .toolbar .tool {
-  /* Content */
-  margin: 3px;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-/* Workspace classes */
-
-.workspace {}
-
-.workspace .prev {
-  /* Content */
+.kanban-parent .prev {
   left: 0;
   border-radius: 3px 0 0 3px;
 }
 
-.workspace .next {
-  /* Content */
+.kanban-parent .next {
   right: 0;
   border-radius: 0 3px 3px 0;
 }
 
-.workspace .prev, .workspace .next {
-  /* Content */
+.kanban-parent .prev, .kanban-parent .next {
   margin: 2px;
   padding: 10px;
   position: absolute;
   z-index: 10;
   top: 50%;
-  /* Font */
   font-size: 18px;
   font-weight: bold;
   text-align: center;
 }
 
-.workspace .kanban {
-  /* Content */
+.kanban-parent .kanban {
   display: flex;
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-.workspace .kanban .table {
-  /* Content */
-  margin: 15px;
-  padding: 5px;
-  min-width: 200px;
-  width: 250px;
-  /* Effects */
+.kanban-parent .kanban .section {
+  margin: 5px;
+  padding: 3px;
+  width: 275px;
+  min-width: 240px;
   border-radius: 10px;
-  border: solid 2px var(--secondary);
-  box-shadow: 0px 0px 10px var(--shadow-color);
+  border: solid 2px black;
 }
 
-.workspace .kanban .table .header {
-  /* Content */
+.kanban-parent .kanban .section .header {
+  margin-bottom: 10px;
   padding: 5px;
-  /* Font */
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  /* Effects */
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px var(--shadow-color);
 }
 
-.workspace .kanban .table .header .name {
+.kanban-parent .kanban .header .name {
   padding: 3px;
   border-radius: 5px;
 }
 
-.workspace .kanban .table .header input {
-  padding: 5px;
-}
-
-.workspace .kanban .table .header .item {
-  margin: 5px;
-  padding: 3px;
-  border-radius: 5px;
-}
-
-.workspace .kanban .table .dragula-container {
+.kanban-parent .kanban .landmarks {
+  margin: 10px;
   min-height: 100px;
 }
 
-.workspace .kanban .table .dragula-container .item {
-  /* Content */
+.kanban-parent .kanban .landmarks .landmark {
   margin: 10px;
   padding: 5px;
   height: 100px;
   border-radius: 5px;
   border: solid 2px var(--secondary);
-  /* Font */
   overflow: hidden;
   text-align: center;
 }

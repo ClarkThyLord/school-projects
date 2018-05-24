@@ -54,7 +54,7 @@
 			<!-- FOOTER -->
       <div class="modal-footer">
         <button type="button" onclick="$('#section_add').find('form').first().trigger('reset');" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-				<button type="button" onclick="$('#section_remove').model('show');" class="btn btn-danger">Eliminar</button>
+				<button type="button" onclick="$('#section_remove').modal('show');" class="btn btn-danger">Eliminar</button>
         <button type="button" onclick="var data = {}; $('#section_modify form :input').each(function() { data[this.name] = $(this).val(); }); sections_modify(GLOBALS.asset.id, data); $('#section_modify').modal('hide').find('form').trigger('reset');" class="btn btn-primary">Modificar</button>
       </div>
     </div>

@@ -80,7 +80,7 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'landmark creado', 'landmarks', "{$insert_id}");
 
-			landmark_get();
+			kanban_get();
 
 			response_send(true, 'landmark agregado exitosamente');
     } else {
@@ -135,7 +135,7 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'landmark modificado', 'landmarks', "{$landmark_id}");
 
-			landmark_get();
+			kanban_get();
 
 			response_send(true, 'landmark modificado con éxito');
 		} else {
@@ -168,7 +168,7 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'landmark eliminado', 'landmarks', "{$landmark_id}");
 
-			landmark_get();
+			kanban_get();
 
 			response_send(true, 'landmark eliminado con éxito');
     } else {

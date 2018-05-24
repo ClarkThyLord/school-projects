@@ -80,7 +80,7 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'sección creada', 'sections', "{$insert_id}");
 
-			section_get();
+			kanban_get();
 
 			response_send(true, 'sección agregado exitosamente');
     } else {
@@ -127,7 +127,7 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'sección modificada', 'sections', "{$section_id}");
 
-			section_get();
+			kanban_get();
 
 			response_send(true, 'sección modificada con éxito');
 		} else {
@@ -160,7 +160,7 @@
 			// LOG
 			qlog($_SESSION['user']['id'], 'sección eliminada', 'sections', "{$section_id}");
 
-			section_get();
+			kanban_get();
 
 			response_send(true, 'sección eliminada con éxito');
     } else {
