@@ -123,14 +123,14 @@
 
 	<script type="text/x-template" id="kanban-component">
 		<div class="kanban">
-			<div v-for="section in filtered_data" @click="select($event, section);" class="section shadow-sm">
+			<div v-for="section in filtered_data" @click="GLOBALS.section = section;" class="section shadow-sm">
 				<div class="header border-bottom">
 					<button onclick="$('#section_modify').modal('show');" class="name btn btn-link"> {{ section.name | capitalize }} </button> <br />
 					<input type="button" onclick="$('#landmark_add').modal('show');" value="+ Agregar Landmark" class="btn btn-primar" />
 				</div>
 				<div class="landmarks border">
-					<div v-for="landmark in section.data" @click="select($event, landmark);" class="landmark">
-						<span> {{ landmark.name | capitalize }} </span>
+					<div v-for="landmark in section.data"  onclick="$('#landmark_modify').modal('show');" @click="GLOBALS.landmark = landmark;" class="landmark shadow">
+						<button class="name btn btn-link"> {{ landmark.name | capitalize }} </button>
 					</div>
 				</div>
 			</div>

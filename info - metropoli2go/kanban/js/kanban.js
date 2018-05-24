@@ -1,6 +1,8 @@
 var GLOBALS = {
   dad: undefined, // Dragula instance
-  asset: undefined // Asset being handled
+  asset: undefined, // Asset being handled
+  section: undefined, // Section being handled
+  landmark: undefined // Landmark being handled
 };
 
 window.onload = function() {
@@ -160,7 +162,7 @@ async function kanban_get() {
 // *****************************************************************************
 $('#section_modify').on('shown.bs.modal', function(e) {
   $(this).find('form :input').each(function() {
-    $(this).val(GLOBALS.asset[this.name]);
+    $(this).val(GLOBALS.section[this.name]);
   });
 });
 
@@ -311,7 +313,7 @@ function sections_remove(id) {
 // *****************************************************************************
 $('#landmark_modify').on('shown.bs.modal', function(e) {
   $(this).find('form :input').each(function() {
-    $(this).val(GLOBALS.asset[this.name]);
+    $(this).val(GLOBALS.landmark[this.name]);
   });
 });
 
@@ -357,6 +359,7 @@ function landmarks_add(data) {
     url: './server/api.php/landmarks/add?debug=' + DEBUGGING.server,
     data: {
       data: {
+        section: data.section || 0,
         name: data.name || 'Nuevo Landmark'
       }
     },
@@ -392,7 +395,12 @@ function landmarks_modify(id, data) {
   });
 
   var valid = [
-    'name'
+    'name',
+    'classification',
+    'latitude',
+    'longitude',
+    'summary',
+    'urls'
   ];
   var valid_data = {};
   $.each(data, function(key, value) {
@@ -739,9 +747,6 @@ window.onload = function() {
     methods: {
       sort_by: function(key) {
         this.search_term = key;
-      },
-      select: function(event, asset) {
-        GLOBALS.asset = asset;
       },
       information: function(event, asset) {
         setup_form(this.asset, asset.data || {});

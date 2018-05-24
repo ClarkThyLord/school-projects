@@ -23,7 +23,7 @@
 			<!-- FOOTER -->
       <div class="modal-footer">
         <button type="button" onclick="$('#landmark_add').find('form').first().trigger('reset');" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" onclick="var data = {}; $('#landmark_add form :input').each(function() { data[this.name] = $(this).val(); }); landmarks_add(data); $('#landmark_add').modal('hide').find('form').trigger('reset');" class="btn btn-primary">Crear</button>
+        <button type="button" onclick="var data = {section: GLOBALS.section.id}; $('#landmark_add form :input').each(function() { data[this.name] = $(this).val(); }); landmarks_add(data); $('#landmark_add').modal('hide').find('form').trigger('reset');" class="btn btn-primary">Crear</button>
       </div>
     </div>
   </div>
@@ -55,7 +55,7 @@
       <div class="modal-footer">
         <button type="button" onclick="$('#landmark_add').find('form').first().trigger('reset');" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 				<button type="button" onclick="$('#landmark_remove').modal('show');" class="btn btn-danger">Eliminar</button>
-        <button type="button" onclick="var data = {}; $('#landmark_modify form :input').each(function() { data[this.name] = $(this).val(); }); landmarks_modify(GLOBALS.asset.id, data); $('#landmark_modify').modal('hide').find('form').trigger('reset');" class="btn btn-primary">Modificar</button>
+        <button type="button" onclick="var data = {}; $('#landmark_modify form :input').each(function() { data[this.name] = $(this).val(); }); landmarks_modify(GLOBALS.landmark.id, data); $('#landmark_modify').modal('hide').find('form').trigger('reset');" class="btn btn-primary">Modificar</button>
       </div>
     </div>
   </div>
@@ -86,7 +86,7 @@
 			<!-- FOOTER -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-				<button type="button" onclick="landmarks_remove(GLOBALS.asset.id); $('#landmark_remove').modal('hide'); $('#section_modify').modal('hide').trigger('reset');" class="btn btn-danger">Confirmar</button>
+				<button type="button" onclick="landmarks_remove(GLOBALS.landmark.id); $('#landmark_remove').modal('hide'); $('#landmark_modify').modal('hide').trigger('reset');" class="btn btn-danger">Confirmar</button>
       </div>
     </div>
   </div>

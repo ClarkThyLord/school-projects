@@ -50,7 +50,7 @@
 	function landmark_add($data=array()) {
     access_check(1);
 
-		$data = array_merge(array('name' => 'Nuevo Landmark', 'classification' => '', 'latitude' => '', 'longitude' => '', 'summary' => '', 'urls' => ''), $data);
+		$data = array_merge(array('section' => '0', 'name' => 'Nuevo Landmark', 'classification' => '', 'latitude' => '', 'longitude' => '', 'summary' => '', 'urls' => ''), $data);
 
 		foreach ($data as $key => $value) {
 			if (gettype($value) === 'string') {
@@ -58,7 +58,7 @@
 			}
 		}
 
-    $sql = "INSERT INTO `landmarks` (`id`, `created`, `section`, `name`, `classification`, `latitude`, `longitude`, `summary`, `urls`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["section"]}', '{$data["name"]}', '{$data["classification"]}', {$data["latitude"]}, {$data["longitude"]}, {$data["summary"]}, {$data["urls"]})";
+    $sql = "INSERT INTO `landmarks` (`id`, `created`, `section`, `name`, `classification`, `latitude`, `longitude`, `summary`, `urls`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["section"]}', '{$data["name"]}', '{$data["classification"]}', '{$data["latitude"]}', '{$data["longitude"]}', '{$data["summary"]}', '{$data["urls"]}')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
