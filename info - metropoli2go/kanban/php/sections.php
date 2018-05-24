@@ -86,7 +86,7 @@
 			<!-- FOOTER -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-				<button type="button" onclick="sections_remove(GLOBALS.asset.id); $('#section_remove').modal('hide');" class="btn btn-danger">Confirmar</button>
+				<button type="button" onclick="sections_remove(GLOBALS.asset.id); $('#section_remove').modal('hide'); $('#section_modify').modal('hide').trigger('reset');" class="btn btn-danger">Confirmar</button>
       </div>
     </div>
   </div>

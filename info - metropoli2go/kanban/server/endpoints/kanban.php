@@ -5,7 +5,7 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function kanban_get() {
-		$sql = "SELECT * FROM `sections` WHERE 1 ORDER BY `id` DESC";
+		$sql = "SELECT * FROM `sections` WHERE 1 ORDER BY `id` ASC";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
@@ -18,12 +18,9 @@
     $sections = $GLOBALS['conn']->query($sql);
     if ($sections->num_rows > 0) {
       while($section = $sections->fetch_assoc()) {
-	      $section_index = array_push($GLOBALS['response']['data']['dump'], array(
-					'info' => $section,
-					'data' => array()
-				)) - 1;
+	      $section_index = array_push($GLOBALS['response']['data']['dump'], array_merge($section, array('data' => array()))) - 1;
 
-				$sql = "SELECT * FROM `landmarks` WHERE 1 ORDER BY `id` DESC";
+				$sql = "SELECT * FROM `landmarks` WHERE `section`={$section["id"]} ORDER BY `id` ASC";
 
 				// FOR DEBUGGING
 				if (is_debugging()) {
