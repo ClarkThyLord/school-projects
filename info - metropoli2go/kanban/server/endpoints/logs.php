@@ -9,7 +9,7 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function qlog($responsible='desconocido', $action='desconocido', $asset_type='', $asset_id='') {
-		log_add(array('responsible' => $responsible, 'action' => $action, 'asset_type' => $asset_type, 'asset_id' => $asset_id));
+		log_add(array('responsible' => $responsible, 'action' => $action, 'asset type' => $asset_type, 'asset' => $asset_id));
 	}
 
 

@@ -537,7 +537,7 @@ window.onload = function() {
         },
         'Identificador': {
           order: '',
-          referencing: 'asset_id'
+          referencing: 'asset'
         }
       },
       data: []
