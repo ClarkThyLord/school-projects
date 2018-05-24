@@ -35,9 +35,9 @@
         array_push($GLOBALS['response']['data']['dump'], $section);
       }
 
-			response_status(true, 'se encontró sección(s) válida(s)');
+			response_status(true, 'se encontró sección(es) válida(s)');
     } else {
-			response_status(true, 'no se encontró sección(s) válida(s)');
+			response_status(true, 'no se encontró sección(es) válida(s)');
     }
 	}
 
@@ -58,7 +58,7 @@
 			}
 		}
 
-    $sql = "INSERT INTO `sections` (`id`, `name`) VALUES (NULL, '{$name}')";
+    $sql = "INSERT INTO `sections` (`id`, `created`, `name`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["name"]}')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
@@ -78,7 +78,7 @@
       $GLOBALS['response']['data']['section'] = $GLOBALS['conn']->query($sql)->fetch_assoc();
 
 			// LOG
-			qlog($_SESSION['user']['id'], 'sección creado', 'sections', "{$insert_id}");
+			qlog($_SESSION['user']['id'], 'sección creada', 'sections', "{$insert_id}");
 
 			section_get();
 
@@ -98,10 +98,10 @@
 	function section_modify($section_id=0, $data=array()) {
 		access_check(1);
 		if ($section_id <= 0) {
-			response_send(false, 'la identificación del sección no fue dada');
+			response_send(false, 'la identificación de la sección no fue dada');
 		}
 		if (sizeof($data) === 0) {
-			response_send(false, 'datos, para modificar el sección con, no se dio');
+			response_send(false, 'datos, para modificar la sección con, no se dio');
 		}
 
 		$data_sql = array();
@@ -125,13 +125,13 @@
 
 		if ($GLOBALS["conn"]->query($sql) === true) {
 			// LOG
-			qlog($_SESSION['user']['id'], 'sección modificado', 'sections', "{$section_id}");
+			qlog($_SESSION['user']['id'], 'sección modificada', 'sections', "{$section_id}");
 
 			section_get();
 
-			response_send(true, 'sección modificado con éxito');
+			response_send(true, 'sección modificada con éxito');
 		} else {
-			response_send(false, 'sección modificado sin éxito');
+			response_send(false, 'sección modificada sin éxito');
 		}
 	}
 
@@ -158,13 +158,13 @@
       $GLOBALS['response']['data']['id'] = $section_id;
 
 			// LOG
-			qlog($_SESSION['user']['id'], 'sección eliminado', 'sections', "{$section_id}");
+			qlog($_SESSION['user']['id'], 'sección eliminada', 'sections', "{$section_id}");
 
 			section_get();
 
-			response_send(true, 'sección eliminado con éxito');
+			response_send(true, 'sección eliminada con éxito');
     } else {
-			response_send(false, 'sección eliminado sin éxito');
+			response_send(false, 'sección eliminada sin éxito');
     }
 	}
 

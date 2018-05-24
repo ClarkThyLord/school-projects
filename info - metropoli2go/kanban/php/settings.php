@@ -174,7 +174,7 @@
 			<!-- BODY -->
 			<div class="modal-body">
 				<p class="font-italic">
-					¿Seguro que quieres eliminar usuario?<br />
+					¿Seguro que quieres eliminar <b>usuario</b>?<br />
 					<span class="text-danger font-weight-bold">¡No es reversible!</span>
 				</p>
 			</div>
@@ -206,7 +206,7 @@
 			<!-- BODY -->
 			<div class="modal-body">
 				<p class="font-italic">
-					¿Seguro que quieres borrar todos los registros?<br />
+					¿Seguro que quieres borrar todos los <b>registros</b>?<br />
 					<span class="text-danger font-weight-bold">¡No es reversible!</span>
 				</p>
 			</div>

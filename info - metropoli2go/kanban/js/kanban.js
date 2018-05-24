@@ -112,6 +112,10 @@ function scroll_right() {
 function refresh(identifier) {
   switch (identifier) {
     case 'kanban':
+      (async function() {
+        VUE_ELEMENTS.kanban.data = JSON.parse(await kanban_get()).data.dump || [];
+      })();
+
       break;
     case 'users':
       (async function() {
@@ -128,6 +132,180 @@ function refresh(identifier) {
     default:
       return;
   }
+}
+
+// KANBAN Functions
+// *****************************************************************************
+
+/**
+ * Retrieve kanban.
+ * @return {undefined} Returns nothing.
+ */
+async function kanban_get() {
+  return await $.get({
+    url: './server/api.php/kanban/get?debug=' + DEBUGGING.server,
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {}
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+// SECTION Functions
+// *****************************************************************************
+$('#section_modify').on('shown.bs.modal', function(e) {
+  $(this).find('form :input').each(function() {
+    $(this).val(GLOBALS.asset[this.name]);
+  });
+});
+
+/**
+ * Retrieve a section from sections.
+ * @param {Object} filter Filter used to retrieve with.
+ * @param {Object} options Options used to retrieve with.
+ * @return {undefined} Returns nothing.
+ */
+async function sections_get(filter, options) {
+  filter = typeof filter === 'object' ? filter : {};
+  options = typeof options === 'object' ? options : {};
+
+  return await $.get({
+    url: './server/api.php/sections/get?debug=' + DEBUGGING.server + '&filter=' + JSON.stringify(filter) + '&options=' + JSON.stringify(options),
+    success: function(response) {
+      response = JSON.parse(response);
+      if (response.status === 'success') {}
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Add a section.
+ * @param {object} data Data to create section with.
+ * @return {undefined} Returns nothing.
+ */
+function sections_add(data) {
+  $('body').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/sections/add?debug=' + DEBUGGING.server,
+    data: {
+      data: {
+        sectionname: data.sectionname || 'Nuevo Usuario',
+        password: data.password || '',
+        access: data.access || 0
+      }
+    },
+    success: function(response) {
+      $('body').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.kanban.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Modify a section's data.
+ * @param {integer} id section's ID.
+ * @param {object} data Data to modify section with.
+ * @return {undefined} Returns nothing.
+ */
+function sections_modify(id, data) {
+  $('body').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  var valid = [
+    'name'
+  ];
+  var valid_data = {};
+  $.each(data, function(key, value) {
+    if (value && valid.indexOf(key) !== -1) {
+      valid_data[key] = value;
+    }
+  });
+
+  $.post({
+    url: './server/api.php/sections/modify?debug=' + DEBUGGING.server,
+    data: {
+      id: id,
+      data: data
+    },
+    success: function(response) {
+      $('body').waitMe('hide');
+
+      response = JSON.parse(response);
+      if (response.status === 'success') {
+        VUE_ELEMENTS.kanban.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
+}
+
+
+/**
+ * Remove a section from sections.
+ * @param {integer} id section's ID.
+ * @return {undefined} Returns nothing.
+ */
+function sections_remove(id) {
+  $('body').waitMe({
+    waitTime: -1,
+    effect: 'stretch',
+    text: 'Cargando...',
+    bg: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(0, 0, 0)',
+  });
+
+  $.post({
+    url: './server/api.php/sections/remove?debug=' + DEBUGGING.server,
+    data: {
+      id: id
+    },
+    success: function(response) {
+      $('body').waitMe('hide');
+
+      response = JSON.parse(response);
+
+      if (response.status === 'success') {
+        VUE_ELEMENTS.kanban.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    }
+  });
 }
 
 // USER Functions
@@ -164,7 +342,7 @@ async function users_get(filter, options) {
 
 /**
  * Add a user.
- * @param {object} data Data to create user with; options: username, password and access.
+ * @param {object} data Data to create user with.
  * @return {undefined} Returns nothing.
  */
 function users_add(data) {
@@ -439,17 +617,19 @@ window.onload = function() {
       filtered_data: function() {
         var data = this.data;
 
-        if (this.search_term && this.data.length > 0) {
-          // Search for valid data
-          if (this.search_term) {
-            var search_term = this.search_term;
-            data = data.filter(function(entry) {
-              return Object.keys(row).some(function(key) {
-                return String(row[key]).toLowerCase().indexOf(search_term) > -1;
-              });
-            });
-          }
-        }
+        // if (this.search_term && this.data.length > 0) {
+        //   // Search for valid data
+        //   if (this.search_term) {
+        //     var search_term = this.search_term;
+        //     data = data.filter(function(entry) {
+        //       return Object.keys(row).some(function(key) {
+        //         return String(row[key]).toLowerCase().indexOf(search_term) > -1;
+        //       });
+        //     });
+        //   }
+        // }
+
+        console.log(data);
 
         return data;
       }

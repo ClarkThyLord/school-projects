@@ -45,7 +45,7 @@
 	<?php include "./php/sections.php" ?>
 	<?php include "./php/landmarks.php" ?>
 
-	<!-- Navigation Menu -->
+	<!-- NAVIGATION MENU -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a href="#" class="navbar-brand"><img src="./assets/images/m2go_full.png" style="max-width: 135px;"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false">
@@ -74,6 +74,7 @@
 	  </div>
 	</nav>
 
+	<!-- KANBAN -->
 	<div class="kanban" id="kanban">
 		<kanban-component :search_term="search_term" :data="data"></kanban-component>
 	</div>
@@ -121,13 +122,15 @@
 
 
 	<script type="text/x-template" id="kanban-component">
-		<div v-for="entry in filtered_data" class="section">
-			<div>
-				<span> {{ entry.name | capitalize }} </span>
-				<input type="button" value="+ Agregar Landmark" />
-			</div>
-			<div v-for="landmark in entry.landmarks" class="landmark">
-				<span> {{ landmark.name | capitalize }} </span>
+		<div>
+			<div v-for="section in filtered_data" class="section">
+				<div>
+					<span> {{ section.info.name | capitalize }} </span>
+					<input type="button" value="+ Agregar Landmark" />
+				</div>
+				<div v-for="landmark in section.data" class="landmark">
+					<span> {{ landmark.name | capitalize }} </span>
+				</div>
 			</div>
 		</div>
 	</script>

@@ -9,6 +9,7 @@
 // users      | create    | POST      | 2^
 // users      | remove    | POST      | self, 2^
 // users      | modify    | POST      | self, 2^
+// kanban     |           | GET       | none
 // sections   |           | GET       | none
 // sections   | create    | POST      | 1^
 // sections   | remove    | POST      | 1^
@@ -81,8 +82,9 @@
 
 	// Common Endpoints
 	// ***************************************************************************
-	include_once './endpoints/logs.php';
+	include_once './endpoints/kanban.php';
 	include_once './endpoints/files.php';
+	include_once './endpoints/logs.php';
 
 	// Common Functions
 	// ***************************************************************************
@@ -165,6 +167,12 @@
 
 	if (count($routes) <= 0) {
 		response_status(false, 'no valid endpoint given');
+	} else if ($routes[0] === 'kanban') {
+		if (count($routes) === 2){
+			if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+				kanban_get();
+			}
+		}
 	} else if ($routes[0] === 'sections') {
 		include_once './endpoints/sections.php';
 

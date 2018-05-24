@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 24, 2018 at 01:42 AM
+-- Generation Time: May 24, 2018 at 02:27 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -33,11 +33,11 @@ CREATE TABLE IF NOT EXISTS `files` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `task` int(11) NOT NULL COMMENT 'ID of Task from `task` to which this belongs',
-  `visual name` text NOT NULL,
-  `unique name` text NOT NULL,
-  `url` text NOT NULL,
+  `visual name` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `unique name` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `url` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -50,14 +50,14 @@ CREATE TABLE IF NOT EXISTS `landmarks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `section` int(11) NOT NULL COMMENT 'ID of Section from `sections` to which this belongs',
-  `name` text NOT NULL,
-  `classification` text,
+  `name` text COLLATE utf8_unicode_ci NOT NULL,
+  `classification` text COLLATE utf8_unicode_ci,
   `latitude` float DEFAULT NULL,
   `longitude` float DEFAULT NULL,
-  `summary` text,
-  `urls` text,
+  `summary` text COLLATE utf8_unicode_ci,
+  `urls` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -69,12 +69,12 @@ DROP TABLE IF EXISTS `logs`;
 CREATE TABLE IF NOT EXISTS `logs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `responsible` text NOT NULL COMMENT 'ID of user from `users` to which this belongs',
-  `action` text NOT NULL,
-  `asset type` text NOT NULL,
-  `asset` text NOT NULL COMMENT 'ID of this asset',
+  `responsible` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'ID of user from `users` to which this belongs',
+  `action` text COLLATE utf8_unicode_ci NOT NULL,
+  `asset type` text COLLATE utf8_unicode_ci NOT NULL,
+  `asset` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'ID of this asset',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -85,9 +85,10 @@ CREATE TABLE IF NOT EXISTS `logs` (
 DROP TABLE IF EXISTS `sections`;
 CREATE TABLE IF NOT EXISTS `sections` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` text NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `name` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -99,11 +100,11 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `username` text NOT NULL,
-  `password` text NOT NULL,
+  `username` text COLLATE utf8_unicode_ci NOT NULL,
+  `password` text COLLATE utf8_unicode_ci NOT NULL,
   `access` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
