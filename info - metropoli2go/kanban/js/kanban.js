@@ -6,22 +6,6 @@ var GLOBALS = {
 };
 
 window.onload = function() {
-
-  // Setup Dragula.js
-  var dad = dragula({
-    isContainer: function(el) {
-      return el.classList.contains("landmarks");
-    }
-  });
-
-  dad.on("drop", function(el, target, source, sibling) {
-    $(el).attr("data-table-id", $(target).attr("data-table-id"));
-
-    modifyTask($(el).attr("data-task-id"), {
-      "table_id": $(target).attr("data-table-id")
-    });
-  });
-
   // // Setup FileDrop.js
   // $("#task_file_dropzone").filedrop({
   //   fallback_id: "new_files",
@@ -395,6 +379,7 @@ function landmarks_modify(id, data) {
   });
 
   var valid = [
+    'section',
     'name',
     'classification',
     'latitude',
@@ -878,4 +863,18 @@ window.onload = function() {
   });
 
   refresh('kanban');
+
+  // Setup Dragula.js
+  GLOBALS.dad = dragula({
+    isContainer: function(el) {
+      return el.classList.contains("landmarks");
+    }
+  });
+
+  GLOBALS.dad.on("drop", function(el, target, source, sibling) {
+    console.log(el);
+    landmarks_modify($(el).data('landmark-id'), {
+      section: $(target).parent().data('section-id')
+    });
+  });
 };

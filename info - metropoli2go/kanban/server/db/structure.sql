@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 24, 2018 at 02:27 AM
+-- Generation Time: May 24, 2018 at 05:36 AM
 -- Server version: 5.7.19
 -- PHP Version: 5.6.31
 
@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS `landmarks` (
   `section` int(11) NOT NULL COMMENT 'ID of Section from `sections` to which this belongs',
   `name` text COLLATE utf8_unicode_ci NOT NULL,
   `classification` text COLLATE utf8_unicode_ci,
-  `latitude` float DEFAULT NULL,
-  `longitude` float DEFAULT NULL,
+  `latitude` text COLLATE utf8_unicode_ci,
+  `longitude` text COLLATE utf8_unicode_ci,
   `summary` text COLLATE utf8_unicode_ci,
   `urls` text COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)

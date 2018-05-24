@@ -98,10 +98,10 @@
 	function landmark_modify($landmark_id=0, $data=array()) {
 		access_check(1);
 		if ($landmark_id <= 0) {
-			response_send(false, 'la identificación del landmark no fue dada');
+			response_send(false, 'la identificación de la landmark no fue dada');
 		}
 		if (sizeof($data) === 0) {
-			response_send(false, 'datos, para modificar el landmark con, no se dio');
+			response_send(false, 'datos, para modificar la landmark con, no se dio');
 		}
 
 		if (count($_FILES) > 0) {
@@ -113,7 +113,7 @@
     }
 
 		$data_sql = array();
-		$valid_keys = array('name', 'classification', 'latitude', 'longitude', 'summary', 'urls');
+		$valid_keys = array('section', 'name', 'classification', 'latitude', 'longitude', 'summary', 'urls');
 		foreach ($data as $key => $value) {
 			if (!in_array($key, $valid_keys)) { continue; } else {
 				if (gettype($value) === 'array') {
@@ -124,7 +124,7 @@
 			}
 		}
 
-		$sql = "UPDATE `landmarks` SET " . join(', ', $data_sql) . " WHERE `id` = {$landmark_id}";
+		$sql = "UPDATE `landmarks` SET " . join(', ', $data_sql) . " WHERE `id`='{$landmark_id}'";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
@@ -133,13 +133,13 @@
 
 		if ($GLOBALS["conn"]->query($sql) === true) {
 			// LOG
-			qlog($_SESSION['user']['id'], 'landmark modificado', 'landmarks', "{$landmark_id}");
+			qlog($_SESSION['user']['id'], 'landmark modificada', 'landmarks', "{$landmark_id}");
 
 			kanban_get();
 
-			response_send(true, 'landmark modificado con éxito');
+			response_send(true, 'landmark modificada con éxito');
 		} else {
-			response_send(false, 'landmark modificado sin éxito');
+			response_send(false, 'landmark modificada sin éxito');
 		}
 	}
 
