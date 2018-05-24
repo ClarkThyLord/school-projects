@@ -129,25 +129,25 @@
 	// 			}
 	// 		}
 	// 	}
-
-		$sql = "UPDATE `files` SET " . join(', ', $data_sql) . " WHERE `id` = {$file_id}";
-
-		// FOR DEBUGGING
-		if (is_debugging()) {
-			array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
-		}
-
-		if ($GLOBALS["conn"]->query($sql) === true) {
-			// LOG
-			qlog($_SESSION['user']['id'], 'archivo modificado', 'files', "{$file_id}");
-
-			file_get();
-
-			response_send(true, 'archivo modificado con éxito');
-		} else {
-			response_send(false, 'archivo modificado sin éxito');
-		}
-	}
+	// 
+	// 	$sql = "UPDATE `files` SET " . join(', ', $data_sql) . " WHERE `id` = {$file_id}";
+	//
+	// 	// FOR DEBUGGING
+	// 	if (is_debugging()) {
+	// 		array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+	// 	}
+	//
+	// 	if ($GLOBALS["conn"]->query($sql) === true) {
+	// 		// LOG
+	// 		qlog($_SESSION['user']['id'], 'archivo modificado', 'files', "{$file_id}");
+	//
+	// 		file_get();
+	//
+	// 		response_send(true, 'archivo modificado con éxito');
+	// 	} else {
+	// 		response_send(false, 'archivo modificado sin éxito');
+	// 	}
+	// }
 
 
 	/**

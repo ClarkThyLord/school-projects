@@ -12,6 +12,7 @@
 			<!-- BODY -->
       <div class="modal-body">
 				<div class="row">
+					<!-- TABS -->
 					<div class="list-group" role="tablist col-3">
 					  <a class="list-group-item list-group-item-action active" data-toggle="list" href="#settings-options" role="tab">Opciones</a>
 					  <a class="list-group-item list-group-item-action" data-toggle="list" href="#settings-users" role="tab">Usuarios</a>
@@ -20,13 +21,13 @@
 
 					<div class="tab-content col-9">
 						<!-- OPTIONS -->
-					  <div class="tab-pane active" id="settings-options" role="tabpanel">
+						<div class="tab-pane active" id="settings-options" role="tabpanel">
 							<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-				        <h2>Opciones</h2>
+						    <h2>Opciones</h2>
 							</div>
 
 							<form action="#" onsubmit="return false;">
-			          <div class="form-group">
+						    <div class="form-group">
 									<label class="col-form-label">Autorefrescar:</label>
 									<div class="custom-switch custom-switch-label-onoff">
 									  <input type="checkbox" checked="true" class="custom-switch-input" name="autorefresh" id="autorefresh">
@@ -37,37 +38,37 @@
 						</div>
 
 						<!-- USERS -->
-					  <div class="tab-pane" id="settings-users" role="tabpanel">
+						<div class="tab-pane" id="settings-users" role="tabpanel">
 							<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-				        <h2>Usuarios</h2>
+						    <h2>Usuarios</h2>
 								<div class="btn-toolbar">
-				          <div class="btn-group">
+						      <div class="btn-group">
 										<input type="text" oninput="VUE_ELEMENTS.users.search_term = this.value;" placeholder="🔍 Buscar..." class="form-control btn-sm" />
-				            <button onclick="" class="form-control btn btn-sm btn-outline-secondary">↻ Refrescar</button>
-				          </div>
-				        </div>
+						        <button onclick="" class="form-control btn btn-sm btn-outline-secondary">↻ Refrescar</button>
+						      </div>
+						    </div>
 							</div>
 
-			        <div class="table-responsive" id="users">
+						  <div class="table-responsive" id="users">
 								<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
-			        </div>
+						  </div>
 						</div>
 
 						<!-- LOGS -->
-					  <div class="tab-pane" id="settings-logs" role="tabpanel">
+						<div class="tab-pane" id="settings-logs" role="tabpanel">
 							<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
-				        <h2>Registros</h2>
+							  <h2>Registros</h2>
 								<div class="btn-toolbar">
-				          <div class="btn-group">
+							    <div class="btn-group">
 										<input type="text" oninput="VUE_ELEMENTS.logs.search_term = this.value;" placeholder="🔍 Buscar..." class="form-control btn-sm" />
-				            <button onclick="" class="form-control btn btn-sm btn-outline-secondary">↻ Refrescar</button>
-				          </div>
-				        </div>
+							      <button onclick="" class="form-control btn btn-sm btn-outline-secondary">↻ Refrescar</button>
+							    </div>
+							  </div>
 							</div>
 
-			        <div class="table-responsive" id="logs">
+						  <div class="table-responsive" id="logs">
 								<table-component :asset="asset" :more="more" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
-			        </div>
+						  </div>
 						</div>
 					</div>
 				</div>

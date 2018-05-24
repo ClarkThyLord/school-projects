@@ -35,6 +35,7 @@
 	<?php include "./php/sections.php" ?>
 	<?php include "./php/landmarks.php" ?>
 
+	<!-- Navigation Menu -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a href="#" class="navbar-brand"><img src="./assets/images/m2go_full.png" style="max-width: 135px;"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false">
@@ -45,7 +46,7 @@
 	    <ul class="navbar-nav mr-auto">
 				<!-- SECTIONS -->
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">+ Agregar Sección</a>
+	        <a onclick="$('#section_add').modal('show');" class="nav-link" href="#">+ Agregar Sección</a>
 	      </li>
 	    </ul>
 
