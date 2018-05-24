@@ -45,9 +45,46 @@
 
 			<!-- BODY -->
       <div class="modal-body">
-        <form>
-					<label class="col-form-label">Nombre del Landmark:</label>
-					<input type="text" class="form-control" name="name" />
+        <form onsubmit="#">
+					<div class="form-group form-row">
+						<label class="col-sm-5 col-form-label">ID del Landmark:</label>
+						<input type="text" disabled class="col-sm-7 form-control" name="id" />
+
+						<label class="col-form-label">Nombre del Landmark:</label>
+						<input type="text" class="form-control" name="name" />
+					</div>
+					<div class="form-group">
+						<label class="col-form-label">Clasificación:</label> <br />
+				    <select class="form-control" name="classification">
+			        <option value="Geo/Historia">Geo/Historia</option>
+			        <option value="Actual">Actual</option>
+			        <option value="Riesgo">Riesgo</option>
+			        <option value="Hechos Graciosos">Hechos Graciosos</option>
+			        <option value="Hard Facts">Hard Facts</option>
+			        <option value="M2GO ToDo">M2GO ToDo</option>
+			        <option value="Otro Tema.">Otro Tema.</option>
+		        </select>
+						<div class="form-row">
+					    <div class="form-group col-md-6">
+					      <label>Latitud:</label>
+					      <input type="number" placeholder="0.0" step="0.001" class="form-control" name="latitude">
+					    </div>
+					    <div class="form-group col-md-6">
+					      <label>Longitud:</label>
+					      <input type="number" placeholder="0.0" step="0.001" class="form-control" name="longitude">
+					    </div>
+					  </div>
+						<label class="col-form-label">Descripción:</label>
+						<textarea placeholder="Descripción..." class="form-control" name="summary"></textarea>
+						<label class="col-form-label">URLs:</label>
+						<textarea placeholder="URLs... (separar con ,)" class="form-control" name="summary"></textarea>
+						<label class="col-form-label">Archivos:</label>
+				    <input type="file" style="display: none;" class="task_input" id="landmark_files" />
+				    <button onclick="landmark_files.click();" class="btn btn-info btn-block" id="landmark_files_dropzone">
+				        Dar click o arrastrar archivo..
+				    </button>
+						<div id="landmark_files_preview"></div>
+					</div>
 				</form>
       </div>
 
@@ -55,7 +92,7 @@
       <div class="modal-footer">
         <button type="button" onclick="$('#landmark_add').find('form').first().trigger('reset');" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 				<button type="button" onclick="$('#landmark_remove').modal('show');" class="btn btn-danger">Eliminar</button>
-        <button type="button" onclick="var data = {}; $('#landmark_modify form :input').each(function() { data[this.name] = $(this).val(); }); landmarks_modify(GLOBALS.landmark.id, data); $('#landmark_modify').modal('hide').find('form').trigger('reset');" class="btn btn-primary">Modificar</button>
+        <button type="button" onclick="var data = {}; $('#landmark_modify form :input').each(function() { if (this.name) { data[this.name] = $(this).val(); } }); landmarks_modify(GLOBALS.landmark.id, data); $('#landmark_modify').modal('hide').find('form').trigger('reset');" class="btn btn-primary">Modificar</button>
       </div>
     </div>
   </div>

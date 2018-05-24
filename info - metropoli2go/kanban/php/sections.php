@@ -46,6 +46,11 @@
 			<!-- BODY -->
       <div class="modal-body">
         <form>
+					<div class="form-group form-row">
+						<label class="col-sm-5 col-form-label">ID del Sección:</label>
+						<input type="text" disabled class="col-sm-7 form-control" name="id" />
+					</div>
+
 					<label class="col-form-label">Nombre de la Sección:</label>
 					<input type="text" class="form-control" name="name" />
 				</form>
