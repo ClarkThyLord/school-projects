@@ -69,10 +69,10 @@ DROP TABLE IF EXISTS `logs`;
 CREATE TABLE IF NOT EXISTS `logs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `perpetrator` text NOT NULL COMMENT 'ID of user from `users` to which this belongs',
+  `responsible` text NOT NULL COMMENT 'ID of user from `users` to which this belongs',
   `action` text NOT NULL,
   `asset type` text NOT NULL,
-  `asset` int(11) NOT NULL COMMENT 'ID of this asset',
+  `asset` text NOT NULL COMMENT 'ID of this asset',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

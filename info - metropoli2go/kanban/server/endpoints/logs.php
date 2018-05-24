@@ -61,9 +61,9 @@
 	* @return {undefined} Returns nothing.
 	*/
 	function log_add($data=array()) {
-		$data = array_merge(array('responsible' => 'desconocido', 'action' => 'desconocido', 'asset_type' => 'desconocido', 'asset_id' => 'desconocido'), $data);
+		$data = array_merge(array('responsible' => $_SERVER['REMOTE_ADDR'], 'action' => 'desconocido', 'asset type' => 'desconocido', 'asset' => 'desconocido'), $data);
 
-		$sql = "INSERT INTO `logs` (`created`, `responsible`, `action`, `asset_type`, `asset_id`) VALUES (CURRENT_TIMESTAMP, '{$data["responsible"]}', '{$data["action"]}', '{$data["asset_type"]}', '{$data["asset_id"]}')";
+		$sql = "INSERT INTO `logs` (`id`, `created`, `responsible`, `action`, `asset type`, `asset`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["responsible"]}', '{$data["action"]}', '{$data["asset type"]}', '{$data["asset"]}')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
@@ -94,7 +94,7 @@
 
 		if ($GLOBALS['conn']->query($sql) === TRUE) {
 			// LOG
-			qlog($_SESSION['user']['username'], 'registro borrado', 'registro', '*');
+			qlog($_SESSION['user']['username'], 'registros borrados', 'registro', '*');
 
 			log_get();
 

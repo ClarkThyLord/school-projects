@@ -328,11 +328,11 @@ function logs_clear() {
   $.post({
     url: './server/api.php/logs/clear?debug=' + DEBUGGING.server,
     success: function(response) {
+      $('#logs').waitMe('hide');
+
       response = JSON.parse(response);
       if (response.status === 'success') {
-        VUE_ELEMENTS.all_logs.data = VUE_ELEMENTS.recent_logs.data = response.data.dump || [];
-
-        $('#logs').waitMe('hide');
+        VUE_ELEMENTS.logs.data = response.data.dump || [];
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {

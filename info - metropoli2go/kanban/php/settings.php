@@ -64,6 +64,7 @@
 							    <div class="btn-group">
 										<input type="text" oninput="VUE_ELEMENTS.logs.search_term = this.value;" placeholder="🔍 Buscar..." class="form-control btn-sm" />
 							      <button onclick="refresh('logs');" class="form-control btn btn-sm btn-outline-secondary">↻ Refrescar</button>
+										<button onclick="$('#log_clear').modal('show');" class="form-control btn btn-sm btn-outline-secondary">Borrar Registros</button>
 							    </div>
 							  </div>
 							</div>
