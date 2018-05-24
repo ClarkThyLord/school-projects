@@ -5,9 +5,67 @@ var GLOBALS = {
   landmark: undefined // Landmark being handled
 };
 
-window.onload = function() {
+$(function() {
+  // Setup Dragula.js
+  GLOBALS.dad = dragula({
+    isContainer: function(el) {
+      return el.classList.contains("files");
+    }
+  });
 
-};
+  GLOBALS.dad.on("drop", function(el, target, source, sibling) {
+    GLOBALS.dad.cancel(true);
+    landmarks_modify($(el).data('landmark-id'), {
+      section: $(target).parent().data('section-id')
+    });
+  });
+
+  // Setup FileDrop.js
+  $("#landmark_files_dropzone").filedrop({
+    fallback_id: "landmark_files",
+    fallback_dropzoneClick: true,
+    withCredentials: true,
+    data: {
+      'landmark': function() {
+        return GLOBALS.landmark.id;
+      }
+    },
+    url: "./server/api.php/files/add",
+    error: function(err, file) {
+      console.log(err);
+      switch (err) {
+        case 'BrowserNotSupported':
+          alert('browser does not support HTML5 drag and drop');
+          break;
+        case 'TooManyFiles':
+          break;
+        case 'FileTooLarge':
+          break;
+        case 'FileTypeNotAllowed':
+          break;
+        case 'FileExtensionNotAllowed':
+          break;
+        default:
+          break;
+      }
+    },
+    uploadStarted: function(i, file, len) {},
+    uploadFinished: function(i, file, response, time) {
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+    },
+    progressUpdated: function(i, file, progress) {},
+    globalProgressUpdated: function(progress) {},
+    speedUpdated: function(i, file, speed) {},
+    rename: function(name) {},
+    beforeEach: function(file) {},
+    beforeSend: function(file, i, done) {
+      done();
+    },
+    afterAll: function() {}
+  });
+});
 
 // CONTENT Functions
 // *****************************************************************************
@@ -48,8 +106,6 @@ function refresh(identifier) {
     case 'kanban':
       (async function() {
         VUE_ELEMENTS.kanban.data = JSON.parse(await kanban_get()).data.dump || [];
-
-        landmarks_files_setup();
       })();
 
       break;
@@ -248,23 +304,7 @@ $('#landmark_modify').on('shown.bs.modal', function(e) {
   $(this).find('form :input').each(function() {
     $(this).val(GLOBALS.landmark[this.name]);
   });
-
-  landmarks_files_setup();
 });
-
-/**
- * Updates files in form.
- * @return {undefined} Returns nothing.
- */
-function landmarks_files_setup() {
-  if (GLOBALS.landmark) {
-    $('#landmark_files_preview').html('');
-    for (var file in GLOBALS.landmark.files) {
-      file = GLOBALS.landmark.files[file];
-      $('#landmark_files_preview').append('<div style="margin: 5px;" class="btn-group border rounded" role="group"><button onclick="window.open(\'' + file['url'] + '\');" class="btn btn-link btn-sm"> ' + file['visual name'] + ' </button> <button class="btn btn-danger" onclick="files_remove(\'' + file.id + '\');">X</button></div>');
-    }
-  }
-}
 
 /**
  * Retrieve a landmark from landmarks.
@@ -507,8 +547,6 @@ function files_remove(id) {
 
       if (response.status === 'success') {
         VUE_ELEMENTS.kanban.data = response.data.dump || [];
-
-        landmarks_files_setup();
       }
 
       if (response.status === 'failure' || DEBUGGING.popups) {
@@ -734,7 +772,7 @@ function logs_clear() {
 // *****************************************************************************
 var VUE_ELEMENTS = {};
 
-window.onload = function() {
+$(function() {
   // Register Table component
   Vue.component('table-component', {
     template: '#table-component',
@@ -812,7 +850,7 @@ window.onload = function() {
     }
   });
 
-  // Register Table component
+  // Register Kanban component
   Vue.component('kanban-component', {
     template: '#kanban-component',
     props: {
@@ -843,19 +881,18 @@ window.onload = function() {
       capitalize: function(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
       }
+    }
+  });
+
+  // Register Table component
+  Vue.component('files-component', {
+    template: '#files-component',
+    props: {
+      files: Array
     },
-    methods: {
-      select: function(event, asset) {
-        GLOBALS.asset = asset;
-      },
-      information: function(event, asset) {
-        setup_form(this.asset, asset.data || {});
-      },
-      edit: function(event) {
-        $('#' + this.asset + '_modify').modal('show');
-      },
-      remove: function(event) {
-        $('#' + this.asset + '_remove').modal('show');
+    filters: {
+      capitalize: function(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
       }
     }
   });
@@ -866,6 +903,14 @@ window.onload = function() {
     data: {
       search_term: '',
       data: []
+    }
+  });
+  refresh('kanban');
+
+  VUE_ELEMENTS.files = new Vue({
+    el: '#landmark_files_preview',
+    data: {
+      files: []
     }
   });
 
@@ -928,70 +973,4 @@ window.onload = function() {
       data: []
     }
   });
-
-  refresh('kanban');
-
-  // Setup Dragula.js
-  GLOBALS.dad = dragula({
-    isContainer: function(el) {
-      return el.classList.contains("files");
-    }
-  });
-
-  GLOBALS.dad.on("drop", function(el, target, source, sibling) {
-    GLOBALS.dad.cancel(true);
-    landmarks_modify($(el).data('landmark-id'), {
-      section: $(target).parent().data('section-id')
-    });
-  });
-
-  // Setup FileDrop.js
-  $("#landmark_files_dropzone").filedrop({
-    fallback_id: "landmark_files",
-    fallback_dropzoneClick: true,
-    withCredentials: true,
-    data: {
-      'landmark': function() {
-        return GLOBALS.landmark.id;
-      }
-    },
-    url: "./server/api.php/files/add",
-    error: function(err, file) {
-      console.log(err);
-      switch (err) {
-        case 'BrowserNotSupported':
-          alert('browser does not support HTML5 drag and drop');
-          break;
-        case 'TooManyFiles':
-          break;
-        case 'FileTooLarge':
-          break;
-        case 'FileTypeNotAllowed':
-          break;
-        case 'FileExtensionNotAllowed':
-          break;
-        default:
-          break;
-      }
-    },
-    uploadStarted: function(i, file, len) {},
-    uploadFinished: function(i, file, response, time) {
-      if (response.status === 'success') {
-        refresh('kanban');
-      }
-
-      if (response.status === 'failure' || DEBUGGING.popups) {
-        alert(response.reason);
-      }
-    },
-    progressUpdated: function(i, file, progress) {},
-    globalProgressUpdated: function(progress) {},
-    speedUpdated: function(i, file, speed) {},
-    rename: function(name) {},
-    beforeEach: function(file) {},
-    beforeSend: function(file, i, done) {
-      done();
-    },
-    afterAll: function() {}
-  });
-};
+});

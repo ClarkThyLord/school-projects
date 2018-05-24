@@ -81,9 +81,11 @@
 						<label class="col-form-label">Archivos:</label>
 				    <input type="file" style="display: none;" class="task_input" id="landmark_files" />
 				    <div class="btn btn-info btn-block" id="landmark_files_dropzone">
-				        Dar click o arrastrar archivo..
+				        Dar Click o Arrastrar Archivo
 				    </div>
-						<div class="" id="landmark_files_preview"></div>
+						<div class="" id="landmark_files_preview">
+							<files-component :files="files"></files-component>
+						</div>
 					</div>
 				</form>
       </div>
