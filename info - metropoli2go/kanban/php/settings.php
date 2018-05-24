@@ -27,7 +27,7 @@
 						    <h2>Opciones</h2>
 							</div>
 
-							<form action="#" onsubmit="return false;">
+							<form action="#" onsubmit="return false;" action="#" onsubmit="return false;">
 						    <div class="form-group">
 									<label class="col-form-label">Autorefrescar:</label>
 									<div class="custom-switch custom-switch-label-onoff">
@@ -101,7 +101,7 @@
 
 			<!-- BODY -->
 			<div class="modal-body">
-				<form action="#">
+				<form action="#" onsubmit="return false;" action="#">
 					<div class="form-group">
 						<label class="col-form-label">Nombre de Usuario:</label>
 						<input type="text" class="form-control" name="username">
@@ -137,7 +137,7 @@
 
 				<!-- BODY -->
 				<div class="modal-body">
-					<form action="#">
+					<form action="#" onsubmit="return false;" action="#">
 						<div class="form-group">
 							<label class="col-form-label">Nombre de Usuario:</label>
 							<input type="text" class="form-control" name="username">

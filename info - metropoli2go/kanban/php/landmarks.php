@@ -14,7 +14,7 @@
 
 			<!-- BODY -->
       <div class="modal-body">
-        <form>
+        <form action="#" onsubmit="return false;">
 					<label class="col-form-label">Nombre del Landmark:</label>
 					<input type="text" class="form-control" name="name" />
 				</form>

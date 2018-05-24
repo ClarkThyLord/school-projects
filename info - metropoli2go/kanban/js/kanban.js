@@ -9,7 +9,7 @@ $(function() {
   // Setup Dragula.js
   GLOBALS.dad = dragula({
     isContainer: function(el) {
-      return el.classList.contains("files");
+      return el.classList.contains("landmarks");
     }
   });
 
@@ -878,17 +878,25 @@ $(function() {
       filtered_data: function() {
         var data = this.data;
 
-        // if (this.search_term && this.data.length > 0) {
-        //   // Search for valid data
-        //   if (this.search_term) {
-        //     var search_term = this.search_term;
-        //     data = data.filter(function(entry) {
-        //       return Object.keys(row).some(function(key) {
-        //         return String(row[key]).toLowerCase().indexOf(search_term) > -1;
-        //       });
-        //     });
-        //   }
-        // }
+        // Search for valid data
+        if (this.search_term && this.data.length > 0) {
+          var search_term = this.search_term.toLowerCase();
+          valid_data = [];
+          for (var section in data) {
+            section = Object.assign({}, data[section]);
+
+            // Search for valid landmarks
+            section.data = section.data.filter(function(landmark) {
+              return String(landmark.name).toLowerCase().indexOf(search_term) > -1;
+            });
+
+            if (String(section.name).toLowerCase().indexOf(search_term) > -1 || section.data.length > 0) {
+              valid_data.push(section);
+            }
+          }
+
+          data = valid_data;
+        }
 
         return data;
       }
@@ -921,6 +929,7 @@ $(function() {
       data: []
     }
   });
+  // Setup Kanban content
   refresh('kanban');
 
   VUE_ELEMENTS.files = new Vue({
