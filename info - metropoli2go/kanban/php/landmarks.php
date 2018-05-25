@@ -78,7 +78,7 @@
 						<label class="col-form-label">Descripción:</label>
 						<textarea placeholder="Descripción..." class="form-control" name="summary"></textarea>
 						<label class="col-form-label">URLs:</label>
-						<textarea placeholder="URLs... (separar con ,)" class="form-control" name="summary"></textarea>
+						<textarea placeholder="URLs... (separar con ,)" class="form-control" name="urls"></textarea>
 						<label class="col-form-label">Archivos:</label>
 				    <input type="file" style="display: none;" class="task_input" id="landmark_files" />
 				    <div class="btn btn-info btn-block" id="landmark_files_dropzone">
