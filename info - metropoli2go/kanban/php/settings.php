@@ -39,7 +39,7 @@
 										</div>
 										<div class="col-md-9">
 											<label class="col-form-label">Intervalo de Autorefrescar: <span style="font-size: 8px;">(segundos)</span></label>
-											<input type="number" oninput="localStorage.setItem('autorefresh-period', this.value);" min="0" step="1" value="300" class="form-control" id="setting-autorefresh-period" />
+											<input type="number" oninput="localStorage.setItem('autorefresh-period', this.value);" min="180" step="1" value="300" class="form-control" id="setting-autorefresh-period" />
 										</div>
 									</div>
 								</div>
