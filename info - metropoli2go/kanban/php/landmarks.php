@@ -68,11 +68,11 @@
 						<div class="form-row">
 					    <div class="form-group col-md-6">
 					      <label>Latitud:</label>
-					      <input type="number" placeholder="0.0" step="0.001" class="form-control" name="latitude">
+					      <input type="number" placeholder="0.0" class="form-control" name="latitude">
 					    </div>
 					    <div class="form-group col-md-6">
 					      <label>Longitud:</label>
-					      <input type="number" placeholder="0.0" step="0.001" class="form-control" name="longitude">
+					      <input type="number" placeholder="0.0" class="form-control" name="longitude">
 					    </div>
 					  </div>
 						<label class="col-form-label">Descripción:</label>

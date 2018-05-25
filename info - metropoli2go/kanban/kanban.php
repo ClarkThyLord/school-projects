@@ -156,12 +156,12 @@
 		<div class="kanban">
 			<div v-for="section in filtered_data" :data-section-id="section.id" @click="GLOBALS.section = Object.assign({}, section);" class="section shadow-sm">
 				<div class="header border-bottom">
-					<button onclick="$('#section_modify').modal('show');" class="name btn btn-link"> {{ section.name | capitalize }} </button> <br />
+					<a href="#" onclick="$('#section_modify').modal('show');" class="name btn-link border-0"> {{ section.name | capitalize }} </a> <br />
 					<input type="button" onclick="$('#landmark_add').modal('show');" value="+ Agregar Landmark" class="btn btn-primar" />
 				</div>
 				<div class="landmarks border">
 					<div v-for="landmark in section.data" onclick="$('#landmark_modify').modal('show');" :data-landmark-id="landmark.id" @click="GLOBALS.landmark = Object.assign({}, landmark); VUE_ELEMENTS.files.files = landmark.files;" class="landmark shadow">
-						<button class="name btn btn-link"> {{ landmark.name | capitalize }} </button>
+						<a href="#" class="name btn-link border-0"> {{ landmark.name | capitalize }} </a>
 					</div>
 				</div>
 			</div>
@@ -172,7 +172,7 @@
 	<script type="text/x-template" id="files-component">
 		<div class="files">
 			<div v-for="file in files" style="margin: 5px;" class="file btn-group border rounded" role="group">
-				<button @click="window.open(file.url);" class="btn btn-link btn-sm"> {{ file['visual name'] | capitalize }} </button>
+				<a href="#" @click="window.open(file.url);" class="btn-sm border-0"> {{ file['visual name'] | capitalize }} </a>
 				<button @click="files_remove(file.id);" class="btn btn-danger">X</button>
 			</div>
 		</div>

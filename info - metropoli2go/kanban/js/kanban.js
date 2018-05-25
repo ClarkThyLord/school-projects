@@ -197,7 +197,7 @@ async function kanban_get() {
 // *****************************************************************************
 $('#section_modify').on('shown.bs.modal', function(e) {
   $(this).find('form :input').each(function() {
-    $(this).val(GLOBALS.section[this.name]);
+    $(this).val(decodeURI(GLOBALS.section[this.name]));
   });
 });
 
@@ -348,7 +348,7 @@ function sections_remove(id) {
 // *****************************************************************************
 $('#landmark_modify').on('shown.bs.modal', function(e) {
   $(this).find('form :input').each(function() {
-    $(this).val(GLOBALS.landmark[this.name]);
+    $(this).val(decodeURI(GLOBALS.landmark[this.name]));
   });
 });
 
@@ -876,7 +876,7 @@ $(function() {
     },
     filters: {
       capitalize: function(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        return decodeURI(str.charAt(0).toUpperCase() + str.slice(1));
       }
     },
     methods: {
@@ -977,7 +977,7 @@ $(function() {
     },
     filters: {
       capitalize: function(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        return decodeURI(str.charAt(0).toUpperCase() + str.slice(1));
       }
     }
   });
@@ -990,7 +990,7 @@ $(function() {
     },
     filters: {
       capitalize: function(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        return decodeURI(str.charAt(0).toUpperCase() + str.slice(1));
       }
     }
   });
