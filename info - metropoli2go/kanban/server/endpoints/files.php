@@ -183,9 +183,9 @@
 
 			kanban_get();
 
-			response_send(true, 'archivo eliminado con éxito');
+			response_status(true, 'archivo eliminado con éxito');
     } else {
-			response_send(false, 'archivo eliminado sin éxito');
+			response_status(false, 'archivo eliminado sin éxito');
     }
 	}
 

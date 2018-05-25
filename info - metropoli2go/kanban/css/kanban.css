@@ -52,7 +52,7 @@
 .kanban-parent .kanban .landmarks {
   margin: 10px;
   min-height: 100px;
-  cursor: move;
+  height: 100%;
 }
 
 .kanban-parent .kanban .landmarks .landmark {
@@ -63,4 +63,5 @@
   border: solid 2px var(--secondary);
   overflow: hidden;
   text-align: center;
+  cursor: move;
 }

@@ -20,6 +20,7 @@ $(function() {
     });
   });
 
+
   // Setup FileDrop.js
   $("#landmark_files_dropzone").filedrop({
     fallback_id: "landmark_files",
@@ -71,6 +72,28 @@ $(function() {
 
 // CONTENT Functions
 // *****************************************************************************
+
+/**
+ * Autorefresh content.
+ * @return {undefined} Returns nothing.
+ */
+function autorefresh() {
+  if ($('#setting-autorefresh').is(':checked')) {
+    // List of content to refresh
+    var contents = [
+      'kanban',
+      'users',
+      'logs'
+    ];
+
+    for (var content in contents) {
+      refresh(contents[content]);
+    }
+  }
+
+  setTimeout(autorefresh, (($('#setting-autorefresh-period').val() || 180) * 1000));
+}
+
 
 /**
  * Scroll Kanban content to the left.
@@ -840,6 +863,9 @@ $(function() {
       sort_by: function(key) {
         this.search_term = key;
       },
+      select: function(event, asset) {
+        GLOBALS.asset = asset;
+      },
       information: function(event, asset) {
         setup_form(this.asset, asset.data || {});
       },
@@ -861,17 +887,17 @@ $(function() {
     },
     data: function() {},
     updated: function() {
-      if (GLOBALS.section) {
+      if (typeof GLOBALS.section === 'object' && VUE_ELEMENTS.kanban.data.length > 0) {
         GLOBALS.section = Object.assign({}, VUE_ELEMENTS.kanban.data.find(function(section) {
           return section.id === GLOBALS.section.id;
         }));
-      }
 
-      if (GLOBALS.landmark) {
-        GLOBALS.landmark = Object.assign({}, GLOBALS.section.data.find(function(landmark) {
-          return landmark.id === GLOBALS.landmark.id;
-        }));
-        VUE_ELEMENTS.files.files = GLOBALS.landmark.files;
+        if (typeof GLOBALS.landmark === 'object' && Object.keys(GLOBALS.section).length > 0) {
+          GLOBALS.landmark = Object.assign({}, GLOBALS.section.data.find(function(landmark) {
+            return landmark.id === GLOBALS.landmark.id;
+          }));
+          VUE_ELEMENTS.files.files = GLOBALS.landmark.files;
+        }
       }
     },
     computed: {
@@ -998,4 +1024,7 @@ $(function() {
       data: []
     }
   });
+
+  // Setup Autorefresh
+  autorefresh();
 });

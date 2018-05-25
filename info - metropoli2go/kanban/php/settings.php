@@ -29,10 +29,18 @@
 
 							<form action="#" onsubmit="return false;" action="#" onsubmit="return false;">
 						    <div class="form-group">
-									<label class="col-form-label">Autorefrescar:</label>
-									<div class="custom-switch custom-switch-label-onoff">
-									  <input type="checkbox" checked="true" class="custom-switch-input" name="autorefresh" id="autorefresh">
-									  <label class="custom-switch-btn" for="autorefresh"></label>
+									<div class="form-row">
+										<div class="col-md-3">
+											<label class="col-form-label">Autorefrescar:</label>
+											<div class="custom-switch custom-switch-label-onoff">
+											  <input type="checkbox" checked="true" class="custom-switch-input" name="autorefresh" id="setting-autorefresh">
+											  <label class="custom-switch-btn" for="setting-autorefresh"></label>
+											</div>
+										</div>
+										<div class="col-md-9">
+											<label class="col-form-label">Intervalo de Autorefrescar: <span style="font-size: 8px;">(segundos)</span></label>
+											<input type="number" min="0" step="1" value="300" class="form-control" id="setting-autorefresh-period" />
+										</div>
 									</div>
 								</div>
 							</form>
@@ -63,8 +71,8 @@
 								<div class="btn-toolbar">
 							    <div class="btn-group">
 										<input type="text" oninput="VUE_ELEMENTS.logs.search_term = this.value;" placeholder="🔍 Buscar..." class="form-control btn-sm" />
-							      <button onclick="refresh('logs');" class="form-control btn btn-sm btn-outline-secondary">↻ Refrescar</button>
 										<button onclick="$('#log_clear').modal('show');" class="form-control btn btn-sm btn-outline-secondary">Borrar Registros</button>
+										<button onclick="refresh('logs');" class="form-control btn btn-sm btn-outline-secondary">↻ Refrescar</button>
 							    </div>
 							  </div>
 							</div>
@@ -152,7 +160,7 @@
 				<!-- FOOTER -->
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					<button onclick="var data = {}; $('#user_modify form :input').each(function() { data[this.name] = $(this).val(); }); users_modify(GLOBALS.asset.id, data); $('#user_modify').modal('hide').find('form').trigger('reset');" type="button" class="btn btn-primary">Someter</button>
+					<button onclick="var data = {}; $('#user_modify form :input').each(function() { if ($(this).val()) { data[this.name] = $(this).val(); } }); users_modify(GLOBALS.asset.id, data); $('#user_modify').modal('hide').find('form').trigger('reset');" type="button" class="btn btn-primary">Someter</button>
 				</div>
 			</div>
 		</div>

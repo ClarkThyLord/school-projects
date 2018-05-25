@@ -184,9 +184,9 @@
 
 			kanban_get();
 
-			response_send(true, 'landmark eliminado con éxito');
+			response_status(true, 'landmark eliminado con éxito');
     } else {
-			response_send(false, 'landmark eliminado sin éxito');
+			response_status(false, 'landmark eliminado sin éxito');
     }
 	}
 

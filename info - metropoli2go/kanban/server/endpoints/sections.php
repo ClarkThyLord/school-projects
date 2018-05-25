@@ -147,6 +147,8 @@
 		 response_send(false, 'la identificación del usuario no fue dada');
 		}
 
+		include_once './endpoints/landmarks.php';
+
     $sql = "DELETE FROM `sections` WHERE `id` = {$section_id}";
 
 		// FOR DEBUGGING
@@ -159,6 +161,20 @@
 
 			// LOG
 			qlog($_SESSION['user']['id'], 'sección eliminada', 'sections', "{$section_id}");
+
+			$sql = "SELECT * FROM `landmarks` WHERE `section`='{$section_id}' ORDER BY `id` ASC";
+
+			// FOR DEBUGGING
+			if (is_debugging()) {
+				array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+			}
+
+			$landmarks = $GLOBALS['conn']->query($sql);
+			if ($landmarks->num_rows > 0) {
+				while($landmark = $landmarks->fetch_assoc()) {
+					landmark_remove($landmark['id']);
+				}
+			}
 
 			kanban_get();
 
