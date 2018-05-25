@@ -19,7 +19,8 @@ $(function() {
 
   GLOBALS.dad.on("drop", function(el, target, source, sibling) {
     GLOBALS.dad.cancel(true);
-    landmarks_modify($(el).data('landmark-id'), {
+
+    landmarks_modify($(el).attr('data-landmark-id'), {
       section: $(target).parent().data('section-id')
     });
   });
