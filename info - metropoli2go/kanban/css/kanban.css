@@ -34,6 +34,8 @@
   min-width: 240px;
   border-radius: 10px;
   border: solid 2px black;
+  display: flex;
+  flex-direction: column;
 }
 
 .kanban-parent .kanban .section .header {
@@ -52,7 +54,7 @@
 .kanban-parent .kanban .landmarks {
   margin: 10px;
   min-height: 100px;
-  height: 100%;
+  flex-grow: 1;
 }
 
 .kanban-parent .kanban .landmarks .landmark {
