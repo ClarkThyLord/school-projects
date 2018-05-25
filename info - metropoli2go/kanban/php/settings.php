@@ -33,13 +33,13 @@
 										<div class="col-md-3">
 											<label class="col-form-label">Autorefrescar:</label>
 											<div class="custom-switch custom-switch-label-onoff">
-											  <input type="checkbox" checked="true" class="custom-switch-input" name="autorefresh" id="setting-autorefresh">
+											  <input type="checkbox" onchange="localStorage.setItem('autorefresh', this.checked);" checked="true" class="custom-switch-input" name="autorefresh" id="setting-autorefresh">
 											  <label class="custom-switch-btn" for="setting-autorefresh"></label>
 											</div>
 										</div>
 										<div class="col-md-9">
 											<label class="col-form-label">Intervalo de Autorefrescar: <span style="font-size: 8px;">(segundos)</span></label>
-											<input type="number" min="0" step="1" value="300" class="form-control" id="setting-autorefresh-period" />
+											<input type="number" oninput="localStorage.setItem('autorefresh-period', this.value);" min="0" step="1" value="300" class="form-control" id="setting-autorefresh-period" />
 										</div>
 									</div>
 								</div>

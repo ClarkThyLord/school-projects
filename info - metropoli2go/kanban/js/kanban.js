@@ -6,10 +6,14 @@ var GLOBALS = {
 };
 
 $(function() {
+  // Settings
+  $('#setting-autorefresh').prop('checked', localStorage.getItem('autorefresh') === null ? true : localStorage.getItem('autorefresh') === 'true');
+  $('#setting-autorefresh-period').val(localStorage.getItem('autorefresh-period') || 180);
+
   // Setup Dragula.js
   GLOBALS.dad = dragula({
     isContainer: function(el) {
-      return el.classList.contains("landmarks");
+      return el.classList.contains('landmarks');
     }
   });
 
