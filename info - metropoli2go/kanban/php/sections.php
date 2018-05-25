@@ -16,7 +16,7 @@
       <div class="modal-body">
         <form action="#" onsubmit="return false;">
 					<label class="col-form-label">Nombre de la Sección:</label>
-					<input type="text" class="form-control" name="name" />
+					<input type="text" placeholder="Nueva Sección" class="form-control" name="name" />
 				</form>
       </div>
 

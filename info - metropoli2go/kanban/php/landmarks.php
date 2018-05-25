@@ -16,7 +16,7 @@
       <div class="modal-body">
         <form action="#" onsubmit="return false;">
 					<label class="col-form-label">Nombre del Landmark:</label>
-					<input type="text" class="form-control" name="name" />
+					<input type="text" placeholder="Nuevo Landmark" class="form-control" name="name" />
 				</form>
       </div>
 
@@ -56,6 +56,7 @@
 					<div class="form-group">
 						<label class="col-form-label">Clasificación:</label> <br />
 				    <select class="form-control" name="classification">
+							<option selected disabled hidden>Seleccionar aquí</option>
 			        <option value="Geo/Historia">Geo/Historia</option>
 			        <option value="Actual">Actual</option>
 			        <option value="Riesgo">Riesgo</option>
@@ -83,7 +84,7 @@
 				    <div class="btn btn-info btn-block" id="landmark_files_dropzone">
 				        Dar Click o Arrastrar Archivo
 				    </div>
-						<div class="" id="landmark_files_preview">
+						<div id="landmark_files_preview">
 							<files-component :files="files"></files-component>
 						</div>
 					</div>

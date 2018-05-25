@@ -14,7 +14,7 @@
 
 <head>
   <link rel="icon" href="./assets/images/m2go.png">
-  <title>Metropoli2Go - Kanban</title>
+  <title>Metrópoli2Go - Kanban</title>
 
   <!-- Meta -->
   <meta charset="utf-8" />
@@ -36,11 +36,21 @@
       -webkit-user-select: none;
       -o-user-select: none;
 		}
+
+		.modal-lg {
+    	max-width: 80% !important;
+    	max-height: 80% !important;
+		}
+
+		.center {
+			text-align: center;
+		}
 	</style>
 </head>
 
 <body>
 
+  <?php include "./php/export.php" ?>
   <?php include "./php/settings.php" ?>
 	<?php include "./php/sections.php" ?>
 	<?php include "./php/landmarks.php" ?>
@@ -64,7 +74,7 @@
 	      <input class="form-control mr-sm-2" type="text" oninput="VUE_ELEMENTS.kanban.search_term = this.value;" placeholder="🔍 Buscar..." aria-label="🔍 Buscar...">
 				<div class="btn-group mr-sm-2" role="group">
 					<button onclick="refresh('kanban');" class="form-control btn btn-outline-secondary my-2 my-sm-0">↻ Refrescar</button>
-					<button onclick="" class="form-control btn btn-outline-secondary my-2 my-sm-0">⇱ Exportar</button>
+					<button onclick="$('#export_view').modal('show');" class="form-control btn btn-outline-secondary my-2 my-sm-0">⇱ Exportar</button>
 				</div>
 				<div class="btn-group mr-sm-2" role="group">
 		      <button onclick="$('#settings').modal('show');" class="form-control btn btn-outline-success my-2 my-sm-0" type="submit">Ajustes</button>
@@ -115,6 +125,29 @@
 						<span v-if="modifiable" @click="edit($event);" style="cursor: pointer;">✏️</span>
 						<span v-if="removable" @click="remove($event);" style="cursor: pointer;">🗑️</span>
 					</td>
+	      </tr>
+  		</tbody>
+		</table>
+	</script>
+
+
+	<script type="text/x-template" id="export-component">
+	  <table class="table table-striped table-hover table-sm table-responsive-sm">
+	    <thead>
+		    <tr>
+		      <th v-for="(val, column) in columns" @click="val.order = (val.order === 'des') ? 'asc' : 'des'; sort_key = column;" style="cursor: pointer;" class="unselectable" :class="{ active: sort_key == column, 'text-center': column !== 'Nombre'}">
+						{{ column }}
+						<span v-if="column === sort_key && val.order === 'des'">↑</span>
+						<span v-if="column === sort_key && val.order === 'asc'">↓</span>
+		      </th>
+		    </tr>
+	    </thead>
+	    <tbody>
+	      <tr v-for="landmark in filtered_data">
+	        <td v-for="(val, column) in columns" :class="{'text-center': column !== 'Nombre'}">
+						<span v-if="column === 'Nombre'"> {{ landmark.name }} </span>
+						<span v-if="landmark.classification === column">◉</span>
+	        </td>
 	      </tr>
   		</tbody>
 		</table>

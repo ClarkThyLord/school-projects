@@ -79,24 +79,18 @@ $(function() {
 // *****************************************************************************
 
 /**
- * Autorefresh content.
+ * Scroll Kanban content to the left.
  * @return {undefined} Returns nothing.
  */
-function autorefresh() {
-  if ($('#setting-autorefresh').is(':checked')) {
-    // List of content to refresh
-    var contents = [
-      'kanban',
-      'users',
-      'logs'
-    ];
-
-    for (var content in contents) {
-      refresh(contents[content]);
+function pdf_export() {
+  html2pdf($('#export').first()[0], {
+    margin: 10,
+    filename: 'Metrópoli2Go.pdf',
+    html2canvas: {},
+    jsPDF: {
+      orientation: 'landscape'
     }
-  }
-
-  setTimeout(autorefresh, (($('#setting-autorefresh-period').val() || 180) * 1000));
+  });
 }
 
 
@@ -123,6 +117,28 @@ function scroll_right() {
   $(".kanban").animate({
     scrollLeft: new_position + 150
   }, 100);
+}
+
+
+/**
+ * Autorefresh content.
+ * @return {undefined} Returns nothing.
+ */
+function autorefresh() {
+  if ($('#setting-autorefresh').is(':checked')) {
+    // List of content to refresh
+    var contents = [
+      'kanban',
+      'users',
+      'logs'
+    ];
+
+    for (var content in contents) {
+      refresh(contents[content]);
+    }
+  }
+
+  setTimeout(autorefresh, (($('#setting-autorefresh-period').val() || 180) * 1000));
 }
 
 
@@ -815,7 +831,6 @@ $(function() {
       columns: Object,
       data: Array
     },
-    data: function() {},
     computed: {
       filtered_data: function() {
         if ((this.sort_key || this.search_term) && this.data.length > 0) {
@@ -879,6 +894,38 @@ $(function() {
       },
       remove: function(event) {
         $('#' + this.asset + '_remove').modal('show');
+      }
+    }
+  });
+
+  // Register Export component
+  Vue.component('export-component', {
+    template: '#export-component',
+    props: {
+      sort_key: String,
+      columns: Array,
+      data: Array
+    },
+    computed: {
+      filtered_data: function() {
+        var data = this.data;
+
+        valid_data = [];
+        for (var section in data) {
+          section = data[section];
+
+          valid_data.push.apply(valid_data, section.data);
+        }
+
+        console.log('VALID DATA:');
+        console.log(valid_data);
+
+        return valid_data;
+      },
+      methods: {
+        sort_by: function(key) {
+          this.search_term = key;
+        }
       }
     }
   });
@@ -958,6 +1005,13 @@ $(function() {
     data: {
       search_term: '',
       data: []
+    },
+    updated: function() {
+      console.log('updated!');
+
+      if (VUE_ELEMENTS.export.data) {
+        VUE_ELEMENTS.export.data = this.data;
+      }
     }
   });
   // Setup Kanban content
@@ -967,6 +1021,43 @@ $(function() {
     el: '#landmark_files_preview',
     data: {
       files: []
+    }
+  });
+
+  VUE_ELEMENTS.export = new Vue({
+    el: '#export',
+    data: {
+      columns: {
+        'Nombre': {
+          order: ''
+        },
+        'Geo/Historia': {
+          order: ''
+        },
+        'Actual': {
+          order: ''
+        },
+        'Riesgo': {
+          order: ''
+        },
+        'Hechos Graciosos': {
+          order: ''
+        },
+        'Hard Facts': {
+          order: ''
+        },
+        'M2GO ToDo': {
+          order: ''
+        },
+        'Otro Tema.': {
+          order: ''
+        }
+      },
+      data: VUE_ELEMENTS.kanban.data
+    },
+    updated: function() {
+      console.log('updated!');
+      console.log(this.data);
     }
   });
 

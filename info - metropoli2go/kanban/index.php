@@ -14,7 +14,7 @@
 
 <head>
   <link rel="icon" href="./assets/images/m2go.png">
-  <title>Metropoli2Go - Iniciar Sesión</title>
+  <title>Metrópoli2Go - Iniciar Sesión</title>
 
   <!-- Meta -->
   <meta charset="utf-8" />

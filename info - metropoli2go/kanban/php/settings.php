@@ -12,7 +12,7 @@
 
 			<!-- BODY -->
       <div class="modal-body">
-				<div class="row">
+				<div class="row col-12">
 					<!-- TABS -->
 					<div class="list-group" role="tablist col-3">
 					  <a class="list-group-item list-group-item-action active" data-toggle="list" href="#settings-options" role="tab">Opciones</a>
@@ -20,7 +20,7 @@
 					  <a onclick="refresh('logs');" class="list-group-item list-group-item-action" data-toggle="list" href="#settings-logs" role="tab">Registros</a>
 					</div>
 
-					<div class="tab-content col-9">
+					<div class="tab-content col-10">
 						<!-- OPTIONS -->
 						<div class="tab-pane active" id="settings-options" role="tabpanel">
 							<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
@@ -77,7 +77,7 @@
 							  </div>
 							</div>
 
-						  <div class="table-responsive" id="logs">
+						  <div style="max-height: 200px; overflow-y: auto;" class="table-responsive" id="logs">
 								<table-component :asset="asset" :modifiable="modifiable" :removable="removable" :sort_key="sort_key" :search_term="search_term" :columns="columns" :data="data"></table-component>
 						  </div>
 						</div>
