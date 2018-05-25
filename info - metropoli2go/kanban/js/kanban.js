@@ -902,7 +902,6 @@ $(function() {
   Vue.component('export-component', {
     template: '#export-component',
     props: {
-      sort_key: String,
       columns: Array,
       data: Array
     },
@@ -916,9 +915,6 @@ $(function() {
 
           valid_data.push.apply(valid_data, section.data);
         }
-
-        console.log('VALID DATA:');
-        console.log(valid_data);
 
         return valid_data;
       },
@@ -1007,8 +1003,6 @@ $(function() {
       data: []
     },
     updated: function() {
-      console.log('updated!');
-
       if (VUE_ELEMENTS.export.data) {
         VUE_ELEMENTS.export.data = this.data;
       }
@@ -1054,10 +1048,6 @@ $(function() {
         }
       },
       data: VUE_ELEMENTS.kanban.data
-    },
-    updated: function() {
-      console.log('updated!');
-      console.log(this.data);
     }
   });
 

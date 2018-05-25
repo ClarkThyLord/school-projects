@@ -135,10 +135,8 @@
 	  <table class="table table-striped table-hover table-sm table-responsive-sm">
 	    <thead>
 		    <tr>
-		      <th v-for="(val, column) in columns" @click="val.order = (val.order === 'des') ? 'asc' : 'des'; sort_key = column;" style="cursor: pointer;" class="unselectable" :class="{ active: sort_key == column, 'text-center': column !== 'Nombre'}">
+		      <th v-for="(val, column) in columns" class="unselectable" :class="{ 'text-center': column !== 'Nombre'}">
 						{{ column }}
-						<span v-if="column === sort_key && val.order === 'des'">↑</span>
-						<span v-if="column === sort_key && val.order === 'asc'">↓</span>
 		      </th>
 		    </tr>
 	    </thead>
