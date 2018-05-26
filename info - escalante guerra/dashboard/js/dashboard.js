@@ -12,7 +12,7 @@ var GLOBALS = {
   }
 };
 
-window.onload = function() {
+$(function() {
   content_change('desk');
 
   // Setup forms
@@ -28,7 +28,7 @@ window.onload = function() {
       $('#' + forms[form] + '_data_modify_info').html(form_to_html(await forms_format_get(forms[form])));
     }
   })();
-};
+});
 
 // CONTENT Functions
 // *****************************************************************************
@@ -301,7 +301,7 @@ function form_to_html(data) {
  * @param {object} dom DOM form.
  * @return {undefined} Returns data.
  */
-function html_to_data(dom) {
+async function html_to_data(dom) {
   var required = false;
   var required_fields = [];
   var data = {};
@@ -1201,563 +1201,561 @@ function logs_clear() {
 // *****************************************************************************
 var VUE_ELEMENTS = {};
 
-window.onload = function() {
-  // Register Table component
-  Vue.component('table-component', {
-    template: '#table-component',
-    props: {
-      asset: String,
-      more: Boolean,
-      modifiable: Boolean,
-      removable: Boolean,
-      sort_key: String,
-      search_term: String,
-      columns: Object,
-      data: Array
-    },
-    data: function() {},
-    computed: {
-      filtered_data: function() {
-        if ((this.sort_key || this.search_term) && this.data.length > 0) {
-          var data = this.data;
+// Register Table component
+Vue.component('table-component', {
+  template: '#table-component',
+  props: {
+    asset: String,
+    more: Boolean,
+    modifiable: Boolean,
+    removable: Boolean,
+    sort_key: String,
+    search_term: String,
+    columns: Object,
+    data: Array
+  },
+  data: function() {},
+  computed: {
+    filtered_data: function() {
+      if ((this.sort_key || this.search_term) && this.data.length > 0) {
+        var data = this.data;
 
-          // Search data
-          if (this.search_term) {
-            var search_term = this.search_term;
-            data = data.filter(function(row) {
-              return Object.keys(row).some(function(key) {
-                return String(row[key]).toLowerCase().indexOf(search_term) > -1;
-              });
+        // Search data
+        if (this.search_term) {
+          var search_term = this.search_term;
+          data = data.filter(function(row) {
+            return Object.keys(row).some(function(key) {
+              return String(row[key]).toLowerCase().indexOf(search_term) > -1;
             });
-          }
+          });
+        }
 
-          // Sort data
-          if (this.sort_key) {
-            var sort_key = this.columns[this.sort_key].referencing;
-            var sort_type = this.columns[this.sort_key].order === 'des' ? -1 : 1;
-            data = data.slice().sort(function(a, b) {
-              if (typeof a[sort_key] === 'string' && isNaN(a[sort_key])) {
-                a = a[sort_key].toLowerCase();
-                b = b[sort_key].toLowerCase();
+        // Sort data
+        if (this.sort_key) {
+          var sort_key = this.columns[this.sort_key].referencing;
+          var sort_type = this.columns[this.sort_key].order === 'des' ? -1 : 1;
+          data = data.slice().sort(function(a, b) {
+            if (typeof a[sort_key] === 'string' && isNaN(a[sort_key])) {
+              a = a[sort_key].toLowerCase();
+              b = b[sort_key].toLowerCase();
 
-                if (a < b) {
-                  return sort_type * (-1);
-                } else if (a > b) {
-                  return sort_type * (1);
-                } else {
-                  return 0;
-                }
+              if (a < b) {
+                return sort_type * (-1);
+              } else if (a > b) {
+                return sort_type * (1);
               } else {
-                return sort_type * ((a[sort_key] * 1) - b[sort_key]);
+                return 0;
               }
-            });
-          }
-
-          return data;
-        } else {
-          return this.data;
+            } else {
+              return sort_type * ((a[sort_key] * 1) - b[sort_key]);
+            }
+          });
         }
+
+        return data;
+      } else {
+        return this.data;
+      }
+    }
+  },
+  filters: {
+    capitalize: function(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  },
+  methods: {
+    sort_by: function(key) {
+      this.search_term = key;
+    },
+    select: function(event, asset) {
+      GLOBALS.asset = asset;
+    },
+    information: function(event, asset) {
+      setup_form(this.asset, asset.data || {});
+    },
+    edit: function(event) {
+      $('#' + this.asset + '_modify').modal('show');
+    },
+    remove: function(event) {
+      $('#' + this.asset + '_remove').modal('show');
+    }
+  }
+});
+
+// Register VUE Elements
+VUE_ELEMENTS.all_jobs = new Vue({
+  el: '#all_jobs_table',
+  data: {
+    asset: 'jobs',
+    more: false,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'title'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
       }
     },
-    filters: {
-      capitalize: function(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+    data: []
+  }
+});
+
+VUE_ELEMENTS.search_jobs = new Vue({
+  el: '#search_jobs_table',
+  data: {
+    asset: 'jobs',
+    more: false,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
+      },
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'title'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
       }
     },
-    methods: {
-      sort_by: function(key) {
-        this.search_term = key;
+    data: []
+  }
+});
+
+VUE_ELEMENTS.recent_jobs = new Vue({
+  el: '#recent_jobs_table',
+  data: {
+    asset: 'jobs',
+    more: false,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
       },
-      select: function(event, asset) {
-        GLOBALS.asset = asset;
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
       },
-      information: function(event, asset) {
-        setup_form(this.asset, asset.data || {});
+      'Puesto': {
+        order: '',
+        referencing: 'title'
       },
-      edit: function(event) {
-        $('#' + this.asset + '_modify').modal('show');
-      },
-      remove: function(event) {
-        $('#' + this.asset + '_remove').modal('show');
+      'Activo': {
+        order: '',
+        referencing: 'active'
       }
-    }
-  });
+    },
+    data: []
+  }
+});
 
-  // Register VUE Elements
-  VUE_ELEMENTS.all_jobs = new Vue({
-    el: '#all_jobs_table',
-    data: {
-      asset: 'jobs',
-      more: false,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Puesto': {
-          order: '',
-          referencing: 'title'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.all_quotations = new Vue({
+  el: '#all_quotations_table',
+  data: {
+    asset: 'quotations',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
       },
-      data: []
-    }
-  });
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre de Empresa': {
+        order: '',
+        referencing: 'company name'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'job'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
 
-  VUE_ELEMENTS.search_jobs = new Vue({
-    el: '#search_jobs_table',
-    data: {
-      asset: 'jobs',
-      more: false,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Puesto': {
-          order: '',
-          referencing: 'title'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.search_quotations = new Vue({
+  el: '#search_quotations_table',
+  data: {
+    asset: 'quotations',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
       },
-      data: []
-    }
-  });
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre de Empresa': {
+        order: '',
+        referencing: 'company name'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'job'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
 
-  VUE_ELEMENTS.recent_jobs = new Vue({
-    el: '#recent_jobs_table',
-    data: {
-      asset: 'jobs',
-      more: false,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Puesto': {
-          order: '',
-          referencing: 'title'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.recent_quotations = new Vue({
+  el: '#recent_quotations_table',
+  data: {
+    asset: 'quotations',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
       },
-      data: []
-    }
-  });
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre de Empresa': {
+        order: '',
+        referencing: 'company name'
+      },
+      'Puesto': {
+        order: '',
+        referencing: 'job'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
 
-  VUE_ELEMENTS.all_quotations = new Vue({
-    el: '#all_quotations_table',
-    data: {
-      asset: 'quotations',
-      more: true,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Nombre de Empresa': {
-          order: '',
-          referencing: 'company name'
-        },
-        'Puesto': {
-          order: '',
-          referencing: 'job'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.all_requisitions = new Vue({
+  el: '#all_requisitions_table',
+  data: {
+    asset: 'requisitions',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
       },
-      data: []
-    }
-  });
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre de Empresa': {
+        order: '',
+        referencing: 'company name'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
 
-  VUE_ELEMENTS.search_quotations = new Vue({
-    el: '#search_quotations_table',
-    data: {
-      asset: 'quotations',
-      more: true,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Nombre de Empresa': {
-          order: '',
-          referencing: 'company name'
-        },
-        'Puesto': {
-          order: '',
-          referencing: 'job'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.search_requisitions = new Vue({
+  el: '#search_requisitions_table',
+  data: {
+    asset: 'requisitions',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
       },
-      data: []
-    }
-  });
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre de Empresa': {
+        order: '',
+        referencing: 'company name'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
 
-  VUE_ELEMENTS.recent_quotations = new Vue({
-    el: '#recent_quotations_table',
-    data: {
-      asset: 'quotations',
-      more: true,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Nombre de Empresa': {
-          order: '',
-          referencing: 'company name'
-        },
-        'Puesto': {
-          order: '',
-          referencing: 'job'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.recent_requisitions = new Vue({
+  el: '#recent_requisitions_table',
+  data: {
+    asset: 'requisitions',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
       },
-      data: []
-    }
-  });
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre de Empresa': {
+        order: '',
+        referencing: 'company name'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
 
-  VUE_ELEMENTS.all_requisitions = new Vue({
-    el: '#all_requisitions_table',
-    data: {
-      asset: 'requisitions',
-      more: true,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Nombre de Empresa': {
-          order: '',
-          referencing: 'company name'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.all_candidates = new Vue({
+  el: '#all_candidates_table',
+  data: {
+    asset: 'candidates',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
       },
-      data: []
-    }
-  });
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre': {
+        order: '',
+        referencing: 'name'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
 
-  VUE_ELEMENTS.search_requisitions = new Vue({
-    el: '#search_requisitions_table',
-    data: {
-      asset: 'requisitions',
-      more: true,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Nombre de Empresa': {
-          order: '',
-          referencing: 'company name'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.search_candidates = new Vue({
+  el: '#search_candidates_table',
+  data: {
+    asset: 'candidates',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
       },
-      data: []
-    }
-  });
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre': {
+        order: '',
+        referencing: 'name'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
 
-  VUE_ELEMENTS.recent_requisitions = new Vue({
-    el: '#recent_requisitions_table',
-    data: {
-      asset: 'requisitions',
-      more: true,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Nombre de Empresa': {
-          order: '',
-          referencing: 'company name'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.recent_candidates = new Vue({
+  el: '#recent_candidates_table',
+  data: {
+    asset: 'candidates',
+    more: true,
+    modifiable: true,
+    removable: true,
+    sort_key: 'Creado',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: '',
+        referencing: 'id'
       },
-      data: []
-    }
-  });
+      'Creado': {
+        order: 'des',
+        referencing: 'created'
+      },
+      'Nombre': {
+        order: '',
+        referencing: 'name'
+      },
+      'Activo': {
+        order: '',
+        referencing: 'active'
+      }
+    },
+    data: []
+  }
+});
 
-  VUE_ELEMENTS.all_candidates = new Vue({
-    el: '#all_candidates_table',
-    data: {
-      asset: 'candidates',
-      more: true,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Nombre': {
-          order: '',
-          referencing: 'name'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.all_users = new Vue({
+  el: '#all_users_table',
+  data: {
+    asset: 'users',
+    more: false,
+    modifiable: true,
+    removable: true,
+    sort_key: 'ID.',
+    search_term: '',
+    columns: {
+      'ID.': {
+        order: 'asc',
+        referencing: 'id'
       },
-      data: []
-    }
-  });
+      'Creado': {
+        order: '',
+        referencing: 'created'
+      },
+      'Nombre': {
+        order: '',
+        referencing: 'username'
+      },
+      'Acceso': {
+        order: '',
+        referencing: 'access'
+      }
+    },
+    data: []
+  }
+});
 
-  VUE_ELEMENTS.search_candidates = new Vue({
-    el: '#search_candidates_table',
-    data: {
-      asset: 'candidates',
-      more: true,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Nombre': {
-          order: '',
-          referencing: 'name'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.all_logs = new Vue({
+  el: '#all_logs_table',
+  data: {
+    asset: 'logs',
+    more: false,
+    modifiable: false,
+    removable: false,
+    sort_key: 'Fecha y Hora',
+    search_term: '',
+    columns: {
+      'Fecha y Hora': {
+        order: 'des',
+        referencing: 'created'
       },
-      data: []
-    }
-  });
+      'Responsable': {
+        order: '',
+        referencing: 'responsible'
+      },
+      'Movimiento': {
+        order: '',
+        referencing: 'action'
+      },
+      'Identificador': {
+        order: '',
+        referencing: 'asset_id'
+      }
+    },
+    data: []
+  }
+});
 
-  VUE_ELEMENTS.recent_candidates = new Vue({
-    el: '#recent_candidates_table',
-    data: {
-      asset: 'candidates',
-      more: true,
-      modifiable: true,
-      removable: true,
-      sort_key: 'Creado',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: '',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Nombre': {
-          order: '',
-          referencing: 'name'
-        },
-        'Activo': {
-          order: '',
-          referencing: 'active'
-        }
+VUE_ELEMENTS.recent_logs = new Vue({
+  el: '#recent_logs_table',
+  data: {
+    asset: 'logs',
+    more: false,
+    modifiable: false,
+    removable: false,
+    sort_key: 'Fecha y Hora',
+    search_term: '',
+    columns: {
+      'Fecha y Hora': {
+        order: 'des',
+        referencing: 'created'
       },
-      data: []
-    }
-  });
-
-  VUE_ELEMENTS.all_users = new Vue({
-    el: '#all_users_table',
-    data: {
-      asset: 'users',
-      more: false,
-      modifiable: true,
-      removable: true,
-      sort_key: 'ID.',
-      search_term: '',
-      columns: {
-        'ID.': {
-          order: 'asc',
-          referencing: 'id'
-        },
-        'Creado': {
-          order: '',
-          referencing: 'created'
-        },
-        'Nombre': {
-          order: '',
-          referencing: 'username'
-        },
-        'Acceso': {
-          order: '',
-          referencing: 'access'
-        }
+      'Responsable': {
+        order: '',
+        referencing: 'responsible'
       },
-      data: []
-    }
-  });
-
-  VUE_ELEMENTS.all_logs = new Vue({
-    el: '#all_logs_table',
-    data: {
-      asset: 'logs',
-      more: false,
-      modifiable: false,
-      removable: false,
-      sort_key: 'Fecha y Hora',
-      search_term: '',
-      columns: {
-        'Fecha y Hora': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Responsable': {
-          order: '',
-          referencing: 'responsible'
-        },
-        'Movimiento': {
-          order: '',
-          referencing: 'action'
-        },
-        'Identificador': {
-          order: '',
-          referencing: 'asset_id'
-        }
+      'Movimiento': {
+        order: '',
+        referencing: 'action'
       },
-      data: []
-    }
-  });
-
-  VUE_ELEMENTS.recent_logs = new Vue({
-    el: '#recent_logs_table',
-    data: {
-      asset: 'logs',
-      more: false,
-      modifiable: false,
-      removable: false,
-      sort_key: 'Fecha y Hora',
-      search_term: '',
-      columns: {
-        'Fecha y Hora': {
-          order: 'des',
-          referencing: 'created'
-        },
-        'Responsable': {
-          order: '',
-          referencing: 'responsible'
-        },
-        'Movimiento': {
-          order: '',
-          referencing: 'action'
-        },
-        'Identificador': {
-          order: '',
-          referencing: 'asset_id'
-        }
-      },
-      data: []
-    }
-  });
-}
+      'Identificador': {
+        order: '',
+        referencing: 'asset_id'
+      }
+    },
+    data: []
+  }
+});

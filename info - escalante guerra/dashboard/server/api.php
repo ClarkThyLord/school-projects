@@ -75,6 +75,12 @@
 		// Setup debug spot in response
 		$GLOBALS['response']['debug'] = Array();
 
+		$GLOBALS['response']['debug']['VARIABLES'] = array();
+		$GLOBALS['response']['debug']['VARIABLES']['GET'] = $_GET;
+		$GLOBALS['response']['debug']['VARIABLES']['POST'] = $_POST;
+		$GLOBALS['response']['debug']['VARIABLES']['FILES'] = $_FILES;
+
+
 		$GLOBALS['response']['debug']['session'] = $_SESSION;
 		$GLOBALS['response']['debug']['method'] = $_SERVER['REQUEST_METHOD'];
 		$GLOBALS['response']['debug']['routes'] = $routes;
