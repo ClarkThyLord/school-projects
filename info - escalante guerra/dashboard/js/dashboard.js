@@ -305,39 +305,54 @@ async function html_to_data(dom) {
   var required = false;
   var required_fields = [];
   var data = {};
-  $(dom).find(':input').each(function(num) {
-    if (!$(this).attr('name')) {
-      return;
+
+  var inputs = $(dom).find(':input');
+  for (num = 0; num < inputs.length; num++) {
+    var input = inputs[num];
+
+    if (!$(input).attr('name')) {
+      continue;
     }
 
-    if ($(this).prop('required') && !($(this).val() || (this.files && this.files.length < 0))) {
-      return required = true && required_fields.push($(this).data('backup')) && $(this).val(undefined);
-    } else if ($(this).attr('type') === 'checkbox') {
-      data['id_' + num] = $(this).prop('checked');
-    } else if ($(this).attr('type') === 'file' || $(this).attr('type') === 'files') {
-      files = this.files;
+    if ($(input).prop('required') && !($(input).val() || (input.files && input.files.length < 0))) {
+      required = true;
+      required_fields.push($(input).data('backup'));
+      $(input).val(undefined)
+      continue;
+    } else if ($(input).attr('type') === 'checkbox') {
+      data['id_' + num] = $(input).prop('checked');
+    } else if ($(input).attr('type') === 'file' || $(input).attr('type') === 'files') {
+      files = input.files;
+
+      var getBase64 = function getBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = error => reject(error);
+        });
+      }
+
       if (files.length > 0) {
         data['id_' + num] = {};
         for (var file in Object.keys(files)) {
           file = files[file];
 
-          var reader = new FileReader();
-          reader.addEventListener("load", function() {
-            data['id_' + num][file.name] = reader.result;
-          }, false);
+          var file_base64 = await getBase64(file);
 
-          if (file) {
-            reader.readAsDataURL(file);
-          }
+          console.log(file_base64);
+
+          data['id_' + num] = file_base64;
         }
       }
     } else {
-      data['id_' + num] = $(this).val();
+      data['id_' + num] = $(input).val();
     }
-  });
+  }
 
   if (required) {
     alert('Debe completar lo siguiente:\n' + required_fields.join('\n'));
+    return false;
   } else {
     return data;
   }

@@ -531,7 +531,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = html_to_data($('#quotations_add_info').first()[0]); if (!data) { return; } $('#quotations_add').modal('hide'); quotations_add({'company name': $('#quotations_add_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#quotations_add_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data}); $('#quotations_add_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#quotations_add_info').first()[0]); if (!data) { return; } quotations_add({'company name': $('#quotations_add_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#quotations_add_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data}); $('#quotations_add').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
@@ -594,7 +594,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = html_to_data($('#quotations_data_modify_info').first()[0]); if (!data) { return; } $('#quotations_data_modify').modal('hide'); quotations_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#quotations_data_modify_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#quotations_data_modify_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data}); $('#quotations_data_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#quotations_data_modify_info').first()[0]); if (!data) { return; } quotations_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#quotations_data_modify_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#quotations_data_modify_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data});  $('#quotations_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
@@ -654,7 +654,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = html_to_data($('#requisitions_add_info').first()[0]); if (!data) { return; } $('#requisitions_add').modal('hide'); requisitions_add({'company name': $('#requisitions_add_info :input[data-backup=\'Nombre de la Empresa\']').val(), data: data}); $('#requisitions_add_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#requisitions_add_info').first()[0]); if (!data) { return; } requisitions_add({'company name': $('#requisitions_add_info :input[data-backup=\'Nombre de la Empresa\']').val(), data: data}); $('#requisitions_add').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
@@ -717,7 +717,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = html_to_data($('#requisitions_data_modify_info').first()[0]); if (!data) { return; } $('#requisitions_data_modify').modal('hide'); requisitions_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#requisitions_data_modify_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#requisitions_data_modify_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data}); $('#requisitions_data_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#requisitions_data_modify_info').first()[0]); if (!data) { return; } requisitions_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#requisitions_data_modify_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#requisitions_data_modify_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data}); $('#requisitions_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
@@ -777,7 +777,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = html_to_data($('#candidates_add_info').first()[0]); if (!data) { return; } $('#candidates_add').modal('hide'); candidates_add({'name': $('#candidates_add_info :input[data-backup=\'Nombre Completo\']').val(), data: data}); $('#candidates_add_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#candidates_add_info').first()[0]); if (!data) { return; } candidates_add({'name': $('#candidates_add_info :input[data-backup=\'Nombre Completo\']').val(), data: data}); $('#candidates_add').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
@@ -840,7 +840,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = html_to_data($('#candidates_data_modify_info').first()[0]); if (!data) { return; } $('#candidates_data_modify').modal('hide'); candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'name': $('#candidates_data_modify_info :input[data-backup=\'Nombre Completo\']').val(), data: data}); $('#candidates_data_modify_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#candidates_data_modify_info').first()[0]); if (!data) { return; } candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'name': $('#candidates_data_modify_info :input[data-backup=\'Nombre Completo\']').val(), data: data}); $('#candidates_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>
