@@ -68,6 +68,11 @@
 	      <li class="nav-item">
 	        <a onclick="$('#section_add').modal('show');" class="nav-link" href="#">+ Agregar Sección</a>
 	      </li>
+
+				<!-- MAP -->
+	      <li class="nav-item">
+	        <a onclick="window.open('./assets/images/map.jpg', 'Metrópoli2Go - Mapa', 'width=800, height=600');" class="nav-link" href="#">🗺️ Ver el Mapa</a>
+	      </li>
 	    </ul>
 
 	    <div class="form-inline my-2 my-lg-0">

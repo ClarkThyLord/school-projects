@@ -95,7 +95,7 @@
       <div class="modal-footer">
         <button type="button" onclick="$('#landmark_add').find('form').first().trigger('reset');" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 				<button type="button" onclick="$('#landmark_remove').modal('show');" class="btn btn-danger">Eliminar</button>
-        <button type="button" onclick="var data = {}; $('#landmark_modify form :input').each(function() { if (this.name) { data[this.name] = $(this).val(); } }); landmarks_modify(GLOBALS.landmark.id, data); $('#landmark_modify').modal('hide').find('form').trigger('reset');" class="btn btn-primary">Modificar</button>
+        <button type="button" onclick="var data = {}; $('#landmark_modify form :input').each(function() { if (this.name) { data[this.name] = $(this).val(); } }); landmarks_modify(GLOBALS.landmark.id, data); $('#landmark_modify').modal('hide').find('form').trigger('reset');" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>
