@@ -1019,6 +1019,7 @@
   <script src="./js/libs/bootstrap.min.js"></script>
   <script src="./js/libs/vue.min.js"></script>
   <script src="./js/libs/html2pdf.bundle.min.js"></script>
+  <script src="./js/libs/download2.js"></script>
 
 	<!-- VUE Templates -->
 	<script type="text/x-template" id="table-component">

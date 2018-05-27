@@ -214,12 +214,30 @@ function setup_form(identifier, data) {
   if (typeof data === 'string') {
     data = JSON.parse(data);
   }
-
+  var diffrences = {
+    requisitions: 5,
+    candidates: 3
+  }
+  var diffrence = diffrences[identifier];
   $('#' + identifier + '_data_modify_info :input').each(function(num) {
     if ($(this).attr('type') === 'checkbox') {
       $(this).prop('checked', !!(data['id_' + num] * 1));
     } else if ($(this).attr('type') === 'file') {
-      $(this).after('<a href="">Descargar Archivo</a>');
+      console.log('IDE');
+      console.log('[data-files-preview="id_' + (diffrence + num) + '"]');
+      console.log($('[data-files-preview="id_' + (diffrence + num) + '"]'));
+
+      $('[data-files-preview="id_' + (diffrence + num) + '"]').html('').each(function() {
+        var files = data['id_' + num];
+        var file_names = Object.keys(files);
+
+        for (var file_name in file_names) {
+          file_name = file_names[file_name];
+          var file = files[file_name];
+
+          $(this).append('<a href="#" onclick="download_file(\'' + file_name + '\',\'' + file + '\');">Descargar Archivo</a>');
+        }
+      });
     } else {
       $(this).val(data['id_' + num]);
     }
@@ -230,8 +248,19 @@ function setup_form(identifier, data) {
 
 
 /**
+ * Download data.
+ * @param {Object} name Name given to download.
+ * @param {Object} data Data to download.
+ * @return {undefined} Returns nothing.
+ */
+function download_file(name, data) {
+  download(data, name);
+}
+
+
+/**
  * Convert a object form to a html.
- * @param {Object} dom Object form.
+ * @param {Object} data Object form.
  * @return {Array} Returns array with html.
  */
 function form_to_html(data) {
@@ -276,9 +305,11 @@ function form_to_html(data) {
         break;
       case 'file':
         $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' class="form-control" data-backup="' + (value.label || '') + '" name="' + ('id_' + num) + '" />');
+        $(dom).append('<div class="form-control" data-files-preview="' + ('id_' + num) + '"></div>');
         break;
       case 'files':
         $(dom).append('<input type="file"' + (value.required ? ' required' : '') + ' multiple class="form-control" data-backup="' + (value.label || '') + '" name="' + ('id_' + num) + '" />');
+        $(dom).append('<div class="form-control" data-files-preview="' + ('id_' + num) + '"></div>');
         break;
       default:
         console.log('NON REGISTRED INPUT TYPE:\n' + value.type + '\n---');
@@ -328,11 +359,17 @@ async function html_to_data(dom) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
           reader.readAsDataURL(file);
-          reader.onload = () => resolve(reader.result);
-          reader.onerror = error => reject(error);
+          reader.onload = function() {
+            resolve(reader.result);
+          };
+          reader.onerror = function(error) {
+            reject(error);
+            alert(error);
+          };
         });
       }
 
+      data['id_' + num] = {};
       if (files.length > 0) {
         data['id_' + num] = {};
         for (var file in Object.keys(files)) {
@@ -340,9 +377,7 @@ async function html_to_data(dom) {
 
           var file_base64 = await getBase64(file);
 
-          console.log(file_base64);
-
-          data['id_' + num] = file_base64;
+          data['id_' + num][file.name] = file_base64;
         }
       }
     } else {

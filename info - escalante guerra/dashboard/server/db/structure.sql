@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `candidates` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` text NOT NULL,
-  `data` text,
+  `data` longtext,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `quotations` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `company name` text NOT NULL,
   `job` text NOT NULL,
-  `data` text,
+  `data` longtext,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `requisitions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `company name` text NOT NULL,
-  `data` text,
+  `data` longtext,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;

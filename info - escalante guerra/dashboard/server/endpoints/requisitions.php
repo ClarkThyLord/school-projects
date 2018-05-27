@@ -95,6 +95,11 @@
 
 			response_send(true, 'requisición agregado exitosamente');
     } else {
+			// FOR DEBUGGING
+			if (is_debugging()) {
+				$GLOBALS['response']['debug']['database']['error'] = $GLOBALS['conn']->error;
+			}
+
 			response_send(false, 'requisición agregado sin éxito');
     }
 	}
