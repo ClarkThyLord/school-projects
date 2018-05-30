@@ -905,6 +905,15 @@ $(function() {
       columns: Array,
       data: Array
     },
+    data: function() {
+      return {
+        count: {}
+      };
+    },
+    beforeUpdate: function() {
+
+      this.count = {};
+    },
     computed: {
       filtered_data: function() {
         var data = this.data;
@@ -912,6 +921,11 @@ $(function() {
         valid_data = [];
         for (var section in data) {
           section = data[section];
+          for (var landmark in section.data) {
+            landmark = section.data[landmark];
+            this.count.Nombre = (this.count.Nombre ? (this.count.Nombre + 1) : 1);
+            this.count[landmark.classification] = (this.count[landmark.classification] ? (this.count[landmark.classification] + 1) : 1);
+          }
 
           valid_data.push.apply(valid_data, section.data);
         }
@@ -947,6 +961,9 @@ $(function() {
           VUE_ELEMENTS.files.files = GLOBALS.landmark.files;
         }
       }
+
+      $('#info-banner-sectiones').html($('.section').length);
+      $('#info-banner-landmarks').html($('.landmark').length);
     },
     computed: {
       filtered_data: function() {

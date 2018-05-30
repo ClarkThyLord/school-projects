@@ -13,7 +13,7 @@
       </div>
 
 			<!-- BODY -->
-      <div class="modal-body">
+      <div  style="overflow-y: auto; max-height: 250px;" class="modal-body">
 				<div id="export">
 					<export-component :columns="columns" :data="data"></export-component>
 				</div>

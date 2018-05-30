@@ -1,3 +1,10 @@
+#info-banner {
+  position: fixed;
+  bottom: 5px;
+  left: 2%;
+  width: 96%;
+}
+
 .kanban-parent {}
 
 .kanban-parent .prev {

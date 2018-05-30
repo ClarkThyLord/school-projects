@@ -56,7 +56,7 @@
 	<?php include "./php/landmarks.php" ?>
 
 	<!-- NAVIGATION MENU -->
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light sticky-top bg-light">
 		<a href="#" class="navbar-brand"><img src="./assets/images/m2go_full.png" style="max-width: 135px;"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false">
 	    <span class="navbar-toggler-icon"></span>
@@ -92,6 +92,14 @@
 	<!-- KANBAN -->
 	<div class="kanban-parent" id="kanban">
 		<kanban-component :search_term="search_term" :data="data"></kanban-component>
+	</div>
+
+	<!-- INFO BANNER -->
+	<div class="alert alert-secondary" id="info-banner">
+  	<label class="font-weight-bold">Número de Secciónes:</label>
+		<span class="font-italic" id="info-banner-sectiones">0</span>
+  	<label class="font-weight-bold">Número de Landmarks:</label>
+		<span class="font-italic" id="info-banner-landmarks">0</span>
 	</div>
 
   <!-- Javascript -->
@@ -152,6 +160,12 @@
 						<span v-if="landmark.classification === column">◉</span>
 	        </td>
 	      </tr>
+				<tr>
+					<td v-for="(val, column) in columns" class="text-center">
+						<b v-if="column in count"> {{ count[column] }} </b>
+						<b v-else>0</b>
+					</td>
+				</tr>
   		</tbody>
 		</table>
 	</script>
