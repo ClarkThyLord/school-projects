@@ -593,6 +593,7 @@
 
 				<!-- FOOTER -->
 	      <div class="modal-footer">
+					<button type="button" onclick="window.location.href = ('mailto:' + $('#quotations_data_modify_info [name=\'id_4\']').val());" class="btn btn-success">Email</button>
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 	        <button type="button" onclick="(async function () { var data = await html_to_data($('#quotations_data_modify_info').first()[0]); if (!data) { return; } quotations_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#quotations_data_modify_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#quotations_data_modify_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data});  $('#quotations_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
 	      </div>
