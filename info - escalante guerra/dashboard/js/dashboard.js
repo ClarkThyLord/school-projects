@@ -229,6 +229,9 @@ function setup_form(identifier, data) {
 
       $('[data-files-preview="id_' + (diffrence + num) + '"]').html('').each(function() {
         var files = data['id_' + num];
+        if (files === undefined) {
+          return;
+        }
         var file_names = Object.keys(files);
 
         for (var file_name in file_names) {
