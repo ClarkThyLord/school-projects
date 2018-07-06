@@ -840,8 +840,38 @@
 
 				<!-- FOOTER -->
 	      <div class="modal-footer">
+	        <button type="button" onclick="$('#candidates_private_modify_info :input[name=\'private\']').val(GLOBALS.asset.private); $('#candidates_private_modify').modal('show');" class="btn btn-danger">Privado</button>
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 	        <button type="button" onclick="(async function () { var data = await html_to_data($('#candidates_data_modify_info').first()[0]); if (!data) { return; } candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'name': $('#candidates_data_modify_info :input[data-backup=\'Nombre Completo\']').val(), data: data}); $('#candidates_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- CANDIDATES PRIVATE MODIFY -->
+	<div class="modal fade" id="candidates_private_modify" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered" role="document">
+	    <div class="modal-content">
+				<!-- HEADER -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Modifica Candidato</h5>
+
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<!-- BODY -->
+	      <div class="modal-body">
+	        <form action="#" data-current-step="0" id="candidates_private_modify_info">
+						<textarea class="form-control" name="private"></textarea>
+					</form>
+	      </div>
+
+				<!-- FOOTER -->
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#candidates_data_modify_info').first()[0]); if (!data) { return; } candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'name': $('#candidates_data_modify_info :input[data-backup=\'Nombre Completo\']').val(), data: data, 'private': $('#candidates_private_modify_info :input[name=\'private\']').val()}); $('#candidates_private_modify').modal('hide'); $('#candidates_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
 	      </div>
 	    </div>
 	  </div>

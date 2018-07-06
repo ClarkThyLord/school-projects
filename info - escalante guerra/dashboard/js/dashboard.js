@@ -968,17 +968,6 @@ function candidates_modify(id, data) {
     color: 'rgba(0, 0, 0)',
   });
 
-  var valid = [
-    'title',
-    'description'
-  ];
-  var valid_data = {};
-  $.each(data, function(key, value) {
-    if (value && valid.indexOf(key) !== -1) {
-      valid_data[key] = value;
-    }
-  });
-
   $.post({
     url: './server/api.php/candidates/modify?debug=' + DEBUGGING.server,
     data: {
