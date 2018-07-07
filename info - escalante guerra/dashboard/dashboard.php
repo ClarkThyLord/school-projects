@@ -396,7 +396,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="$('#forms_view').modal('hide'); $('#forms_view_info').trigger('reset');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="$('#forms_view').modal('hide'); $('#forms_view_info').trigger('reset');" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -471,7 +471,7 @@
 					<!-- FOOTER -->
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-		        <button onclick="var data = {}; $('#jobs_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else { data[this.name] = $(this).val(); } }); jobs_modify(GLOBALS.asset.id, data); $('#jobs_modify').modal('hide');" type="button" class="btn btn-primary">Someter</button>
+		        <button onclick="var data = {}; $('#jobs_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else { data[this.name] = $(this).val(); } }); jobs_modify(GLOBALS.asset.id, data); $('#jobs_modify').modal('hide');" type="button" class="btn btn-primary">Guardar</button>
 		      </div>
 		    </div>
 		  </div>
@@ -531,7 +531,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="(async function () { var data = await html_to_data($('#quotations_add_info').first()[0]); if (!data) { return; } quotations_add({'company name': $('#quotations_add_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#quotations_add_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data}); $('#quotations_add').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#quotations_add_info').first()[0]); if (!data) { return; } quotations_add({'company name': $('#quotations_add_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#quotations_add_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data}); $('#quotations_add').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -566,7 +566,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = {}; $('#quotations_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else if (this.type !== 'button') { data[this.name] = $(this).val(); } }); quotations_modify(GLOBALS.asset.id, data); $('#quotations_modify').modal('hide');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="var data = {}; $('#quotations_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else if (this.type !== 'button') { data[this.name] = $(this).val(); } }); quotations_modify(GLOBALS.asset.id, data); $('#quotations_modify').modal('hide');" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -595,7 +595,7 @@
 	      <div class="modal-footer">
 					<button type="button" onclick="window.location.href = ('mailto:' + $('#quotations_data_modify_info [name=\'id_4\']').val());" class="btn btn-success">Email</button>
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="(async function () { var data = await html_to_data($('#quotations_data_modify_info').first()[0]); if (!data) { return; } quotations_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#quotations_data_modify_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#quotations_data_modify_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data});  $('#quotations_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#quotations_data_modify_info').first()[0]); if (!data) { return; } quotations_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#quotations_data_modify_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#quotations_data_modify_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data});  $('#quotations_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -655,7 +655,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="(async function () { var data = await html_to_data($('#requisitions_add_info').first()[0]); if (!data) { return; } requisitions_add({'company name': $('#requisitions_add_info :input[data-backup=\'Nombre de la Empresa\']').val(), data: data}); $('#requisitions_add').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#requisitions_add_info').first()[0]); if (!data) { return; } requisitions_add({'company name': $('#requisitions_add_info :input[data-backup=\'Nombre de la Empresa\']').val(), data: data}); $('#requisitions_add').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -690,7 +690,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = {}; $('#requisitions_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else if (this.type !== 'button') { data[this.name] = $(this).val(); } }); requisitions_modify(GLOBALS.asset.id, data); $('#requisitions_modify').modal('hide');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="var data = {}; $('#requisitions_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else if (this.type !== 'button') { data[this.name] = $(this).val(); } }); requisitions_modify(GLOBALS.asset.id, data); $('#requisitions_modify').modal('hide');" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -718,7 +718,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="(async function () { var data = await html_to_data($('#requisitions_data_modify_info').first()[0]); if (!data) { return; } requisitions_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#requisitions_data_modify_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#requisitions_data_modify_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data}); $('#requisitions_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#requisitions_data_modify_info').first()[0]); if (!data) { return; } requisitions_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'company name': $('#requisitions_data_modify_info :input[data-backup=\'Nombre de la Empresa\']').val(), job: $('#requisitions_data_modify_info :input[data-backup=\'Nombre del Puesto\']').val(), data: data}); $('#requisitions_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -778,7 +778,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="(async function () { var data = await html_to_data($('#candidates_add_info').first()[0]); if (!data) { return; } candidates_add({'name': $('#candidates_add_info :input[data-backup=\'Nombre Completo\']').val(), data: data}); $('#candidates_add').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#candidates_add_info').first()[0]); if (!data) { return; } candidates_add({'name': $('#candidates_add_info :input[data-backup=\'Nombre Completo\']').val(), data: data}); $('#candidates_add').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -813,7 +813,7 @@
 				<!-- FOOTER -->
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="var data = {}; $('#candidates_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else if (this.type !== 'button') { data[this.name] = $(this).val(); } }); candidates_modify(GLOBALS.asset.id, data); $('#candidates_modify').modal('hide');" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="var data = {}; $('#candidates_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else if (this.type !== 'button') { data[this.name] = $(this).val(); } }); candidates_modify(GLOBALS.asset.id, data); $('#candidates_modify').modal('hide');" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -842,7 +842,7 @@
 	      <div class="modal-footer">
 	        <button type="button" onclick="$('#candidates_private_modify_info :input[name=\'private\']').val(GLOBALS.asset.private); $('#candidates_private_modify').modal('show');" class="btn btn-danger">Privado</button>
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="(async function () { var data = await html_to_data($('#candidates_data_modify_info').first()[0]); if (!data) { return; } candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'name': $('#candidates_data_modify_info :input[data-backup=\'Nombre Completo\']').val(), data: data}); $('#candidates_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="(async function () { var data = await html_to_data($('#candidates_data_modify_info').first()[0]); if (!data) { return; } candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'name': $('#candidates_data_modify_info :input[data-backup=\'Nombre Completo\']').val(), data: data}); $('#candidates_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -863,15 +863,19 @@
 
 				<!-- BODY -->
 	      <div class="modal-body">
-	        <form action="#" data-current-step="0" id="candidates_private_modify_info">
-						<textarea class="form-control" name="private"></textarea>
+	        <form action="#" id="candidates_private_modify_info">
+						<input type="file" class="form-control" id="candidates_private_files_picker"/>
+						<div style="height: 200px; text-align: center;" class="m-2 border" id="candidates_private_files_dropzone">
+							ARRASTRE Y ARROJAR ARCHIVO AQUÍ
+						</div>
 					</form>
 	      </div>
 
 				<!-- FOOTER -->
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <button type="button" onclick="(async function () { var data = await html_to_data($('#candidates_data_modify_info').first()[0]); if (!data) { return; } candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'name': $('#candidates_data_modify_info :input[data-backup=\'Nombre Completo\']').val(), data: data, 'private': $('#candidates_private_modify_info :input[name=\'private\']').val()}); $('#candidates_private_modify').modal('hide'); $('#candidates_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Someter</button>
+	        <button type="button" onclick="if (GLOBALS.asset.private !== '0') { window.open('./privates/' + GLOBALS.asset.id + '.docx', '_blank'); }" class="btn btn-success">Descargar</button>
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+	        	<button type="button" onclick="(async function () { var data = await html_to_data($('#candidates_data_modify_info').first()[0]); if (!data) { return; } candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {'name': $('#candidates_data_modify_info :input[data-backup=\'Nombre Completo\']').val(), data: data}); $('#candidates_private_modify').modal('hide'); $('#candidates_data_modify').modal('hide').find('form').trigger('reset'); })();" class="btn btn-primary">Guardar</button>
 	      </div>
 	    </div>
 	  </div>
@@ -975,7 +979,7 @@
 					<!-- FOOTER -->
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-		        <button onclick="var data = {}; $('#users_modify_info :input').each(function() { data[this.name] = $(this).val(); }); users_modify(GLOBALS.asset.id, data); $('#users_modify').modal('hide');" type="button" class="btn btn-primary">Someter</button>
+		        <button onclick="var data = {}; $('#users_modify_info :input').each(function() { data[this.name] = $(this).val(); }); users_modify(GLOBALS.asset.id, data); $('#users_modify').modal('hide');" type="button" class="btn btn-primary">Guardar</button>
 		      </div>
 		    </div>
 		  </div>
@@ -1051,6 +1055,7 @@
   <script src="./js/libs/vue.min.js"></script>
   <script src="./js/libs/html2pdf.bundle.min.js"></script>
   <script src="./js/libs/download2.js"></script>
+  <script src="./js/libs/jquery-FileDrop.js"></script>
 
 	<!-- VUE Templates -->
 	<script type="text/x-template" id="table-component">

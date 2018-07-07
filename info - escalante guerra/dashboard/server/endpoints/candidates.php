@@ -65,7 +65,7 @@
 			$data['data'] = "'" . $data['data'] . "'";
 		}
 
-    $sql = "INSERT INTO `candidates` (`id`, `created`, `name`, `data`, `private`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["name"]}', {$data["data"]}, '', '1')";
+    $sql = "INSERT INTO `candidates` (`id`, `created`, `name`, `data`, `private`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["name"]}', {$data["data"]}, '0', '1')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
@@ -143,6 +143,49 @@
 			response_send(true, 'candidato modificado con éxito');
 		} else {
 			response_send(false, 'candidato modificado sin éxito');
+		}
+	}
+
+
+	/**
+	* Modify private of a candidate in the SQL database.
+	* @param candidate_id [string] ID of candidate to be modified.
+	* @return {undefined} Returns nothing.
+	*/
+	function candidate_private($candidate_id=0) {
+		access_check(1);
+		if ($candidate_id <= 0) {
+			response_send(false, 'la identificación del candidato no fue dada');
+		}
+
+		$GLOBALS['response']['files'] = $_FILES;
+
+		// Create file on server
+		if (count($_FILES) > 0) {
+			foreach ($_FILES as $file) {
+				$file_content = file_get_contents($file["tmp_name"]);
+				$file_extension = pathinfo($file["name"], PATHINFO_EXTENSION);
+	      file_put_contents("../privates/" . $candidate_id . "." . pathinfo($file["name"], PATHINFO_EXTENSION), $file_content);
+				break;
+			}
+		}
+
+		$sql = "UPDATE `candidates` SET `private` = '1'  WHERE `id` = {$candidate_id}";
+
+		// FOR DEBUGGING
+		if (is_debugging()) {
+			array_push($GLOBALS['response']['debug']['database']['sql'], $sql);
+		}
+
+		if ($GLOBALS["conn"]->query($sql) === true) {
+			// LOG
+			qlog($_SESSION['user']['id'], 'privado de candidato modificado', 'candidates', "{$candidate_id}");
+
+			candidate_get();
+
+			response_send(true, 'privado de candidato modificado con éxito');
+		} else {
+			response_send(false, 'privado de candidato modificado sin éxito');
 		}
 	}
 

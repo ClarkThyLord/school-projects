@@ -26,6 +26,7 @@
 	// candidates     | get       | GET       | none
 	// candidates     | add       | POST      | none
 	// candidates     | modify    | POST      | 1^
+	// candidates     | private   | POST      | 1^
 	// candidates     | remove    | POST      | 1^
 	// logs           | get       | GET       | none
 	// logs           | add       | POST      | none
@@ -270,6 +271,9 @@
 						break;
 					case 'modify':
 						candidate_modify($_POST['id'], $_POST['data']);
+						break;
+					case 'private':
+						candidate_private($_POST['id']);
 						break;
 					case 'remove':
 						candidate_remove($_POST['id']);

@@ -28,6 +28,77 @@ $(function() {
       $('#' + forms[form] + '_data_modify_info').html(form_to_html(await forms_format_get(forms[form])));
     }
   })();
+
+  // Setup FileDrop.js
+  $("#candidates_private_files_dropzone").filedrop({
+    fallback_id: "candidates_private_files_picker",
+    fallback_dropzoneClick: true,
+    withCredentials: true,
+    data: {
+      'id': function() {
+        return GLOBALS.asset.id;
+      }
+    },
+    url: "./server/api.php/candidates/private",
+    error: function(err, file) {
+      console.log(err);
+      switch (err) {
+        case 'BrowserNotSupported':
+          alert('browser does not support HTML5 drag and drop');
+          break;
+        case 'TooManyFiles':
+          break;
+        case 'FileTooLarge':
+          break;
+        case 'FileTypeNotAllowed':
+          break;
+        case 'FileExtensionNotAllowed':
+          break;
+        default:
+          break;
+      }
+    },
+    uploadStarted: function(i, file, len) {},
+    uploadFinished: function(i, file, response, time) {
+      if (response.status === 'success') {
+        VUE_ELEMENTS.all_quotations.data = VUE_ELEMENTS.recent_quotations.data = response.data.dump || [];
+      }
+
+      if (response.status === 'failure' || DEBUGGING.popups) {
+        alert(response.reason);
+      }
+
+      (async function() {
+        var data = await html_to_data($('#candidates_data_modify_info').first()[0]);
+        if (!data) {
+          return;
+        }
+        candidates_modify(GLOBALS.asset.id || alert('¡Algo salió mal!'), {
+          'name': $('#candidates_data_modify_info :input[data-backup=\'Nombre Completo\']').val(),
+          data: data
+        });
+        $('#candidates_private_modify').modal('hide');
+        $('#candidates_data_modify').modal('hide').find('form').trigger('reset');
+      })();
+    },
+    progressUpdated: function(i, file, progress) {},
+    globalProgressUpdated: function(progress) {},
+    speedUpdated: function(i, file, speed) {},
+    rename: function(name) {},
+    beforeEach: function(file) {
+      console.log(file);
+
+      if (file.name.toLowerCase().indexOf('.docx') === -1) {
+        alert('¡El archivo no es un DOCX!');
+
+        return false;
+      }
+    },
+    beforeSend: function(file, i, done) {
+      done();
+    },
+    afterAll: function() {}
+  });
 });
 
 // CONTENT Functions

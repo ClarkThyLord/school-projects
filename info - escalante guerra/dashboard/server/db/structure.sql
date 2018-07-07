@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `candidates` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `name` text NOT NULL,
   `data` longtext,
-  `private` longtext,
+  `private` tinyint(1) NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
