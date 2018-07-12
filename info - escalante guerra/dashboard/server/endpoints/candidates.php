@@ -65,7 +65,7 @@
 			$data['data'] = "'" . $data['data'] . "'";
 		}
 
-    $sql = "INSERT INTO `candidates` (`id`, `created`, `name`, `data`, `private`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["name"]}', {$data["data"]}, '0', '1')";
+    $sql = "INSERT INTO `candidates` (`id`, `created`, `name`, `data`, `notes`, `private`, `active`) VALUES (NULL, CURRENT_TIMESTAMP, '{$data["name"]}', {$data["data"]}, '', '0', '1')";
 
 		// FOR DEBUGGING
 		if (is_debugging()) {
@@ -116,7 +116,7 @@
 		}
 
 		$data_sql = array();
-		$valid_keys = array('name', 'data', 'private', 'active');
+		$valid_keys = array('name', 'data', 'notes', 'private', 'active');
 		foreach ($data as $key => $value) {
 			if (!in_array($key, $valid_keys)) { continue; } else {
 				if (gettype($value) === 'array') {
