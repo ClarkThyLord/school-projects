@@ -27,6 +27,7 @@
 	<link href="./css/libs/jquery-waitMe.min.css" rel="stylesheet">
 	<link href="./css/libs/bootstrap.min.css" rel="stylesheet">
 	<link href="./css/libs/bootstrap-switch.min.css" rel="stylesheet">
+	<link href="./css/libs/jquery-te-1.4.0.css" rel="stylesheet">
 
 	<!-- Custom CSS -->
 	<style>
@@ -440,7 +441,7 @@
 
 	<!-- JOBS MODIFY -->
 	<div class="modal fade" id="jobs_modify" role="dialog" aria-labelledby="jobs_edit" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered" role="document">
+		  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		    <div class="modal-content">
 					<!-- HEADER -->
 		      <div class="modal-header">
@@ -457,13 +458,13 @@
 		          <div class="form-group">
 								<label class="col-form-label">Activo:</label>
 								<div class="custom-switch custom-switch-label-onoff">
-								  <input type="checkbox" class="custom-switch-input" name="active" id="jobs_active_switch">
+								  <input data-job-active="true" type="checkbox" class="custom-switch-input" name="active" id="jobs_active_switch">
 								  <label class="custom-switch-btn" for="jobs_active_switch"></label>
 								</div>
 		            <label class="col-form-label">Título:</label>
-		            <input type="text" class="form-control" name="title">
+		            <input data-job-title="true" type="text" class="form-control" name="title">
 		            <label class="col-form-label">Descripción del Puesto:</label>
-								<textarea class="form-control" name="description"></textarea>
+								<textarea data-job-description="true" name="description"></textarea>
 		          </div>
 		        </form>
 		      </div>
@@ -471,7 +472,7 @@
 					<!-- FOOTER -->
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-		        <button onclick="var data = {}; $('#jobs_modify_info :input').each(function() { if ($(this).attr('type') === 'checkbox') { data[this.name] = $(this).prop('checked') ? 1 : 0; } else { data[this.name] = $(this).val(); } }); jobs_modify(GLOBALS.asset.id, data); $('#jobs_modify').modal('hide');" type="button" class="btn btn-primary">Guardar</button>
+		        <button onclick="jobs_modify(GLOBALS.asset.id, {active: ($('[data-job-active]').prop('checked') ? 1 : 0), 'title': $('[data-job-title]').val(), 'description': $('.jqte_editor').html()}); $('#jobs_modify').modal('hide');" type="button" class="btn btn-primary">Guardar</button>
 		      </div>
 		    </div>
 		  </div>
@@ -1086,6 +1087,7 @@
   <script src="./js/libs/html2pdf.bundle.min.js"></script>
   <script src="./js/libs/download2.js"></script>
   <script src="./js/libs/jquery-FileDrop.js"></script>
+  <script src="./js/libs/jquery-te-1.4.0.min.js"></script>
 
 	<!-- VUE Templates -->
 	<script type="text/x-template" id="table-component">

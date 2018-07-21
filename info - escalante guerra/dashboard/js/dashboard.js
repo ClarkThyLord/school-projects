@@ -99,6 +99,10 @@ $(function() {
     },
     afterAll: function() {}
   });
+
+  $('[data-job-description]').each(function() {
+    $(this).jqte();
+  });
 });
 
 // CONTENT Functions
@@ -474,6 +478,8 @@ $('#jobs_modify').on('shown.bs.modal', function(e) {
   $('#jobs_modify_info :input').each(function() {
     if ($(this).attr('type') === 'checkbox') {
       $(this).prop('checked', !!(GLOBALS.asset[this.name] * 1));
+    } else if (this.name === 'description') {
+      $(this).jqteVal(GLOBALS.asset[this.name]);
     } else {
       $(this).val(GLOBALS.asset[this.name]);
     }
