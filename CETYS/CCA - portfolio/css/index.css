@@ -2,56 +2,44 @@ body, html {
   height: 100%;
   margin: 0;
   font: 400 15px/1.8 "Lato", sans-serif;
-  color: #777;
+  color: #fff;
 }
 
-.bgimg-1, .bgimg-2, .bgimg-3 {
-  position: relative;
+.section {
   opacity: 0.65;
+  position: relative;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
 }
-.bgimg-1 {
+
+.section .content {
+  opacity: 1;
+  padding: 5%;
+  padding-left: 25%;
+  padding-right: 25%;
+  text-align: center;
+}
+
+.section .content .text {
+  margin: auto;
+  background-color: #111;
+  padding: 18px;
+  font-size: 25px;
+  letter-spacing: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgb(0, 0, 0);
+}
+
+#s-1 {
   background-image: url("../assets/cetys.svg");
   min-height: 100%;
 }
 
-.bgimg-2 {
-  background-image: url("img_parallax2.jpg");
-  min-height: 400px;
-}
-
-.bgimg-3 {
-  background-image: url("img_parallax3.jpg");
-  min-height: 400px;
-}
-
-.caption {
-  padding: 10px;
-  position: absolute;
-  left: 25%;
-  height: 100%;
-  text-align: center;
-  color: #000;
-}
-
-.caption div.border {
-  margin: auto;
-  background-color: #111;
-  color: #fff;
-  padding: 18px;
-  font-size: 25px;
-  letter-spacing: 10px;
-}
-
-h3 {
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  font: 20px "Lato", sans-serif;
-  color: #111;
+#s-2 {
+  background-image: url("../assets/eye%20of%20potential.jpg");
+  min-height: 100%;
 }
 
 /* Turn off parallax scrolling for tablets and phones */
