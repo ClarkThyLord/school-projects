@@ -2,6 +2,44 @@ body, html {
   height: 100%;
   margin: 0;
   font: 400 15px/1.8 "Lato", sans-serif;
+}
+
+nav {
+  z-index: 2;
+  position: fixed;
+  width: 100%;
+  display: flex;
+}
+
+nav .left {
+  flex: 0.33;
+  text-align: left;
+}
+
+nav .middle {
+  flex: 0.34;
+  text-align: center;
+}
+
+nav .right {
+  flex: 0.33;
+  text-align: right;
+}
+
+nav .icon {
+  width: 64px;
+}
+
+nav .options {
+  display: flex;
+}
+
+nav .option {
+
+}
+
+main {
+  height: 100%;
   color: #fff;
 }
 
@@ -33,18 +71,11 @@ body, html {
 }
 
 #s-1 {
-  background-image: url("../assets/cetys.svg");
+  background-image: url("../assets/cetys-logo.svg");
   min-height: 100%;
 }
 
 #s-2 {
   background-image: url("../assets/eye%20of%20potential.jpg");
   min-height: 100%;
-}
-
-/* Turn off parallax scrolling for tablets and phones */
-@media only screen and (max-device-width: 1024px) {
-    .bgimg-1, .bgimg-2, .bgimg-3 {
-        background-attachment: scroll;
-    }
 }
