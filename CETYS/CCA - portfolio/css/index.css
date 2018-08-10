@@ -5,6 +5,7 @@ body, html {
 }
 
 nav {
+  padding: 5px;
   z-index: 2;
   position: fixed;
   width: 100%;
@@ -77,5 +78,20 @@ main {
 
 #s-2 {
   background-image: url("../assets/eye%20of%20potential.jpg");
+  min-height: 100%;
+}
+
+#s-3 {
+  background-image: url("../assets/school%20of%20lions.jpg");
+  min-height: 100%;
+}
+
+#s-4 {
+  background-image: url("../assets/kingdom%20hearts%20moon.jpg");
+  min-height: 100%;
+}
+
+#s-5 {
+  background-image: url("../assets/world%20of%20void.jpg");
   min-height: 100%;
 }
