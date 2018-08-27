@@ -71,11 +71,12 @@ main {
 
 .essays {
   padding: 25px;
+  text-align: center;
 }
 
 .essay {
-  width: 350px;
-  height: 440px;
+  margin: 10px;
+  font-size: 22px;
 }
 
 #s-1, #s-6 {
