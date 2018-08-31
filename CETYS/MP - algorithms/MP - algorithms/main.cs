@@ -9,7 +9,7 @@ namespace MP___algorithms
         {
             {
                 "?",
-                help
+                MP___algorithms.commands.general.help
             },
             {
                 "salir",
@@ -23,19 +23,6 @@ namespace MP___algorithms
             while (true)
             {
                 string answer = Console.ReadLine().ToLower();
-
-                //switch (answer)
-                //{
-                //    case "?":
-                //        Console.WriteLine("Menú de Ayuda:\n**************\n?   : Ayuda\n\nsalir   :   Salir del programa");
-                //        break;
-                //    case "salir":
-                //        Console.WriteLine("¡Adiós!");
-                //        return;
-                //    default:
-                //        Console.WriteLine("No entendí del todo, intente de nuevo...");
-                //        break;
-                //}
 
                 if (commands.ContainsKey(answer))
                 {

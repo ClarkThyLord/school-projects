@@ -6,38 +6,19 @@ namespace MP___algorithms.commands.general
 {
     class help
     {
-        // Command name
-        static public Dictionary<string, string> name = new Dictionary<string, string> {
-            {
-                "either",
-                "?"
-            },
-            {
-                "english",
-                "help"
-            },
-            {
-                "spanish",
-                "ayuda"
-            }
-        };
-
-        // Command description
-        static public Dictionary<string, string> description = new Dictionary<string, string> {
-            {
-                "english",
-                "list of commands"
-            },
-            {
-                "spanish",
-                "lista de comandos"
-            }
-        };
-
-        // Execute command
-        static public void run (Dictionary<string, Type> commands)
+        public static string[] lines = new string[]
         {
-            return;
+            "Menú de Ayuda:",
+            "**************",
+            "?       :   Ayuda",
+            "salir   :   Salir del programa"
+        };
+
+        static public string run ()
+        {
+            Console.WriteLine(string.Join("\n", lines));
+
+            return "1";
         }
     }
 }
