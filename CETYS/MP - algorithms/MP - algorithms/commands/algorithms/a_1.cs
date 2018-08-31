@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MP___algorithms.algorithms
+namespace MP___algorithms.commands.algorithms
 {
     class a_1
     {
