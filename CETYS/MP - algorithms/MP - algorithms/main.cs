@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using MP___algorithms.commands.algorithms;
 
 namespace MP___algorithms
 {
@@ -10,18 +11,10 @@ namespace MP___algorithms
 
         static void Main(string[] args)
         {
-            string[] files = Directory.GetFiles(source_path + "/commands/");
-            string[] directories = Directory.GetDirectories(source_path + "/commands/");
-
-            foreach (string directory in directories)
+            Type[] types = Assembly.GetExecutingAssembly().GetTypes();
+            foreach (Type type in types)
             {
-                Console.WriteLine(directory);
-            }
-
-            Assembly mscorlib = typeof(string).Assembly;
-            foreach (Type type in mscorlib.GetTypes())
-            {
-                Console.WriteLine(type.FullName);
+                Console.WriteLine("{0}:", type.FullName.ToString());
             }
 
             Console.WriteLine("Hola mundo!\n¿Qué te gustaría que haga hoy?");
@@ -31,7 +24,7 @@ namespace MP___algorithms
                 switch (answer)
                 {
                     case "?":
-                        Console.WriteLine("Menú de Ayuda:\n**************\nsalir   :   Salir del programa.");
+                        Console.WriteLine("Menú de Ayuda:\n**************\n?   : Ayuda\n\nsalir   :   Salir del programa");
                         break;
                     case "salir":
                         Console.WriteLine("¡Adiós!");
