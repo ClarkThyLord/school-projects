@@ -1,38 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace MP___algorithms
 {
     class main
     {
-        static public Dictionary<string, Func<string>> commands = new Dictionary<string, Func<string>>
-        {
-            {
-                "?",
-                MP___algorithms.commands.general.help
-            },
-            {
-                "salir",
-                exit
-            }
-        };
+        //static public Dictionary<string, Func<string>> commands = new Dictionary<string, Func<string>>
+        //{
+        //    {
+        //        "?",
+        //        MP___algorithms.commands.general.help
+        //    },
+        //    {
+        //        "salir",
+        //        exit
+        //    }
+        //};
+
+        static public Dictionary<string, Type> commands = new Dictionary<string, Type>();
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hola mundo!\n¿Qué te gustaría que haga hoy?");
-            while (true)
+            Type[] typelist = Assembly.GetExecutingAssembly().GetTypes();
+            foreach (Type type in typelist)
             {
-                string answer = Console.ReadLine().ToLower();
+                Console.WriteLine(type);
 
-                if (commands.ContainsKey(answer))
+                if (type.FullName.Contains("help"))
                 {
-                    commands[answer]();
-                }
-                else
-                {
-                    Console.WriteLine("No entendí del todo, intente de nuevo...");
+                    //object instance = Activator.CreateInstance(type);
+                    //dynamic d_instance = (dynamic)instance;
+
+                    //Console.ReadKey();
+
+                    //Console.WriteLine(d_instance.run());
+
+                    type.GetMethod("run").Invoke(null, null);
                 }
             }
+
+            Console.ReadKey();
+
+            //Console.WriteLine("Hola mundo!\n¿Qué te gustaría que haga hoy?");
+            //while (true)
+            //{
+            //    string answer = Console.ReadLine().ToLower();
+
+            //    if (commands.ContainsKey(answer))
+            //    {
+            //        commands[answer]();
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("No entendí del todo, intente de nuevo...");
+            //    }
+            //}
         }
 
         static public string help()
