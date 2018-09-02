@@ -22,12 +22,12 @@ namespace MP___algorithms
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Loading commands...");
+
             Type[] typelist = Assembly.GetExecutingAssembly().GetTypes();
             foreach (Type type in typelist)
             {
-                Console.WriteLine(type);
-
-                if (type.FullName.Contains("help"))
+                if (type.FullName.Contains("commands"))
                 {
                     //object instance = Activator.CreateInstance(type);
                     //dynamic d_instance = (dynamic)instance;
@@ -36,9 +36,15 @@ namespace MP___algorithms
 
                     //Console.WriteLine(d_instance.run());
 
-                    type.GetMethod("run").Invoke(null, null);
+                    //type.GetMethod("run").Invoke(null, null);
+
+                    commands.Add(type.Name, type);
+
+                    Console.WriteLine("Command {0} added...", type.Name);
                 }
             }
+
+            Console.WriteLine("Loaded all {0} commands!", commands.Count);
 
             Console.ReadKey();
 
