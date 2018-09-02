@@ -38,6 +38,8 @@ namespace MP___algorithms
                 if (commands.ContainsKey(answer))
                 {
                     commands[answer].GetMethod("run").Invoke(null, null);
+
+                    Console.WriteLine("¿Qué te gustaría que haga ahora? (? : ayuda )");
                 }
                 else
                 {
