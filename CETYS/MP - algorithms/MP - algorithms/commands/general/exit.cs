@@ -6,5 +6,13 @@ namespace MP___algorithms.commands.general
 {
     class exit
     {
+        public static string name = "salir";
+
+        static public string run()
+        {
+            System.Environment.Exit(1);
+
+            return "1";
+        }
     }
 }

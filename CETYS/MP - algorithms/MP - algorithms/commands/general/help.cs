@@ -6,6 +6,8 @@ namespace MP___algorithms.commands.general
 {
     class help
     {
+        public static string name = "?";
+
         public static string[] lines = new string[]
         {
             "Menú de Ayuda:",
