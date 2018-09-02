@@ -10,6 +10,8 @@ namespace MP___algorithms.commands.general
 
         static public string run()
         {
+            Console.WriteLine("¡Adiós!");
+
             System.Environment.Exit(1);
 
             return "1";

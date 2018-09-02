@@ -12,8 +12,9 @@ namespace MP___algorithms.commands.general
         {
             "Menú de Ayuda:",
             "**************",
-            "?       :   Ayuda",
-            "salir   :   Salir del programa"
+            "?          :   Ayuda",
+            "",
+            "salir      :   Salir del programa"
         };
 
         static public string run ()
