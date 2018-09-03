@@ -32,8 +32,8 @@ namespace ICC___converter
             this.header = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.convertir_gui = new System.Windows.Forms.Button();
+            this.progress_gui = new System.Windows.Forms.ProgressBar();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -66,21 +66,21 @@ namespace ICC___converter
             this.textBox2.Size = new System.Drawing.Size(700, 125);
             this.textBox2.TabIndex = 5;
             // 
-            // button1
+            // convertir_gui
             // 
-            this.button1.Location = new System.Drawing.Point(618, 306);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 35);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Convertir";
-            this.button1.UseVisualStyleBackColor = true;
+            this.convertir_gui.Location = new System.Drawing.Point(618, 306);
+            this.convertir_gui.Name = "convertir_gui";
+            this.convertir_gui.Size = new System.Drawing.Size(100, 35);
+            this.convertir_gui.TabIndex = 6;
+            this.convertir_gui.Text = "Convertir";
+            this.convertir_gui.UseVisualStyleBackColor = true;
             // 
-            // progressBar1
+            // progress_gui
             // 
-            this.progressBar1.Location = new System.Drawing.Point(18, 306);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(594, 35);
-            this.progressBar1.TabIndex = 7;
+            this.progress_gui.Location = new System.Drawing.Point(18, 306);
+            this.progress_gui.Name = "progress_gui";
+            this.progress_gui.Size = new System.Drawing.Size(594, 35);
+            this.progress_gui.TabIndex = 7;
             // 
             // openFileDialog1
             // 
@@ -104,7 +104,7 @@ namespace ICC___converter
             "Decimal",
             "Hexadecimal",
             "Base64"});
-            this.comboBox1.Location = new System.Drawing.Point(307, 8);
+            this.comboBox1.Location = new System.Drawing.Point(307, 9);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(230, 24);
             this.comboBox1.TabIndex = 9;
@@ -128,8 +128,8 @@ namespace ICC___converter
             this.Controls.Add(this.button3);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.progress_gui);
+            this.Controls.Add(this.convertir_gui);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.header);
@@ -147,8 +147,8 @@ namespace ICC___converter
         private System.Windows.Forms.Label header;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Button convertir_gui;
+        private System.Windows.Forms.ProgressBar progress_gui;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ComboBox comboBox1;
