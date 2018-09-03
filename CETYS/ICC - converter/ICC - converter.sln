@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICC - converter", "ICC - converter.csproj", "{9AABDD98-4C04-4E6E-87BD-FF90FADB752C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICC - converter", "ICC - converter\ICC - converter.csproj", "{B539E6BE-BCDC-4189-871F-455F82559720}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9AABDD98-4C04-4E6E-87BD-FF90FADB752C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9AABDD98-4C04-4E6E-87BD-FF90FADB752C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9AABDD98-4C04-4E6E-87BD-FF90FADB752C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9AABDD98-4C04-4E6E-87BD-FF90FADB752C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B539E6BE-BCDC-4189-871F-455F82559720}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B539E6BE-BCDC-4189-871F-455F82559720}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B539E6BE-BCDC-4189-871F-455F82559720}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B539E6BE-BCDC-4189-871F-455F82559720}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BBB74D6B-5DAE-49A4-ABFE-1B1202231133}
+		SolutionGuid = {BC170EB1-7AB0-465A-8FEA-22A50193EC4E}
 	EndGlobalSection
 EndGlobal
