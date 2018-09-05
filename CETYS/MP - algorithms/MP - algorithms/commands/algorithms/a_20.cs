@@ -48,8 +48,7 @@ namespace MP___algorithms.commands.algorithms
             double ext_salario = ext_horas * ext_paga;
 
             double total_salario = salario + ext_salario;
-
-            // Sueldo base, Categoría, Horas Trabajadas, Costo de Hora Extra y Sueldo Total
+            
             Console.WriteLine("Sueldo Base: {0}, Categoría: {1}, Horas Trabajadas: {2}, Costo de Hora Extra: {3}, Sueldo Total: {4}", salario, cat_trabajo, ext_horas, ext_paga, total_salario);
 
             return total_salario;

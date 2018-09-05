@@ -68,7 +68,7 @@ namespace MP___algorithms.commands.algorithms
                     mensaje = (semestres > 5 && promedio > 8.5) ? "Aprobado" : "Reprobado";
                     break;
             }
-            
+
             Console.WriteLine("Matrícula: {0}, Carrera: {1}, Status: {3}", matricula, nombre_carrera, mensaje);
 
             return new Dictionary<string, dynamic>
@@ -88,3 +88,4 @@ namespace MP___algorithms.commands.algorithms
             };
         }
     }
+}
