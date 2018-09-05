@@ -10,7 +10,7 @@ namespace MP___algorithms
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Hola mundo!\nCargando comandos ...");
+            Console.WriteLine("Christian Moises Cuevas Larin 029794\nHola mundo!\nCargando comandos ...");
 
             Type[] typelist = Assembly.GetExecutingAssembly().GetTypes();
             foreach (Type type in typelist)

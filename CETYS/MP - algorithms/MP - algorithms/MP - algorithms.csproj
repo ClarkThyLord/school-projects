@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="commands\algorithms\a_1.cs" />
+    <Compile Include="commands\algorithms\a_21.cs" />
     <Compile Include="commands\algorithms\a_20.cs" />
     <Compile Include="commands\algorithms\a_19.cs" />
     <Compile Include="commands\algorithms\a_18.cs" />
