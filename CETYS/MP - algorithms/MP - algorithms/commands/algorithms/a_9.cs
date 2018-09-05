@@ -10,10 +10,10 @@ namespace MP___algorithms.commands.algorithms
             int ans = 0;
             while (!int.TryParse(Console.ReadLine(), out ans) || ans < 1 || ans > 4)
             {
-                Console.WriteLine("Por favor ingrese un número real...");
+                Console.WriteLine("Por favor ingrese un número real, entre 1 e 4...");
             }
 
-            Console.WriteLine("Valor");
+            Console.WriteLine("Valor:");
             double valor = 0;
             while (!double.TryParse(Console.ReadLine(), out valor))
             {
@@ -44,21 +44,6 @@ namespace MP___algorithms.commands.algorithms
             }
 
             return resultado;
-        }
-        public static double run()
-        {
-            Console.WriteLine("Cantidad de sonidos del cricket por minuto:");
-            double grillo = 0;
-            while (!double.TryParse(Console.ReadLine(), out grillo))
-            {
-                Console.WriteLine("Por favor ingrese un número real...");
-            }
-
-            double temperatura = (grillo / 4) + 40;
-
-            Console.WriteLine("Temperatura: {0}", temperatura);
-
-            return temperatura;
         }
     }
 }

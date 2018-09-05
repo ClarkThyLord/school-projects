@@ -22,7 +22,7 @@ namespace MP___algorithms.commands.algorithms
 
             bool resultado = Math.Pow(P, 3) + Math.Pow(Q, 4) - (2 * Math.Pow(P, 2)) < 680;
 
-            Console.WriteLine("{0} ** 3 + {1} ** 4 - (2 ** {0} ** 2) < 680 => {2}", P , Q, resultado);
+            Console.WriteLine("{0} ** 3 + {1} ** 4 - (2 ** {0} ** 2) < 680 => {2}", P, Q, resultado);
 
             return resultado;
         }
