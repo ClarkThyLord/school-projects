@@ -5,7 +5,7 @@ namespace MP___algorithms.commands.algorithms
 {
     public class a_5
     {
-        public static Dictionary<string, string> run()
+        public static Dictionary<string, dynamic> run()
         {
 
             Console.WriteLine("Matrícula:");
@@ -35,7 +35,7 @@ namespace MP___algorithms.commands.algorithms
 
             Console.WriteLine("Matrícula: {0}, Promedio: {1}", matricula, promedio);
 
-            return new Dictionary<string, string>
+            return new Dictionary<string, dynamic>
             {
                 {
                     "matricula",
@@ -43,7 +43,7 @@ namespace MP___algorithms.commands.algorithms
                 },
                 {
                     "promedio",
-                    promedio.ToString()
+                    promedio
                 }
             };
         }

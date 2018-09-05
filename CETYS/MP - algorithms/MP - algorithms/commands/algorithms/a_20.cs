@@ -1,30 +1,58 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MP___algorithms.commands.algorithms
 {
     public class a_20
     {
-        public static bool run()
+        public static double run()
         {
-            Console.WriteLine("Valor de P:");
-            double P = 0;
-            while (!double.TryParse(Console.ReadLine(), out P))
+            Console.WriteLine("Categoría de Trabajo:");
+            double cat_trabajo = 0;
+            while (!double.TryParse(Console.ReadLine(), out cat_trabajo))
             {
                 Console.WriteLine("Por favor ingrese un número real...");
             }
 
-            Console.WriteLine("Valor de Q:");
-            double Q = 0;
-            while (!double.TryParse(Console.ReadLine(), out Q))
+            Console.WriteLine("Salario:");
+            double salario = 0;
+            while (!double.TryParse(Console.ReadLine(), out salario))
             {
                 Console.WriteLine("Por favor ingrese un número real...");
             }
 
-            bool resultado = Math.Pow(P, 3) + Math.Pow(Q, 4) - (2 * Math.Pow(P, 2)) < 680;
+            Console.WriteLine("Extra Horas:");
+            double ext_horas = 0;
+            while (!double.TryParse(Console.ReadLine(), out ext_horas))
+            {
+                Console.WriteLine("Por favor ingrese un número real...");
+            }
 
-            Console.WriteLine("{0} ** 3 + {1} ** 4 - (2 ** {0} ** 2) < 680 => {2}", P , Q, resultado);
+            double ext_paga = 0;
+            switch (cat_trabajo)
+            {
+                case 1:
+                    ext_paga = 30;
+                    break;
+                case 2:
+                    ext_paga = 38;
+                    break;
+                case 3:
+                    ext_paga = 50;
+                    break;
+                case 4:
+                    ext_paga = 70;
+                    break;
+            }
 
-            return resultado;
+            double ext_salario = ext_horas * ext_paga;
+
+            double total_salario = salario + ext_salario;
+
+            // Sueldo base, Categoría, Horas Trabajadas, Costo de Hora Extra y Sueldo Total
+            Console.WriteLine("Sueldo Base: {0}, Categoría: {1}, Horas Trabajadas: {2}, Costo de Hora Extra: {3}, Sueldo Total: {4}", salario, cat_trabajo, ext_horas, ext_paga, total_salario);
+
+            return total_salario;
         }
     }
 }

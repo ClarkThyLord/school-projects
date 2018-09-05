@@ -1,30 +1,57 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MP___algorithms.commands.algorithms
 {
     public class a_14
     {
-        public static bool run()
+        public static Dictionary<string, dynamic> run()
         {
-            Console.WriteLine("Valor de P:");
-            double P = 0;
-            while (!double.TryParse(Console.ReadLine(), out P))
+
+            Console.WriteLine("Matrícula:");
+            string matricula = Console.ReadLine();
+
+            List<double> calificaciones = new List<double>();
+            for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine("Por favor ingrese un número real...");
+                Console.WriteLine("Calificación {0}:", i + 1);
+
+                double ans = 0;
+                while (!double.TryParse(Console.ReadLine(), out ans))
+                {
+                    Console.WriteLine("Por favor ingrese un número real...");
+                }
+
+                calificaciones.Add(ans);
             }
 
-            Console.WriteLine("Valor de Q:");
-            double Q = 0;
-            while (!double.TryParse(Console.ReadLine(), out Q))
+            double suma = 0;
+            foreach (double calificacion in calificaciones)
             {
-                Console.WriteLine("Por favor ingrese un número real...");
+                suma += calificacion;
             }
 
-            bool resultado = Math.Pow(P, 3) + Math.Pow(Q, 4) - (2 * Math.Pow(P, 2)) < 680;
+            double promedio = suma / 5;
 
-            Console.WriteLine("{0} ** 3 + {1} ** 4 - (2 ** {0} ** 2) < 680 => {2}", P , Q, resultado);
+            string mensaje = (promedio > 6) ? "Aprobado" : "Reprobado";
 
-            return resultado;
+            Console.WriteLine("Matrícula: {0}, Promedio: {1}, Status: {2}", matricula, promedio, mensaje);
+
+            return new Dictionary<string, dynamic>
+            {
+                {
+                    "matricula",
+                    matricula
+                },
+                {
+                    "promedio",
+                    promedio
+                },
+                {
+                    "mensaje",
+                    mensaje
+                }
+            };
         }
     }
 }

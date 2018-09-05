@@ -8,7 +8,7 @@ namespace MP___algorithms.commands.algorithms
         {
             Console.WriteLine("Ejecutar modelo: (1-4)");
             int ans = 0;
-            while (!int.TryParse(Console.ReadLine(), out ans) || ans < 1 || ans > 4)
+            while (!int.TryParse(Console.ReadLine(), out ans) && ans < 5 && ans > 1)
             {
                 Console.WriteLine("Por favor ingrese un número real, entre 1 e 4...");
             }

@@ -63,6 +63,7 @@
     <Compile Include="commands\algorithms\a_7.cs" />
     <Compile Include="commands\algorithms\a_8.cs" />
     <Compile Include="commands\algorithms\a_9.cs" />
+    <Compile Include="commands\algorithms\Dictioanry.cs" />
     <Compile Include="commands\general\exit.cs" />
     <Compile Include="commands\general\help.cs" />
     <Compile Include="main.cs" />
