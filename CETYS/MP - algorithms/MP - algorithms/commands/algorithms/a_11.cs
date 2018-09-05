@@ -8,7 +8,7 @@ namespace MP___algorithms.commands.algorithms
         {
             Console.WriteLine("Cantidad de sonidos del cricket por minuto:");
             double grillo = 0;
-            while (!double.TryParse(Console.ReadLine(), out grillo))
+            while (!double.TryParse(Console.ReadLine(), out grillo) && grillo > 0)
             {
                 Console.WriteLine("Por favor ingrese un número real...");
             }
