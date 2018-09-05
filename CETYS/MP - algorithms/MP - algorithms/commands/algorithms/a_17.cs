@@ -1,30 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MP___algorithms.commands.algorithms
 {
     public class a_17
     {
-        public static bool run()
+        public static List<double> run()
         {
-            Console.WriteLine("Valor de P:");
-            double P = 0;
-            while (!double.TryParse(Console.ReadLine(), out P))
+            List<double> numeros = new List<double>();
+            for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine("Por favor ingrese un número real...");
+                Console.WriteLine("Número {0}:", i + 1);
+
+                double numero = 0;
+                while (!double.TryParse(Console.ReadLine(), out numero))
+                {
+                    Console.WriteLine("Por favor ingrese un número real...");
+                }
+
+                numeros.Add(numero);
             }
 
-            Console.WriteLine("Valor de Q:");
-            double Q = 0;
-            while (!double.TryParse(Console.ReadLine(), out Q))
-            {
-                Console.WriteLine("Por favor ingrese un número real...");
-            }
+            numeros.Sort();
 
-            bool resultado = Math.Pow(P, 3) + Math.Pow(Q, 4) - (2 * Math.Pow(P, 2)) < 680;
+            Console.WriteLine("Números en Orden: {0}", string.Join(",", numeros));
 
-            Console.WriteLine("{0} ** 3 + {1} ** 4 - (2 ** {0} ** 2) < 680 => {2}", P , Q, resultado);
-
-            return resultado;
+            return numeros;
         }
     }
 }
