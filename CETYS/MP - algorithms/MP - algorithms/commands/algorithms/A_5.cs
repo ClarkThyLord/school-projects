@@ -1,23 +1,51 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MP___algorithms.commands.algorithms
 {
     public class a_5
     {
-        public static string run()
+        public static Dictionary<string, string> run()
         {
-            Console.WriteLine("Calificación:");
-            double calificacion = 0;
-            while (!double.TryParse(Console.ReadLine(), out calificacion))
+
+            Console.WriteLine("Matrícula:");
+            string matricula = Console.ReadLine();
+
+            List<double> calificaciones = new List<double>();
+            for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine("Por favor ingrese un número real...");
+                Console.WriteLine("Calificación {0}:", i + 1);
+
+                double ans = 0;
+                while (!double.TryParse(Console.ReadLine(), out ans))
+                {
+                    Console.WriteLine("Por favor ingrese un número real...");
+                }
+
+                calificaciones.Add(ans);
             }
 
-            string mensaje = (calificacion > 8) ? "Aprobado" : "Reprobado";
+            double suma = 0;
+            foreach (double calificacion in calificaciones)
+            {
+                suma += calificacion;
+            }
 
-            Console.WriteLine(mensaje);
+            double promedio = suma / 5;
 
-            return mensaje;
+            Console.WriteLine("Matrícula: {0}, Promedio: {1}", matricula, promedio);
+
+            return new Dictionary<string, string>
+            {
+                {
+                    "matricula",
+                    matricula
+                },
+                {
+                    "promedio",
+                    promedio.ToString()
+                }
+            };
         }
     }
 }

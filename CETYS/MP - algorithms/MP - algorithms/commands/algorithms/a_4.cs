@@ -1,43 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace MP___algorithms.commands.algorithms
 {
     public class a_4
     {
-        public static Dictionary<string, double> run()
+        public static string run()
         {
-            Console.WriteLine("Base:");
-            double b = 0;
-            while (!double.TryParse(Console.ReadLine(), out b))
+            Console.WriteLine("Calificación:");
+            double calificacion = 0;
+            while (!double.TryParse(Console.ReadLine(), out calificacion))
             {
                 Console.WriteLine("Por favor ingrese un número real...");
             }
 
-            Console.WriteLine("Altura:");
-            double h = 0;
-            while (!double.TryParse(Console.ReadLine(), out h))
-            {
-                Console.WriteLine("Por favor ingrese un número real...");
-            }
+            string mensaje = (calificacion > 8) ? "Aprobado" : "Reprobado";
 
-            double area = (b * h) / 2;
+            Console.WriteLine(mensaje);
 
-            double perimetro = b + (Math.Sqrt(Math.Pow(b,2) + Math.Pow(h,2)) * 2);
-
-            Console.WriteLine("Area: {0}, Perimetro: {1}", area, perimetro);
-
-            return new Dictionary<string, double>
-            {
-                {
-                    "area",
-                    area
-                },
-                {
-                    "perimetro",
-                    perimetro
-                }
-            };
+            return mensaje;
         }
     }
 }

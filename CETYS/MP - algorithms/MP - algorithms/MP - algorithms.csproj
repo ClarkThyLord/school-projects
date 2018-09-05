@@ -44,6 +44,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="commands\algorithms\a_1.cs" />
+    <Compile Include="commands\algorithms\a_20.cs" />
+    <Compile Include="commands\algorithms\a_19.cs" />
+    <Compile Include="commands\algorithms\a_18.cs" />
+    <Compile Include="commands\algorithms\a_17.cs" />
+    <Compile Include="commands\algorithms\a_16.cs" />
+    <Compile Include="commands\algorithms\a_15.cs" />
+    <Compile Include="commands\algorithms\a_14.cs" />
+    <Compile Include="commands\algorithms\a_13.cs" />
+    <Compile Include="commands\algorithms\a_12.cs" />
+    <Compile Include="commands\algorithms\a_11.cs" />
     <Compile Include="commands\algorithms\a_10.cs" />
     <Compile Include="commands\algorithms\a_2.cs" />
     <Compile Include="commands\algorithms\a_3.cs" />

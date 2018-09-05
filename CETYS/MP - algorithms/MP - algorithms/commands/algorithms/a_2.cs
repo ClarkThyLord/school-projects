@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace MP___algorithms.commands.algorithms
 {
@@ -7,35 +6,18 @@ namespace MP___algorithms.commands.algorithms
     {
         public static double run()
         {
-
-            Console.WriteLine("Matrícula:");
-            string matricula = Console.ReadLine();
-            
-            List<double> calificaciones = new List<double>();
-            for (int i = 0; i < 5; i++)
+            Console.WriteLine("Ingresar número:");
+            double numero = 0;
+            while (!double.TryParse(Console.ReadLine(), out numero))
             {
-                Console.WriteLine("Calificación {0}:", i + 1);
-
-                double ans = 0;
-                while (!double.TryParse(Console.ReadLine(), out ans))
-                {
-                    Console.WriteLine("Por favor ingrese un número real...");
-                }
-
-                calificaciones.Add(ans);
+                Console.WriteLine("Por favor ingrese un número real...");
             }
 
-            double suma = 0;
-            foreach (double calificacion in calificaciones)
-            {
-                suma += calificacion;
-            }
+            double cubo = Math.Pow(numero, 3);
 
-            double promedio = suma / 5;
+            Console.WriteLine("{0} ** 2 = {1}", numero, cubo);
 
-            Console.WriteLine("Matrícula: {0}, Promedio: {1}", matricula, promedio);
-
-            return promedio;
+            return cubo;
         }
     }
 }
