@@ -107,6 +107,17 @@ $(function() {
   });
 });
 
+function is_json(string) {
+  var result = true;
+  try {
+    JSON.parse(string);
+  } catch (e) {
+    result = false;
+  }
+
+  return result;
+}
+
 // CONTENT Functions
 // *****************************************************************************
 
@@ -1740,6 +1751,12 @@ VUE_ELEMENTS.all_candidates = new Vue({
         order: '',
         referencing: 'name'
       },
+      'LIC/ING': {
+        order: '',
+        is_data: true,
+        not_sortable: true,
+        referencing: 'id_10'
+      },
       'Activo': {
         order: '',
         referencing: 'active'
@@ -1771,6 +1788,12 @@ VUE_ELEMENTS.search_candidates = new Vue({
         order: '',
         referencing: 'name'
       },
+      'LIC/ING': {
+        order: '',
+        is_data: true,
+        not_sortable: true,
+        referencing: 'id_10'
+      },
       'Activo': {
         order: '',
         referencing: 'active'
@@ -1801,6 +1824,12 @@ VUE_ELEMENTS.recent_candidates = new Vue({
       'Nombre': {
         order: '',
         referencing: 'name'
+      },
+      'LIC/ING': {
+        order: '',
+        is_data: true,
+        not_sortable: true,
+        referencing: 'id_10'
       },
       'Activo': {
         order: '',

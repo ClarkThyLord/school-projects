@@ -1096,7 +1096,7 @@
 	  <table class="table table-striped table-hover table-sm">
 	    <thead>
 		    <tr>
-		      <th v-for="(val, key) in columns" @click="val.order = (val.order === 'des') ? 'asc' : 'des'; sort_key = key;" style="cursor: pointer;" class="unselectable" :class="{ active: sort_key == key }">
+		      <th v-for="(val, key) in columns" @click="if (!val.not_sortable) { val.order = (val.order === 'des') ? 'asc' : 'des'; sort_key = key; }" style="cursor: pointer;" class="unselectable" :class="{ active: sort_key == key }">
 						{{ key | capitalize }}
 						<span v-if="key === sort_key && val.order === 'des'">↑</span>
 						<span v-if="key === sort_key && val.order === 'asc'">↓</span>
@@ -1114,7 +1114,7 @@
 	        <td v-for="(val, key) in columns">
 	          <span v-if="key === 'Activo' && entry[val.referencing] === '0'">🔴</span>
 	          <span v-else-if="key === 'Activo' && entry[val.referencing] === '1'">🔵</span>
-						<span v-else>{{ entry[val.referencing] }}</span>
+						<span v-else><span v-if="!val.is_data">{{ entry[val.referencing] }}</span><span v-else><span v-if="is_json(entry.data)">{{ isNaN(JSON.parse(entry.data)[val.referencing]) ? JSON.parse(entry.data)[val.referencing] : "" }}</span></span></span>
 	        </td>
 		      <td v-if="more" class="unselectable">
 						<a href="#" v-on:click="information($event, entry);">Ver Más</a>
