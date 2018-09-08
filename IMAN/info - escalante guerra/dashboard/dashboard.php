@@ -841,6 +841,8 @@
 
 				<!-- FOOTER -->
 	      <div class="modal-footer">
+					<button type="button" onclick="candidates_print();" class="btn btn-info">Imprimir</button>
+
 					<button type="button" onclick="$('#candidates_notes_modify_info :input[name=\'notes\']').val(GLOBALS.asset.notes); $('#candidates_notes_modify').modal('show');" class="btn btn-danger">Notas</button>
 	        <button type="button" onclick="$('#candidates_private_modify').modal('show');" class="btn btn-danger">Privado</button>
 	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
