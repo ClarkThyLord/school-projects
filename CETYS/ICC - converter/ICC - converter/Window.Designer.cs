@@ -54,6 +54,9 @@ namespace ICC___converter
             // 
             // input_gui
             // 
+            this.input_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.input_gui.Location = new System.Drawing.Point(18, 43);
             this.input_gui.Multiline = true;
             this.input_gui.Name = "input_gui";
@@ -62,6 +65,8 @@ namespace ICC___converter
             // 
             // result_gui
             // 
+            this.result_gui.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.result_gui.Location = new System.Drawing.Point(18, 174);
             this.result_gui.Multiline = true;
             this.result_gui.Name = "result_gui";
@@ -70,6 +75,7 @@ namespace ICC___converter
             // 
             // convertir_gui
             // 
+            this.convertir_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.convertir_gui.Location = new System.Drawing.Point(618, 306);
             this.convertir_gui.Name = "convertir_gui";
             this.convertir_gui.Size = new System.Drawing.Size(100, 35);
@@ -79,6 +85,8 @@ namespace ICC___converter
             // 
             // progress_gui
             // 
+            this.progress_gui.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progress_gui.Location = new System.Drawing.Point(18, 306);
             this.progress_gui.Name = "progress_gui";
             this.progress_gui.Size = new System.Drawing.Size(594, 35);
@@ -90,8 +98,7 @@ namespace ICC___converter
             // 
             // file_gui
             // 
-            this.file_gui.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.file_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.file_gui.Location = new System.Drawing.Point(643, 9);
             this.file_gui.Name = "file_gui";
             this.file_gui.Size = new System.Drawing.Size(75, 28);
@@ -117,8 +124,7 @@ namespace ICC___converter
             // 
             // switch_gui
             // 
-            this.switch_gui.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.switch_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.switch_gui.Location = new System.Drawing.Point(543, 8);
             this.switch_gui.Name = "switch_gui";
             this.switch_gui.Size = new System.Drawing.Size(94, 28);
