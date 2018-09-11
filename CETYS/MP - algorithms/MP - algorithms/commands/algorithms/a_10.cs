@@ -6,9 +6,9 @@ namespace MP___algorithms.commands.algorithms
     {
         public static double run()
         {
-            Console.WriteLine("Identificación del Trabajo:: (1-4)");
+            Console.WriteLine("Identificación del Trabajo: (1-4)");
             int ans = 0;
-            while (!int.TryParse(Console.ReadLine(), out ans) && ans < 5 && ans > 1)
+            while (!int.TryParse(Console.ReadLine(), out ans) && ans < 5 && ans >= 1)
             {
                 Console.WriteLine("Por favor ingrese un número real, entre 1 e 4...");
             }
@@ -20,7 +20,7 @@ namespace MP___algorithms.commands.algorithms
                 Console.WriteLine("Por favor ingrese un número real...");
             }
             
-            switch (salario)
+            switch (ans)
             {
                 case 1:
                     salario *= 0.15;
