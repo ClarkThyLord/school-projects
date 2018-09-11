@@ -9,7 +9,8 @@ var GLOBALS = {
     candidates: 'candidatos',
     users: 'usuarios',
     logs: 'registros'
-  }
+  },
+  forms: {}
 };
 
 $(function() {
@@ -24,8 +25,9 @@ $(function() {
     ];
 
     for (var form in forms) {
-      $('#' + forms[form] + '_add_info').html(form_to_html(await forms_format_get(forms[form])));
-      $('#' + forms[form] + '_data_modify_info').html(form_to_html(await forms_format_get(forms[form])));
+      GLOBALS.forms[forms[form]] = await forms_format_get(forms[form]);
+      $('#' + forms[form] + '_add_info').html(form_to_html(GLOBALS.forms[forms[form]]));
+      $('#' + forms[form] + '_data_modify_info').html(form_to_html(GLOBALS.forms[forms[form]]));
     }
   })();
 
@@ -105,6 +107,17 @@ $(function() {
   });
 });
 
+function is_json(string) {
+  var result = true;
+  try {
+    JSON.parse(string);
+  } catch (e) {
+    result = false;
+  }
+
+  return result;
+}
+
 // CONTENT Functions
 // *****************************************************************************
 
@@ -146,12 +159,13 @@ function content_export(content) {
 /**
  * Export html to a PDF.
  * @param {string} html HTML to export to a PDF.
+ * @param {string} name Name to give file, content type if not given, custom if not content type not given.
  * @return {undefined} Returns nothing.
  */
-function html_export(html) {
+function html_export(html, name) {
   html2pdf(html, {
     margin: 10,
-    filename: (GLOBALS.eng_to_spa[content] || 'custom') + '.pdf',
+    filename: (name || GLOBALS.eng_to_spa[content] || 'custom') + '.pdf',
     html2canvas: {},
     jsPDF: {
       orientation: 'landscape'
@@ -298,10 +312,6 @@ function setup_form(identifier, data) {
     if ($(this).attr('type') === 'checkbox') {
       $(this).prop('checked', !!(data['id_' + num] * 1));
     } else if ($(this).attr('type') === 'file') {
-      console.log('IDE');
-      console.log('[data-files-preview="id_' + (diffrence + num) + '"]');
-      console.log($('[data-files-preview="id_' + (diffrence + num) + '"]'));
-
       $('[data-files-preview="id_' + (diffrence + num) + '"]').html('').each(function() {
         var files = data['id_' + num];
         if (files === undefined) {
@@ -966,6 +976,32 @@ $('#candidates_modify').on('shown.bs.modal', function(e) {
     }
   });
 });
+
+
+/**
+ * Print current selected candidate.
+ * @return {undefined} Returns nothing.
+ */
+async function candidates_print() {
+  var data = JSON.parse(GLOBALS.asset.data);
+  console.log(data);
+  console.log(GLOBALS.forms.candidates);
+
+  var html = '<table class="table table-striped "> <tbody>';
+
+  for (var section in GLOBALS.forms.candidates) {
+    section_d = GLOBALS.forms.candidates[section];
+    if (section_d.type == "break" || section_d.type == "file" || section_d.type == "files") {
+      continue;
+    }
+
+    html += "<tr> <td>" + section_d.label + "<td> <td>" + data["id_" + section] + "<td> </tr>";
+  }
+
+  html += "</tbody> </table>";
+
+  html_export(html, GLOBALS.asset.name);
+}
 
 
 /**
@@ -1715,6 +1751,12 @@ VUE_ELEMENTS.all_candidates = new Vue({
         order: '',
         referencing: 'name'
       },
+      'LIC/ING': {
+        order: '',
+        is_data: true,
+        not_sortable: true,
+        referencing: 'id_10'
+      },
       'Activo': {
         order: '',
         referencing: 'active'
@@ -1746,6 +1788,12 @@ VUE_ELEMENTS.search_candidates = new Vue({
         order: '',
         referencing: 'name'
       },
+      'LIC/ING': {
+        order: '',
+        is_data: true,
+        not_sortable: true,
+        referencing: 'id_10'
+      },
       'Activo': {
         order: '',
         referencing: 'active'
@@ -1776,6 +1824,12 @@ VUE_ELEMENTS.recent_candidates = new Vue({
       'Nombre': {
         order: '',
         referencing: 'name'
+      },
+      'LIC/ING': {
+        order: '',
+        is_data: true,
+        not_sortable: true,
+        referencing: 'id_10'
       },
       'Activo': {
         order: '',
