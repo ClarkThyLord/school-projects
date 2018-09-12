@@ -8,8 +8,8 @@ namespace MP___algorithms.commands.algorithms
         public static double run()
         {
             Console.WriteLine("Categoría de Trabajo:");
-            double cat_trabajo = 0;
-            while (!double.TryParse(Console.ReadLine(), out cat_trabajo))
+            int cat_trabajo = 0;
+            while (!int.TryParse(Console.ReadLine(), out cat_trabajo))
             {
                 Console.WriteLine("Por favor ingrese un número real...");
             }
