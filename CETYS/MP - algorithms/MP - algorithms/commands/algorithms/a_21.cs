@@ -19,44 +19,48 @@ namespace MP___algorithms.commands.algorithms
             Console.WriteLine("Costo: ${0}", costo);
 
             double total = costo;
-            double temp = 0;
+            double diffrence = 0;
             double costo_actual = costo;
             double impuesto = 0;
             double c_impuesto = 0;
-            if (costo <= 20)
+            if (costo > 20 || costo > 20)
             {
-                temp = costo > 20 ? 20 : costo;
-                costo_actual -= temp;
+                diffrence = costo > 20 ? 20 : costo_actual;
+                costo_actual -= diffrence;
                 impuesto = 0.0;
-                c_impuesto = temp * 0;
+                c_impuesto = diffrence * 0;
                 total += c_impuesto;
+                Console.WriteLine("Temp: {0}", diffrence);
                 Console.WriteLine("Impuesto: {0}%, Cargo de Impuesto: ${1}", impuesto * 100, c_impuesto);
             }
             if (costo > 20)
             {
-                temp = costo > 20 ? 20 : costo;
-                costo_actual -= temp;
+                diffrence = costo_actual > 20 ? 20 : costo_actual;
+                costo_actual -= diffrence;
                 impuesto = 0.3;
-                c_impuesto = temp * impuesto;
+                c_impuesto = diffrence * impuesto;
                 total += c_impuesto;
+                Console.WriteLine("Temp: {0}", diffrence);
                 Console.WriteLine("Impuesto: {0}%, Cargo de Impuesto: ${1}", impuesto * 100, c_impuesto);
             }
             if (costo > 40 && costo < 500)
             {
-                temp = costo > 460 ? 460 : costo;
-                costo_actual -= temp;
+                diffrence = costo_actual > 460 ? 460 : costo_actual;
+                costo_actual -= diffrence;
                 impuesto = 0.4;
-                c_impuesto = temp * impuesto;
+                c_impuesto = diffrence * impuesto;
                 total += c_impuesto;
+                Console.WriteLine("Temp: {0}", diffrence);
                 Console.WriteLine("Impuesto: {0}%, Cargo de Impuesto: ${1}", impuesto * 100, c_impuesto);
             }
             if (costo > 500)
             {
-                temp = costo;
-                costo_actual -= temp;
+                diffrence = costo_actual;
+                costo_actual -= diffrence;
                 impuesto = 0.5;
-                c_impuesto = temp * impuesto;
+                c_impuesto = diffrence * impuesto;
                 total += c_impuesto;
+                Console.WriteLine("Temp: {0}", diffrence);
                 Console.WriteLine("Impuesto: {0}%, Cargo de Impuesto: ${1}", impuesto * 100, c_impuesto);
             }
 
