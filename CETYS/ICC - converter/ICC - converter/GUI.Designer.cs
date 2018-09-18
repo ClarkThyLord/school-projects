@@ -42,6 +42,7 @@
             this.switch_gui = new System.Windows.Forms.Button();
             this.from_gui = new System.Windows.Forms.ComboBox();
             this.table_top_layout = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
             this.table_middle_layout.SuspendLayout();
             this.table_top_layout.SuspendLayout();
             this.SuspendLayout();
@@ -67,7 +68,7 @@
             this.input_gui.Multiline = true;
             this.input_gui.Name = "input_gui";
             this.input_gui.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.input_gui.Size = new System.Drawing.Size(700, 125);
+            this.input_gui.Size = new System.Drawing.Size(706, 129);
             this.input_gui.TabIndex = 4;
             this.input_gui.TextChanged += new System.EventHandler(this.input);
             // 
@@ -76,21 +77,21 @@
             this.output_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.output_gui.Location = new System.Drawing.Point(3, 134);
+            this.output_gui.Location = new System.Drawing.Point(3, 138);
             this.output_gui.MaxLength = 1000000;
             this.output_gui.Multiline = true;
             this.output_gui.Name = "output_gui";
             this.output_gui.ReadOnly = true;
             this.output_gui.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.output_gui.Size = new System.Drawing.Size(700, 125);
+            this.output_gui.Size = new System.Drawing.Size(706, 129);
             this.output_gui.TabIndex = 5;
             // 
             // convert_gui
             // 
             this.convert_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.convert_gui.Location = new System.Drawing.Point(618, 318);
+            this.convert_gui.Location = new System.Drawing.Point(618, 319);
             this.convert_gui.Name = "convert_gui";
-            this.convert_gui.Size = new System.Drawing.Size(100, 24);
+            this.convert_gui.Size = new System.Drawing.Size(106, 24);
             this.convert_gui.TabIndex = 6;
             this.convert_gui.Text = "Convertir";
             this.convert_gui.UseVisualStyleBackColor = true;
@@ -99,9 +100,9 @@
             // 
             this.progress_gui.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progress_gui.Location = new System.Drawing.Point(18, 318);
+            this.progress_gui.Location = new System.Drawing.Point(12, 319);
             this.progress_gui.Name = "progress_gui";
-            this.progress_gui.Size = new System.Drawing.Size(298, 24);
+            this.progress_gui.Size = new System.Drawing.Size(286, 24);
             this.progress_gui.TabIndex = 7;
             // 
             // file_dialog
@@ -111,7 +112,7 @@
             // file_gui
             // 
             this.file_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.file_gui.Location = new System.Drawing.Point(526, 3);
+            this.file_gui.Location = new System.Drawing.Point(538, 3);
             this.file_gui.Name = "file_gui";
             this.file_gui.Size = new System.Drawing.Size(171, 28);
             this.file_gui.TabIndex = 8;
@@ -127,9 +128,9 @@
             "Binary",
             "Decimal",
             "Hexadecimal"});
-            this.to_gui.Location = new System.Drawing.Point(493, 318);
+            this.to_gui.Location = new System.Drawing.Point(487, 319);
             this.to_gui.Name = "to_gui";
-            this.to_gui.Size = new System.Drawing.Size(119, 24);
+            this.to_gui.Size = new System.Drawing.Size(125, 24);
             this.to_gui.TabIndex = 9;
             this.to_gui.Text = "Convertir a...";
             // 
@@ -145,7 +146,7 @@
             this.file_name_gui.Location = new System.Drawing.Point(270, 0);
             this.file_name_gui.MinimumSize = new System.Drawing.Size(100, 28);
             this.file_name_gui.Name = "file_name_gui";
-            this.file_name_gui.Size = new System.Drawing.Size(250, 28);
+            this.file_name_gui.Size = new System.Drawing.Size(262, 34);
             this.file_name_gui.TabIndex = 10;
             this.file_name_gui.Text = "(arrastrar y soltar un archivo)";
             this.file_name_gui.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -162,21 +163,21 @@
             this.table_middle_layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.table_middle_layout.Controls.Add(this.input_gui, 0, 0);
             this.table_middle_layout.Controls.Add(this.output_gui, 0, 1);
-            this.table_middle_layout.Location = new System.Drawing.Point(18, 43);
+            this.table_middle_layout.Location = new System.Drawing.Point(12, 43);
             this.table_middle_layout.Name = "table_middle_layout";
             this.table_middle_layout.RowCount = 2;
             this.table_middle_layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.table_middle_layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.table_middle_layout.Size = new System.Drawing.Size(706, 262);
+            this.table_middle_layout.Size = new System.Drawing.Size(712, 270);
             this.table_middle_layout.TabIndex = 11;
             // 
             // switch_gui
             // 
             this.switch_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.switch_gui.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.switch_gui.Location = new System.Drawing.Point(447, 311);
+            this.switch_gui.Location = new System.Drawing.Point(435, 312);
             this.switch_gui.Name = "switch_gui";
-            this.switch_gui.Size = new System.Drawing.Size(40, 38);
+            this.switch_gui.Size = new System.Drawing.Size(46, 38);
             this.switch_gui.TabIndex = 12;
             this.switch_gui.Text = "⮂";
             this.switch_gui.UseVisualStyleBackColor = true;
@@ -189,9 +190,9 @@
             "Binary",
             "Decimal",
             "Hexadecimal"});
-            this.from_gui.Location = new System.Drawing.Point(322, 318);
+            this.from_gui.Location = new System.Drawing.Point(304, 320);
             this.from_gui.Name = "from_gui";
-            this.from_gui.Size = new System.Drawing.Size(119, 24);
+            this.from_gui.Size = new System.Drawing.Size(125, 24);
             this.from_gui.TabIndex = 13;
             this.from_gui.Text = "Convertir de...";
             // 
@@ -208,12 +209,23 @@
             this.table_top_layout.Controls.Add(this.header, 0, 0);
             this.table_top_layout.Controls.Add(this.file_gui, 2, 0);
             this.table_top_layout.Controls.Add(this.file_name_gui, 1, 0);
-            this.table_top_layout.Location = new System.Drawing.Point(18, 9);
+            this.table_top_layout.Location = new System.Drawing.Point(12, 9);
             this.table_top_layout.Name = "table_top_layout";
             this.table_top_layout.RowCount = 1;
             this.table_top_layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.table_top_layout.Size = new System.Drawing.Size(700, 34);
+            this.table_top_layout.Size = new System.Drawing.Size(712, 34);
             this.table_top_layout.TabIndex = 14;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 352);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(538, 17);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Tamaño original: 12345 | Tamaño convertido: 12345 | Tasa de crecimiento: 12345%";
             // 
             // GUI
             // 
@@ -221,7 +233,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(732, 353);
+            this.ClientSize = new System.Drawing.Size(732, 378);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.table_top_layout);
             this.Controls.Add(this.from_gui);
             this.Controls.Add(this.switch_gui);
@@ -231,7 +244,7 @@
             this.Controls.Add(this.convert_gui);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MinimumSize = new System.Drawing.Size(750, 400);
+            this.MinimumSize = new System.Drawing.Size(750, 425);
             this.Name = "GUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Convertidor de Base";
@@ -260,6 +273,7 @@
         private System.Windows.Forms.Button switch_gui;
         private System.Windows.Forms.ComboBox from_gui;
         private System.Windows.Forms.TableLayoutPanel table_top_layout;
+        private System.Windows.Forms.Label label1;
     }
 }
 
