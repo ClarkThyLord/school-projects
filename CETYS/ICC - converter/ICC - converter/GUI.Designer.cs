@@ -89,18 +89,21 @@
             // convert_gui
             // 
             this.convert_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.convert_gui.Location = new System.Drawing.Point(618, 319);
+            this.convert_gui.Location = new System.Drawing.Point(618, 320);
+            this.convert_gui.MinimumSize = new System.Drawing.Size(0, 24);
             this.convert_gui.Name = "convert_gui";
-            this.convert_gui.Size = new System.Drawing.Size(106, 24);
+            this.convert_gui.Size = new System.Drawing.Size(106, 25);
             this.convert_gui.TabIndex = 6;
             this.convert_gui.Text = "Convertir";
             this.convert_gui.UseVisualStyleBackColor = true;
+            this.convert_gui.Click += new System.EventHandler(this.covert_manual);
             // 
             // progress_gui
             // 
             this.progress_gui.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progress_gui.Location = new System.Drawing.Point(12, 319);
+            this.progress_gui.MinimumSize = new System.Drawing.Size(0, 24);
             this.progress_gui.Name = "progress_gui";
             this.progress_gui.Size = new System.Drawing.Size(286, 24);
             this.progress_gui.TabIndex = 7;
@@ -133,6 +136,7 @@
             this.to_gui.Size = new System.Drawing.Size(125, 24);
             this.to_gui.TabIndex = 9;
             this.to_gui.Text = "Convertir a...";
+            this.to_gui.SelectedIndexChanged += new System.EventHandler(this.convert_to);
             // 
             // file_name_gui
             // 
@@ -175,12 +179,13 @@
             // 
             this.switch_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.switch_gui.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.switch_gui.Location = new System.Drawing.Point(435, 312);
+            this.switch_gui.Location = new System.Drawing.Point(435, 311);
             this.switch_gui.Name = "switch_gui";
             this.switch_gui.Size = new System.Drawing.Size(46, 38);
             this.switch_gui.TabIndex = 12;
             this.switch_gui.Text = "⮂";
             this.switch_gui.UseVisualStyleBackColor = true;
+            this.switch_gui.Click += new System.EventHandler(this.convert_switch);
             // 
             // from_gui
             // 
@@ -195,6 +200,7 @@
             this.from_gui.Size = new System.Drawing.Size(125, 24);
             this.from_gui.TabIndex = 13;
             this.from_gui.Text = "Convertir de...";
+            this.from_gui.SelectedIndexChanged += new System.EventHandler(this.convert_from);
             // 
             // table_top_layout
             // 

@@ -19,6 +19,14 @@ namespace ICC___converter
         {
             InitializeComponent();
         }
+        
+        private void convert(double from_base, double to_base)
+        {
+            if (from_base == to_base)
+            {
+                this.output_gui.Text = this.input_gui.Text;
+            }
+        }
 
         private void input(object sender, EventArgs e)
         {
@@ -56,6 +64,26 @@ namespace ICC___converter
             foreach (string file in files) {
                 this.file_name_gui.Text = file.ToString();
             }
+        }
+
+        private void convert_from(object sender, EventArgs e)
+        {
+
+        }
+
+        private void convert_switch(object sender, EventArgs e)
+        {
+
+        }
+
+        private void convert_to(object sender, EventArgs e)
+        {
+
+        }
+
+        private void covert_manual(object sender, EventArgs e)
+        {
+
         }
     }
 }
