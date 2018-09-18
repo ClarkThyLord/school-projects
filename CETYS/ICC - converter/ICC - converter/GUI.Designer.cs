@@ -224,9 +224,10 @@
             this.stats_gui.ForeColor = System.Drawing.SystemColors.ControlText;
             this.stats_gui.Location = new System.Drawing.Point(9, 352);
             this.stats_gui.Name = "stats_gui";
-            this.stats_gui.Size = new System.Drawing.Size(538, 17);
+            this.stats_gui.Size = new System.Drawing.Size(613, 17);
             this.stats_gui.TabIndex = 15;
-            this.stats_gui.Text = "Tamaño original: 12345 | Tamaño convertido: 12345 | Tasa de crecimiento: 12345%";
+            this.stats_gui.Text = "Tamaño original: 12345 | Tamaño convertido: 12345 | Diferencia: 12345 | Diferenci" +
+    "a %: 12345%";
             // 
             // GUI
             // 
