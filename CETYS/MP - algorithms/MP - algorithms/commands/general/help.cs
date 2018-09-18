@@ -14,7 +14,7 @@ namespace MP___algorithms.commands.general
             "**************",
             "?          :   Ayuda",
             "",
-            "a_(1-21)   :   Algoritmos",
+            "a_(1-24)   :   Algoritmos",
             "",
             "salir      :   Salir del programa"
         };

@@ -7,8 +7,6 @@ namespace MP___algorithms.commands.algorithms
     {
         public static Dictionary<string, dynamic> run()
         {
-            Console.WriteLine("Christian Moises Cuevas Larin 029794");
-
             Console.WriteLine("Costo:");
             double costo = 0;
             while (!double.TryParse(Console.ReadLine(), out costo) && costo > 0)
@@ -23,7 +21,7 @@ namespace MP___algorithms.commands.algorithms
             double costo_actual = costo;
             double impuesto = 0;
             double c_impuesto = 0;
-            if (costo > 20 || costo > 20)
+            if (costo > 20 && costo > 20)
             {
                 diffrence = costo > 20 ? 20 : costo_actual;
                 costo_actual -= diffrence;
