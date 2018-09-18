@@ -1,6 +1,6 @@
 namespace ICC___converter
 {
-    partial class Window
+    partial class GUI
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@ namespace ICC___converter
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Window));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             this.header = new System.Windows.Forms.Label();
             this.input_gui = new System.Windows.Forms.TextBox();
             this.result_gui = new System.Windows.Forms.TextBox();
@@ -37,7 +37,6 @@ namespace ICC___converter
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.file_gui = new System.Windows.Forms.Button();
             this.type_gui = new System.Windows.Forms.ComboBox();
-            this.switch_gui = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // header
@@ -89,7 +88,7 @@ namespace ICC___converter
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progress_gui.Location = new System.Drawing.Point(18, 306);
             this.progress_gui.Name = "progress_gui";
-            this.progress_gui.Size = new System.Drawing.Size(594, 35);
+            this.progress_gui.Size = new System.Drawing.Size(392, 35);
             this.progress_gui.TabIndex = 7;
             // 
             // openFileDialog1
@@ -105,41 +104,27 @@ namespace ICC___converter
             this.file_gui.TabIndex = 8;
             this.file_gui.Text = "Archivo...";
             this.file_gui.UseVisualStyleBackColor = true;
-            this.file_gui.Click += new System.EventHandler(this.button2_Click);
             // 
             // type_gui
             // 
-            this.type_gui.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.type_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.type_gui.FormattingEnabled = true;
             this.type_gui.Items.AddRange(new object[] {
             "Binary",
             "Decimal",
-            "Hexadecimal",
-            "Base64"});
-            this.type_gui.Location = new System.Drawing.Point(307, 9);
+            "Hexadecimal"});
+            this.type_gui.Location = new System.Drawing.Point(416, 312);
             this.type_gui.Name = "type_gui";
-            this.type_gui.Size = new System.Drawing.Size(230, 24);
+            this.type_gui.Size = new System.Drawing.Size(196, 24);
             this.type_gui.TabIndex = 9;
             // 
-            // switch_gui
-            // 
-            this.switch_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.switch_gui.Location = new System.Drawing.Point(543, 8);
-            this.switch_gui.Name = "switch_gui";
-            this.switch_gui.Size = new System.Drawing.Size(94, 28);
-            this.switch_gui.TabIndex = 10;
-            this.switch_gui.Text = "Intercambiar";
-            this.switch_gui.UseVisualStyleBackColor = true;
-            // 
-            // Window
+            // GUI
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(732, 353);
-            this.Controls.Add(this.switch_gui);
             this.Controls.Add(this.type_gui);
             this.Controls.Add(this.file_gui);
             this.Controls.Add(this.progress_gui);
@@ -149,7 +134,7 @@ namespace ICC___converter
             this.Controls.Add(this.header);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "Window";
+            this.Name = "GUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Convertidor de Base";
             this.ResumeLayout(false);
@@ -166,7 +151,6 @@ namespace ICC___converter
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button file_gui;
         private System.Windows.Forms.ComboBox type_gui;
-        private System.Windows.Forms.Button switch_gui;
     }
 }
 

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace ICC___converter
 {
-    static class Program
+    static class Run
     {
         /// <summary>
         /// The main entry point for the application.
@@ -16,7 +16,7 @@ namespace ICC___converter
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Window());
+            Application.Run(new GUI());
         }
     }
 }

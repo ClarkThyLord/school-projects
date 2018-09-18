@@ -13,16 +13,11 @@ using System.Windows.Forms;
 
 namespace ICC___converter
 {
-    public partial class Window : Form
+    public partial class GUI : Form
     {
-        public Window()
+        public GUI()
         {
             InitializeComponent();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
