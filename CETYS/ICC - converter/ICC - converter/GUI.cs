@@ -20,22 +20,27 @@ namespace ICC___converter
             InitializeComponent();
         }
         
-        private void convert(double from_base, double to_base)
+        private void convert()
         {
-            if (from_base == to_base)
+            if (this.from_gui.SelectedText == this.to_gui.SelectedText)
             {
                 this.output_gui.Text = this.input_gui.Text;
+            } else
+            {
+                ICC___converter.scripts.base_converter.run(this.input_gui.Text, this.from_gui.SelectedText, this.to_gui.SelectedText);
             }
         }
 
-        private void input(object sender, EventArgs e)
+        private void input_change(object sender, EventArgs e)
         {
-
+            convert();
         }
 
-        private void file_open()
+        private void file_open(string content)
         {
+            this.input_gui.Text = content;
 
+            convert();
         }
 
         private void file_chooser(object sender, EventArgs e)
@@ -68,22 +73,26 @@ namespace ICC___converter
 
         private void convert_from(object sender, EventArgs e)
         {
-
+            convert();
         }
 
         private void convert_switch(object sender, EventArgs e)
         {
+            int temp = (int)this.from_gui.SelectedIndex;
+            this.from_gui.SelectedIndex = this.to_gui.SelectedIndex;
+            this.to_gui.SelectedIndex = temp;
 
+            convert();
         }
 
         private void convert_to(object sender, EventArgs e)
         {
-
+            convert();
         }
 
         private void covert_manual(object sender, EventArgs e)
         {
-
+            convert();
         }
     }
 }

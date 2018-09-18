@@ -70,7 +70,7 @@
             this.input_gui.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.input_gui.Size = new System.Drawing.Size(706, 129);
             this.input_gui.TabIndex = 4;
-            this.input_gui.TextChanged += new System.EventHandler(this.input);
+            this.input_gui.TextChanged += new System.EventHandler(this.input_change);
             // 
             // output_gui
             // 

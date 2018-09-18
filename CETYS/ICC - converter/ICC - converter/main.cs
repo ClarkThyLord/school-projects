@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace ICC___converter
 {
-    static class Run
+    static class main
     {
         /// <summary>
         /// The main entry point for the application.
