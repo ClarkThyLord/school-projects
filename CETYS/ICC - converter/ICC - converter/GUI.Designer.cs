@@ -38,6 +38,9 @@ namespace ICC___converter
             this.file_gui = new System.Windows.Forms.Button();
             this.type_gui = new System.Windows.Forms.ComboBox();
             this.file_name_gui = new System.Windows.Forms.Label();
+            this.table_layout = new System.Windows.Forms.TableLayoutPanel();
+            this.switch_gui = new System.Windows.Forms.Button();
+            this.table_layout.SuspendLayout();
             this.SuspendLayout();
             // 
             // header
@@ -57,21 +60,26 @@ namespace ICC___converter
             this.input_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.input_gui.Location = new System.Drawing.Point(18, 43);
+            this.input_gui.Location = new System.Drawing.Point(3, 3);
+            this.input_gui.MaxLength = 1000000;
             this.input_gui.Multiline = true;
             this.input_gui.Name = "input_gui";
+            this.input_gui.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.input_gui.Size = new System.Drawing.Size(700, 125);
             this.input_gui.TabIndex = 4;
             this.input_gui.TextChanged += new System.EventHandler(this.input);
             // 
             // output_gui
             // 
-            this.output_gui.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.output_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.output_gui.Location = new System.Drawing.Point(18, 174);
+            this.output_gui.Location = new System.Drawing.Point(3, 134);
+            this.output_gui.MaxLength = 1000000;
             this.output_gui.Multiline = true;
             this.output_gui.Name = "output_gui";
             this.output_gui.ReadOnly = true;
+            this.output_gui.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.output_gui.Size = new System.Drawing.Size(700, 125);
             this.output_gui.TabIndex = 5;
             // 
@@ -91,7 +99,7 @@ namespace ICC___converter
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progress_gui.Location = new System.Drawing.Point(18, 306);
             this.progress_gui.Name = "progress_gui";
-            this.progress_gui.Size = new System.Drawing.Size(392, 35);
+            this.progress_gui.Size = new System.Drawing.Size(363, 35);
             this.progress_gui.TabIndex = 7;
             // 
             // file_dialog
@@ -117,9 +125,9 @@ namespace ICC___converter
             "Binary",
             "Decimal",
             "Hexadecimal"});
-            this.type_gui.Location = new System.Drawing.Point(416, 312);
+            this.type_gui.Location = new System.Drawing.Point(387, 312);
             this.type_gui.Name = "type_gui";
-            this.type_gui.Size = new System.Drawing.Size(196, 24);
+            this.type_gui.Size = new System.Drawing.Size(119, 24);
             this.type_gui.TabIndex = 9;
             this.type_gui.Text = "Convertir a...";
             // 
@@ -135,6 +143,36 @@ namespace ICC___converter
             this.file_name_gui.TabIndex = 10;
             this.file_name_gui.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // table_layout
+            // 
+            this.table_layout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.table_layout.AutoSize = true;
+            this.table_layout.BackColor = System.Drawing.SystemColors.Control;
+            this.table_layout.ColumnCount = 1;
+            this.table_layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.table_layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.table_layout.Controls.Add(this.input_gui, 0, 0);
+            this.table_layout.Controls.Add(this.output_gui, 0, 1);
+            this.table_layout.Location = new System.Drawing.Point(18, 43);
+            this.table_layout.Name = "table_layout";
+            this.table_layout.RowCount = 2;
+            this.table_layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.table_layout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.table_layout.Size = new System.Drawing.Size(706, 262);
+            this.table_layout.TabIndex = 11;
+            // 
+            // switch_gui
+            // 
+            this.switch_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.switch_gui.Location = new System.Drawing.Point(512, 306);
+            this.switch_gui.Name = "switch_gui";
+            this.switch_gui.Size = new System.Drawing.Size(100, 35);
+            this.switch_gui.TabIndex = 12;
+            this.switch_gui.Text = "Switch";
+            this.switch_gui.UseVisualStyleBackColor = true;
+            // 
             // GUI
             // 
             this.AllowDrop = true;
@@ -142,13 +180,13 @@ namespace ICC___converter
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(732, 353);
+            this.Controls.Add(this.switch_gui);
+            this.Controls.Add(this.table_layout);
             this.Controls.Add(this.file_name_gui);
             this.Controls.Add(this.type_gui);
             this.Controls.Add(this.file_gui);
             this.Controls.Add(this.progress_gui);
             this.Controls.Add(this.convert_gui);
-            this.Controls.Add(this.output_gui);
-            this.Controls.Add(this.input_gui);
             this.Controls.Add(this.header);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -157,6 +195,8 @@ namespace ICC___converter
             this.Text = "Convertidor de Base";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.file_drag_drop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.file_drag_enter);
+            this.table_layout.ResumeLayout(false);
+            this.table_layout.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,6 +212,8 @@ namespace ICC___converter
         private System.Windows.Forms.Button file_gui;
         private System.Windows.Forms.ComboBox type_gui;
         private System.Windows.Forms.Label file_name_gui;
+        private System.Windows.Forms.TableLayoutPanel table_layout;
+        private System.Windows.Forms.Button switch_gui;
     }
 }
 
