@@ -54,7 +54,7 @@ namespace ICC___converter
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             foreach (string file in files) {
-                this.file_name_gui.Text += file.ToString();
+                this.file_name_gui.Text = file.ToString();
             }
         }
     }
