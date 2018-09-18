@@ -42,7 +42,7 @@
             this.switch_gui = new System.Windows.Forms.Button();
             this.from_gui = new System.Windows.Forms.ComboBox();
             this.table_top_layout = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.stats_gui = new System.Windows.Forms.Label();
             this.table_middle_layout.SuspendLayout();
             this.table_top_layout.SuspendLayout();
             this.SuspendLayout();
@@ -216,16 +216,17 @@
             this.table_top_layout.Size = new System.Drawing.Size(712, 34);
             this.table_top_layout.TabIndex = 14;
             // 
-            // label1
+            // stats_gui
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.stats_gui.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 352);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(538, 17);
-            this.label1.TabIndex = 15;
-            this.label1.Text = "Tamaño original: 12345 | Tamaño convertido: 12345 | Tasa de crecimiento: 12345%";
+            this.stats_gui.AutoSize = true;
+            this.stats_gui.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.stats_gui.Location = new System.Drawing.Point(9, 352);
+            this.stats_gui.Name = "stats_gui";
+            this.stats_gui.Size = new System.Drawing.Size(538, 17);
+            this.stats_gui.TabIndex = 15;
+            this.stats_gui.Text = "Tamaño original: 12345 | Tamaño convertido: 12345 | Tasa de crecimiento: 12345%";
             // 
             // GUI
             // 
@@ -234,7 +235,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(732, 378);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.stats_gui);
             this.Controls.Add(this.table_top_layout);
             this.Controls.Add(this.from_gui);
             this.Controls.Add(this.switch_gui);
@@ -273,7 +274,7 @@
         private System.Windows.Forms.Button switch_gui;
         private System.Windows.Forms.ComboBox from_gui;
         private System.Windows.Forms.TableLayoutPanel table_top_layout;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label stats_gui;
     }
 }
 
