@@ -66,8 +66,12 @@ namespace ICC___converter
         private void file_drag_drop(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            foreach (string file in files) {
-                this.file_name_gui.Text = file.ToString();
+            if (files.Length > 0) {
+                string file_path = files[0].ToString();
+                this.file_name_gui.Text = file_path;
+            } else
+            {
+
             }
         }
 

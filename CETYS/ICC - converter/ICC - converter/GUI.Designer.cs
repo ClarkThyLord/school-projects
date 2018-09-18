@@ -128,9 +128,11 @@
             this.to_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.to_gui.FormattingEnabled = true;
             this.to_gui.Items.AddRange(new object[] {
-            "Binary",
             "Decimal",
-            "Hexadecimal"});
+            "Binary",
+            "Hexadecimal",
+            "Base32",
+            "Base64"});
             this.to_gui.Location = new System.Drawing.Point(487, 319);
             this.to_gui.Name = "to_gui";
             this.to_gui.Size = new System.Drawing.Size(125, 24);
@@ -192,9 +194,11 @@
             this.from_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.from_gui.FormattingEnabled = true;
             this.from_gui.Items.AddRange(new object[] {
-            "Binary",
             "Decimal",
-            "Hexadecimal"});
+            "Binary",
+            "Hexadecimal",
+            "Base32",
+            "Base64"});
             this.from_gui.Location = new System.Drawing.Point(304, 320);
             this.from_gui.Name = "from_gui";
             this.from_gui.Size = new System.Drawing.Size(125, 24);

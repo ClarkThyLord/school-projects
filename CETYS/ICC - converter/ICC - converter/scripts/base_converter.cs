@@ -13,8 +13,24 @@ namespace ICC___converter.scripts
         public static Dictionary<string, int> types = new Dictionary<string, int>
         {
             {
-                "",
+                "Decimal",
+                -1
+            },
+            {
+                "Binary",
                 2
+            },
+            {
+                "Hexadecimal",
+                16
+            },
+            {
+                "Base32",
+                32
+            },
+            {
+                "Base64",
+                64
             }
         };
 
