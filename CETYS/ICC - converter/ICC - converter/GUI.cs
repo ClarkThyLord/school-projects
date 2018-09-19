@@ -83,15 +83,26 @@ namespace ICC___converter
                 this.file_name_gui.Text = System.IO.Path.GetFullPath(this.file_open_dialog.FileName);
                 
                 StringBuilder content = new StringBuilder();
-                byte[] file_bytes = File.ReadAllBytes(System.IO.Path.GetFullPath(this.file_open_dialog.FileName));
-
-                int progress = 0;
-                foreach (byte file_byte in file_bytes)
+                if (this.file_open_dialog.FilterIndex == 1)
                 {
-                    content.Append(Convert.ToString(file_byte, 2).PadLeft(8, '0'));
+                    int progress = 0;
+                    byte[] file_bytes = File.ReadAllBytes(System.IO.Path.GetFullPath(this.file_open_dialog.FileName)); 
+                    foreach (byte file_byte in file_bytes)
+                    {
+                        content.Append(Convert.ToString(file_byte, 2).PadLeft(8, '0'));
 
-                    progress += 1;
-                    this.progress_gui.Value = (int)Math.Round((double)((progress / file_bytes.Length) * 100), 0);
+                        if (progress > 1000000)
+                        {
+                            MessageBox.Show("¡El archivo es demasiado grande!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return;
+                        }
+
+                        progress += 1;
+                        this.progress_gui.Value = (int)Math.Round((double)((progress / file_bytes.Length) * 100), 0);
+                    }
+                } else
+                {
+                    content.Insert(0, File.ReadAllText(System.IO.Path.GetFullPath(this.file_open_dialog.FileName)));
                 }
 
                 this.input_gui.Text = content.ToString();
@@ -120,6 +131,12 @@ namespace ICC___converter
                 foreach (byte file_byte in file_bytes)
                 {
                     content.Append(Convert.ToString(file_byte, 2).PadLeft(8, '0'));
+
+                    if (progress > 1000000)
+                    {
+                        MessageBox.Show("¡El archivo es demasiado grande!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
 
                     progress += 1;
                     this.progress_gui.Value = (int)Math.Round((double)((progress / file_bytes.Length) * 100), 0);

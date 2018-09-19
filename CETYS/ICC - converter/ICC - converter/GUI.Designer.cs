@@ -113,6 +113,8 @@
             // file_open_dialog
             // 
             this.file_open_dialog.FileName = "file_dialog";
+            this.file_open_dialog.Filter = "Cualquier archivo (.*) | *.*| Base (Decimal, Binario, Hexadecimal, Base32, Base64" +
+    ") | *.*";
             // 
             // file_open_gui
             // 
