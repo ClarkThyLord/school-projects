@@ -28,7 +28,7 @@ namespace ICC___converter
                 this.output_gui.Text = this.input_gui.Text;
             } else
             {
-                ICC___converter.scripts.base_converter.run(this.input_gui.Text, this.from_gui.SelectedText, this.to_gui.SelectedText);
+                this.output_gui.Text = ICC___converter.scripts.base_converter.run(this.input_gui.Text, this.from_gui.SelectedText, this.to_gui.SelectedText);
             }
 
             double diffrence = this.input_gui.Text.Length - this.output_gui.Text.Length;
@@ -50,6 +50,25 @@ namespace ICC___converter
             convert();
         }
 
+        private void file_save(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (this.file_save_dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (this.file_save_dialog.FileName != "")
+                {
+                    StreamWriter fs = new StreamWriter(this.file_save_dialog.OpenFile());
+                    
+                    fs.WriteLine(this.output_gui.Text);
+
+                    fs.Dispose();
+                    fs.Close();
+                } else
+                {
+                    MessageBox.Show("¡Necesitas dar un nombre de archivo válido!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+        }
+
         private void file_open(string content)
         {
             this.input_gui.Text = content;
@@ -59,12 +78,12 @@ namespace ICC___converter
 
         private void file_chooser(object sender, EventArgs e)
         {
-            if (this.file_dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (this.file_open_dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                this.file_name_gui.Text = System.IO.Path.GetFullPath(this.file_dialog.FileName);
+                this.file_name_gui.Text = System.IO.Path.GetFullPath(this.file_open_dialog.FileName);
                 
                 StringBuilder content = new StringBuilder();
-                byte[] file_bytes = File.ReadAllBytes(System.IO.Path.GetFullPath(this.file_dialog.FileName));
+                byte[] file_bytes = File.ReadAllBytes(System.IO.Path.GetFullPath(this.file_open_dialog.FileName));
 
                 int progress = 0;
                 foreach (byte file_byte in file_bytes)

@@ -34,8 +34,8 @@
             this.output_gui = new System.Windows.Forms.TextBox();
             this.convert_gui = new System.Windows.Forms.Button();
             this.progress_gui = new System.Windows.Forms.ProgressBar();
-            this.file_dialog = new System.Windows.Forms.OpenFileDialog();
-            this.file_gui = new System.Windows.Forms.Button();
+            this.file_open_dialog = new System.Windows.Forms.OpenFileDialog();
+            this.file_open_gui = new System.Windows.Forms.Button();
             this.to_gui = new System.Windows.Forms.ComboBox();
             this.file_name_gui = new System.Windows.Forms.Label();
             this.table_middle_layout = new System.Windows.Forms.TableLayoutPanel();
@@ -43,6 +43,8 @@
             this.from_gui = new System.Windows.Forms.ComboBox();
             this.table_top_layout = new System.Windows.Forms.TableLayoutPanel();
             this.stats_gui = new System.Windows.Forms.Label();
+            this.file_save_dialog = new System.Windows.Forms.SaveFileDialog();
+            this.file_save_gui = new System.Windows.Forms.LinkLabel();
             this.table_middle_layout.SuspendLayout();
             this.table_top_layout.SuspendLayout();
             this.SuspendLayout();
@@ -108,20 +110,20 @@
             this.progress_gui.Size = new System.Drawing.Size(286, 24);
             this.progress_gui.TabIndex = 7;
             // 
-            // file_dialog
+            // file_open_dialog
             // 
-            this.file_dialog.FileName = "file_dialog";
+            this.file_open_dialog.FileName = "file_dialog";
             // 
-            // file_gui
+            // file_open_gui
             // 
-            this.file_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.file_gui.Location = new System.Drawing.Point(538, 3);
-            this.file_gui.Name = "file_gui";
-            this.file_gui.Size = new System.Drawing.Size(171, 28);
-            this.file_gui.TabIndex = 8;
-            this.file_gui.Text = "Abrir documento...";
-            this.file_gui.UseVisualStyleBackColor = true;
-            this.file_gui.Click += new System.EventHandler(this.file_chooser);
+            this.file_open_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.file_open_gui.Location = new System.Drawing.Point(538, 3);
+            this.file_open_gui.Name = "file_open_gui";
+            this.file_open_gui.Size = new System.Drawing.Size(171, 28);
+            this.file_open_gui.TabIndex = 8;
+            this.file_open_gui.Text = "Abrir documento...";
+            this.file_open_gui.UseVisualStyleBackColor = true;
+            this.file_open_gui.Click += new System.EventHandler(this.file_chooser);
             // 
             // to_gui
             // 
@@ -217,7 +219,7 @@
             this.table_top_layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.table_top_layout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.table_top_layout.Controls.Add(this.header, 0, 0);
-            this.table_top_layout.Controls.Add(this.file_gui, 2, 0);
+            this.table_top_layout.Controls.Add(this.file_open_gui, 2, 0);
             this.table_top_layout.Controls.Add(this.file_name_gui, 1, 0);
             this.table_top_layout.Location = new System.Drawing.Point(12, 9);
             this.table_top_layout.Name = "table_top_layout";
@@ -234,10 +236,21 @@
             this.stats_gui.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.stats_gui.Location = new System.Drawing.Point(9, 352);
             this.stats_gui.Name = "stats_gui";
-            this.stats_gui.Size = new System.Drawing.Size(613, 17);
+            this.stats_gui.Size = new System.Drawing.Size(398, 17);
             this.stats_gui.TabIndex = 15;
-            this.stats_gui.Text = "Tamaño original: 12345 | Tamaño convertido: 12345 | Diferencia: 12345 | Diferenci" +
-    "a %: 12345%";
+            this.stats_gui.Text = "Tamaño original: 0 | Tamaño convertido: 0 | Diferencia: 0 : 0%";
+            // 
+            // file_save_gui
+            // 
+            this.file_save_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.file_save_gui.AutoSize = true;
+            this.file_save_gui.Location = new System.Drawing.Point(613, 352);
+            this.file_save_gui.Name = "file_save_gui";
+            this.file_save_gui.Size = new System.Drawing.Size(111, 17);
+            this.file_save_gui.TabIndex = 16;
+            this.file_save_gui.TabStop = true;
+            this.file_save_gui.Text = "Guardar como...";
+            this.file_save_gui.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.file_save);
             // 
             // GUI
             // 
@@ -246,6 +259,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(732, 378);
+            this.Controls.Add(this.file_save_gui);
             this.Controls.Add(this.stats_gui);
             this.Controls.Add(this.table_top_layout);
             this.Controls.Add(this.from_gui);
@@ -277,8 +291,8 @@
         private System.Windows.Forms.TextBox output_gui;
         private System.Windows.Forms.Button convert_gui;
         private System.Windows.Forms.ProgressBar progress_gui;
-        private System.Windows.Forms.OpenFileDialog file_dialog;
-        private System.Windows.Forms.Button file_gui;
+        private System.Windows.Forms.OpenFileDialog file_open_dialog;
+        private System.Windows.Forms.Button file_open_gui;
         private System.Windows.Forms.ComboBox to_gui;
         private System.Windows.Forms.Label file_name_gui;
         private System.Windows.Forms.TableLayoutPanel table_middle_layout;
@@ -286,6 +300,8 @@
         private System.Windows.Forms.ComboBox from_gui;
         private System.Windows.Forms.TableLayoutPanel table_top_layout;
         private System.Windows.Forms.Label stats_gui;
+        private System.Windows.Forms.SaveFileDialog file_save_dialog;
+        private System.Windows.Forms.LinkLabel file_save_gui;
     }
 }
 
