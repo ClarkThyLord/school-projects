@@ -231,7 +231,7 @@
             this.stats_gui.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.stats_gui.AutoSize = true;
-            this.stats_gui.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.stats_gui.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.stats_gui.Location = new System.Drawing.Point(9, 352);
             this.stats_gui.Name = "stats_gui";
             this.stats_gui.Size = new System.Drawing.Size(613, 17);

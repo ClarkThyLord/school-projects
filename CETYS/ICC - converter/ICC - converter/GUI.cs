@@ -30,6 +30,19 @@ namespace ICC___converter
             {
                 ICC___converter.scripts.base_converter.run(this.input_gui.Text, this.from_gui.SelectedText, this.to_gui.SelectedText);
             }
+
+            double diffrence = this.input_gui.Text.Length - this.output_gui.Text.Length;
+
+            string diffrence_sign = "";
+            if (diffrence > 0)
+            {
+                diffrence_sign = "-";
+            } else if (diffrence < 0)
+            {
+                diffrence_sign = "+";
+            }
+
+            this.stats_gui.Text = String.Format("Tamaño original: {0} | Tamaño convertido: {1} | Diferencia: {2} : {3}%", this.input_gui.Text.Length, this.output_gui.Text.Length, diffrence_sign + diffrence.ToString(), diffrence_sign + ((diffrence / (this.input_gui.Text.Length != 0 ? this.input_gui.Text.Length + this.output_gui.Text.Length : 1)) * 100).ToString());
         }
 
         private void input_change(object sender, EventArgs e)
@@ -49,13 +62,17 @@ namespace ICC___converter
             if (this.file_dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 this.file_name_gui.Text = System.IO.Path.GetFullPath(this.file_dialog.FileName);
-
-                byte[] file_bytes = File.ReadAllBytes(System.IO.Path.GetFullPath(this.file_dialog.FileName));
+                
                 StringBuilder content = new StringBuilder();
+                byte[] file_bytes = File.ReadAllBytes(System.IO.Path.GetFullPath(this.file_dialog.FileName));
 
+                int progress = 0;
                 foreach (byte file_byte in file_bytes)
                 {
                     content.Append(Convert.ToString(file_byte, 2).PadLeft(8, '0'));
+
+                    progress += 1;
+                    this.progress_gui.Value = (int)Math.Round((double)((progress / file_bytes.Length) * 100), 0);
                 }
 
                 this.input_gui.Text = content.ToString();
@@ -76,13 +93,17 @@ namespace ICC___converter
             if (files.Length > 0) {
                 string file_path = files[0].ToString();
                 this.file_name_gui.Text = file_path;
-
-                byte[] file_bytes = File.ReadAllBytes(file_path);
+                
                 StringBuilder content = new StringBuilder();
+                byte[] file_bytes = File.ReadAllBytes(file_path);
 
+                int progress = 0;
                 foreach (byte file_byte in file_bytes)
                 {
                     content.Append(Convert.ToString(file_byte, 2).PadLeft(8, '0'));
+
+                    progress += 1;
+                    this.progress_gui.Value = (int)Math.Round((double)((progress / file_bytes.Length) * 100), 0);
                 }
 
                 this.input_gui.Text = content.ToString();
