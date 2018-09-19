@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="commands\algorithms\a_1.cs" />
     <Compile Include="commands\algorithms\a_22.cs" />
+    <Compile Include="commands\algorithms\a_25.cs" />
     <Compile Include="commands\algorithms\a_24.cs" />
     <Compile Include="commands\algorithms\a_23.cs" />
     <Compile Include="commands\algorithms\a_21.cs" />
