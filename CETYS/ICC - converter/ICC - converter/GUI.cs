@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,11 +48,17 @@ namespace ICC___converter
         {
             if (this.file_dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                System.IO.StreamReader sr = new System.IO.StreamReader(this.file_dialog.FileName);
-                
-                this.file_name_gui.Text = sr.ReadToEnd();
+                this.file_name_gui.Text = System.IO.Path.GetFullPath(this.file_dialog.FileName);
 
-                sr.Close();
+                byte[] file_bytes = File.ReadAllBytes(System.IO.Path.GetFullPath(this.file_dialog.FileName));
+                StringBuilder content = new StringBuilder();
+
+                foreach (byte file_byte in file_bytes)
+                {
+                    content.Append(Convert.ToString(file_byte, 2).PadLeft(8, '0'));
+                }
+
+                this.input_gui.Text = content.ToString();
             }
         }
 
@@ -69,9 +76,19 @@ namespace ICC___converter
             if (files.Length > 0) {
                 string file_path = files[0].ToString();
                 this.file_name_gui.Text = file_path;
+
+                byte[] file_bytes = File.ReadAllBytes(file_path);
+                StringBuilder content = new StringBuilder();
+
+                foreach (byte file_byte in file_bytes)
+                {
+                    content.Append(Convert.ToString(file_byte, 2).PadLeft(8, '0'));
+                }
+
+                this.input_gui.Text = content.ToString();
             } else
             {
-
+                MessageBox.Show("¡El archivo no puede ser cargado!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 

@@ -8,7 +8,7 @@ namespace ICC___converter
 {
     static class main
     {
-        /// <summary>
+        /// <summa
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
