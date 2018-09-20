@@ -23,16 +23,14 @@ namespace ICC___converter
         
         private void convert()
         {
-            if (this.from_gui.Text.Length == 0 || this.from_gui.SelectedIndex == 0 || this.to_gui.SelectedIndex == 0 || this.from_gui.SelectedIndex == this.to_gui.SelectedIndex)
+            if (this.from_gui.Text.Length == 0 || this.from_gui.SelectedIndex == -1 || this.to_gui.SelectedIndex == -1 || this.from_gui.SelectedIndex == this.to_gui.SelectedIndex)
             {
                 this.output_gui.Text = this.input_gui.Text;
 
                 this.stats_gui.Text = "Tamaño original: 0 | Tamaño convertido: 0 | Diferencia: 0 : 0%";
             } else
             {
-                MessageBox.Show(this.from_gui.SelectedValue.ToString() + " | " + this.to_gui.SelectedValue.ToString(), "DEBUG", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                string result = ICC___converter.scripts.base_converter.run(this.input_gui.Text, this.from_gui.SelectedItem.ToString(), this.to_gui.SelectedItem.ToString());
+                string result = ICC___converter.scripts.base_converter.run(this.input_gui.Text, this.from_gui.Items[this.from_gui.SelectedIndex].ToString(), this.to_gui.Items[this.to_gui.SelectedIndex].ToString());
 
                 if (result == "")
                 {

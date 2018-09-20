@@ -32,7 +32,7 @@ namespace ICC___converter.scripts
                 {
                     {
                         "from",
-                        decimal_to_binary
+                        (string content) =>  content
                     },
                     {
                         "to",
@@ -86,7 +86,17 @@ namespace ICC___converter.scripts
 
         public static string run (string content, string from, string to)
         {
-            return types[to]["to"](types[from]["from"](content));
+            if (from == "Binary")
+            {
+                return types[from]["from"](content);
+            }
+            else if (to == "Binary")
+            {
+                return types[to]["to"](content);
+            } else
+            {
+                return types[to]["to"](types[from]["from"](content));
+            }
         }
 
         public static string string_reverse(string content)
@@ -127,12 +137,12 @@ namespace ICC___converter.scripts
 
                 foreach (char number in content)
                 {
-                    double temp = char.GetNumericValue(number);
+                    int temp = (int)char.GetNumericValue(number);
 
                     while (true)
                     {
                         result.Add((int)temp % 2);
-                        temp = Math.Truncate(temp % 2);
+                        temp = temp / 2;
 
                         if (temp == 0)
                         {
