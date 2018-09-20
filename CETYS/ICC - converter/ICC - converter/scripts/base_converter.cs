@@ -36,7 +36,7 @@ namespace ICC___converter.scripts
                     },
                     {
                         "to",
-                        binary_to_decimal
+                        (string content) => content
                     }
                 }
             },
