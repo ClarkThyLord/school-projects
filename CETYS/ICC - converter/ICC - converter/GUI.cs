@@ -23,26 +23,42 @@ namespace ICC___converter
         
         private void convert()
         {
-            if (this.from_gui.SelectedText == this.to_gui.SelectedText)
+            if (this.from_gui.Text.Length == 0 || this.from_gui.SelectedIndex == 0 || this.to_gui.SelectedIndex == 0 || this.from_gui.SelectedIndex == this.to_gui.SelectedIndex)
             {
                 this.output_gui.Text = this.input_gui.Text;
+
+                this.stats_gui.Text = "Tamaño original: 0 | Tamaño convertido: 0 | Diferencia: 0 : 0%";
             } else
             {
-                this.output_gui.Text = ICC___converter.scripts.base_converter.run(this.input_gui.Text, this.from_gui.SelectedText, this.to_gui.SelectedText);
+                MessageBox.Show(this.from_gui.SelectedValue.ToString() + " | " + this.to_gui.SelectedValue.ToString(), "DEBUG", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                string result = ICC___converter.scripts.base_converter.run(this.input_gui.Text, this.from_gui.SelectedItem.ToString(), this.to_gui.SelectedItem.ToString());
+
+                if (result == "")
+                {
+                    MessageBox.Show(string.Format("¡Error de análisis al convertir {0} a {1}!", this.input_gui.Text, this.from_gui.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    this.stats_gui.Text = "Tamaño original: 0 | Tamaño convertido: 0 | Diferencia: 0 : 0%";
+                }
+                else
+                {
+                    this.output_gui.Text = result;
+
+                    double diffrence = this.input_gui.Text.Length - this.output_gui.Text.Length;
+
+                    string diffrence_sign = "";
+                    if (diffrence > 0)
+                    {
+                        diffrence_sign = "-";
+                    }
+                    else if (diffrence < 0)
+                    {
+                        diffrence_sign = "+";
+                    }
+
+                    this.stats_gui.Text = String.Format("Tamaño original: {0} | Tamaño convertido: {1} | Diferencia: {2} : {3}%", this.input_gui.Text.Length, this.output_gui.Text.Length, diffrence_sign + diffrence.ToString(), diffrence_sign + ((diffrence / (this.input_gui.Text.Length != 0 ? this.input_gui.Text.Length + this.output_gui.Text.Length : 1)) * 100).ToString());
+                }
             }
-
-            double diffrence = this.input_gui.Text.Length - this.output_gui.Text.Length;
-
-            string diffrence_sign = "";
-            if (diffrence > 0)
-            {
-                diffrence_sign = "-";
-            } else if (diffrence < 0)
-            {
-                diffrence_sign = "+";
-            }
-
-            this.stats_gui.Text = String.Format("Tamaño original: {0} | Tamaño convertido: {1} | Diferencia: {2} : {3}%", this.input_gui.Text.Length, this.output_gui.Text.Length, diffrence_sign + diffrence.ToString(), diffrence_sign + ((diffrence / (this.input_gui.Text.Length != 0 ? this.input_gui.Text.Length + this.output_gui.Text.Length : 1)) * 100).ToString());
         }
 
         private void input_change(object sender, EventArgs e)
@@ -156,9 +172,13 @@ namespace ICC___converter
 
         private void convert_switch(object sender, EventArgs e)
         {
-            int temp = (int)this.from_gui.SelectedIndex;
+            int temp_index = this.from_gui.SelectedIndex;
             this.from_gui.SelectedIndex = this.to_gui.SelectedIndex;
-            this.to_gui.SelectedIndex = temp;
+            this.to_gui.SelectedIndex = temp_index;
+
+            string temp_input = this.input_gui.Text;
+            this.input_gui.Text = this.output_gui.Text;
+            this.output_gui.Text = temp_input;
 
             convert();
         }
