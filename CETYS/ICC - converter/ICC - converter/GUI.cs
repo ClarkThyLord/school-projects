@@ -23,7 +23,7 @@ namespace ICC___converter
         
         private void convert()
         {
-            if (this.from_gui.Text.Length == 0 || this.from_gui.SelectedIndex == -1 || this.to_gui.SelectedIndex == -1 || this.from_gui.SelectedIndex == this.to_gui.SelectedIndex)
+            if (this.input_gui.Text.Length == 0 || this.from_gui.SelectedIndex == -1 || this.to_gui.SelectedIndex == -1 || this.from_gui.SelectedIndex == this.to_gui.SelectedIndex)
             {
                 this.output_gui.Text = this.input_gui.Text;
 
@@ -34,7 +34,7 @@ namespace ICC___converter
 
                 if (result == "")
                 {
-                    MessageBox.Show(string.Format("¡Error de análisis al convertir {0} a {1}!", this.input_gui.Text, this.from_gui.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(string.Format("¡Error de análisis al convertir {0} a {1}!", this.from_gui.Text, this.to_gui.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                     this.stats_gui.Text = "Tamaño original: 0 | Tamaño convertido: 0 | Diferencia: 0 : 0%";
                 }
@@ -42,26 +42,35 @@ namespace ICC___converter
                 {
                     this.output_gui.Text = result;
 
-                    double diffrence = this.input_gui.Text.Length - this.output_gui.Text.Length;
-
-                    string diffrence_sign = "";
-                    if (diffrence > 0)
-                    {
-                        diffrence_sign = "-";
-                    }
-                    else if (diffrence < 0)
-                    {
-                        diffrence_sign = "+";
-                    }
-
-                    this.stats_gui.Text = String.Format("Tamaño original: {0} | Tamaño convertido: {1} | Diferencia: {2} : {3}%", this.input_gui.Text.Length, this.output_gui.Text.Length, diffrence_sign + diffrence.ToString(), diffrence_sign + ((diffrence / (this.input_gui.Text.Length != 0 ? this.input_gui.Text.Length + this.output_gui.Text.Length : 1)) * 100).ToString());
+                    stats();
                 }
             }
         }
 
+        private void stats()
+        {
+            double diffrence = this.input_gui.Text.Length - this.output_gui.Text.Length;
+
+            string diffrence_sign = "";
+            if (diffrence > 0)
+            {
+                diffrence_sign = "-";
+            }
+            else if (diffrence < 0)
+            {
+                diffrence_sign = "+";
+            }
+
+            this.stats_gui.Text = String.Format("Tamaño original: {0} | Tamaño convertido: {1} | Diferencia: {2} : {3}%", this.input_gui.Text.Length, this.output_gui.Text.Length, diffrence_sign + diffrence.ToString(), diffrence_sign + Math.Round((diffrence / (this.input_gui.Text.Length != 0 ? this.input_gui.Text.Length + this.output_gui.Text.Length : 1)) * 100, 2).ToString());
+        }
+
         private void input_change(object sender, EventArgs e)
         {
-            convert();
+            if (((TextBox)sender).ContainsFocus)
+            {
+                Console.WriteLine("CHANGE!");
+                convert();
+            }
         }
 
         private void file_save(object sender, LinkLabelLinkClickedEventArgs e)
@@ -165,7 +174,10 @@ namespace ICC___converter
 
         private void convert_from(object sender, EventArgs e)
         {
-            convert();
+            if (((ComboBox)sender).ContainsFocus)
+            {
+                convert();
+            }
         }
 
         private void convert_switch(object sender, EventArgs e)
@@ -174,21 +186,28 @@ namespace ICC___converter
             this.from_gui.SelectedIndex = this.to_gui.SelectedIndex;
             this.to_gui.SelectedIndex = temp_index;
 
-            string temp_input = this.input_gui.Text;
+            string temp_input = string.Copy(this.input_gui.Text);
             this.input_gui.Text = this.output_gui.Text;
+            Console.WriteLine(temp_input);
             this.output_gui.Text = temp_input;
 
-            convert();
+            stats();
         }
 
         private void convert_to(object sender, EventArgs e)
         {
-            convert();
+            if (((ComboBox)sender).ContainsFocus)
+            {
+                convert();
+            }
         }
 
         private void covert_manual(object sender, EventArgs e)
         {
-            convert();
+            if (((Button)sender).ContainsFocus)
+            {
+                convert();
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Numerics;
 
 namespace ICC___converter.scripts
 {
@@ -86,13 +87,14 @@ namespace ICC___converter.scripts
 
         public static string run (string content, string from, string to)
         {
+            Console.WriteLine("{0} FROM {1} TO {2}", content, from, to);
             if (from == "Binary")
             {
-                return types[from]["from"](content);
+                return types[to]["to"](content);
             }
             else if (to == "Binary")
             {
-                return types[to]["to"](content);
+                return types[from]["from"](content);
             } else
             {
                 return types[to]["to"](types[from]["from"](content));
@@ -117,7 +119,7 @@ namespace ICC___converter.scripts
                 double pow = 0;
                 foreach (char number in content)
                 {
-                    result += number * Math.Pow(2, pow);
+                    result += int.Parse(number.ToString()) * Math.Pow(2, pow);
                     pow += 1;
                 }
 
@@ -133,21 +135,17 @@ namespace ICC___converter.scripts
         {
             try
             {
-                List<int> result = new List<int>();
+                List<System.Numerics.BigInteger> result = new List<System.Numerics.BigInteger>();
 
-                foreach (char number in content)
+                System.Numerics.BigInteger content_int = System.Numerics.BigInteger.Parse(content);
+                while (true)
                 {
-                    int temp = (int)char.GetNumericValue(number);
+                    result.Add(content_int % 2);
+                    content_int = content_int / 2;
 
-                    while (true)
+                    if (content_int == 0)
                     {
-                        result.Add((int)temp % 2);
-                        temp = temp / 2;
-
-                        if (temp == 0)
-                        {
-                            break;
-                        }
+                        break;
                     }
                 }
 
