@@ -20,26 +20,38 @@ namespace ICC___converter
         {
             InitializeComponent();
         }
-        
+
         private void convert()
         {
+            if (this.auto_base_gui.Checked)
+            {
+                string base_guessed = ICC___converter.scripts.base_guesser.run(this.input_gui.Text);
+
+                if (base_guessed != "")
+                {
+                    this.from_gui.SelectedIndex = this.from_gui.Items.IndexOf(base_guessed);
+                    this.to_gui.SelectedIndex = (this.from_gui.SelectedIndex + 1 > this.to_gui.Items.Count - 1 ? 0 : this.from_gui.SelectedIndex + 1);
+                }
+            }
+
             if (this.input_gui.Text.Length == 0 || this.from_gui.SelectedIndex == -1 || this.to_gui.SelectedIndex == -1 || this.from_gui.SelectedIndex == this.to_gui.SelectedIndex)
             {
-                this.output_gui.Text = this.input_gui.Text;
-            } else
+                this.output_gui.Text = "";
+
+                return;
+            }
+
+            string result = ICC___converter.scripts.base_converter.run(this.input_gui.Text, this.from_gui.Items[this.from_gui.SelectedIndex].ToString(), this.to_gui.Items[this.to_gui.SelectedIndex].ToString());
+
+            if (result == "")
             {
-                string result = ICC___converter.scripts.base_converter.run(this.input_gui.Text, this.from_gui.Items[this.from_gui.SelectedIndex].ToString(), this.to_gui.Items[this.to_gui.SelectedIndex].ToString());
+                MessageBox.Show(string.Format("¡Error de análisis al convertir {0} a {1}!", this.from_gui.Text, this.to_gui.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
-                if (result == "")
-                {
-                    MessageBox.Show(string.Format("¡Error de análisis al convertir {0} a {1}!", this.from_gui.Text, this.to_gui.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                    this.stats_gui.Text = "Tamaño original: 0 | Tamaño convertido: 0 | Diferencia: 0 : 0%";
-                }
-                else
-                {
-                    this.output_gui.Text = result;
-                }
+                this.stats_gui.Text = "Tamaño original: 0 | Tamaño convertido: 0 | Diferencia: 0 : 0%";
+            }
+            else
+            {
+                this.output_gui.Text = result;
             }
 
             stats();
@@ -169,6 +181,25 @@ namespace ICC___converter
             }
         }
 
+        private void auto_base_toggle(object sender, EventArgs e)
+        {
+            if (((CheckBox)sender).ContainsFocus)
+            {
+                if (this.auto_base_gui.Checked)
+                {
+                    this.from_gui.Enabled = false;
+                    this.to_gui.Enabled = false;
+
+                    convert();
+                }
+                else
+                {
+                    this.from_gui.Enabled = true;
+                    this.to_gui.Enabled = true;
+                }
+            }
+        }
+
         private void convert_from(object sender, EventArgs e)
         {
             if (((ComboBox)sender).ContainsFocus)
@@ -179,15 +210,18 @@ namespace ICC___converter
 
         private void convert_switch(object sender, EventArgs e)
         {
-            int temp_index = this.from_gui.SelectedIndex;
-            this.from_gui.SelectedIndex = this.to_gui.SelectedIndex;
-            this.to_gui.SelectedIndex = temp_index;
+            if (((Button)sender).ContainsFocus)
+            {
+                int temp_index = this.from_gui.SelectedIndex;
+                this.from_gui.SelectedIndex = this.to_gui.SelectedIndex;
+                this.to_gui.SelectedIndex = temp_index;
 
-            string temp_input = string.Copy(this.input_gui.Text);
-            this.input_gui.Text = this.output_gui.Text;
-            this.output_gui.Text = temp_input;
+                string temp_input = string.Copy(this.input_gui.Text);
+                this.input_gui.Text = this.output_gui.Text;
+                this.output_gui.Text = temp_input;
 
-            stats();
+                stats();
+            }
         }
 
         private void convert_to(object sender, EventArgs e)

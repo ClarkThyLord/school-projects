@@ -85,8 +85,6 @@ namespace ICC___converter.scripts
 
         public static string run (string content, string from, string to)
         {
-            Console.WriteLine("{0} FROM {1} TO {2}", content, from, to);
-
             if (from == "Binary" && to == "Decimal")
             {
                 return converters[from]["from"](content);
@@ -192,14 +190,14 @@ namespace ICC___converter.scripts
             {
                 string alphabet = "0123456789ABCDEF";
 
-                double result = 0;
+                BigInteger result = 0;
 
                 content = string_reverse(content);
 
                 double pow = 0;
                 foreach (char character in content)
                 {
-                    result += alphabet.IndexOf(character) * Math.Pow(16, pow);
+                    result += (BigInteger)(alphabet.IndexOf(character) * Math.Pow(16, pow));
                     pow += 1;
                 }
 

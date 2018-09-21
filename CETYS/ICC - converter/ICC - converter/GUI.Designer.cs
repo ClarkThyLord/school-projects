@@ -45,6 +45,7 @@
             this.stats_gui = new System.Windows.Forms.Label();
             this.file_save_dialog = new System.Windows.Forms.SaveFileDialog();
             this.file_save_gui = new System.Windows.Forms.LinkLabel();
+            this.auto_base_gui = new System.Windows.Forms.CheckBox();
             this.table_middle_layout.SuspendLayout();
             this.table_top_layout.SuspendLayout();
             this.SuspendLayout();
@@ -107,7 +108,7 @@
             this.progress_gui.Location = new System.Drawing.Point(12, 319);
             this.progress_gui.MinimumSize = new System.Drawing.Size(0, 24);
             this.progress_gui.Name = "progress_gui";
-            this.progress_gui.Size = new System.Drawing.Size(286, 24);
+            this.progress_gui.Size = new System.Drawing.Size(212, 24);
             this.progress_gui.TabIndex = 7;
             // 
             // file_open_dialog
@@ -130,13 +131,12 @@
             // to_gui
             // 
             this.to_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.to_gui.Enabled = false;
             this.to_gui.FormattingEnabled = true;
             this.to_gui.Items.AddRange(new object[] {
             "Decimal",
             "Binary",
-            "Hexadecimal",
-            "Base32",
-            "Base64"});
+            "Hexadecimal"});
             this.to_gui.Location = new System.Drawing.Point(487, 319);
             this.to_gui.Name = "to_gui";
             this.to_gui.Size = new System.Drawing.Size(125, 24);
@@ -196,13 +196,12 @@
             // from_gui
             // 
             this.from_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.from_gui.Enabled = false;
             this.from_gui.FormattingEnabled = true;
             this.from_gui.Items.AddRange(new object[] {
             "Decimal",
             "Binary",
-            "Hexadecimal",
-            "Base32",
-            "Base64"});
+            "Hexadecimal"});
             this.from_gui.Location = new System.Drawing.Point(304, 320);
             this.from_gui.Name = "from_gui";
             this.from_gui.Size = new System.Drawing.Size(125, 24);
@@ -254,6 +253,20 @@
             this.file_save_gui.Text = "Guardar como...";
             this.file_save_gui.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.file_save);
             // 
+            // auto_base_gui
+            // 
+            this.auto_base_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.auto_base_gui.AutoSize = true;
+            this.auto_base_gui.Checked = true;
+            this.auto_base_gui.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.auto_base_gui.Location = new System.Drawing.Point(239, 324);
+            this.auto_base_gui.Name = "auto_base_gui";
+            this.auto_base_gui.Size = new System.Drawing.Size(59, 21);
+            this.auto_base_gui.TabIndex = 17;
+            this.auto_base_gui.Text = "Auto";
+            this.auto_base_gui.UseVisualStyleBackColor = true;
+            this.auto_base_gui.CheckedChanged += new System.EventHandler(this.auto_base_toggle);
+            // 
             // GUI
             // 
             this.AllowDrop = true;
@@ -261,6 +274,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(732, 378);
+            this.Controls.Add(this.auto_base_gui);
             this.Controls.Add(this.file_save_gui);
             this.Controls.Add(this.stats_gui);
             this.Controls.Add(this.table_top_layout);
@@ -304,6 +318,7 @@
         private System.Windows.Forms.Label stats_gui;
         private System.Windows.Forms.SaveFileDialog file_save_dialog;
         private System.Windows.Forms.LinkLabel file_save_gui;
+        private System.Windows.Forms.CheckBox auto_base_gui;
     }
 }
 
