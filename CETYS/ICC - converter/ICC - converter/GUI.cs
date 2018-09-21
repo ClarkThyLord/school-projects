@@ -26,8 +26,6 @@ namespace ICC___converter
             if (this.input_gui.Text.Length == 0 || this.from_gui.SelectedIndex == -1 || this.to_gui.SelectedIndex == -1 || this.from_gui.SelectedIndex == this.to_gui.SelectedIndex)
             {
                 this.output_gui.Text = this.input_gui.Text;
-
-                this.stats_gui.Text = "Tamaño original: 0 | Tamaño convertido: 0 | Diferencia: 0 : 0%";
             } else
             {
                 string result = ICC___converter.scripts.base_converter.run(this.input_gui.Text, this.from_gui.Items[this.from_gui.SelectedIndex].ToString(), this.to_gui.Items[this.to_gui.SelectedIndex].ToString());
@@ -41,10 +39,10 @@ namespace ICC___converter
                 else
                 {
                     this.output_gui.Text = result;
-
-                    stats();
                 }
             }
+
+            stats();
         }
 
         private void stats()
@@ -68,7 +66,6 @@ namespace ICC___converter
         {
             if (((TextBox)sender).ContainsFocus)
             {
-                Console.WriteLine("CHANGE!");
                 convert();
             }
         }
@@ -188,7 +185,6 @@ namespace ICC___converter
 
             string temp_input = string.Copy(this.input_gui.Text);
             this.input_gui.Text = this.output_gui.Text;
-            Console.WriteLine(temp_input);
             this.output_gui.Text = temp_input;
 
             stats();

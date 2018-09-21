@@ -9,9 +9,7 @@ namespace ICC___converter.scripts
 {
     class base_converter
     {
-        public static char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
-
-        public static Dictionary<string, Dictionary<string, Func<string, string>>> types = new Dictionary<string, Dictionary<string, Func<string, string>>>
+        public static Dictionary<string, Dictionary<string, Func<string, string>>> converters = new Dictionary<string, Dictionary<string, Func<string, string>>>
         {
             {
                 "Decimal",
@@ -19,11 +17,11 @@ namespace ICC___converter.scripts
                 {
                     {
                         "from",
-                        decimal_to_binary
+                        (string content) => content
                     },
                     {
                         "to",
-                        binary_to_decimal
+                        (string content) => content
                     }
                 }
             },
@@ -33,11 +31,11 @@ namespace ICC___converter.scripts
                 {
                     {
                         "from",
-                        (string content) =>  content
+                        binary_to_decimal
                     },
                     {
                         "to",
-                        (string content) => content
+                        decimal_to_binary
                     }
                 }
             },
@@ -47,11 +45,11 @@ namespace ICC___converter.scripts
                 {
                     {
                         "from",
-                        hexadecimal_to_binary
+                        hexadecimal_to_decimal
                     },
                     {
                         "to",
-                        binary_to_hexadecimal
+                        decimal_to_hexadecimal
                     }
                 }
             },
@@ -61,11 +59,11 @@ namespace ICC___converter.scripts
                 {
                     {
                         "from",
-                        base32_to_binary
+                        base32_to_decimal
                     },
                     {
                         "to",
-                        binary_to_base32
+                        decimal_to_base32
                     }
                 }
             },
@@ -75,11 +73,11 @@ namespace ICC___converter.scripts
                 {
                     {
                         "from",
-                        base64_to_binary
+                        base64_to_decimal
                     },
                     {
                         "to",
-                        binary_to_base64
+                        decimal_to_base64
                     }
                 }
             }
@@ -88,16 +86,18 @@ namespace ICC___converter.scripts
         public static string run (string content, string from, string to)
         {
             Console.WriteLine("{0} FROM {1} TO {2}", content, from, to);
-            if (from == "Binary")
+
+            if (from == "Binary" && to == "Decimal")
             {
-                return types[to]["to"](content);
+                return converters[from]["from"](content);
             }
-            else if (to == "Binary")
+            else if (from == "Decimal" && to == "Binary")
             {
-                return types[from]["from"](content);
-            } else
+                return converters[to]["to"](content);
+            }
+            else
             {
-                return types[to]["to"](types[from]["from"](content));
+                return converters[to]["to"](converters[from]["from"](content));
             }
         }
 
@@ -117,9 +117,9 @@ namespace ICC___converter.scripts
                 content = string_reverse(content);
 
                 double pow = 0;
-                foreach (char number in content)
+                foreach (char bit in content)
                 {
-                    result += int.Parse(number.ToString()) * Math.Pow(2, pow);
+                    result += int.Parse(bit.ToString()) * Math.Pow(2, pow);
                     pow += 1;
                 }
 
@@ -135,12 +135,12 @@ namespace ICC___converter.scripts
         {
             try
             {
-                List<System.Numerics.BigInteger> result = new List<System.Numerics.BigInteger>();
+                string result = "";
 
                 System.Numerics.BigInteger content_int = System.Numerics.BigInteger.Parse(content);
                 while (true)
                 {
-                    result.Add(content_int % 2);
+                    result += (content_int % 2).ToString();
                     content_int = content_int / 2;
 
                     if (content_int == 0)
@@ -148,9 +148,8 @@ namespace ICC___converter.scripts
                         break;
                     }
                 }
-
-                result.Reverse();
-                return string.Join("", result);
+                
+                return string_reverse(result);
             }
             catch (InvalidCastException e)
             {
@@ -158,7 +157,77 @@ namespace ICC___converter.scripts
             }
         }
 
-        public static string binary_to_hexadecimal(string content)
+        public static string decimal_to_hexadecimal(string content)
+        {
+            try
+            {
+                string alphabet = "0123456789ABCDEF";
+
+                string result = "";
+
+                System.Numerics.BigInteger content_int = System.Numerics.BigInteger.Parse(content);
+                while (true)
+                {
+                    result += alphabet[(int)content_int % 16].ToString();
+                    content_int = content_int / 16;
+
+                    if (content_int < 16)
+                    {
+                        result += alphabet[(int)content_int].ToString();
+                        break;
+                    }
+                }
+
+                return string_reverse(result);
+            }
+            catch (InvalidCastException e)
+            {
+                return "";
+            }
+        }
+
+        public static string hexadecimal_to_decimal(string content)
+        {
+            try
+            {
+                string alphabet = "0123456789ABCDEF";
+
+                double result = 0;
+
+                content = string_reverse(content);
+
+                double pow = 0;
+                foreach (char character in content)
+                {
+                    result += alphabet.IndexOf(character) * Math.Pow(16, pow);
+                    pow += 1;
+                }
+
+                return result.ToString();
+            }
+            catch (InvalidCastException e)
+            {
+                return "";
+            }
+        }
+
+        public static string decimal_to_base32(string content)
+        {
+            try
+            {
+                string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+
+                string result = "";
+
+                return result;
+            }
+            catch (InvalidCastException e)
+            {
+                return "";
+            }
+        }
+
+        public static string base32_to_decimal(string content)
         {
             try
             {
@@ -172,10 +241,12 @@ namespace ICC___converter.scripts
             }
         }
 
-        public static string hexadecimal_to_binary(string content)
+        public static string decimal_to_base64(string content)
         {
             try
             {
+                string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
                 string result = "";
 
                 return result;
@@ -186,49 +257,7 @@ namespace ICC___converter.scripts
             }
         }
 
-        public static string binary_to_base32(string content)
-        {
-            try
-            {
-                string result = "";
-
-                return result;
-            }
-            catch (InvalidCastException e)
-            {
-                return "";
-            }
-        }
-
-        public static string base32_to_binary(string content)
-        {
-            try
-            {
-                string result = "";
-
-                return result;
-            }
-            catch (InvalidCastException e)
-            {
-                return "";
-            }
-        }
-
-        public static string binary_to_base64(string content)
-        {
-            try
-            {
-                string result = "";
-
-                return result;
-            }
-            catch (InvalidCastException e)
-            {
-                return "";
-            }
-        }
-
-        public static string base64_to_binary(string content)
+        public static string base64_to_decimal(string content)
         {
             try
             {
