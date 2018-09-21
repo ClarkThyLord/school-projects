@@ -131,7 +131,6 @@
             // to_gui
             // 
             this.to_gui.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.to_gui.Enabled = false;
             this.to_gui.FormattingEnabled = true;
             this.to_gui.Items.AddRange(new object[] {
             "Decimal",

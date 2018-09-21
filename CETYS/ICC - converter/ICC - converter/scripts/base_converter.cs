@@ -169,7 +169,10 @@ namespace ICC___converter.scripts
                     result += alphabet[(int)content_int % 16].ToString();
                     content_int = content_int / 16;
 
-                    if (content_int < 16)
+                    if (content_int <= 0)
+                    {
+                        break;
+                    } else if (content_int < 16)
                     {
                         result += alphabet[(int)content_int].ToString();
                         break;
@@ -223,7 +226,11 @@ namespace ICC___converter.scripts
                     result += alphabet[(int)content_int % 32].ToString();
                     content_int = content_int / 32;
 
-                    if (content_int < 32)
+                    if (content_int <= 0)
+                    {
+                        break;
+                    }
+                    else if (content_int < 32)
                     {
                         result += alphabet[(int)content_int].ToString();
                         break;
@@ -277,7 +284,11 @@ namespace ICC___converter.scripts
                     result += alphabet[(int)content_int % 64].ToString();
                     content_int = content_int / 64;
 
-                    if (content_int < 64)
+                    if (content_int <= 0)
+                    {
+                        break;
+                    }
+                    else if (content_int < 64)
                     {
                         result += alphabet[(int)content_int].ToString();
                         break;

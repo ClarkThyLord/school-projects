@@ -30,13 +30,24 @@ namespace ICC___converter
                 if (base_guessed != "")
                 {
                     this.from_gui.SelectedIndex = this.from_gui.Items.IndexOf(base_guessed);
-                    this.to_gui.SelectedIndex = (this.from_gui.SelectedIndex + 1 > this.to_gui.Items.Count - 1 ? 0 : this.from_gui.SelectedIndex + 1);
+
+                    if (this.to_gui.SelectedIndex == -1)
+                    {
+                        this.to_gui.SelectedIndex = (this.from_gui.SelectedIndex + 1 > this.to_gui.Items.Count - 1 ? 0 : this.from_gui.SelectedIndex + 1);
+                    }
                 }
             }
 
-            if (this.input_gui.Text.Length == 0 || this.from_gui.SelectedIndex == -1 || this.to_gui.SelectedIndex == -1 || this.from_gui.SelectedIndex == this.to_gui.SelectedIndex)
+            if (this.input_gui.Text.Length == 0 || this.from_gui.SelectedIndex == -1 || this.to_gui.SelectedIndex == -1)
             {
                 this.output_gui.Text = "";
+                this.stats_gui.Text = "Tamaño original: 0 | Tamaño convertido: 0 | Diferencia: 0 : 0%";
+
+                return;
+            } else if (this.from_gui.SelectedIndex == this.to_gui.SelectedIndex)
+            {
+                this.output_gui.Text = this.input_gui.Text;
+                this.stats_gui.Text = "Tamaño original: 0 | Tamaño convertido: 0 | Diferencia: 0 : 0%";
 
                 return;
             }
@@ -188,14 +199,12 @@ namespace ICC___converter
                 if (this.auto_base_gui.Checked)
                 {
                     this.from_gui.Enabled = false;
-                    this.to_gui.Enabled = false;
 
                     convert();
                 }
                 else
                 {
                     this.from_gui.Enabled = true;
-                    this.to_gui.Enabled = true;
                 }
             }
         }
