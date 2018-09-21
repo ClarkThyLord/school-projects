@@ -219,7 +219,20 @@ namespace ICC___converter.scripts
 
                 string result = "";
 
-                return result;
+                System.Numerics.BigInteger content_int = System.Numerics.BigInteger.Parse(content);
+                while (true)
+                {
+                    result += alphabet[(int)content_int % 32].ToString();
+                    content_int = content_int / 32;
+
+                    if (content_int < 32)
+                    {
+                        result += alphabet[(int)content_int].ToString();
+                        break;
+                    }
+                }
+
+                return string_reverse(result);
             }
             catch (Exception e)
             {
@@ -231,9 +244,20 @@ namespace ICC___converter.scripts
         {
             try
             {
-                string result = "";
+                string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 
-                return result;
+                double result = 0;
+
+                content = string_reverse(content);
+
+                double pow = 0;
+                foreach (char character in content)
+                {
+                    result += alphabet.IndexOf(character) * Math.Pow(32, pow);
+                    pow += 1;
+                }
+
+                return result.ToString();
             }
             catch (Exception e)
             {
@@ -249,7 +273,20 @@ namespace ICC___converter.scripts
 
                 string result = "";
 
-                return result;
+                System.Numerics.BigInteger content_int = System.Numerics.BigInteger.Parse(content);
+                while (true)
+                {
+                    result += alphabet[(int)content_int % 64].ToString();
+                    content_int = content_int / 64;
+
+                    if (content_int < 64)
+                    {
+                        result += alphabet[(int)content_int].ToString();
+                        break;
+                    }
+                }
+
+                return string_reverse(result);
             }
             catch (Exception e)
             {
@@ -261,9 +298,20 @@ namespace ICC___converter.scripts
         {
             try
             {
-                string result = "";
+                string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
-                return result;
+                double result = 0;
+
+                content = string_reverse(content);
+
+                double pow = 0;
+                foreach (char character in content)
+                {
+                    result += alphabet.IndexOf(character) * Math.Pow(64, pow);
+                    pow += 1;
+                }
+
+                return result.ToString();
             }
             catch (Exception e)
             {
