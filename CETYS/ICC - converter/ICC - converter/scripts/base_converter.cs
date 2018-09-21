@@ -125,7 +125,7 @@ namespace ICC___converter.scripts
 
                 return result.ToString();
             }
-            catch (InvalidCastException e)
+            catch (Exception e)
             {
                 return "";
             }
@@ -151,7 +151,7 @@ namespace ICC___converter.scripts
                 
                 return string_reverse(result);
             }
-            catch (InvalidCastException e)
+            catch (Exception e)
             {
                 return "";
             }
@@ -180,7 +180,7 @@ namespace ICC___converter.scripts
 
                 return string_reverse(result);
             }
-            catch (InvalidCastException e)
+            catch (Exception e)
             {
                 return "";
             }
@@ -205,7 +205,7 @@ namespace ICC___converter.scripts
 
                 return result.ToString();
             }
-            catch (InvalidCastException e)
+            catch (Exception e)
             {
                 return "";
             }
@@ -221,7 +221,7 @@ namespace ICC___converter.scripts
 
                 return result;
             }
-            catch (InvalidCastException e)
+            catch (Exception e)
             {
                 return "";
             }
@@ -235,7 +235,7 @@ namespace ICC___converter.scripts
 
                 return result;
             }
-            catch (InvalidCastException e)
+            catch (Exception e)
             {
                 return "";
             }
@@ -251,7 +251,7 @@ namespace ICC___converter.scripts
 
                 return result;
             }
-            catch (InvalidCastException e)
+            catch (Exception e)
             {
                 return "";
             }
@@ -265,7 +265,7 @@ namespace ICC___converter.scripts
 
                 return result;
             }
-            catch (InvalidCastException e)
+            catch (Exception e)
             {
                 return "";
             }
