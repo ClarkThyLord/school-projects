@@ -39,10 +39,12 @@ namespace MP___algorithms
                 {
                     commands[answer].GetMethod("run").Invoke(null, null);
 
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("¿Qué te gustaría que haga ahora? (? : ayuda )");
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("No entendí del todo, intente de nuevo...");
                 }
             }
