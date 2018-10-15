@@ -60,9 +60,19 @@ namespace MP___algorithms.commands.algorithms
 
                 Console.WriteLine("¿De qué zona quieres comprar boletos?");
                 int zona = 0;
-                while (!int.TryParse(Console.ReadLine(), out zona) && zona >= 0 && zona < 5)
-                {
-                    Console.WriteLine("Por favor ingrese un número real, entre 0 y 5...");
+                while (true) {
+                    while (!int.TryParse(Console.ReadLine(), out zona))
+                    {
+                        Console.WriteLine("Por favor ingrese un número real, entre 1 y 5...");
+                    }
+
+                    if (zona < 1 || zona > 5)
+                    {
+                        Console.WriteLine("Por favor ingrese un número real, entre 1 y 5...");
+                        continue;
+                    }
+
+                    break;
                 }
 
                 Console.WriteLine("¿Cuántos boletos te gustaría comprar?");
@@ -74,10 +84,10 @@ namespace MP___algorithms.commands.algorithms
 
                 if (compras.ContainsKey(zona))
                 {
-                    compras[zona] += boletos;
+                    compras[zona - 1] += boletos;
                 } else
                 {
-                    compras[zona] = boletos;
+                    compras[zona - 1] = boletos;
                 }
 
                 Console.WriteLine("¿Seguir comprando? y/n");
