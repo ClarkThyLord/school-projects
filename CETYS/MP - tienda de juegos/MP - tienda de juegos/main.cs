@@ -184,6 +184,14 @@ namespace MP___tienda_de_juegos
 
         public static void product_creation(bool auto = true)
         {
+            if (discounts != null)
+            {
+                for (int i = 0; i < discounts.Length; i++)
+                {
+                    discounts[i] = new discount();
+                }
+            }
+
             int max = 0;
             while (true)
             {
@@ -195,7 +203,7 @@ namespace MP___tienda_de_juegos
                     Console.ReadKey();
 
                     header();
-                    Console.WriteLine("¿Cuántos productos te gustaría manejar?");
+                    Console.WriteLine("¿Cuántos productos te gustaría manejar? (25 - 50)");
                 }
 
                 if (max < 25 || max > 50)
@@ -425,7 +433,7 @@ namespace MP___tienda_de_juegos
                     Console.ReadKey();
 
                     header();
-                    Console.WriteLine("¿Cuántos descuentos te gustaría manejar?");
+                    Console.WriteLine("¿Cuántos descuentos te gustaría manejar? (1 - 10)");
                 }
 
                 if (max < 1 || max > 10)
@@ -552,19 +560,24 @@ namespace MP___tienda_de_juegos
 
             foreach (product _product in _products)
             {
+                Console.WriteLine("Nombre: {0}", _product.name);
+
                 double transaction = _product.cost;
 
-                Console.WriteLine("Antes de: {0}", _product.cost);
+                Console.WriteLine("Precio: {0}", _product.cost);
 
                 if (_product.discount_id != null && _product.discount_id != "")
                 {
                     discount _discount = discounts.Single(discount => discount.id == _product.discount_id);
                     transaction -= _discount.amount;
+                    cash_back += _discount.amount;
 
-                    Console.WriteLine("Descuento: {0}%\nImporte Descuento: ${1}", _discount.percentage, Math.Round(_discount.amount, 2));
+                    Console.WriteLine("Descuento: {0}% ~ ${1}", _discount.percentage, Math.Round(_discount.amount, 2));
                 }
 
-                Console.WriteLine("Finalmente: {0}\n", _product.cost);
+                Console.WriteLine("Total: {0}\n", Math.Round(transaction, 2));
+
+                total += transaction;
             }
 
             Console.WriteLine("Dinero Devuelto: {0}\nTotal: {1}", cash_back, total);
@@ -574,12 +587,14 @@ namespace MP___tienda_de_juegos
 
         public static void shop_open(bool auto = true)
         {
+            header();
+
             if (auto)
             {
-                int customers = ran.Next(1, 10);
+                int customers = ran.Next(3, 10);
                 for (int i = 0; i < customers; i++)
                 {
-                    int bought = ran.Next(3);
+                    int bought = ran.Next(1, 3);
                     product[] _products = new product[bought];
                     for (int n = 0; n < bought; n ++)
                     {
@@ -595,6 +610,7 @@ namespace MP___tienda_de_juegos
                     }
 
                     shop_transaction(_products, ConsoleColor.Yellow);
+                    Console.WriteLine("---");
                 }
             }
             else
