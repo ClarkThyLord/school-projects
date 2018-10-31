@@ -10,7 +10,7 @@ for file_name in os.listdir('./C1'):
         encoded_string = base64.b64encode(image_file.read())
 
         data.append({
-            'img': encoded_string.decode(),
+            'img': 'data:image/jpeg;base64,' + encoded_string.decode(),
             'name': file_name.split('.')[0]
         })
 
