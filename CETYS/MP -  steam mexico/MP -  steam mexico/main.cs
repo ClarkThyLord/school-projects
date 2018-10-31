@@ -19,6 +19,7 @@ namespace MP____steam_mexico
         public struct cashier
         {
             public int id;
+            public bool working;
             public string name;
             public string adress;
             public string postal_code;
@@ -31,9 +32,9 @@ namespace MP____steam_mexico
 
         public struct product
         {
-            public int _id;
-            public string id;
-            public string discount_id;
+            public int id;
+            public bool for_sale;
+            public int discount_id;
             public string name;
             public string description;
             public int inventory;
@@ -43,24 +44,22 @@ namespace MP____steam_mexico
 
         public struct discount
         {
-            public int _id;
-            public string id;
-            public string product_id;
+            public int id;
+            public int product_id;
             public int percentage;
             public double amount;
         }
 
         public struct sale
         {
-            public int _id;
-            public string id;
+            public int id;
             public string timestamp;
             public int cashier_id;
-            public string product_id;
+            public int product_id;
             public string product_count;
-            public int sub_total;
-            public int iva;
-            public int total;
+            public double sub_total;
+            public double iva;
+            public double total;
 
         }
 
@@ -85,6 +84,7 @@ namespace MP____steam_mexico
             for(int i = 0; i < cashiers.Length; i++)
             {
                 cashiers[i].id = i;
+                cashiers[i].working = true;
                 cashiers[i].sales = new sale[1000];
 
                 header();
@@ -95,7 +95,7 @@ namespace MP____steam_mexico
                     Console.WriteLine("Nombre del cajero:");
                     ans = Console.ReadLine();
 
-                    error("¿Continuar?");
+                    error("¿Continuar? (y/n)");
                     if (Console.ReadLine() == "n")
                     {
                         continue;
@@ -112,7 +112,7 @@ namespace MP____steam_mexico
                     Console.WriteLine("Dirrecion del cajero:");
                     ans = Console.ReadLine();
 
-                    error("¿Continuar?");
+                    error("¿Continuar? (y/n)");
                     if (Console.ReadLine() == "n")
                     {
                         continue;
@@ -129,7 +129,7 @@ namespace MP____steam_mexico
                     Console.WriteLine("Codigo postal del cajero:");
                     ans = Console.ReadLine();
 
-                    error("¿Continuar?");
+                    error("¿Continuar? (y/n)");
                     if (Console.ReadLine() == "n")
                     {
                         continue;
@@ -146,7 +146,7 @@ namespace MP____steam_mexico
                     Console.WriteLine("Telefono del cajero:");
                     ans = Console.ReadLine();
 
-                    error("¿Continuar?");
+                    error("¿Continuar? (y/n)");
                     if (Console.ReadLine() == "n")
                     {
                         continue;
@@ -163,7 +163,7 @@ namespace MP____steam_mexico
                     Console.WriteLine("Telefono celular del cajero:");
                     ans = Console.ReadLine();
 
-                    error("¿Continuar?");
+                    error("¿Continuar? (y/n)");
                     if (Console.ReadLine() == "n")
                     {
                         continue;
@@ -180,7 +180,7 @@ namespace MP____steam_mexico
                     Console.WriteLine("Email del cajero:");
                     ans = Console.ReadLine();
 
-                    error("¿Continuar?");
+                    error("¿Continuar? (y/n)");
                     if (Console.ReadLine() == "n")
                     {
                         continue;
@@ -197,7 +197,7 @@ namespace MP____steam_mexico
                     Console.WriteLine("Contraseña del cajero:");
                     ans = Console.ReadLine();
 
-                    error("¿Continuar?");
+                    error("¿Continuar? (y/n)");
                     if (Console.ReadLine() == "n")
                     {
                         continue;
@@ -247,6 +247,9 @@ namespace MP____steam_mexico
                         break;
                     case "9":
                         cashier_list();
+                        break;
+                    case "10":
+                        cashier_manage();
                         break;
                     case "salir":
                         return;
@@ -299,6 +302,7 @@ namespace MP____steam_mexico
             Console.WriteLine("6   :   crear descuentos manualmente");
 
             Console.WriteLine("9   :   lista de cajeros");
+            Console.WriteLine("10  :   gestionar cajeros");
             Console.WriteLine("");
             Console.WriteLine("OPCIONES DE TIENDA");
             Console.WriteLine("------------------------------------");
@@ -311,7 +315,7 @@ namespace MP____steam_mexico
         public static void sale_view(sale _sale, ConsoleColor color = ConsoleColor.White, bool first = true)
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.WriteLine("ID: {0}\nFecha: {1}", _sale.id, _sale.timestamp);
+            Console.WriteLine("ID: {0}\nFecha: {1}", _sale.id.ToString().PadLeft(5, '0'), _sale.timestamp);
 
             if (first)
             {
@@ -334,16 +338,18 @@ namespace MP____steam_mexico
         public static void cashier_view(cashier _cashier, ConsoleColor color = ConsoleColor.White, bool first = true)
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("ID: {0}\nNombre: {1}\nDirección: {2}\nCódigo postal: {3}\nNúmero de teléfono: {4}\nNúmero de teléfono celular: {5}\nCorreo electrónico: {6}\nContraseña: {7}", _cashier.id, _cashier.name, _cashier.adress, _cashier.postal_code, _cashier.phone_number, _cashier.cell_phone_number, _cashier.email, _cashier.password);
+            Console.WriteLine("ID: {0}\nTrabajando: {8}\nNombre: {1}\nDirección: {2}\nCódigo postal: {3}\nNúmero de teléfono: {4}\nNúmero de teléfono celular: {5}\nCorreo electrónico: {6}\nContraseña: {7}", _cashier.id.ToString().PadLeft(5, '0'), _cashier.name, _cashier.adress, _cashier.postal_code, _cashier.phone_number, _cashier.cell_phone_number, _cashier.email, _cashier.password, _cashier.working);
 
-
-            if (_cashier.sales != null)
+            if (_cashier.sales[0].id != 0)
             {
                 Console.WriteLine("====================");
                 Console.WriteLine("      VENTAS      ");
                 foreach (sale _sale in _cashier.sales)
                 {
-                    sale_view(_sale, ConsoleColor.DarkYellow, !first);
+                    if (_sale.id != 0)
+                    {
+                        sale_view(_sale, ConsoleColor.DarkYellow, !first);
+                    }
                 }
                 Console.WriteLine("====================");
             }
@@ -354,34 +360,54 @@ namespace MP____steam_mexico
         public static void cashier_list()
         {
             header();
-
-            if (cashiers != null)
+            
+            foreach (cashier _cashier in cashiers)
             {
-                foreach (cashier _cashier in cashiers)
-                {
-                    cashier_view(_cashier);
-                    Console.WriteLine("---");
-                }
-
-                Console.WriteLine("{0} cajeros totales!", products.Length);
-            }
-            else
-            {
-                error("No hay cajeros para ver...");
+                cashier_view(_cashier);
+                Console.WriteLine("---");
             }
         }
 
         public static void cashier_manage()
         {
+            cashier_list();
 
+            Console.WriteLine("¿Quién te gustaría gestionar?");
+            int id = 0;
+            while (true)
+            {
+                while (!int.TryParse(Console.ReadLine(), out id))
+                {
+                    error("ID is not valid!");
+                }
+
+                if (id < 0 || id > cashiers.Length - 1)
+                {
+                    error("ID is not valid!");
+                    continue;
+                }
+
+                break;
+            }
+
+            Console.WriteLine("¿Te gustaría poner al trabajador a trabajar? (y, n)");
+            string ans = Console.ReadLine();
+            if (ans == "y")
+            {
+                cashiers[id].working = true;
+            }
+            else if (ans == "n")
+            {
+                cashiers[id].working = false;
+            }
         }
 
         public static void product_view(product _product, ConsoleColor color = ConsoleColor.White, bool first = true)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("ID: {0}\nNombre: {1}\nDescripción: {2}\nCuenta: {3}\nCosto: {4}\nVendido: {5}", _product.id, _product.name, _product.description, _product.inventory, _product.cost, _product.sold);
+            Console.WriteLine("ID: {0}\nEn venta: {6}\nNombre: {1}\nDescripción: {2}\nCuenta: {3}\nCosto: {4}\nVendido: {5}", _product.id.ToString().PadLeft(5, '0'), _product.name, _product.description, _product.inventory, _product.cost, _product.sold, _product.for_sale);
 
-            if (first && _product.discount_id != null && _product.discount_id != "")
+            if (first && _product.discount_id != 0)
             {
                 Console.WriteLine("====================");
                 Console.WriteLine("      DESCUENTO     ");
@@ -452,8 +478,8 @@ namespace MP____steam_mexico
             string[] used_descriptions = new string[max];
             for (int i = 0; i < max; i++)
             {
-                products[i]._id = i;
-                products[i].id = i.ToString().PadLeft(5, '0');
+                products[i].id = i;
+                products[i].for_sale = true;
                 products[i].sold = 0;
 
                 if (auto)
@@ -650,7 +676,7 @@ namespace MP____steam_mexico
 
             for (int i = 0; i < products.Length; i++)
             {
-                products[i].discount_id = "";
+                products[i].discount_id = 0;
             }
 
             int max = 0;
@@ -679,11 +705,10 @@ namespace MP____steam_mexico
 
             discounts = new discount[max];
 
-            string[] used_products = new string[max];
+            int[] used_products = new int[max];
             for (int i = 0; i < max; i++)
             {
-                discounts[i]._id = i;
-                discounts[i].id = i.ToString().PadLeft(5, '0');
+                discounts[i].id = i;
 
                 if (auto)
                 {
@@ -698,7 +723,7 @@ namespace MP____steam_mexico
                         used_products[i] = _product.id;
                         break;
                     }
-                    products[_product._id].discount_id = discounts[i].id;
+                    products[_product.id].discount_id = discounts[i].id;
                     discounts[i].product_id = _product.id;
 
                     discounts[i].percentage = ran.Next(5, 75);
@@ -712,8 +737,12 @@ namespace MP____steam_mexico
                         product _product;
                         while (true)
                         {
-                            Console.WriteLine("¿A qué producto le gustaría aplicar un descuento? (id)");
-                            string id = Console.ReadLine().PadLeft(5, '0');
+                            Console.WriteLine("¿A qué producto le gustaría aplicar un descuento? (ID)");
+                            int id = 0;
+                            while(!int.TryParse(Console.ReadLine(), out id))
+                            {
+                                error("¡ID invalida!");
+                            }
 
                             if (used_products.Contains(id))
                             {
@@ -735,7 +764,7 @@ namespace MP____steam_mexico
                             break;
                         }
                         used_products[i] = _product.id;
-                        products[_product._id].discount_id = discounts[i].id;
+                        products[_product.id].discount_id = discounts[i].id;
                         discounts[i].product_id = _product.id;
 
                         header();
@@ -797,7 +826,7 @@ namespace MP____steam_mexico
 
                 Console.WriteLine("Precio: {0}", _product.cost);
 
-                if (_product.discount_id != null && _product.discount_id != "")
+                if (_product.discount_id != 0)
                 {
                     discount _discount = discounts.Single(discount => discount.id == _product.discount_id);
                     transaction -= _discount.amount;
@@ -836,7 +865,7 @@ namespace MP____steam_mexico
                             continue;
                         }
 
-                        products[_product._id].inventory -= 1;
+                        products[_product.id].inventory -= 1;
                         _products[n] = _product;
                     }
 
@@ -877,7 +906,7 @@ namespace MP____steam_mexico
                         Console.WriteLine("¿Te gustaría comprar? (1 : si, 2 : no)");
                         if (Console.ReadLine() != "2")
                         {
-                            products[_product._id].inventory -= 1;
+                            products[_product.id].inventory -= 1;
                             _products[n] = _product;
 
                             Console.WriteLine("Genial, voy a agregar eso a tu carrito de compras...");
