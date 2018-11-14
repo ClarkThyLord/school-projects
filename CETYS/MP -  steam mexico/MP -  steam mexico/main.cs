@@ -27,6 +27,7 @@ namespace MP____steam_mexico
             public string cell_phone_number;
             public string email;
             public string password;
+            public int sales_count;
             public sale[] sales;
         }
 
@@ -56,7 +57,7 @@ namespace MP____steam_mexico
             public string timestamp;
             public int cashier_id;
             public int product_id;
-            public string product_count;
+            public int product_count;
             public double sub_total;
             public double iva;
             public double total;
@@ -85,6 +86,7 @@ namespace MP____steam_mexico
             {
                 cashiers[i].id = i;
                 cashiers[i].working = true;
+                cashiers[i].sales_count = 0;
                 cashiers[i].sales = new sale[1000];
 
                 header();
@@ -811,7 +813,7 @@ namespace MP____steam_mexico
             Console.WriteLine("¡Nuevo descuentos se ha establecido!");
         }
 
-        public static void shop_transaction(product[] _products, ConsoleColor color = ConsoleColor.White)
+        public static void shop_transaction(int _cashier, product[] _products, ConsoleColor color = ConsoleColor.White)
         {
             Console.ForegroundColor = ConsoleColor.Green;
 
@@ -835,6 +837,16 @@ namespace MP____steam_mexico
                     Console.WriteLine("Descuento: {0}% ~ ${1}", _discount.percentage, Math.Round(_discount.amount, 2));
                 }
 
+                cashiers[_cashier].sales[cashiers[_cashier].sales_count].id = cashiers[_cashier].sales_count;
+                cashiers[_cashier].sales[cashiers[_cashier].sales_count].product_id = _product.id;
+                cashiers[_cashier].sales[cashiers[_cashier].sales_count].timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+                cashiers[_cashier].sales[cashiers[_cashier].sales_count].iva = transaction * 0.16;
+                cashiers[_cashier].sales[cashiers[_cashier].sales_count].sub_total = _product.cost;
+                cashiers[_cashier].sales[cashiers[_cashier].sales_count].product_count = 1;
+                cashiers[_cashier].sales[cashiers[_cashier].sales_count].total = transaction;
+
+                cashiers[_cashier].sales_count += 1;
+
                 Console.WriteLine("Total: {0}\n", Math.Round(transaction, 2));
 
                 total += transaction;
@@ -847,7 +859,28 @@ namespace MP____steam_mexico
 
         public static void shop_open(bool auto = true)
         {
-            header();
+            int _cashier = 0;
+            while (true)
+            {
+                header();
+                Console.WriteLine("Iniciar sesión como cajero #:");
+                while (!int.TryParse(Console.ReadLine(), out _cashier))
+                {
+                    error("Por favor, introduzca un número válido...");
+
+                    Console.ReadKey();
+                    header();
+                }
+
+                if (_cashier < 0 || _cashier > (cashiers.Length - 1))
+                {
+                    error(String.Format("Por favor, elija un número entre 1 - 2", 0, (cashiers.Length - 1)));
+                    Console.ReadKey();
+                    continue;
+                }
+
+                break;
+            }
 
             if (auto)
             {
@@ -869,7 +902,7 @@ namespace MP____steam_mexico
                         _products[n] = _product;
                     }
 
-                    shop_transaction(_products, ConsoleColor.Yellow);
+                    shop_transaction(_cashier, _products, ConsoleColor.Yellow);
                     Console.WriteLine("---");
                 }
             }
@@ -923,7 +956,7 @@ namespace MP____steam_mexico
                         break;
                     }
 
-                    shop_transaction(_products, ConsoleColor.Yellow);
+                    shop_transaction(_cashier, _products, ConsoleColor.Yellow);
                     Console.WriteLine("¡Muy bien, esperamos que vuelvas!");
                     Console.ReadKey();
 
