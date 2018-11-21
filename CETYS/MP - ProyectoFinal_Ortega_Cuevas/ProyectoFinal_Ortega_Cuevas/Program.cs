@@ -424,7 +424,8 @@ namespace ProyectoFinal_Ortega_Cuevas
             };
 
             Console.WriteLine("¿Ver cuántos valores? (1 - {0})", numeros.Length);
-            for (int i  = 0; i < int.Parse(Console.ReadLine()); i++)
+            int nums = int.Parse(Console.ReadLine());
+            for (int i  = 0; i < nums; i++)
             {
                 Console.WriteLine("Valor #{0}: {1}", i + 1, numeros[i]);
             }
@@ -437,7 +438,8 @@ namespace ProyectoFinal_Ortega_Cuevas
             };
 
             Console.WriteLine("¿Cuántas operaciones? (1 - {0})", numeros.Length);
-            for (int i = 0; i < int.Parse(Console.ReadLine()); i++)
+            int nums = int.Parse(Console.ReadLine());
+            for (int i = 0; i < nums; i++)
             {
                 Console.WriteLine("{0} * 0.25 = {1}", numeros[i], numeros[i] * 0.25);
             }
@@ -551,7 +553,7 @@ namespace ProyectoFinal_Ortega_Cuevas
             int textMax = int.Parse(Console.ReadLine());
             
 
-            string resultados = "\n\n-----------------------------------------------------\nNUMEROS INGRESADOS\n-----------------------------------------------------";
+            string resultados = "\n\n-----------------------------------------------------\nNOMBRES INGRESADOS\n-----------------------------------------------------";
             while (true)
             {
                 Console.WriteLine("Ingrese el texto para validar:");
@@ -647,6 +649,11 @@ namespace ProyectoFinal_Ortega_Cuevas
                 trabajadores[i].trabajando = true;
             }
 
+            for (int i = 0; i < trabajadores.Length; i++)
+            {
+                Console.WriteLine("id: {0} nombre: {1} trabajando: {2}", trabajadores[i].id, trabajadores[i].nombre, trabajadores[i].trabajando);
+            }
+
             Console.WriteLine("Cantidad de trabajadores que hay son: {0}", trabajadores.Length);
         }
 
@@ -674,7 +681,8 @@ namespace ProyectoFinal_Ortega_Cuevas
             };
 
             Console.WriteLine("¿Cuántos trabajadores te gustaría ver? (1 - {0})", trabajadores.Length);
-            for (int i = 0; i < int.Parse(Console.ReadLine()); i++)
+            int nums = int.Parse(Console.ReadLine());
+            for (int i = 0; i < nums; i++)
             {
                 Console.WriteLine("id: {0} nombre: {1} trabajando: {2}", trabajadores[i].id, trabajadores[i].nombre, trabajadores[i].trabajando);
             }
