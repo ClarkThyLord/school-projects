@@ -422,9 +422,11 @@ namespace ProyectoFinal_Ortega_Cuevas
             int[] numeros = new int[10] {
                 1, 3, 5, 3, 5, 8, 9, 6, 7, 3
             };
-            for (int i  = 0; i < numeros.Length; i++)
+
+            Console.WriteLine("¿Ver cuántos valores? (1 - {0})", numeros.Length);
+            for (int i  = 0; i < int.Parse(Console.ReadLine()); i++)
             {
-                Console.WriteLine(numeros[i]);
+                Console.WriteLine("Valor #{0}: {1}", i + 1, numeros[i]);
             }
         }
 
@@ -433,9 +435,11 @@ namespace ProyectoFinal_Ortega_Cuevas
             int[] numeros = new int[10] {
                 1, 3, 5, 3, 5, 8, 9, 6, 7, 3
             };
-            for (int i = 0; i < numeros.Length; i++)
+
+            Console.WriteLine("¿Cuántas operaciones? (1 - {0})", numeros.Length);
+            for (int i = 0; i < int.Parse(Console.ReadLine()); i++)
             {
-                Console.WriteLine("{0} + 1 = {1}", numeros[i], numeros[i] + 1);
+                Console.WriteLine("{0} * 0.25 = {1}", numeros[i], numeros[i] * 0.25);
             }
         }
 
@@ -659,7 +663,7 @@ namespace ProyectoFinal_Ortega_Cuevas
                 {
                     id = 2,
                     nombre = "Alec",
-                    trabajando = true
+                    trabajando = false
                 },
                 new trabajador()
                 {
@@ -669,7 +673,8 @@ namespace ProyectoFinal_Ortega_Cuevas
                 }
             };
 
-            for (int i = 0; i < trabajadores.Length; i++)
+            Console.WriteLine("¿Cuántos trabajadores te gustaría ver? (1 - {0})", trabajadores.Length);
+            for (int i = 0; i < int.Parse(Console.ReadLine()); i++)
             {
                 Console.WriteLine("id: {0} nombre: {1} trabajando: {2}", trabajadores[i].id, trabajadores[i].nombre, trabajadores[i].trabajando);
             }
@@ -709,7 +714,7 @@ namespace ProyectoFinal_Ortega_Cuevas
                 }
                 break;
             }
-            trabajadores[id].trabajando = false;
+            trabajadores[id - 1].trabajando = false;
             for (int i = 0; i < trabajadores.Length; i++)
             {
                 Console.WriteLine("id: {0} nombre: {1} trabajando: {2}", trabajadores[i].id, trabajadores[i].nombre, trabajadores[i].trabajando);
