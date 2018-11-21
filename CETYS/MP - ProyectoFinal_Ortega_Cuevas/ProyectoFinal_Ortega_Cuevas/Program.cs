@@ -555,7 +555,7 @@ namespace ProyectoFinal_Ortega_Cuevas
             while (true)
             {
                 Console.WriteLine("Ingrese el texto para validar:");
-                string text = "";
+                string text = Console.ReadLine();
                 if (!(text.Length >= textMin && text.Length <= textMax))
                 {
                     continue;
