@@ -272,7 +272,7 @@ namespace ProyectoFinal_Ortega_Cuevas
                     Console.WriteLine("Mentira para nada los videojuegos son aburridos");
                     break;
                 case 3:
-                    Console.WriteLine("EL trabajar nunca ha sido genial");
+                    Console.WriteLine("El trabajar nunca ha sido genial");
                     break;
             }
         }
@@ -329,8 +329,8 @@ namespace ProyectoFinal_Ortega_Cuevas
             Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("");
             Console.WriteLine("1   -   ser presidente es genial");
-            Console.WriteLine("2   -   los videojuegos son divertidos");
-            Console.WriteLine("3   -   trabajar es muy genial");
+            Console.WriteLine("2   -   los videojuegos no son divertidos");
+            Console.WriteLine("3   -   trabajar nunca ha sido genial");
             Console.WriteLine("");
             Console.WriteLine("--------------------------------------------------");
 
@@ -340,10 +340,10 @@ namespace ProyectoFinal_Ortega_Cuevas
                     Console.WriteLine("No es cierto, el ser presidente es horrible");
                     break;
                 case 2:
-                    Console.WriteLine("Mentira para nada los videojuegos son aburridos");
+                    Console.WriteLine("Mentira, los videojuegos son siempre divertidos");
                     break;
                 case 3:
-                    Console.WriteLine("EL trabajar nunca ha sido genial");
+                    Console.WriteLine("El trabajar es muy genial");
                     break;
                 default:
                     Console.WriteLine("Esta es opción no es valida...");
