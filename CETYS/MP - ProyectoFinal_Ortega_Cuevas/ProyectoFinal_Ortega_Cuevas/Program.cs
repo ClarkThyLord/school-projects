@@ -168,7 +168,7 @@ namespace ProyectoFinal_Ortega_Cuevas
             Console.WriteLine("Introduzca el máximo número de carácteres:");
             int textMax = int.Parse(Console.ReadLine());
             Console.WriteLine("Ingrese el texto para validar:");
-            string text = "";
+            string text = Console.ReadLine();
             if (text.Length >= textMin)
             {
                 if(text.Length <= textMax)
