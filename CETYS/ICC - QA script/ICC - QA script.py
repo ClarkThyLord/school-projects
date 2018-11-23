@@ -2,7 +2,7 @@ import json
 
 q_a = []
 
-for i in range(1):
+for i in range(100):
     print('Q:')
     q = input()
 
