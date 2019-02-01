@@ -28,18 +28,12 @@ namespace Tarjetazo
                     Console.WriteLine("4) Problema 3");
                     Console.WriteLine("5) Salir");
                     Console.WriteLine("***");
-                    Console.Write("¿Que te gustaría hacer?");
-                    if (int.TryParse(Console.ReadLine(), out ans) && ans > 0 && ans < 6)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        error("No entendí eso, inténtalo de nuevo!");
-                        Console.ReadKey();
-                        Console.Clear();
-                        continue;
-                    }
+                    Console.Write("¿Que te gustaría hacer? ");
+                    if (int.TryParse(Console.ReadLine(), out ans) && ans > 0 && ans < 6) break;
+                    error("No entendí eso, inténtalo de nuevo!");
+                    Console.ReadKey();
+                    Console.Clear();
+                    continue;
                 }
 
                 Console.Clear();
