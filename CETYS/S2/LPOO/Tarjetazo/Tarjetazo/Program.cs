@@ -11,7 +11,7 @@ namespace Tarjetazo
         static void Main(string[] args)
         {
             //input_values();
-            input_values(5000, 2, 12);
+            input_values(5000, 2, 18);
 
             Console.Clear();
 
@@ -45,6 +45,7 @@ namespace Tarjetazo
                         break;
                     case 2:
                         problem_1();
+                        //problem_1(1);
                         //problem_1(100);
                         break;
                     case 3:
@@ -103,26 +104,6 @@ namespace Tarjetazo
             }
         }
 
-        struct monthly_charge
-        {
-            public double minimo_mensual;
-            public double interes_pagado;
-            public double pago_a_capital;
-            public double saldo_restante;
-        }
-
-        static monthly_charge monthly_payment (double saldo, double interes_mensual, double interes_anual)
-        {
-            monthly_charge charge = new monthly_charge();
-
-            charge.minimo_mensual = Math.Round((interes_mensual * 0.01) * saldo, 2);
-            charge.interes_pagado = Math.Round(((interes_anual * 0.01) / 12) * saldo);
-            charge.pago_a_capital = Math.Round(charge.minimo_mensual - charge.interes_pagado);
-            charge.saldo_restante = Math.Round(saldo - charge.pago_a_capital);
-
-            return charge;
-        }
-
         static void problem_1(int years = 10)
         {
             double pago_total = 0;
@@ -131,13 +112,15 @@ namespace Tarjetazo
             {
                 for (int m = 0; m < 12; m++)
                 {
-                    monthly_charge charge = monthly_payment(saldo_restante, INTERES_MENSUAL, INTERES_ANUAL);
+                    double minimo_mensual = Math.Round((INTERES_MENSUAL * 0.01) * saldo_restante, 2);
+                    double interes_pagado = Math.Round(((INTERES_ANUAL * 0.01) / 12) * saldo_restante);
+                    double pago_a_capital = Math.Round(minimo_mensual - interes_pagado);
+                    saldo_restante = Math.Round(saldo_restante - pago_a_capital);
 
-                    pago_total += charge.minimo_mensual;
-                    saldo_restante = charge.saldo_restante;
+                    pago_total += minimo_mensual;
 
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("AÑO: {3} MES: {4}/12\nMINIMO MENSUAL: ${0}\nPAGO A CAPITAL: ${1}\nSALDO RESTATE: ${2}\n---", charge.minimo_mensual, charge.pago_a_capital, charge.saldo_restante, y + 1, m + 1);
+                    Console.WriteLine("AÑO: {3}/{5} MES: {4}/12\nMINIMO MENSUAL: ${0}\nPAGO A CAPITAL: ${1}\nSALDO RESTATE: ${2}\n---", minimo_mensual, pago_a_capital, saldo_restante, y + 1, m + 1, years);
                 }
             }
 
