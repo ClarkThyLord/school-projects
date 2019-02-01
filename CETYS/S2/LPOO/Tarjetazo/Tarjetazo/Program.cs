@@ -29,12 +29,12 @@ namespace Tarjetazo
                     Console.WriteLine("5) Salir");
                     Console.WriteLine("***");
                     Console.Write("¿Que te gustaría hacer?");
-                    while (!int.TryParse(Console.ReadLine(), out ans))
+                    if (!int.TryParse(Console.ReadLine(), out ans))
                     {
                         error("No entendí eso, inténtalo de nuevo!");
                         Console.ReadKey();
                         Console.Clear();
-                        break;
+                        continue;
                     }
 
                     if (ans > 0 && ans < 6) break;
@@ -43,6 +43,7 @@ namespace Tarjetazo
                         error("No entendí eso, inténtalo de nuevo!");
                         Console.ReadKey();
                         Console.Clear();
+                        continue;
                     }
                 }
 
@@ -55,6 +56,7 @@ namespace Tarjetazo
                         break;
                     case 2:
                         problem_1();
+                        //problem_1(100);
                         break;
                     case 3:
                         problem_2();
@@ -132,11 +134,11 @@ namespace Tarjetazo
             return charge;
         }
 
-        static void problem_1()
+        static void problem_1(int years = 10)
         {
             double pago_total = 0;
             double saldo_restante = SALDO;
-            for (int y = 0; y < 10; y++)
+            for (int y = 0; y < years; y++)
             {
                 for (int m = 0; m < 12; m++)
                 {
@@ -151,7 +153,7 @@ namespace Tarjetazo
             }
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("PAGO EN TOTAL: ${0}\nSALDO RESTANTE: ${1}", pago_total, saldo_restante);
+            Console.WriteLine("DESPUES DE {2} AÑO(S)...\nPAGO EN TOTAL: ${0}\nSALDO RESTANTE: ${1}", pago_total, saldo_restante, years);
 
             Console.ReadKey();
         }
