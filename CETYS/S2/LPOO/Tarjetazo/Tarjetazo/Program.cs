@@ -5,8 +5,8 @@ namespace Tarjetazo
     class Program
     {
         static double SALDO = 0;
-        static double INTERES_ANUAL = 0;
         static double INTERES_MENSUAL = 0;
+        static double INTERES_ANUAL = 0;
 
         static void Main(string[] args)
         {
@@ -20,8 +20,7 @@ namespace Tarjetazo
             {
                 while (true)
                 {
-                    Console.WriteLine("SALDO: {0} INTERES MENSUAL: {2}% INTERES ANUAL: {1}%", SALDO, INTERES_MENSUAL, INTERES_ANUAL);
-                    Console.WriteLine("***");
+                    header();
                     Console.WriteLine("1) Modificar valores");
                     Console.WriteLine("2) Problema 1");
                     Console.WriteLine("3) Problema 2");
@@ -37,6 +36,7 @@ namespace Tarjetazo
                 }
 
                 Console.Clear();
+                header();
 
                 switch (ans)
                 {
@@ -62,6 +62,11 @@ namespace Tarjetazo
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Clear();
             }
+        }
+
+        static void header ()
+        {
+            Console.WriteLine("SALDO: {0} INTERES MENSUAL: {1}% INTERES ANUAL: {2}%\n***", SALDO, INTERES_MENSUAL, INTERES_ANUAL);
         }
 
         static void error (string msg, ConsoleColor color = ConsoleColor.White)
@@ -130,8 +135,35 @@ namespace Tarjetazo
             Console.ReadKey();
         }
 
-        static void problem_2()
+        static void problem_2(int years = 1)
         {
+            double saldo = SALDO;
+            
+            double pago_minimo_fijo = (Math.Ceiling((SALDO / (years * 12)) * 0.01) / 0.01) * 2;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("PAGO MINIMO FIJO: {0}", pago_minimo_fijo);
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("MESES PARA PAGAR SALDO: {0}/12", Math.Ceiling(SALDO / pago_minimo_fijo));
+
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("---");
+            for (int y = 0; y < years; y++)
+            {
+                for (int m = 0; m < 12; m++)
+                {
+                    saldo = Math.Round(saldo * ((INTERES_ANUAL * 0.01) / 12 + 1) - pago_minimo_fijo, 2);
+
+                    if (saldo < 0) Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("MES: {0}/12 : SALDO: {1}", m + 1, saldo);
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+            }
+            Console.WriteLine("---");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("SALDO FINAL DESPUES DE {1} AÑO(S) : {0}", saldo, years);
+
             Console.ReadKey();
         }
 
