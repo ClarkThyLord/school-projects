@@ -50,6 +50,8 @@ namespace Tarjetazo
                         break;
                     case 3:
                         problem_2();
+                        //problem_2(100);
+                        //problem_2(1000);
                         break;
                     case 4:
                         problem_3();
@@ -139,7 +141,8 @@ namespace Tarjetazo
         {
             double saldo = SALDO;
             
-            double pago_minimo_fijo = (Math.Ceiling((SALDO / (years * 12)) * 0.01) / 0.01) * 2;
+            double pago_minimo_fijo = Math.Ceiling((SALDO / (years * 12)) * 0.01) / 0.01;
+            pago_minimo_fijo = Math.Ceiling((pago_minimo_fijo + (pago_minimo_fijo * (INTERES_ANUAL * 0.01))) * 0.01) / 0.01;
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("PAGO MINIMO FIJO: {0}", pago_minimo_fijo);
 
@@ -152,7 +155,7 @@ namespace Tarjetazo
             {
                 for (int m = 0; m < 12; m++)
                 {
-                    saldo = Math.Round(saldo * ((INTERES_ANUAL * 0.01) / 12 + 1) - pago_minimo_fijo, 2);
+                    saldo = Math.Round(saldo * (((INTERES_ANUAL * 0.01) / 12) + 1) - pago_minimo_fijo, 2);
 
                     if (saldo < 0) Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine("MES: {0}/12 : SALDO: {1}", m + 1, saldo);
