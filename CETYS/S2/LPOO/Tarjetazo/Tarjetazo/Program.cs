@@ -29,15 +29,10 @@ namespace Tarjetazo
                     Console.WriteLine("5) Salir");
                     Console.WriteLine("***");
                     Console.Write("¿Que te gustaría hacer?");
-                    if (!int.TryParse(Console.ReadLine(), out ans))
+                    if (int.TryParse(Console.ReadLine(), out ans) && ans > 0 && ans < 6)
                     {
-                        error("No entendí eso, inténtalo de nuevo!");
-                        Console.ReadKey();
-                        Console.Clear();
-                        continue;
+                        break;
                     }
-
-                    if (ans > 0 && ans < 6) break;
                     else
                     {
                         error("No entendí eso, inténtalo de nuevo!");
