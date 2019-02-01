@@ -170,8 +170,43 @@ namespace Tarjetazo
             Console.ReadKey();
         }
 
-        static void problem_3()
+        static void problem_3(int years = 1)
         {
+            // método de bisección ???
+            // - tenemos 12 meses para pagar
+            // saldo / 12 = pago_minimo
+            // - tenemos intereses
+            // pago_minimo + (pago_minimo * intereses)
+            // - ya? :v
+
+            double saldo = SALDO;
+
+            double pago_minimo_fijo = (SALDO / (years * 12));
+            pago_minimo_fijo = Math.Round(pago_minimo_fijo + (pago_minimo_fijo * (INTERES_ANUAL * 0.01)), 2);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("PAGO MINIMO FIJO: {0}", pago_minimo_fijo);
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("MESES PARA PAGAR SALDO: {0}/12", Math.Ceiling(SALDO / pago_minimo_fijo));
+
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("---");
+            for (int y = 0; y < years; y++)
+            {
+                for (int m = 0; m < 12; m++)
+                {
+                    saldo = Math.Round(saldo * (((INTERES_ANUAL * 0.01) / 12) + 1) - pago_minimo_fijo, 2);
+
+                    if (saldo < 0) Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("MES: {0}/12 : SALDO: {1}", m + 1, saldo);
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+            }
+            Console.WriteLine("---");
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("SALDO FINAL DESPUES DE {1} AÑO(S) : {0}", saldo, years);
+
             Console.ReadKey();
         }
     }
