@@ -1,0 +1,17 @@
+1. La criba de Eratóstenes es un algoritmo que permite hallar todos los números primos menores que un número natural n. Se crea una lista con todos los números naturales entre 2 y n, y se van quitando los números que no son primos de la siguiente manera: Comenzando por el 2, se quitan de la lista todos sus múltiplos; se hace lo mismo con el siguiente número en la lista, así sucesivamente. El proceso termina cuando acabas de recorrer la lista. Crea un programa que encuentre todos los números primos entre 2 y n numero ingresado por el usuario
+
+
+2. Las multas por exceso de velocidad en california son calculadas bajo las siguientes reglas. La multa base es de 100 dlls. Por cada milla sobre el límite de 65 mph se cobran 5 dlls. Si la velocidad es mayor a 90 la multa sube 200 dlls y cada milla sobre 90 son 10 dlls extra en lugar de 5. Crea un programa que calcule la multa después de que el usuario ingrese una velocidad.
+
+
+3. Dado un string debe imprimir si el string está en completo balance, como todas las cosas deben estar. Un string en balance es aquel que tiene la misma cantidad de letras de todas las letras que contiene. 
+
+
+4. Dado un color de RGB en formato hexadecimal (#0abab5) debes descomponerlo en la saturación de los tres colores 10, 186, 181. Genera tu propio metodo de conversion.
+
+
+5. Crea un validador de números UPC. Un número UPC consiste de 12 dígitos donde los primeros 11 dígitos son relevantes y el doceavo sirve para verificar si es un número legítimo. El algoritmo de verificación es el siguiente. 
+
+ - Se suman cada otro dígito empezando por el primero hasta el onceavo.
+
+ - Multiplica el resultado de a por 3.
