@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mas", "mas\mas.csproj", "{CB7AFA6E-3BB1-4BFD-B5DC-653A525699D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mas", "mas\mas.csproj", "{5746AA39-6928-4FC9-B762-476684A5668C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CB7AFA6E-3BB1-4BFD-B5DC-653A525699D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CB7AFA6E-3BB1-4BFD-B5DC-653A525699D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CB7AFA6E-3BB1-4BFD-B5DC-653A525699D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CB7AFA6E-3BB1-4BFD-B5DC-653A525699D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5746AA39-6928-4FC9-B762-476684A5668C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5746AA39-6928-4FC9-B762-476684A5668C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5746AA39-6928-4FC9-B762-476684A5668C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5746AA39-6928-4FC9-B762-476684A5668C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5E7AD1B8-A155-4271-BC49-0F0FAF612592}
+		SolutionGuid = {DB5E4C62-4737-4B9C-ADBD-AEF7305453D6}
 	EndGlobalSection
 EndGlobal
