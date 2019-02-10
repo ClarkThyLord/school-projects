@@ -116,7 +116,7 @@ namespace problems
             }
 
             Console.WriteLine("PROBLEM #4");
-            Console.WriteLine("Entrada: min : {0} - max: {1} - amount: {2}", min, max, amount);
+            Console.WriteLine("Entrada: min : {0} - max : {1} - amount : {2}", min, max, amount);
             Console.WriteLine("Salida: {0}", string.Join(", ", randoms));
 
             return randoms;
@@ -233,6 +233,48 @@ namespace problems
             }
         }
 
+        static string[] problem_11(string text)
+        {
+            string[] chars = new string[text.Length];
+            for (int i = 0; i < text.Length; i++)
+            {
+                chars[i] = text[i].ToString();
+            }
+            
+            Console.WriteLine("PROBLEM #11");
+            Console.WriteLine("Entrada: {0}", text);
+            Console.WriteLine("Salida: {0}", string.Join(", ", chars));
+
+            return chars;
+        }
+
+        static string problem_12(string[] chars)
+        {
+            string text = string.Concat(chars);
+
+            Console.WriteLine("PROBLEM #12");
+            Console.WriteLine("Entrada: {0}", string.Join(", ", chars));
+            Console.WriteLine("Salida: {0}", text);
+
+            return text;
+        }
+
+        static int problem_13(int powers, int min, int max)
+        {
+            int sum = 0;
+
+            for (int e = min; e <= max; e++)
+            {
+                sum += (int)Math.Pow(powers, e);
+            }
+
+            Console.WriteLine("PROBLEM #13");
+            Console.WriteLine("Entrada: poderes : {0} - min : {1} - max : {2}", powers, min, max);
+            Console.WriteLine("Salida: {0}", sum);
+
+            return sum;
+        }
+
         static void problem_45()
         {
             int ans = -1;
@@ -285,6 +327,15 @@ namespace problems
                             break;
                         case 10:
                             problem_10();
+                            break;
+                        case 11:
+                            problem_11("Hola mundo");
+                            break;
+                        case 12:
+                            problem_12(new string[] { "H", "o", "l", "a", " ", "m", "u", "n", "d", "o" });
+                            break;
+                        case 13:
+                            problem_13(2, 2, 2050);
                             break;
                         default:
                             error("no es una opción válida");
