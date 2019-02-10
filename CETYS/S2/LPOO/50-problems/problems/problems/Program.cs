@@ -275,6 +275,313 @@ namespace problems
             return sum;
         }
 
+        static bool problem_14(int number)
+        {
+            bool divisible = true;
+
+            foreach (char n in number.ToString())
+            {
+                int num = int.Parse(n.ToString());
+                if (number % num != 0)
+                {
+                    divisible = false;
+                    break;
+                }
+            }
+
+            Console.WriteLine("PROBLEM #14");
+            Console.WriteLine("Entrada: {0}", number);
+            Console.WriteLine("Salida: {0}", divisible);
+
+            return divisible;
+        }
+
+        static double[] problem_15(int faces, int dices, int rolls)
+        {
+            Random random = new Random();
+            double[] sums = new double[faces];
+
+            for (int r = 0; r < rolls; r++)
+            {
+                for (int d = 0; d < dices; d++)
+                {
+                    sums[d] += random.Next(1, faces);
+                }
+            }
+
+            Console.WriteLine("PROBLEM #15");
+            Console.WriteLine("Entrada: faces : {0} - dices : {1} - rolls : {2}", faces, dices, rolls);
+            Console.WriteLine("Salida:");
+            for (int d = 0; d < dices; d++)
+            {
+                Console.WriteLine("{0} : {1}%", d + 1, Math.Round(sums[d] / rolls, 4));
+            }
+
+            return sums;
+        }
+
+        static int problem_16(int number_1, int number_2, int number_3)
+        {
+            int sum = 0;
+
+            if (number_1 != 13)
+            {
+                sum += number_1;
+                if (number_2 != 13)
+                {
+                    sum += number_2;
+                    if (number_3 != 13)
+                    {
+                        sum += number_3;
+                    }
+                }
+            }
+
+            Console.WriteLine("PROBLEM #16");
+            Console.WriteLine("Entrada: numero #1 : {0} - numero #2 : {1} - numero #3 : {2}", number_1, number_2, number_3);
+            Console.WriteLine("Salida: {0}", sum);
+
+            return sum;
+        }
+
+        static int problem_17(string text)
+        {
+            int occurrences = 0;
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (i == 0) continue;
+                else if (char.ToLower(text[i]) == 's' && char.ToLower(text[i - 1]) == 's') occurrences++;
+            }
+
+            Console.WriteLine("PROBLEM #17");
+            Console.WriteLine("Entrada: {0}", text);
+            Console.WriteLine("Salida: {0}", occurrences);
+
+            return occurrences;
+        }
+
+        static int problem_18(int divisible_1, int divisible_2, int min, int max)
+        {
+            int sum = 0;
+
+            for (int n = min; n <= max; n++)
+            {
+                if (n % divisible_1 == 0 || n % divisible_2 == 0) sum += n;
+            }
+
+            Console.WriteLine("PROBLEM #18");
+            Console.WriteLine("Entrada: divisible #1 : {0} - divisible #2 : {1} - min : {2} - max : {3}", divisible_1, divisible_2, min, max);
+            Console.WriteLine("Salida: {0}", sum);
+
+            return sum;
+        }
+
+        static int problem_20(int number)
+        {
+            int sum = 0;
+
+            for (int n = 0; n < number; n++)
+            {
+                sum += n;
+            }
+
+            Console.WriteLine("PROBLEM #20");
+            Console.WriteLine("Entrada: {0}", number);
+            Console.WriteLine("Salida: {0}", sum);
+
+            return sum;
+        }
+
+        static int problem_21(int number)
+        {
+            int sum = 0;
+
+            for (int n = 1; n <= number; n++)
+            {
+                if (number % n == 0) sum += n;
+            }
+
+            Console.WriteLine("PROBLEM #21");
+            Console.WriteLine("Entrada: {0}", number);
+            Console.WriteLine("Salida: {0}", sum);
+
+            return sum;
+        }
+
+        static double[] problem_22(double[] numbers, double power)
+        {
+            double[] elevated = new double[numbers.Length];
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                elevated[i] = Math.Pow(numbers[i], power);
+            }
+
+            Console.WriteLine("PROBLEM #18");
+            Console.WriteLine("Entrada: numbers : {0} - power : {1}", string.Join(", ", numbers), power);
+            Console.WriteLine("Salida: {0}", string.Join(", ", elevated));
+
+            return elevated;
+        }
+
+        static double[] problem_23(double[] numbers)
+        {
+            double[] elevated = new double[numbers.Length];
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                elevated[i] = Math.Pow(numbers[i], i);
+            }
+
+            Console.WriteLine("PROBLEM #23");
+            Console.WriteLine("Entrada: {0}", string.Join(", ", numbers));
+            Console.WriteLine("Salida: {0}", string.Join(", ", elevated));
+
+            return elevated;
+        }
+
+        static double problem_24(double[] numbers)
+        {
+            double sum = 0;
+
+            bool active = false;
+            foreach (double number in numbers)
+            {
+                if (!active && number == 5) active = true;
+                else if (active) sum += number;
+            }
+
+            Console.WriteLine("PROBLEM #24");
+            Console.WriteLine("Entrada: {0}", string.Join(", ", numbers));
+            Console.WriteLine("Salida: {0}", sum);
+
+            return sum;
+        }
+
+        static bool problem_25(double[] numbers)
+        {
+            bool duplicate = false;
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                for (int si = i + 1; si < numbers.Length; si++)
+                {
+                    if (numbers[i] == numbers[si]) duplicate = true;
+                    if (duplicate) break;
+                }
+                if (duplicate) break;
+            }
+
+            Console.WriteLine("PROBLEM #25");
+            Console.WriteLine("Entrada: {0}", string.Join(", ", numbers));
+            Console.WriteLine("Salida: {0}", duplicate);
+
+            return duplicate;
+        }
+
+        static double problem_26(double[] numbers)
+        {
+            double root_of_average = Math.Sqrt(numbers.Average());
+
+            Console.WriteLine("PROBLEM #26");
+            Console.WriteLine("Entrada: [{0}]", string.Join(", ", numbers));
+            Console.WriteLine("Salida: {0}", Math.Round(root_of_average, 2));
+
+            return root_of_average;
+        }
+
+        static int problem_27(int divisible, double[] numbers)
+        {
+            int occurrences = 0;
+
+            foreach (double number in numbers)
+            {
+                if (number % divisible == 0) occurrences++;
+            }
+
+            Console.WriteLine("PROBLEM #27");
+            Console.WriteLine("Entrada: divisible : {0} - numbers : [{1}]", divisible, string.Join(", ", numbers));
+            Console.WriteLine("Salida: {0}", occurrences);
+
+            return occurrences;
+        }
+
+        static double[] problem_28(double[] numbers_1, double[] numbers_2)
+        {
+            List<double> common = new List<double>();
+
+            foreach (double n in numbers_1)
+            {
+                if (!common.Contains(n) && numbers_2.Contains(n)) common.Add(n);
+            }
+
+            Console.WriteLine("PROBLEM #28");
+            Console.WriteLine("Entrada: {0} - {1}", string.Join(", ", numbers_1), string.Join(", ", numbers_2));
+            Console.WriteLine("Salida: {0}", string.Join(", ", common));
+
+            return common.ToArray();
+        }
+
+        static string problem_29(int size)
+        {
+            string ramp = "";
+
+            for (int s = size; s > 0; s--)
+            {
+                ramp += String.Concat(Enumerable.Repeat("*", s)) + "\n";
+                s--;
+            }
+
+            Console.WriteLine("PROBLEM #29");
+            Console.WriteLine("Entrada: size - {0}", size);
+            Console.WriteLine("Salida:\n{0}", ramp);
+
+            return ramp;
+        }
+        
+        static int problem_30(string text, string key)
+        {
+            int occurrences = 0;
+
+            string temp = text;
+            int index = temp.IndexOf(key);
+            while (index != -1)
+            {
+                occurrences++;
+                temp = temp.Remove(index, key.Length);
+                index = temp.IndexOf(key);
+            }
+
+            Console.WriteLine("PROBLEM #30");
+            Console.WriteLine("Entrada: key : {0} - text : {1}", key, text);
+            Console.WriteLine("Salida: {0}", occurrences);
+
+            return occurrences;
+        }
+
+        static int[] problem_31(int divisible, int[] numbers)
+        {
+            int[] valued = new int[numbers.Length];
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                if (numbers[i] % divisible == 0) valued[i] = numbers[i];
+                else
+                {
+                    int temp = numbers[i];
+                    do temp++; while (temp % 2 != 0);
+                    valued[i] = temp;
+                }
+            }
+
+            Console.WriteLine("PROBLEM #31");
+            Console.WriteLine("Entrada: divisible : {0} - numbers : {1}", divisible, string.Join(", ", numbers));
+            Console.WriteLine("Salida: {0}", string.Join(", ", valued));
+
+            return valued;
+        }
+
         static void problem_45()
         {
             int ans = -1;
@@ -336,6 +643,66 @@ namespace problems
                             break;
                         case 13:
                             problem_13(2, 2, 2050);
+                            break;
+                        case 14:
+                            problem_14(12);
+                            problem_14(45);
+                            break;
+                        case 15:
+                            problem_15(6, 5, 1000);
+                            break;
+                        case 16:
+                            problem_16(4, 2, 3);
+                            problem_16(4, 2, 13);
+                            problem_16(4, 13, 3);
+                            problem_16(13, 2, 3);
+                            break;
+                        case 17:
+                            problem_17("Mississippi");
+                            problem_17("essscobass");
+                            break;
+                        case 18:
+                            problem_18(3, 5, 1, 1000);
+                            break;
+                        case 20:
+                            problem_20(15);
+                            break;
+                        case 21:
+                            problem_21(12);
+                            problem_21(5);
+                            break;
+                        case 22:
+                            problem_22(new double[] { 1, 2, 3, 4, 10 }, 2);
+                            break;
+                        case 23:
+                            problem_23(new double[] { 1, 2, 3, 4, 10 });
+                            break;
+                        case 24:
+                            problem_24(new double[] { 2, 5, 1, 4, 7 });
+                            problem_24(new double[] { 12, 6, 8, 7, 5 });
+                            problem_24(new double[] { 5, 7, 1, 2 });
+                            break;
+                        case 25:
+                            problem_25(new double[] { 2, 8, 4, 5, 2, 4 });
+                            problem_25(new double[] { 1, 2, 3, 4, 5, 6 });
+                            break;
+                        case 26:
+                            problem_26(new double[] { 2, 8, 4, 5, 2, 4 });
+                            break;
+                        case 27:
+                            problem_27(7, new double[] { 21, 3, 7, 12, 8, 100, 70 });
+                            break;
+                        case 28:
+                            problem_28(new double[] { 9, 5, 2, 4 }, new double[] { 1, 9, 2, 6 });
+                            break;
+                        case 29:
+                            problem_29(10);
+                            break;
+                        case 30:
+                            problem_30("abnabaababa", "ba");
+                            break;
+                        case 31:
+                            problem_31(3, new int[] { 2, 7, 9, 11, 16 });
                             break;
                         default:
                             error("no es una opción válida");
