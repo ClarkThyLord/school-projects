@@ -603,6 +603,41 @@ namespace problems
             Console.WriteLine("PROBLEM #32");
             Console.WriteLine("Entrada: {0}", pesos);
             Console.WriteLine("Salida:");
+
+            int fix = 0;
+            while (true)
+            {
+                int temp = pesos;
+
+                int fits = (temp / 10) - fix;
+                if (fits > 0)
+                {
+                    temp -= fits * 10;
+                    Console.WriteLine("$10 : #{0}", fits);
+                }
+
+                fits = (temp / 5) - (fix % 2 == 0 ? fix / 2 : 0);
+                if (fits > 0)
+                {
+                    temp -= fits * 5;
+                    Console.WriteLine("$5 : #{0}", fits);
+                }
+                
+
+                fits = (temp / 2) - (fix % 3 == 0 ? fix / 3 : 0);
+                if (fits > 0)
+                {
+                    temp -= fits * 2;
+                    Console.WriteLine("$2 : #{0}", fits);
+                }
+
+                if (temp > 0) Console.WriteLine("$1 : #{0}", temp);
+
+                Console.WriteLine("---");
+
+                if (temp == pesos) break;
+                else fix++;
+            }
         }
 
         static double[] problem_33(double sum, double[] numbers)
@@ -689,6 +724,27 @@ namespace problems
             Console.WriteLine("Salida: {0}", occurrences);
 
             return occurrences;
+        }
+
+        static bool problem_38(int[] numbers)
+        {
+            bool real = true;
+
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                if (i == 0 || i == numbers.Length - 1) continue;
+                else if (numbers[i] + numbers[i - 1] != numbers[i + 1])
+                {
+                    real = false;
+                    break;
+                }
+            }
+
+            Console.WriteLine("PROBLEM #38");
+            Console.WriteLine("Entrada: {0}", string.Join(", ", numbers));
+            Console.WriteLine("Salida: {0}", real);
+
+            return real;
         }
 
         static int problem_39(int[] numbers)
@@ -991,6 +1047,10 @@ namespace problems
                             break;
                         case 37:
                             problem_37(new int[] { 0, 2, 7, 9, 0, 0, 11, 16 });
+                            break;
+                        case 38:
+                            problem_38(new int[] { 2, 2, 4, 6, 10, 16 });
+                            problem_38(new int[] { 1, 1, 6, 8 });
                             break;
                         case 39:
                             problem_39(new int[] { 2, 5, 4, 7, 8, 9, 1, 3, 4, 5 });
