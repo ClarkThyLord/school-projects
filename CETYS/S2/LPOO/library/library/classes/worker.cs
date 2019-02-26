@@ -10,7 +10,7 @@ namespace library.classes
     {
         public int access = 0;
 
-        worker(string name, string first_name, string last_name, DateTime date_of_birth, int access = 0) : base(name, first_name, last_name, date_of_birth)
+        public worker(int id, string name, string first_name, string last_name, DateTime date_of_birth, int access) : base(id, name, first_name, last_name, date_of_birth)
         {
             this.access = access;
         }

@@ -17,16 +17,70 @@ namespace library.classes
         int BOOKS_COUNT = 1;
         List<book> BOOKS = new List<book>();
 
+        public worker get_worker(int id)
+        {
+            return WORKERS.Find(_worker => _worker.id == id);
+        }
+
+        public worker add_worker(string name, string first_name, string last_name, DateTime date_of_birth, int access, worker _worker)
+        {
+            if (_worker.access < 2) return null;
+
+            worker __worker = new worker(WORKERS_COUNT, name, first_name, last_name, date_of_birth, access);
+
+            WORKERS.Add(__worker);
+
+            WORKERS_COUNT++;
+
+            return __worker;
+        }
+
+        public worker modify_worker(int id, Dictionary<string, dynamic> modify, worker _worker)
+        {
+            if (_worker.access < 2) return null;
+
+            worker __worker = null;
+            for (int i = 0; i < WORKERS.Count; i++)
+            {
+                if (WORKERS[i].id == id)
+                {
+                    if (modify.ContainsKey("name")) WORKERS[i].name = modify["name"];
+                    if (modify.ContainsKey("first_name")) WORKERS[i].name = modify["first_name"];
+                    if (modify.ContainsKey("last_name")) WORKERS[i].name = modify["last_name"];
+                    if (modify.ContainsKey("date_of_birth")) WORKERS[i].name = modify["date_of_birth"];
+                    if (modify.ContainsKey("access") && WORKERS[i].access < _worker.access) WORKERS[i].name = modify["access"];
+
+                    __worker = WORKERS[i];
+                    break;
+                }
+            }
+
+            return __worker;
+        }
+
+        public worker remove_worker(int id, worker _worker)
+        {
+            if (_worker.access < 2) return null;
+
+            worker __worker = get_worker(id);
+
+            if (_worker.access > __worker.access) return null;
+
+            WORKERS.Remove(__worker);
+
+            return __worker;
+        }
+
         public book get_book(int id)
         {
             return BOOKS.Find(_book => _book.id == id);
         }
 
-        public book add_book(book _book, worker _worker)
+        public book add_book(string name, string author, string category, double rating, worker _worker)
         {
             if (_worker.access < 1) return null;
 
-            _book.id = BOOKS_COUNT;
+            book _book = new book(BOOKS_COUNT, name, author, category, rating);
 
             BOOKS.Add(_book);
 
@@ -53,7 +107,6 @@ namespace library.classes
                     break;
                 }
             }
-                
 
             return _book;
         }

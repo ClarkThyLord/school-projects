@@ -10,7 +10,7 @@ namespace library.classes
     {
         public List<book> owns = new List<book>();
 
-        client(string name, string first_name, string last_name, DateTime date_of_birth) : base(name, first_name, last_name, date_of_birth)
+        public client(int id, string name, string first_name, string last_name, DateTime date_of_birth) : base(id, name, first_name, last_name, date_of_birth)
         {
         }
     }

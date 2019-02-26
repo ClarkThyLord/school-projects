@@ -8,12 +8,13 @@ namespace library.classes
 {
     class book
     {
-        public int id;
+        public int id { get { return id; } set { } }
         public string name, author, category;
         public double rating;
 
-        book(string name, string author, string category, double rating)
+        public book(int id, string name, string author, string category, double rating)
         {
+            this.id = id;
             this.name = name;
             this.author = author;
             this.category = category;
