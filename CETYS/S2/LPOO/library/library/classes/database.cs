@@ -17,6 +17,32 @@ namespace library.classes
         int BOOKS_COUNT = 1;
         List<book> BOOKS = new List<book>();
 
+        public client get_client(int id)
+        {
+            return null;
+        }
+
+        public client add_client(string name, string first_name, string last_name, DateTime date_of_birth, worker _worker)
+        {
+            if (_worker.access < 2) return null;
+
+            return null;
+        }
+
+        public client modify_client(int id, Dictionary<string, dynamic> modify, worker _worker)
+        {
+            if (_worker.access < 2) return null;
+
+            return null;
+        }
+
+        public client remove_client(int id, worker _worker)
+        {
+            if (_worker.access < 2) return null;
+
+            return null;
+        }
+
         public worker get_worker(int id)
         {
             return WORKERS.Find(_worker => _worker.id == id);
