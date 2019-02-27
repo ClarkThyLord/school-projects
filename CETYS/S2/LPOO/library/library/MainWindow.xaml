@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:library"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid Margin="0">
+        <Grid x:Name="GUIuser" Margin="0,0,0,37">
+            <TextBox x:Name="user_name" HorizontalAlignment="Left" Height="25" Margin="53,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175"/>
+            <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" Width="38"/>
+            <TextBox x:Name="user_first_name" HorizontalAlignment="Left" Height="25" Margin="301,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="209"/>
+            <TextBlock HorizontalAlignment="Left" Height="20" Margin="233,10,0,0" TextWrapping="Wrap" Text="First Name:" VerticalAlignment="Top" Width="63"/>
+            <TextBox x:Name="user_last_name" HorizontalAlignment="Left" Height="25" Margin="579,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="203"/>
+            <TextBlock HorizontalAlignment="Left" Height="20" Margin="515,10,0,0" TextWrapping="Wrap" Text="Last Name:" VerticalAlignment="Top" Width="59"/>
+            <DatePicker x:Name="user_date_of_birth" HorizontalAlignment="Left" Margin="89,35,0,0" VerticalAlignment="Top" Width="139"/>
+            <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,35,0,0" TextWrapping="Wrap" Text="Date of Birth:" VerticalAlignment="Top" Width="74"/>
+            <Grid x:Name="GUIworker" HorizontalAlignment="Left" Height="310" Margin="10,64,0,0" VerticalAlignment="Top" Width="774">
+                <TextBox x:Name="user_worker_access" HorizontalAlignment="Left" Height="25" Margin="53,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Text="0"/>
+                <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,17,0,0" TextWrapping="Wrap" Text="Access:" VerticalAlignment="Top" Width="38"/>
+            </Grid>
+        </Grid>
+        <Grid x:Name="GUIbook" Margin="0,0,0,37" Visibility="Hidden">
+            <TextBox x:Name="book_name" HorizontalAlignment="Left" Height="25" Margin="53,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175"/>
+            <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" Text="Name:" VerticalAlignment="Top" Width="38"/>
+            <TextBox x:Name="book_author" HorizontalAlignment="Left" Height="25" Margin="281,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175"/>
+            <TextBlock HorizontalAlignment="Left" Height="20" Margin="233,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="43"><Run Text="Author:"/><LineBreak/><Run/></TextBlock>
+            <TextBox x:Name="book_category" HorizontalAlignment="Left" Height="25" Margin="519,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175"/>
+            <TextBlock HorizontalAlignment="Left" Height="20" Margin="461,10,0,0" TextWrapping="Wrap" Text="Category:" VerticalAlignment="Top" Width="53"/>
+            <TextBox x:Name="book_rating" HorizontalAlignment="Left" Height="25" Margin="53,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Text="0"/>
+            <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,47,0,0" TextWrapping="Wrap" Text="Rating:" VerticalAlignment="Top" Width="38"/>
+        </Grid>
+        <ComboBox x:Name="GUIview" HorizontalAlignment="Left" Margin="579,389,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" SelectionChanged="GUIview_SelectionChanged">
+            <ComboBoxItem Content="worker" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="client" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="book" HorizontalAlignment="Left" Width="118"/>
+        </ComboBox>
+        <Button x:Name="GUIsubmit" Content="Submit" HorizontalAlignment="Left" Margin="709,391,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.99,0.829" Click="GUIsubmit_Click"/>
     </Grid>
 </Window>

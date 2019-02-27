@@ -26,7 +26,13 @@ namespace library.classes
         {
             if (_worker.access < 2) return null;
 
-            return null;
+            client _client = new client(USERS_COUNT, name, first_name, last_name, date_of_birth);
+
+            USERS.Add(_client);
+
+            USERS_COUNT++;
+
+            return _client;
         }
 
         public client modify_client(int id, Dictionary<string, dynamic> modify, worker _worker)
