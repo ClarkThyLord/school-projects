@@ -8,8 +8,8 @@ namespace library.classes
 {
     class database
     {
-        int USERS_COUNT = 1;
-        List<user> USERS = new List<user>();
+        int CLIENTS_COUNT = 1;
+        List<user> CLIENTS = new List<user>();
 
         int WORKERS_COUNT = 1;
         List<worker> WORKERS = new List<worker>();
@@ -26,11 +26,11 @@ namespace library.classes
         {
             if (_worker.access < 2) return null;
 
-            client _client = new client(USERS_COUNT, name, first_name, last_name, date_of_birth);
+            client _client = new client(CLIENTS_COUNT, name, first_name, last_name, date_of_birth);
 
-            USERS.Add(_client);
+            CLIENTS.Add(_client);
 
-            USERS_COUNT++;
+            CLIENTS_COUNT++;
 
             return _client;
         }
@@ -47,6 +47,26 @@ namespace library.classes
             if (_worker.access < 2) return null;
 
             return null;
+        }
+
+        public client delete_client(string name = "", string first_name = "", string last_name = "", DateTime date_of_birth = new DateTime(), worker _worker = null)
+        {
+            if (_worker == null && _worker.access < 1) return null;
+
+            client _client = null;
+            foreach (client __client in CLIENTS)
+            {
+                if (name.Length > 0 && name != __client.name) continue;
+                else if (first_name.Length > 0 && first_name != __client.first_name) continue;
+                else if (last_name.Length > 0 && last_name != __client.last_name) continue;
+                //else if (date_of_birth != __client.date_of_birth) continue;
+
+                _client = __client;
+                CLIENTS.Remove(_client);
+                break;
+            }
+
+            return _client;
         }
 
         public worker get_worker(int id)
@@ -85,6 +105,27 @@ namespace library.classes
                     __worker = WORKERS[i];
                     break;
                 }
+            }
+
+            return __worker;
+        }
+
+        public worker delete_worker(string name="", string first_name="", string last_name="", DateTime date_of_birth=new DateTime(), int access=0, worker _worker = null)
+        {
+            if (_worker == null && _worker.access < 1) return null;
+
+            worker __worker = null;
+            foreach (worker ___worker in WORKERS)
+            {
+                if (name.Length > 0 && name != ___worker.name) continue;
+                else if (first_name.Length > 0 && first_name != ___worker.first_name) continue;
+                else if (last_name.Length > 0 && last_name != ___worker.last_name) continue;
+                //else if (date_of_birth != ___worker.date_of_birth) continue;
+                //else if (access != ___worker.access) continue;
+
+                __worker = ___worker;
+                WORKERS.Remove(___worker);
+                break;
             }
 
             return __worker;
@@ -150,6 +191,26 @@ namespace library.classes
             book _book = get_book(id);
 
             BOOKS.Remove(_book);
+
+            return _book;
+        }
+
+        public book delete_book(string name="", string author="", string category="", double min_rating=0, worker _worker=null)
+        {
+            if (_worker == null && _worker.access < 1) return null;
+
+            book _book = null;
+            foreach (book __book in BOOKS)
+            {
+                if (name.Length > 0 && name != __book.name) continue;
+                else if (author.Length > 0 && author != __book.author) continue;
+                else if (category.Length > 0 && category != __book.category) continue;
+                //else if (min_rating > __book.rating) continue;
+
+                _book = __book;
+                BOOKS.Remove(__book);
+                break;
+            }
 
             return _book;
         }

@@ -14,5 +14,10 @@ namespace library.classes
         {
             this.access = access;
         }
+
+        public override string ToString()
+        {
+            return $"ID: {this.id} | Full Name: {get_full_name()}, DoB: {date_of_birth} | ACCESS: {this.access}";
+        }
     }
 }

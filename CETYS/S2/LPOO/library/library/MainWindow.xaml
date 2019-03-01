@@ -31,6 +31,11 @@
             <TextBox x:Name="book_rating" HorizontalAlignment="Left" Height="25" Margin="53,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="175" Text="0"/>
             <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,47,0,0" TextWrapping="Wrap" Text="Rating:" VerticalAlignment="Top" Width="38"/>
         </Grid>
+        <ComboBox x:Name="GUIaction" HorizontalAlignment="Left" Margin="454,389,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
+            <!--<ComboBoxItem Content="view" HorizontalAlignment="Left" Width="118"/>-->
+            <ComboBoxItem Content="add" HorizontalAlignment="Left" Width="118"/>
+            <ComboBoxItem Content="remove" HorizontalAlignment="Left" Width="118"/>
+        </ComboBox>
         <ComboBox x:Name="GUIview" HorizontalAlignment="Left" Margin="579,389,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" SelectionChanged="GUIview_SelectionChanged">
             <ComboBoxItem Content="worker" HorizontalAlignment="Left" Width="118"/>
             <ComboBoxItem Content="client" HorizontalAlignment="Left" Width="118"/>

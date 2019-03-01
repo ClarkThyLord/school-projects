@@ -8,7 +8,7 @@ namespace library.classes
 {
     class user
     {
-        public int id { get { return id; } set { } }
+        public int id { get; }
         public string name, first_name, last_name;
         public DateTime date_of_birth;
 
@@ -29,6 +29,11 @@ namespace library.classes
         public TimeSpan get_age()
         {
             return DateTime.Now.Subtract(date_of_birth);
+        }
+
+        public override string ToString()
+        {
+            return $"ID: {this.id} | Full Name: {get_full_name()}, DoB: {date_of_birth}";
         }
     }
 }
