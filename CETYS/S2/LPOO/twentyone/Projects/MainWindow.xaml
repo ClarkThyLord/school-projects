@@ -1,0 +1,20 @@
+﻿<Window x:Class="Projects.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Projects"
+        mc:Ignorable="d"
+        Title="Twenty One" Height="819.915" Width="1221.398" Icon="Imagenes/king_of_hearts.png" ResizeMode="NoResize">
+    <Grid Loaded="Grid_Loaded">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas x:Name="miCanvas" HorizontalAlignment="Left" Height="547" VerticalAlignment="Top" Width="1215" Background="#FF1EAA17">
+            <Label x:Name="lblPuntos" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="75" Width="1195" Canvas.Left="10" Canvas.Top="462" FontSize="36"/>
+        </Canvas>
+        <Button Content="Add" Click="Button_Click" Margin="10,552,1005,194"/>
+
+    </Grid>
+</Window>
