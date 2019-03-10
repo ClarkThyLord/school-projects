@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace Projects
 {
@@ -14,10 +13,12 @@ namespace Projects
         {
             mano = new List<Carta>();
         }
+
         public void RecibiriCarta(Carta c)
         {
             mano.Add(c);
         }
+
         public int SumaMano()
         {
             int suma = 0;
@@ -30,12 +31,25 @@ namespace Projects
                 }
                 suma += c.Valor;
             }
+
             while( suma > 21 && ases > 0)
             {
                 suma -= 10;
                 ases--;
             }
+
             return suma;
+        }
+        
+        public void Dibujate(Canvas c, int posX, int posY, double scale=1)
+        {
+            posX -= (75 + (int)(mano.Count * (15 * scale))) / 2;
+
+            foreach (Carta carta in mano)
+            {
+                carta.Dibujate(c, posX, posY, scale);
+                posX += (int)(15 * scale);
+            }
         }
     }
 }

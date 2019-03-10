@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Projects
 {
     class Baraja
     {
-       public Carta [] Cartas { get; }
+        Random r = new Random();
+        public Carta [] Cartas { get; }
         
         public Baraja()
         {
             string[] palos = { "clubs", "hearts", "spades", "diamonds" };
             string[] valores = { "2", "3", "4", "5", "6", "7", "8", "9", "10", "ace", "jack", "queen", "king" };
             Cartas = new Carta[52];
+
             for(int i = 0; i< 52; i++)
             {
                 int valor = 0;
@@ -34,11 +32,10 @@ namespace Projects
                 Cartas[i] = c;
             }
         }
+
         public Carta ReparteCarta()
         {
-            Random r = new Random(Guid.NewGuid().GetHashCode());
             return  Cartas[r.Next(0, 52)];
-          
         }
     }
 }
