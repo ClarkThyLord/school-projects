@@ -18,6 +18,17 @@ namespace Projects.core
             this.multiplier = multiplier;
         }
 
+        public void play()
+        {
+            int sum_of_cards = hand.sum_of_cards();
+            if (sum_of_cards >= 17 && sum_of_cards <= 21)
+            {
+
+            } else if (sum_of_cards < 17) {
+
+            }
+        }
+
         public void win()
         {
             wins += 1;
