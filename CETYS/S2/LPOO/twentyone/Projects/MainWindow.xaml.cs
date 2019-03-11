@@ -11,6 +11,7 @@ namespace Projects
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Deck deck = new Deck();
         private House house = new House();
         private Player player = new Player();
 
@@ -69,6 +70,8 @@ namespace Projects
         {
             if (player.Bet == 0) return;
 
+            player.state = 1;
+
             betting_controls.Visibility = Visibility.Hidden;
             playing_controls.Visibility = Visibility.Visible;
 
@@ -79,29 +82,44 @@ namespace Projects
         // PLAYING CONTROLS
         private void add(object sender, RoutedEventArgs e)
         {
+            player.hand.add_card(deck.random_card());
 
+            update();
         }
 
         private void call(object sender, RoutedEventArgs e)
         {
-
+            update();
         }
 
         private void finish(object sender, RoutedEventArgs e)
         {
-
+            player.state = 2;
+            update();
         }
 
 
         public void update()
         {
-            double scale = canvas.ActualWidth / 800;
+            playing_controls.IsEnabled = false;
 
+            double scale = ActualWidth / ActualHeight;
+
+            player.chips.update(scale);
+            Canvas.SetTop(player.chips.canvas_item, canvas.ActualHeight / 2);
+            
+            player.hand.update(scale);
+            double pos = canvas.ActualWidth / 2;
+            pos -= player.hand.cards.Count > 1 ? player.hand.cards.Count * Hand.card_distance + Card.base_width : Card.base_width / 2;
+            pos += player.hand.cards.Count > 1 ? ((player.hand.cards.Count * Hand.card_distance + Card.base_width) / 2) : 0;
+            Canvas.SetLeft(player.hand.canvas_item, pos);
+            Canvas.SetTop(player.hand.canvas_item, canvas.ActualHeight / 2);
+
+            // UPDATE INFO
             betting_amount.Content = $"${player.Bet} / ${player.money}";
             info.Content = $"Dinero: ${player.money} Apuesta: ${player.Bet} | Suma de Cartas: {player.hand.sum_of_cards()}";
 
-            player.chips.update(scale);
-            Canvas.SetTop(player.chips.canvas_item, (canvas.ActualHeight / 2));
+            playing_controls.IsEnabled = true;
         }
     }
 }

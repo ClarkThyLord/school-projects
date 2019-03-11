@@ -21,7 +21,6 @@ namespace Projects.core
             set
             {
                 this.amount = value;
-                update();
             }
         }
 

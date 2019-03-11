@@ -25,6 +25,8 @@ namespace Projects.core
         public Hand hand = new Hand();
         public Chips chips = new Chips();
 
+        public int state = 0;
+
         public Player(int money = 500)
         {
             this.money = money;
