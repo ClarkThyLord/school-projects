@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Projects.core;
+using System;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Projects
 {
@@ -8,44 +11,69 @@ namespace Projects
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool init = false;
+        private House house = new House();
+        private Player player = new Player();
 
-        Baraja b;
-        Mano m;
-
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            b = new Baraja();
-            m = new Mano();
-
-            init = true;
+            update();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (!init) return;
-
-            m.RecibiriCarta(b.ReparteCarta());
-
-            render();
+            update();
         }
 
-        private void miCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void bet(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (!init) return;
+            int amount = (e.RightButton == MouseButtonState.Pressed) ? -1 : 1;
+            switch (((StackPanel)sender).Name)
+            {
+                case "bet_1":
+                    amount *= 1;
+                    break;
+                case "bet_5":
+                    amount *= 5;
+                    break;
+                case "bet_10":
+                    amount *= 10;
+                    break;
+                case "bet_20":
+                    amount *= 20;
+                    break;
+                case "bet_25":
+                    amount *= 25;
+                    break;
+                case "bet_50":
+                    amount *= 50;
+                    break;
+                case "bet_100":
+                    amount *= 100;
+                    break;
+                case "bet_500":
+                    amount *= 500;
+                    break;
+            }
 
-            render();
+            if ((amount > 0 && player.bet + amount <= player.money) || (amount < 0 && player.bet + amount >= 0)) player.bet += amount;
+
+            update();
         }
 
-        public void render()
+        private void empezar(object sender, RoutedEventArgs e)
         {
-            if (!init) return;
+            if (player.bet == 0) return;
 
-            miCanvas.Children.Clear();
-            
-            m.Dibujate(miCanvas, (int)miCanvas.ActualWidth / 2, (int)miCanvas.ActualHeight / 2, miCanvas.ActualWidth / 800);
+            betting_controls.Visibility = Visibility.Hidden;
 
-            lblPuntos.Content = m.SumaMano();
+            update();
+        }
+
+        public void update()
+        {
+            betting_amount.Content = $"${player.bet} / ${player.money}";
+
+            player.chips.update();
         }
     }
 }

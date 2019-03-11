@@ -15,15 +15,19 @@ namespace Projects
             this.Valor = valor;
         }
 
-        public void Dibujate(Canvas c, int posX, int posY, double scale=1)
+        public void Dibujate(Canvas c, int posX, int posY, int posZ, double scale=1)
         {
             Image i = new Image();
             i.Source = new BitmapImage(new Uri(ImageSource, UriKind.Relative));
-            c.Children.Add(i);
+            
             i.Width = (int)(75 * scale);
             i.Height = (int)(125 * scale);
+
             Canvas.SetLeft(i, posX);
-            Canvas.SetTop(i,posY);
+            Canvas.SetTop(i, posY);
+            Canvas.SetZIndex(i, posZ);
+
+            c.Children.Add(i);
         }
     }
 }

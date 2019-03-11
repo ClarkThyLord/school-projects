@@ -28,7 +28,7 @@ namespace Projects
                 {
                     valor = (i % 13)+2;
                 }
-                Carta c = new Carta(@"Imagenes\"+valores[i % 13] + "_of_" + palos[i / 13]+".png",valor);
+                Carta c = new Carta(@"assets\cards\"+valores[i % 13] + "_of_" + palos[i / 13]+".png",valor);
                 Cartas[i] = c;
             }
         }

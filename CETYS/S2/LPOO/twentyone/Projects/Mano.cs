@@ -44,11 +44,9 @@ namespace Projects
         public void Dibujate(Canvas c, int posX, int posY, double scale=1)
         {
             posX -= (75 + (int)(mano.Count * (15 * scale))) / 2;
-
-            foreach (Carta carta in mano)
+            for (int i = 0; i < mano.Count; i++)
             {
-                carta.Dibujate(c, posX, posY, scale);
-                posX += (int)(15 * scale);
+                mano[i].Dibujate(c, posX + ((int)(15 * scale) * i), posY, i, scale);
             }
         }
     }
