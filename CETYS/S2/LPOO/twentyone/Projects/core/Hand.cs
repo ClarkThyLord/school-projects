@@ -42,7 +42,7 @@ namespace Projects.core
         {
             canvas_item.Children.Clear();
 
-            for (int i = 0; i < cards.Count; i++) canvas_item.Children.Add(cards[i].update(i * card_distance, y, scale));
+            for (int i = 0; i < cards.Count; i++) canvas_item.Children.Add(cards[i].render(i * card_distance, y, scale));
 
             return canvas_item;
         }

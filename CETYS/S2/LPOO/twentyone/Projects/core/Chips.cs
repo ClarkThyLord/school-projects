@@ -11,7 +11,19 @@ namespace Projects.core
     {
         public Chip[] chips = new Chip[8];
 
-        public int amount { set { update(); } }
+        private int amount;
+        public int Amount
+        {
+            get
+            {
+                return this.amount;
+            }
+            set
+            {
+                this.amount = value;
+                update();
+            }
+        }
 
         public int rows_distance= 20, chips_distance = 10;
         public Canvas canvas_item { get; } = new Canvas();
@@ -20,13 +32,27 @@ namespace Projects.core
         {
             this.amount = 0;
 
-            int[] values = { 1, 5, 10, 20, 25, 50, 100, 500 };
-            for (int i = 0; i < values.Length; i++) chips[i] = new Chip(i, @"assets\chips\chip" + values[i] + ".png");
+            int[] values = { 500, 100, 50, 25, 20, 10, 5, 1 };
+            for (int i = 0; i < values.Length; i++) chips[i] = new Chip(values[i], @"assets\chips\chip" + values[i] + ".png");
         }
 
-        public Canvas update(int x = 0, int y = 0, double scale = 1)
+        public Canvas update(double scale = 1)
         {
             canvas_item.Children.Clear();
+
+            int _amount = this.amount;
+            for (int i = 0; i < chips.Length; i++)
+            {
+                if (_amount / chips[i].value >= 1)
+                {
+                    for (int n = 0; n < _amount / chips[i].value; n++)
+                    {
+                        canvas_item.Children.Add(chips[i].render((int)((chips_distance * (n + 1)) * scale), (int)((rows_distance * (i + 1)) * scale), scale));
+                    }
+
+                    _amount -= chips[i].value * (_amount / chips[i].value);
+                }
+            }
 
             return canvas_item;
         }

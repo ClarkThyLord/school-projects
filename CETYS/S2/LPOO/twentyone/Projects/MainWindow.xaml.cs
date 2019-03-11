@@ -16,6 +16,9 @@ namespace Projects
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            canvas.Children.Add(player.chips.canvas_item);
+            canvas.Children.Add(player.hand.canvas_item);
+
             update();
         }
 
@@ -24,6 +27,8 @@ namespace Projects
             update();
         }
 
+
+        // BETTING CONTROLS
         private void bet(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             int amount = (e.RightButton == MouseButtonState.Pressed) ? -1 : 1;
@@ -55,25 +60,48 @@ namespace Projects
                     break;
             }
 
-            if ((amount > 0 && player.bet + amount <= player.money) || (amount < 0 && player.bet + amount >= 0)) player.bet += amount;
+            if ((amount > 0 && player.Bet + amount <= player.money) || (amount < 0 && player.Bet + amount >= 0)) player.Bet += amount;
 
             update();
         }
 
         private void empezar(object sender, RoutedEventArgs e)
         {
-            if (player.bet == 0) return;
+            if (player.Bet == 0) return;
 
             betting_controls.Visibility = Visibility.Hidden;
+            playing_controls.Visibility = Visibility.Visible;
 
             update();
         }
 
+
+        // PLAYING CONTROLS
+        private void add(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void call(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void finish(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
         public void update()
         {
-            betting_amount.Content = $"${player.bet} / ${player.money}";
+            double scale = canvas.ActualWidth / 800;
 
-            player.chips.update();
+            betting_amount.Content = $"${player.Bet} / ${player.money}";
+            info.Content = $"Dinero: ${player.money} Apuesta: ${player.Bet} | Suma de Cartas: {player.hand.sum_of_cards()}";
+
+            player.chips.update(scale);
+            Canvas.SetTop(player.chips.canvas_item, (canvas.ActualHeight / 2));
         }
     }
 }

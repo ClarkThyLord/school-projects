@@ -58,7 +58,13 @@
             <Label x:Name="betting_amount" HorizontalContentAlignment="Center" Content="$#### / $####" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
             <Button Content="¡Empezar!" Width="75" Background="#FF4F9100" BorderBrush="#FF1B9700" Click="empezar"/>
         </StackPanel>
-
-        <Label x:Name="info" Content="Dinero: $#### Apuesta: $#### | Suma de Cartas: ##" HorizontalContentAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" FontSize="22" Background="{x:Null}" Margin="10,0,10,10" FontStyle="Italic"/>
+        <StackPanel x:Name="playing_controls" Visibility="Hidden" Margin="10,0,10,10" VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Añadir" Margin="5" Width="75" Height="25" Background="#FF4F9100" BorderBrush="#FF1B9700" Click="add"/>
+                <Button Content="Llamada" Margin="5" Width="75" Height="25" Background="#FF4F9100" BorderBrush="#FF1B9700" Click="call"/>
+                <Button Content="Finalizar" Margin="5" Width="75" Height="25" Background="#FF4F9100" BorderBrush="#FF1B9700" Click="finish"/>
+            </StackPanel>
+            <Label x:Name="info" Content="Dinero: $#### Apuesta: $#### | Suma de Cartas: ##" HorizontalContentAlignment="Center" FontSize="22" FontStyle="Italic"/>
+        </StackPanel>
     </Grid>
 </Window>

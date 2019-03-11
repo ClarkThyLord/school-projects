@@ -8,7 +8,20 @@ namespace Projects.core
 {
     class Player
     {
-        public int bet, money;
+        private int bet;
+        public int Bet
+        {
+            get
+            {
+                return this.bet;
+            }
+            set
+            {
+                this.bet = value;
+                chips.Amount = value;
+            }
+        }
+        public int money;
         public Hand hand = new Hand();
         public Chips chips = new Chips();
 
