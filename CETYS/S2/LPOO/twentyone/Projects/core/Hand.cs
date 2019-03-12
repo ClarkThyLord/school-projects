@@ -9,6 +9,8 @@ namespace Projects.core
     {
         public List<Card> cards { get; } = new List<Card>();
 
+        public bool hidden = false;
+        public Card back_of_card = new Card(-1, @"assets\cards\back_of_card.png");
         public static int card_distance = 40;
         public Canvas canvas_item { get; } = new Canvas();
 
@@ -36,7 +38,7 @@ namespace Projects.core
         {
             canvas_item.Children.Clear();
 
-            for (int i = 0; i < cards.Count; i++) canvas_item.Children.Add(cards[i].render(i * card_distance, 0, scale));
+            for (int i = 0; i < cards.Count; i++) canvas_item.Children.Add(this.hidden ? back_of_card.render(i * card_distance, 0, scale) : cards[i].render(i * card_distance, 0, scale));
 
             return canvas_item;
         }

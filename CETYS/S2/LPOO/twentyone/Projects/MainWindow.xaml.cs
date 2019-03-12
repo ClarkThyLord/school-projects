@@ -78,7 +78,8 @@ namespace Projects
             playing_controls.IsEnabled = true;
             playing_controls.Visibility = Visibility.Visible;
 
-            player.hand.clear_cards();
+            house.hand.clear_cards();
+            house.hand.hidden = true;
 
             player.hand.clear_cards();
             player.hand.add_card(deck.random_card());
@@ -90,6 +91,9 @@ namespace Projects
         {
             playing_controls.Visibility = Visibility.Hidden;
             end_controls.Visibility = Visibility.Visible;
+
+            house.hand.hidden = false;
+            render();
 
             player.state = 3;
 
@@ -108,8 +112,6 @@ namespace Projects
                 player.Bet = 0;
                 house.lose();
             }
-
-            render();
         }
 
         private void end(object sender, RoutedEventArgs e)
@@ -125,7 +127,7 @@ namespace Projects
 
             if (player.money <= 0)
             {
-                MessageBoxResult result = MessageBox.Show("Después de perder todo tu dinero, decidiste dejar de jugar ...");
+                MessageBoxResult result = MessageBox.Show("Después de perder todo tu dinero, decidiste dejar de jugar...");
                 System.Windows.Application.Current.Shutdown();
             }
 
@@ -139,16 +141,8 @@ namespace Projects
             player.hand.add_card(deck.random_card());
 
             int sum_of_cards = player.hand.sum_of_cards();
-            if (sum_of_cards == 21)
-            {
-                Console.WriteLine("PLAYER WON!");
-                victor(false);
-            }
-            else if (sum_of_cards > 21)
-            {
-                Console.WriteLine("PLAYER LOST!");
-                victor(true);
-            }
+            if (sum_of_cards == 21) victor(false);
+            else if (sum_of_cards > 21) victor(true);
 
             update();
         }
@@ -173,16 +167,8 @@ namespace Projects
 
                 if (player.state == 2) update();
             }
-            else if (sum_of_cards == 21)
-            {
-                Console.WriteLine("HOUSE WON!");
-                victor(true);
-            }
-            else if (sum_of_cards > 21)
-            {
-                Console.WriteLine("HOUSE LOST!");
-                victor(false);
-            }
+            else if (sum_of_cards == 21) victor(true);
+            else if (sum_of_cards > 21) victor(false);
 
             if (player.state == 2)
             {
