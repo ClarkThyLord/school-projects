@@ -32,7 +32,7 @@ namespace Projects.core
             return cards.Sum(card => card.value);
         }
 
-        public Canvas update(double scale=1)
+        public Canvas render(double scale=1)
         {
             canvas_item.Children.Clear();
 

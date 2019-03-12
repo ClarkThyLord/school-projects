@@ -20,12 +20,14 @@ namespace Projects
             canvas.Children.Add(player.chips.canvas_item);
             canvas.Children.Add(player.hand.canvas_item);
 
-            update();
+            canvas.Children.Add(house.hand.canvas_item);
+
+            render();
         }
 
         private void canvas_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            update();
+            render();
         }
 
 
@@ -63,19 +65,71 @@ namespace Projects
 
             if ((amount > 0 && player.Bet + amount <= player.money) || (amount < 0 && player.Bet + amount >= 0)) player.Bet += amount;
 
-            update();
+            render();
         }
 
-        private void empezar(object sender, RoutedEventArgs e)
+        private void start(object sender, RoutedEventArgs e)
         {
             if (player.Bet == 0) return;
 
             player.state = 1;
 
             betting_controls.Visibility = Visibility.Hidden;
+            playing_controls.IsEnabled = true;
             playing_controls.Visibility = Visibility.Visible;
 
-            update();
+            player.hand.clear_cards();
+
+            player.hand.clear_cards();
+            player.hand.add_card(deck.random_card());
+
+            render();
+        }
+
+        private void victor(bool house_won)
+        {
+            playing_controls.Visibility = Visibility.Hidden;
+            end_controls.Visibility = Visibility.Visible;
+
+            player.state = 3;
+
+            end_victor.Text = house_won ? "¡Has perdido!" : "¡Has ganado!";
+            end_result.Text = house_won ? $"" : $"{player.Bet} X {house.multiplier}";
+            end_reward.Text = house_won ? $"-{player.Bet}" : $"{(int)(player.Bet * house.multiplier)}";
+
+            if (house_won)
+            {
+                player.money -= player.Bet;
+                player.Bet = 0;
+                house.win();
+            } else
+            {
+                player.money += (int)(player.Bet * house.multiplier);
+                player.Bet = 0;
+                house.lose();
+            }
+
+            render();
+        }
+
+        private void end(object sender, RoutedEventArgs e)
+        {
+            player.state = 0;
+            player.chips.clear_chips();
+            player.hand.clear_cards();
+
+            house.hand.clear_cards();
+
+            end_controls.Visibility = Visibility.Hidden;
+            betting_controls.Visibility = Visibility.Visible;
+
+            if (player.money <= 0)
+            {
+                MessageBoxResult result = MessageBox.Show("Después de perder todo tu dinero, decidiste dejar de jugar ...");
+                System.Windows.Application.Current.Shutdown();
+            }
+
+            render();
         }
 
 
@@ -84,17 +138,25 @@ namespace Projects
         {
             player.hand.add_card(deck.random_card());
 
+            int sum_of_cards = player.hand.sum_of_cards();
+            if (sum_of_cards == 21)
+            {
+                Console.WriteLine("PLAYER WON!");
+                victor(false);
+            }
+            else if (sum_of_cards > 21)
+            {
+                Console.WriteLine("PLAYER LOST!");
+                victor(true);
+            }
+
             update();
         }
 
         private void call(object sender, RoutedEventArgs e)
         {
-            update();
-        }
-
-        private void finish(object sender, RoutedEventArgs e)
-        {
             player.state = 2;
+
             update();
         }
 
@@ -103,23 +165,65 @@ namespace Projects
         {
             playing_controls.IsEnabled = false;
 
+            // UPDATE HOUSE
+            int sum_of_cards = house.hand.sum_of_cards();
+            if (sum_of_cards < 17)
+            {
+                house.hand.add_card(deck.random_card());
+
+                if (player.state == 2) update();
+            }
+            else if (sum_of_cards == 21)
+            {
+                Console.WriteLine("HOUSE WON!");
+                victor(true);
+            }
+            else if (sum_of_cards > 21)
+            {
+                Console.WriteLine("HOUSE LOST!");
+                victor(false);
+            }
+
+            if (player.state == 2)
+            {
+                if (player.hand.sum_of_cards() > house.hand.sum_of_cards()) victor(false);
+                else victor(true);
+                return;
+            }
+
+            render();
+
+            playing_controls.IsEnabled = true;
+        }
+
+        public void render()
+        {
             double scale = ActualWidth / ActualHeight;
 
-            player.chips.update(scale);
+
+            // RENDER PLAYER
+            player.chips.render(scale);
             Canvas.SetTop(player.chips.canvas_item, canvas.ActualHeight / 2);
-            
-            player.hand.update(scale);
+
+            player.hand.render(scale);
             double pos = canvas.ActualWidth / 2;
             pos -= player.hand.cards.Count > 1 ? player.hand.cards.Count * Hand.card_distance + Card.base_width : Card.base_width / 2;
             pos += player.hand.cards.Count > 1 ? ((player.hand.cards.Count * Hand.card_distance + Card.base_width) / 2) : 0;
             Canvas.SetLeft(player.hand.canvas_item, pos);
             Canvas.SetTop(player.hand.canvas_item, canvas.ActualHeight / 2);
 
-            // UPDATE INFO
+
+            // RENDER HOUSE
+            house.hand.render(scale);
+            pos = canvas.ActualWidth / 2;
+            pos -= house.hand.cards.Count > 1 ? house.hand.cards.Count * Hand.card_distance + Card.base_width : Card.base_width / 2;
+            pos += house.hand.cards.Count > 1 ? ((house.hand.cards.Count * Hand.card_distance + Card.base_width) / 2) : 0;
+            Canvas.SetLeft(house.hand.canvas_item, pos);
+
+
+            // RENDER INFO
             betting_amount.Content = $"${player.Bet} / ${player.money}";
             info.Content = $"Dinero: ${player.money} Apuesta: ${player.Bet} | Suma de Cartas: {player.hand.sum_of_cards()}";
-
-            playing_controls.IsEnabled = true;
         }
     }
 }

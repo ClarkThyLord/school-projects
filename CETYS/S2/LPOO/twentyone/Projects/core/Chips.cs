@@ -35,7 +35,12 @@ namespace Projects.core
             for (int i = 0; i < values.Length; i++) chips[i] = new Chip(values[i], @"assets\chips\chip" + values[i] + ".png");
         }
 
-        public Canvas update(double scale = 1)
+        public void clear_chips()
+        {
+            this.amount = 0;
+        }
+
+        public Canvas render(double scale = 1)
         {
             canvas_item.Children.Clear();
 

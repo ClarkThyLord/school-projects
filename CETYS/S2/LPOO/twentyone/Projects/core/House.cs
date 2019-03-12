@@ -10,23 +10,12 @@ namespace Projects.core
     {
         private int wins = 0;
         public double multiplier;
-
-        Hand hand = new Hand();
+        
+        public Hand hand = new Hand();
 
         public House(double multiplier = 1.25)
         {
             this.multiplier = multiplier;
-        }
-
-        public void play()
-        {
-            int sum_of_cards = hand.sum_of_cards();
-            if (sum_of_cards >= 17 && sum_of_cards <= 21)
-            {
-
-            } else if (sum_of_cards < 17) {
-
-            }
         }
 
         public void win()

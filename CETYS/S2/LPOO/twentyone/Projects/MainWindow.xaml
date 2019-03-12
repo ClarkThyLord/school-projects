@@ -56,15 +56,20 @@
                 </StackPanel>
             </StackPanel>
             <Label x:Name="betting_amount" HorizontalContentAlignment="Center" Content="$#### / $####" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
-            <Button Content="¡Empezar!" Width="75" Background="#FF4F9100" BorderBrush="#FF1B9700" Click="empezar"/>
+            <Button Content="¡Empezar!" Padding="5" Width="75" Background="#FF4F9100" BorderBrush="#FF1B9700" Click="start"/>
         </StackPanel>
         <StackPanel x:Name="playing_controls" Visibility="Hidden" Margin="10,0,10,10" VerticalAlignment="Bottom">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Añadir" Margin="5" Width="75" Height="25" Background="#FF4F9100" BorderBrush="#FF1B9700" Click="add"/>
                 <Button Content="Llamada" Margin="5" Width="75" Height="25" Background="#FF4F9100" BorderBrush="#FF1B9700" Click="call"/>
-                <Button Content="Finalizar" Margin="5" Width="75" Height="25" Background="#FF4F9100" BorderBrush="#FF1B9700" Click="finish"/>
             </StackPanel>
             <Label x:Name="info" Content="Dinero: $#### Apuesta: $#### | Suma de Cartas: ##" HorizontalContentAlignment="Center" FontSize="22" FontStyle="Italic"/>
+        </StackPanel>
+        <StackPanel x:Name="end_controls" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="end_victor" TextWrapping="Wrap" Text="@@@@" HorizontalAlignment="Center" FontSize="48" FontWeight="Bold" FontStyle="Italic"/>
+            <TextBlock x:Name="end_result" TextWrapping="Wrap" Text="$#### X ##.##" HorizontalAlignment="Center" FontSize="24" FontStyle="Italic"/>
+            <TextBlock x:Name="end_reward" TextWrapping="Wrap" Text="$####" HorizontalAlignment="Center" FontSize="72" FontStyle="Italic" FontWeight="Bold" TextDecorations="Underline"/>
+            <Button Content="FIN" Margin="25" Width="75" Height="25" Background="#FF4F9100" BorderBrush="#FF1B9700" Click="end"/>
         </StackPanel>
     </Grid>
 </Window>
