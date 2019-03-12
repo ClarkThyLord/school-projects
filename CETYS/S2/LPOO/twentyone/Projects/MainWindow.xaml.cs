@@ -93,7 +93,7 @@ namespace Projects
             end_controls.Visibility = Visibility.Visible;
 
             house.hand.hidden = false;
-            render();
+            render();   
 
             player.state = 3;
 
@@ -123,7 +123,8 @@ namespace Projects
             house.hand.clear_cards();
 
             end_controls.Visibility = Visibility.Hidden;
-            betting_controls.Visibility = Visibility.Visible;
+
+            render();
 
             if (player.money <= 0)
             {
@@ -131,7 +132,7 @@ namespace Projects
                 System.Windows.Application.Current.Shutdown();
             }
 
-            render();
+            betting_controls.Visibility = Visibility.Visible;
         }
 
 
