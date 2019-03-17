@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace uno_classes.classes
 {
-    class Deck
+    abstract class Deck
     {
         public Card[] cards { get; }
 
         public Deck() { }
 
-        public void resort() { }
+        public abstract void resort();
 
-        public void return_card() { }
+        public abstract void return_card();
 
-        public Card draw_card() { return null; }
+        public abstract Card draw_card();
     }
 }

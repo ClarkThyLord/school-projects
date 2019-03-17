@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace uno_classes.classes
 {
-    class Player
+    abstract class Player
     {
         public string name;
         public Deck deck { get; }
-        public Hand hand { get; } = new Hand();
+        public Hand hand { get; }
 
         public Player(string name, Deck deck)
         {
@@ -18,8 +18,8 @@ namespace uno_classes.classes
             this.deck = deck;
         }
 
-        public Card draw_card() { return null; }
+        public abstract Card draw_card();
 
-        public Card place_card() { return null; }
+        public abstract Card place_card();
     }
 }

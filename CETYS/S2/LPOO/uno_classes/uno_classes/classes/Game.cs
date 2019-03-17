@@ -7,10 +7,10 @@ using System.Windows.Controls;
 
 namespace uno_classes.classes
 {
-    class Game
+    abstract class Game
     {
         public Canvas canvas;
-        public Deck deck { get; } = new Deck();
+        public Deck deck { get; }
         public Player[] players { get; }
         public Card last_card { get; }
         public int multiplier { get; } = 0;
@@ -20,14 +20,14 @@ namespace uno_classes.classes
             this.canvas = canvas;
         }
 
-        public void start() { }
+        public abstract void start();
 
-        public void turn () { }
+        public abstract void turn();
 
-        public void end () { }
+        public abstract void end();
 
-        public void reset() { }
+        public abstract void reset();
 
-        public void draw() { }
+        public abstract void draw();
     }
 }

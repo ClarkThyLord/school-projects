@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace uno_classes.classes
 {
-    class Card
+    abstract class Card
     {
         public int value { get; }
         public int color { get; }
@@ -25,6 +25,6 @@ namespace uno_classes.classes
             return obj is Card && (((Card)obj).value == this.value && ((Card)obj).color == this.color);
         }
 
-        public Image draw(float x, float y, float scale) { return null; }
+        public abstract Image draw(float x, float y, float scale);
     }
 }
