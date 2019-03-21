@@ -34,14 +34,12 @@ namespace BetterShapes
                 switch (random.Next(1))
                 {
                     case 0:
-                        shapes.Add(new shapes.Circle(canvas, random, false));
+                        shapes.Add(new shapes.Circle(canvas, random));
                         break;
                 }
             }
 
             canvas.MouseMove += Canvas_MouseMove;
-
-            redraw();
         }
 
         private void Canvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
