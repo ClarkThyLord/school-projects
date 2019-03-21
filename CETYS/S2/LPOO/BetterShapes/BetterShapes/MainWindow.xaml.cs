@@ -39,23 +39,46 @@ namespace BetterShapes
                 }
             }
 
-            canvas.MouseMove += Canvas_MouseMove;
+            redraw();
+        }
+
+        private void remove_shape(System.Windows.Shapes.Shape shape)
+        {
+            canvas.Children.Remove(shape);
+        }
+
+        private void add_shape(int x, int y)
+        {
+            shapes[shape_index].X = x;
+            shapes[shape_index].Y = y;
+
+            shape_index--;
+            if (shape_index < 0) shape_index = (int)ShapesCountSlider.Maximum - 1;
+        }
+
+        private void Canvas_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.OriginalSource is System.Windows.Shapes.Shape && e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
+            {
+                remove_shape((System.Windows.Shapes.Shape)e.OriginalSource);
+            }
+
+            if (e.RightButton == System.Windows.Input.MouseButtonState.Pressed)
+            {
+                add_shape((int)e.GetPosition(canvas).X - shapes[shape_index].Size / 2, (int)e.GetPosition(canvas).Y - shapes[shape_index].Size / 2);
+            }
         }
 
         private void Canvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (e.OriginalSource is System.Windows.Shapes.Shape && e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
             {
-                canvas.Children.Remove((System.Windows.Shapes.Shape)e.OriginalSource);
+                remove_shape((System.Windows.Shapes.Shape)e.OriginalSource);
             }
 
             if (e.RightButton == System.Windows.Input.MouseButtonState.Pressed)
             {
-                shapes[shape_index].X = (int)e.GetPosition(canvas).X - shapes[shape_index].Size / 2;
-                shapes[shape_index].Y = (int)e.GetPosition(canvas).Y - shapes[shape_index].Size / 2;
-
-                shape_index--;
-                if (shape_index < 0) shape_index = (int)ShapesCountSlider.Maximum - 1;
+                add_shape((int)e.GetPosition(canvas).X - shapes[shape_index].Size / 2, (int)e.GetPosition(canvas).Y - shapes[shape_index].Size / 2);
             }
         }
 
