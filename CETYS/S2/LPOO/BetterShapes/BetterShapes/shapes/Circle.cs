@@ -24,14 +24,14 @@ namespace BetterShapes.shapes
             init(false);
         }
 
-        public Circle(Canvas canvas, Random random) : base(canvas, random)
+        public Circle(Canvas canvas, Random random, bool draw=true) : base(canvas, random, false)
         {
-            init();
+            init(draw);
         }
 
-        public Circle(Canvas canvas, int x, int y, int size, int scale=1, Color color=new Color()) : base(canvas, x, y, size, scale, color)
+        public Circle(Canvas canvas, int x, int y, int size, int scale=1, Color color=new Color(), double opacity=1, bool draw=true) : base(canvas, x, y, size, scale, color, opacity, false)
         {
-            init();
+            init(draw);
         }
 
         public override void draw()

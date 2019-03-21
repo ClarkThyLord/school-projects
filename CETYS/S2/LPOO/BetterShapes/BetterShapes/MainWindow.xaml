@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <Canvas x:Name="canvas"/>
+        <Canvas x:Name="canvas" SizeChanged="canvas_SizeChanged" Background="Black"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="45">
+            <Slider x:Name="ShapesCountSlider" VerticalAlignment="Center" Width="250" Value="1500" Minimum="1" Maximum="10000" AutoToolTipPlacement="TopLeft" MouseDoubleClick="ShapesCountSlider_MouseDoubleClick" Thumb.DragCompleted="ShapesCountSlider_DragCompleted"/>
+            <Button x:Name="RecreateShapesButton" Margin="10" Padding="2.5" Content="Recreate" Click="RecreateShapesButton_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

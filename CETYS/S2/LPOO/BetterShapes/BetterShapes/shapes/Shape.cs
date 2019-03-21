@@ -101,14 +101,14 @@ namespace BetterShapes.shapes
             _id++;
         }
 
-        public Shape(Canvas canvas, Random random) : this()
+        public Shape(Canvas canvas, Random random, bool draw=true) : this()
         {
             this.canvas = canvas;
 
-            randomize(random);
+            randomize(random, draw);
         }
 
-        public Shape(Canvas canvas, int x, int y, int size, int scale=1, Color color=new Color(), double opacity = 1) : this()
+        public Shape(Canvas canvas, int x, int y, int size, int scale=1, Color color=new Color(), double opacity = 1, bool draw=true) : this()
         {
             this.canvas = canvas;
 
@@ -119,9 +119,11 @@ namespace BetterShapes.shapes
 
             this.color.Color = color;
             this.opacity = opacity > 1 ? 1 : (opacity < 0 ? 0 : opacity);
+
+            if (draw) this.draw();
         }
 
-        public void randomize(Random random)
+        public void randomize(Random random, bool draw=true)
         {
             this.size = random.Next(min_size, max_size);
             this.x = random.Next(1, (int)this.canvas.ActualWidth - this.size);
@@ -129,6 +131,8 @@ namespace BetterShapes.shapes
 
             this.color.Color = Color.FromRgb((byte)random.Next(0, 266), (byte)random.Next(0, 266), (byte)random.Next(0, 266));
             this.opacity = random.NextDouble();
+
+            if (draw) this.draw();
         }
 
         public abstract void draw();
