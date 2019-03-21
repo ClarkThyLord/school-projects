@@ -10,7 +10,7 @@ namespace BetterShapes
     public partial class MainWindow : Window
     {
         private Random random = new Random();
-
+       
         private int shape_index = 0;
         private List<shapes.Shape> shapes = new List<shapes.Shape>();
 
@@ -31,10 +31,13 @@ namespace BetterShapes
         {
             for (int i = 0; i < ShapesCountSlider.Maximum; i++)
             {
-                switch (random.Next(1))
+                switch (random.Next(2))
                 {
                     case 0:
                         shapes.Add(new shapes.Circle(canvas, random));
+                        break;
+                    case 1:
+                        shapes.Add(new shapes.Rectangle(canvas, random));
                         break;
                 }
             }
@@ -42,30 +45,16 @@ namespace BetterShapes
             redraw();
         }
 
-        private void remove_shape(System.Windows.Shapes.Shape shape)
-        {
-            canvas.Children.Remove(shape);
-        }
-
-        private void add_shape(int x, int y)
-        {
-            shapes[shape_index].X = x;
-            shapes[shape_index].Y = y;
-
-            shape_index--;
-            if (shape_index < 0) shape_index = (int)ShapesCountSlider.Maximum - 1;
-        }
-
         private void Canvas_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.OriginalSource is System.Windows.Shapes.Shape && e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
             {
-                remove_shape((System.Windows.Shapes.Shape)e.OriginalSource);
+                undraw_shape((System.Windows.Shapes.Shape)e.OriginalSource);
             }
 
             if (e.RightButton == System.Windows.Input.MouseButtonState.Pressed)
             {
-                add_shape((int)e.GetPosition(canvas).X - shapes[shape_index].Size / 2, (int)e.GetPosition(canvas).Y - shapes[shape_index].Size / 2);
+                draw_shape((int)e.GetPosition(canvas).X, (int)e.GetPosition(canvas).Y, shapes[shape_index]);
             }
         }
 
@@ -73,12 +62,12 @@ namespace BetterShapes
         {
             if (e.OriginalSource is System.Windows.Shapes.Shape && e.LeftButton == System.Windows.Input.MouseButtonState.Pressed)
             {
-                remove_shape((System.Windows.Shapes.Shape)e.OriginalSource);
+                undraw_shape((System.Windows.Shapes.Shape)e.OriginalSource);
             }
 
             if (e.RightButton == System.Windows.Input.MouseButtonState.Pressed)
             {
-                add_shape((int)e.GetPosition(canvas).X - shapes[shape_index].Size / 2, (int)e.GetPosition(canvas).Y - shapes[shape_index].Size / 2);
+                draw_shape((int)e.GetPosition(canvas).X, (int)e.GetPosition(canvas).Y, shapes[shape_index]);
             }
         }
 
@@ -97,6 +86,20 @@ namespace BetterShapes
         private void RecreateShapesButton_Click(object sender, RoutedEventArgs e)
         {
             redraw();
+        }
+
+        private void draw_shape(int x, int y, shapes.Shape shape)
+        {
+            shapes[shape_index].X = x;
+            shapes[shape_index].Y = y;
+
+            shape_index--;
+            if (shape_index < 0) shape_index = (int)ShapesCountSlider.Maximum - 1;
+        }
+
+        private void undraw_shape(System.Windows.Shapes.Shape shape)
+        {
+            canvas.Children.Remove(shape);
         }
 
         private void redraw()

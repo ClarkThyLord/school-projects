@@ -56,6 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="shapes\Circle.cs" />
+    <Compile Include="shapes\Rectangle.cs" />
     <Compile Include="shapes\Shape.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

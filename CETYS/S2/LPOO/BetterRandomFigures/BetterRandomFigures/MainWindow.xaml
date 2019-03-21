@@ -8,6 +8,5 @@
         Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
     <Grid Loaded="Grid_Loaded">
         <Canvas x:Name="canvas"/>
-
     </Grid>
 </Window>

@@ -30,6 +30,7 @@ namespace BetterRandomFigures.Figures
             canvas.Children.Add(p);
             p.Fill = Brushes.Coral;
             p.Opacity = random.NextDouble();
+            p.
         }
     }
 }

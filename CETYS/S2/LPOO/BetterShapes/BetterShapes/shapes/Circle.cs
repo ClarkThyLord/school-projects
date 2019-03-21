@@ -14,17 +14,20 @@ namespace BetterShapes.shapes
             if (draw) this.draw();
         }
 
-        public Circle() : base()
+        public Circle() :
+            base()
         {
             init(false);
         }
 
-        public Circle(Canvas canvas, Random random, bool draw=true) : base(canvas, random, false)
+        public Circle(Canvas canvas, Random random, bool draw=true) :
+            base(canvas, random, false)
         {
             init(draw);
         }
 
-        public Circle(Canvas canvas, int x, int y, int size, int scale=1, Color color=new Color(), double opacity=1, bool draw=true) : base(canvas, x, y, size, scale, color, opacity, false)
+        public Circle(Canvas canvas, int x, int y, int size, int scale=1, Color color=new Color(), double opacity=1, bool draw=true) :
+            base(canvas, x, y, size, scale, color, opacity, false)
         {
             init(draw);
         }
