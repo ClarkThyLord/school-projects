@@ -102,6 +102,14 @@ namespace BetterShapes
 
         private void draw_shape(int x, int y, shapes.Shape shape)
         {
+            x -= shape.Size / 2;
+            if (x < 0) x += Math.Abs(x);
+            else if (x + shape.Size > canvas.ActualWidth) x -= (int)Math.Abs(canvas.ActualWidth - (x + shape.Size));
+
+            y -= shape.Size / 2;
+            if (y < 0) y += Math.Abs(y);
+            else if (y + shape.Size > canvas.ActualHeight) y -= (int)Math.Abs(canvas.ActualHeight - (y + shape.Size));
+
             shapes[shape_index].X = x;
             shapes[shape_index].Y = y;
 
