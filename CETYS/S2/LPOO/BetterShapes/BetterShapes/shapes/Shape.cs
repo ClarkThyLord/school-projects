@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BetterShapes.shapes
 {
@@ -75,7 +76,18 @@ namespace BetterShapes.shapes
             }
         }
 
-        public System.Windows.Shapes.Shape shape;
+        private System.Windows.Shapes.Shape _shape;
+        public System.Windows.Shapes.Shape shape {
+            get {
+                return this._shape;
+            }
+            set {
+                this._shape = value;
+                this._shape.Fill = this.color;
+                this._shape.Opacity = this.Opacity;
+            }
+        }
+
         public SolidColorBrush color = new SolidColorBrush();
 
         private double opacity = 0;
@@ -131,6 +143,7 @@ namespace BetterShapes.shapes
 
             this.color.Color = Color.FromRgb((byte)random.Next(0, 266), (byte)random.Next(0, 266), (byte)random.Next(0, 266));
             this.opacity = random.NextDouble();
+            if (this.shape != null) this.shape.Opacity = this.opacity;
 
             if (draw) this.draw();
         }

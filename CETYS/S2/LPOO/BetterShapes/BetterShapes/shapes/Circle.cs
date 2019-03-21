@@ -11,11 +11,6 @@ namespace BetterShapes.shapes
         {
             this.shape = new Ellipse();
 
-            this.shape.Fill = this.color;
-            this.shape.Opacity = this.Opacity;
-
-            canvas.Children.Add(this.shape);
-
             if (draw) this.draw();
         }
 
@@ -41,6 +36,8 @@ namespace BetterShapes.shapes
 
             Canvas.SetLeft(this.shape, this.X * this.Scale);
             Canvas.SetTop(this.shape, this.Y * this.Scale);
+
+            if (!canvas.Children.Contains(this.shape)) canvas.Children.Add(this.shape);
         }
     }
 }
