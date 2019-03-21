@@ -56,8 +56,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="shapes\Circle.cs" />
+    <Compile Include="shapes\Cross.cs" />
+    <Compile Include="shapes\Diamond.cs" />
     <Compile Include="shapes\Rectangle.cs" />
     <Compile Include="shapes\Shape.cs" />
+    <Compile Include="shapes\Trapezoid.cs" />
+    <Compile Include="shapes\Triangle.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

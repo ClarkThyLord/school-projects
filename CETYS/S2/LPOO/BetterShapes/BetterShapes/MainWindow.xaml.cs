@@ -31,13 +31,25 @@ namespace BetterShapes
         {
             for (int i = 0; i < ShapesCountSlider.Maximum; i++)
             {
-                switch (random.Next(2))
+                switch (random.Next(6))
                 {
                     case 0:
                         shapes.Add(new shapes.Circle(canvas, random));
                         break;
                     case 1:
+                        shapes.Add(new shapes.Triangle(canvas, random));
+                        break;
+                    case 2:
                         shapes.Add(new shapes.Rectangle(canvas, random));
+                        break;
+                    case 3:
+                        shapes.Add(new shapes.Diamond(canvas, random));
+                        break;
+                    case 4:
+                        shapes.Add(new shapes.Trapezoid(canvas, random));
+                        break;
+                    case 5:
+                        shapes.Add(new shapes.Cross(canvas, random));
                         break;
                 }
             }
