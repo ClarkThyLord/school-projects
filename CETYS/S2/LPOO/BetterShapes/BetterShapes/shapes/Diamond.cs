@@ -38,7 +38,6 @@ namespace BetterShapes.shapes
         }
         public override void draw()
         {
-
             Polygon p = (Polygon)this.shape;
             p.Points.Clear();
 

@@ -43,18 +43,18 @@ namespace BetterShapes.shapes
             
             p.Points.Clear();
 
-            p.Points.Add(new Point(this.Size * 1/4, 0));
-            p.Points.Add(new Point(this.Size * 3/4, 0));
-            p.Points.Add(new Point(this.Size * 3/4, this.Size * 1/4));
-            p.Points.Add(new Point(this.Size, this.Size * 1/4));
-            p.Points.Add(new Point(this.Size, this.Size * 3/4));
-            p.Points.Add(new Point(this.Size * 3/4, this.Size * 3 / 4));
-            p.Points.Add(new Point(this.Size * 3/4, this.Size));
-            p.Points.Add(new Point(this.Size * 1/4, this.Size));
-            p.Points.Add(new Point(this.Size * 1/4, this.Size * 3/4));
-            p.Points.Add(new Point(0, this.Size * 3/4 ));
-            p.Points.Add(new Point(0, this.Size * 1/4));
-            p.Points.Add(new Point(this.Size * 1/4, this.Size * 1/4));
+            p.Points.Add(new Point(this.Size * 4/10, 0));
+            p.Points.Add(new Point(this.Size * 6/10, 0));
+            p.Points.Add(new Point(this.Size * 6/10, this.Size * 4/10));
+            p.Points.Add(new Point(this.Size, this.Size * 4/10));
+            p.Points.Add(new Point(this.Size, this.Size * 6/10));
+            p.Points.Add(new Point(this.Size * 6/10, this.Size * 6/10));
+            p.Points.Add(new Point(this.Size * 6/10, this.Size));
+            p.Points.Add(new Point(this.Size * 4/10, this.Size));
+            p.Points.Add(new Point(this.Size * 4/10, this.Size * 6/10));
+            p.Points.Add(new Point(0, this.Size * 6/10 ));
+            p.Points.Add(new Point(0, this.Size * 4/10));
+            p.Points.Add(new Point(this.Size * 4/10, this.Size * 4/10));
 
             Canvas.SetLeft(this.shape, this.X * this.Scale);
             Canvas.SetTop(this.shape, this.Y * this.Scale);
