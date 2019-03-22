@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BetterShapes"
         mc:Ignorable="d"
-        Title="BetterShapes" Height="450" Width="800" Loaded="Window_Loaded" Icon="icon.png">
+        Title="BetterShapes" Height="450" Width="800" Loaded="Window_Loaded" Icon="icon.png" MinWidth="800" MinHeight="450">
     <Grid>
         <Canvas x:Name="canvas" Background="Black" SizeChanged="canvas_SizeChanged" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove"/>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="50">
