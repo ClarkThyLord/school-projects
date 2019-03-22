@@ -27,7 +27,7 @@ namespace BetterShapes.shapes
             {
                 this.x = value;
 
-                draw();
+                if (this.visible) draw();
             }
         }
 
@@ -42,7 +42,7 @@ namespace BetterShapes.shapes
             {
                 this.y = value;
 
-                draw();
+                if (this.visible) draw();
             }
         }
 
@@ -57,7 +57,7 @@ namespace BetterShapes.shapes
             {
                 this.size = value;
 
-                draw();
+                if (this.visible) draw();
             }
         }
 
@@ -72,19 +72,24 @@ namespace BetterShapes.shapes
             {
                 this.scale = value;
 
-                draw();
+                if (this.visible) draw();
             }
         }
 
         private System.Windows.Shapes.Shape _shape;
-        public System.Windows.Shapes.Shape shape {
-            get {
+        public System.Windows.Shapes.Shape shape
+        {
+            get
+            {
                 return this._shape;
             }
-            set {
+            set
+            {
                 this._shape = value;
                 this._shape.Fill = this.color;
                 this._shape.Opacity = this.Opacity;
+
+                if (this.visible) draw();
             }
         }
 
@@ -103,7 +108,22 @@ namespace BetterShapes.shapes
 
                 if (this.shape != null) this.shape.Opacity = this.opacity;
 
-                draw();
+                if (this.visible) draw();
+            }
+        }
+
+        private bool visible = true;
+        public bool Visible
+        {
+            get
+            {
+                return this.visible;
+            }
+            set
+            {
+                this.visible = value;
+
+                if (this.visible) draw();
             }
         }
 
@@ -113,14 +133,16 @@ namespace BetterShapes.shapes
             _id++;
         }
 
-        public Shape(Canvas canvas, Random random, bool draw=true) : this()
+        public Shape(Canvas canvas, Random random, bool visible=true) : this()
         {
             this.canvas = canvas;
 
-            randomize(random, draw);
+            this.visible = visible;
+
+            randomize(random);
         }
 
-        public Shape(Canvas canvas, int x, int y, int size, int scale=1, Color color=new Color(), double opacity = 1, bool draw=true) : this()
+        public Shape(Canvas canvas, int x, int y, int size, int scale=1, Color color=new Color(), double opacity = 1, bool visible=true) : this()
         {
             this.canvas = canvas;
 
@@ -131,11 +153,12 @@ namespace BetterShapes.shapes
 
             this.color.Color = color;
             this.opacity = opacity > 1 ? 1 : (opacity < 0 ? 0 : opacity);
+            this.visible = visible;
 
-            if (draw) this.draw();
+            if (this.visible) this.draw();
         }
 
-        public void randomize(Random random, bool draw=true, int margin=0)
+        public void randomize(Random random, int margin=0)
         {
             this.size = random.Next(min_size, max_size);
             this.x = random.Next(1 + margin, (int)this.canvas.ActualWidth - this.size - margin);
@@ -145,7 +168,7 @@ namespace BetterShapes.shapes
             this.opacity = random.NextDouble();
             if (this.shape != null) this.shape.Opacity = this.opacity;
 
-            if (draw) this.draw();
+            if (this.visible) this.draw();
         }
 
         public abstract void draw();

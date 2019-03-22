@@ -7,11 +7,12 @@ namespace BetterShapes.shapes
 {
     internal class Circle : Shape
     {
-        private void init(bool draw = true)
+        
+        private void init(bool visible = true)
         {
             this.shape = new Ellipse();
 
-            if (draw) this.draw();
+            if (visible) this.draw();
         }
 
         public Circle() :
@@ -20,25 +21,25 @@ namespace BetterShapes.shapes
             init(false);
         }
 
-        public Circle(Canvas canvas, Random random, bool draw=true) :
+        public Circle(Canvas canvas, Random random, bool visible=true) :
             base(canvas, random, false)
         {
-            init(draw);
+            init(visible);
         }
 
-        public Circle(Canvas canvas, int x, int y, int size, int scale=1, Color color=new Color(), double opacity=1, bool draw=true) :
+        public Circle(Canvas canvas, int x, int y, int size, int scale=1, Color color=new Color(), double opacity=1, bool visible=true) :
             base(canvas, x, y, size, scale, color, opacity, false)
         {
-            init(draw);
+            init(visible);
         }
 
         public override void draw()
         {
-            this.shape.Width = this.Size * this.Scale;
-            this.shape.Height = this.Size * this.Scale;
+            this.shape.Width = this.Size;
+            this.shape.Height = this.Size;
 
-            Canvas.SetLeft(this.shape, this.X * this.Scale);
-            Canvas.SetTop(this.shape, this.Y * this.Scale);
+            Canvas.SetLeft(this.shape, this.X);
+            Canvas.SetTop(this.shape, this.Y);
 
             if (!canvas.Children.Contains(this.shape)) canvas.Children.Add(this.shape);
         }

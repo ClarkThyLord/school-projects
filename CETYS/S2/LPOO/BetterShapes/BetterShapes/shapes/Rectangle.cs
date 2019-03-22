@@ -13,11 +13,11 @@ namespace BetterShapes.shapes
     class Rectangle : Shape
     {
 
-        private void init(bool draw = true)
+        private void init(bool visible = true)
         {
             this.shape = new Polygon();
 
-            if (draw) this.draw();
+            if (visible) this.draw();
         }
 
         public Rectangle() :
@@ -26,16 +26,16 @@ namespace BetterShapes.shapes
             init(false);
         }
 
-        public Rectangle(Canvas canvas, Random random, bool draw = true) :
+        public Rectangle(Canvas canvas, Random random, bool visible = true) :
             base(canvas, random, false)
         {
-            init(draw);
+            init(visible);
         }
 
-        public Rectangle(Canvas canvas, int x, int y, int size, int scale = 1, Color color = new Color(), double opacity = 1, bool draw = true) :
+        public Rectangle(Canvas canvas, int x, int y, int size, int scale = 1, Color color = new Color(), double opacity = 1, bool visible = true) :
             base(canvas, x, y, size, scale, color, opacity, false)
         {
-            init(draw);
+            init(visible);
         }
 
         public override void draw()
