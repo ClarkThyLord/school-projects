@@ -58,6 +58,7 @@
     <Compile Include="shapes\Circle.cs" />
     <Compile Include="shapes\Cross.cs" />
     <Compile Include="shapes\Diamond.cs" />
+    <Compile Include="shapes\Pentagram.cs" />
     <Compile Include="shapes\Rectangle.cs" />
     <Compile Include="shapes\Shape.cs" />
     <Compile Include="shapes\Trapezoid.cs" />

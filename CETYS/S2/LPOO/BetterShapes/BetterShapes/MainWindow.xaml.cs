@@ -34,7 +34,7 @@ namespace BetterShapes
 
             for (int i = 0; i < ShapesCountSlider.Maximum; i++)
             {
-                switch (random.Next(6))
+                switch (random.Next(7))
                 {
                     case 0:
                         shapes.Add(new shapes.Circle(canvas, random));
@@ -53,6 +53,9 @@ namespace BetterShapes
                         break;
                     case 5:
                         shapes.Add(new shapes.Cross(canvas, random));
+                        break;
+                    case 6:
+                        shapes.Add(new shapes.Pentagram(canvas, random));
                         break;
                 }
             }

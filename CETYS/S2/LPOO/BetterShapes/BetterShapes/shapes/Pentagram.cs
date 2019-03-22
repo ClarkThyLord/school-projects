@@ -10,28 +10,30 @@ using System.Windows.Shapes;
 
 namespace BetterShapes.shapes
 {
-    class Triangle : Shape
+    class Pentagram : Shape
     {
         private void init(bool draw = true)
         {
-            this.shape = new Polygon();
+            this.shape = new Polyline();
+            this.shape.Fill = null;
+            this.shape.Stroke = this.color;
 
             if (draw) this.draw();
         }
 
-        public Triangle() :
+        public Pentagram() :
             base()
         {
             init(false);
         }
 
-        public Triangle(Canvas canvas, Random random, bool draw = true) :
+        public Pentagram(Canvas canvas, Random random, bool draw = true) :
             base(canvas, random, false)
         {
             init(draw);
         }
 
-        public Triangle(Canvas canvas, int x, int y, int size, int scale = 1, Color color = new Color(), double opacity = 1, bool draw = true) :
+        public Pentagram(Canvas canvas, int x, int y, int size, int scale = 1, Color color = new Color(), double opacity = 1, bool draw = true) :
             base(canvas, x, y, size, scale, color, opacity, false)
         {
             init(draw);
@@ -39,12 +41,15 @@ namespace BetterShapes.shapes
 
         public override void draw()
         {
-            Polygon p = (Polygon)this.shape;
+            Polyline p = (Polyline)this.shape;
             p.Points.Clear();
 
             p.Points.Add(new Point(this.Size / 2, 0));
-            p.Points.Add(new Point(0, this.Size));
-            p.Points.Add(new Point(this.Size, this.Size));
+            p.Points.Add(new Point(this.Size * 9 / 10, this.Size));
+            p.Points.Add(new Point(0, this.Size * 4/10));
+            p.Points.Add(new Point(this.Size, this.Size * 4/10));
+            p.Points.Add(new Point(this.Size * 1 / 10, this.Size));
+            p.Points.Add(new Point(this.Size / 2, 0));
 
             Canvas.SetLeft(this.shape, this.X * this.Scale);
             Canvas.SetTop(this.shape, this.Y * this.Scale);
