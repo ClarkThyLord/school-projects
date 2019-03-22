@@ -34,22 +34,22 @@ namespace BetterShapes
                 switch (random.Next(6))
                 {
                     case 0:
-                        shapes.Add(new shapes.Circle(canvas, random));
+                        shapes.Add(new shapes.Circle(canvas, random, false));
                         break;
                     case 1:
-                        shapes.Add(new shapes.Triangle(canvas, random));
+                        shapes.Add(new shapes.Triangle(canvas, random, false));
                         break;
                     case 2:
-                        shapes.Add(new shapes.Rectangle(canvas, random));
+                        shapes.Add(new shapes.Rectangle(canvas, random, false));
                         break;
                     case 3:
-                        shapes.Add(new shapes.Diamond(canvas, random));
+                        shapes.Add(new shapes.Diamond(canvas, random, false));
                         break;
                     case 4:
-                        shapes.Add(new shapes.Trapezoid(canvas, random));
+                        shapes.Add(new shapes.Trapezoid(canvas, random, false));
                         break;
                     case 5:
-                        shapes.Add(new shapes.Cross(canvas, random));
+                        shapes.Add(new shapes.Cross(canvas, random, false));
                         break;
                 }
             }
@@ -81,6 +81,19 @@ namespace BetterShapes
             {
                 draw_shape((int)e.GetPosition(canvas).X, (int)e.GetPosition(canvas).Y, shapes[shape_index]);
             }
+        }
+
+        private void CanvasMarginSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            CanvasMarginSlider.Value = (int)CanvasMarginSlider.Value;
+            redraw();
+        }
+
+        private void CanvasMarginSlider_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            CanvasMarginSlider.Value = 10;
+
+            redraw();
         }
 
         private void ShapesCountSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
@@ -126,11 +139,14 @@ namespace BetterShapes
         {
             if (shapes.Count <= 0) return;
 
+            CanvasMarginLabel.Text = $"Canvas Margin: {CanvasMarginSlider.Value}";
+            ShapesCountLabel.Text = $"Amount of Shapes: {ShapesCountSlider.Value}";
+
             canvas.Children.Clear();
 
             for (int i = 0; i < ShapesCountSlider.Value; i++)
             {
-                shapes[i].randomize(random);
+                shapes[i].randomize(random, true, (int)CanvasMarginSlider.Value);
             }
         }
     }

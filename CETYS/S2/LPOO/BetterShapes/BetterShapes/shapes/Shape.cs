@@ -135,11 +135,11 @@ namespace BetterShapes.shapes
             if (draw) this.draw();
         }
 
-        public void randomize(Random random, bool draw=true)
+        public void randomize(Random random, bool draw=true, int margin=0)
         {
             this.size = random.Next(min_size, max_size);
-            this.x = random.Next(1, (int)this.canvas.ActualWidth - this.size);
-            this.y = random.Next(1, (int)this.canvas.ActualHeight - this.size);
+            this.x = random.Next(1 + margin, (int)this.canvas.ActualWidth - this.size - margin);
+            this.y = random.Next(1 + margin, (int)this.canvas.ActualHeight - this.size - margin);
 
             this.color.Color = Color.FromRgb((byte)random.Next(0, 266), (byte)random.Next(0, 266), (byte)random.Next(0, 266));
             this.opacity = random.NextDouble();

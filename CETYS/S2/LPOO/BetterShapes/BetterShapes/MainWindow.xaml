@@ -8,12 +8,19 @@
         Title="BetterShapes" Height="450" Width="800" Loaded="Window_Loaded" Icon="icon.png">
     <Grid>
         <Canvas x:Name="canvas" Background="Black" SizeChanged="canvas_SizeChanged" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove"/>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="45">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="50">
+            <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="Left Mouse Button Down : Remove Shapes"/>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="Right Mouse Button Down : Add Shapes"/>
             </StackPanel>
-            <Slider x:Name="ShapesCountSlider" VerticalAlignment="Center" Width="250" Value="1500" Minimum="1" AutoToolTipPlacement="TopLeft" MouseDoubleClick="ShapesCountSlider_MouseDoubleClick" Thumb.DragCompleted="ShapesCountSlider_DragCompleted"/>
+            <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="CanvasMarginLabel" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="Canvas Margin: 10"/>
+                <Slider x:Name="CanvasMarginSlider" VerticalAlignment="Center" Width="100" Value="10" Minimum="0" Maximum="100" AutoToolTipPlacement="TopLeft" MouseDoubleClick="CanvasMarginSlider_MouseDoubleClick" Thumb.DragCompleted="CanvasMarginSlider_DragCompleted"/>
+            </StackPanel>
+            <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock x:Name="ShapesCountLabel" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="Amount of Shapes: 1500"/>
+                <Slider x:Name="ShapesCountSlider" VerticalAlignment="Center" Width="250" Value="1500" Minimum="1" AutoToolTipPlacement="TopLeft" MouseDoubleClick="ShapesCountSlider_MouseDoubleClick" Thumb.DragCompleted="ShapesCountSlider_DragCompleted"/>
+            </StackPanel>
             <Button x:Name="RecreateShapesButton" Margin="10" Padding="2.5" Content="Recreate" Click="RecreateShapesButton_Click"/>
         </StackPanel>
     </Grid>
