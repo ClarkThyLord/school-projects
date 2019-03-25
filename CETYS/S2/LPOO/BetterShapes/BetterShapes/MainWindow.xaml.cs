@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Timers;
 using System.Windows;
 using System.Collections.Generic;
-using System.Windows.Media.Animation;
-using System.Windows.Controls;
 
 namespace BetterShapes
 {
@@ -11,17 +10,25 @@ namespace BetterShapes
     /// </summary>
     public partial class MainWindow : Window
     {
+        public int shapes_count = 100;
+        public int animation_rate = 10;
+        public bool animate_shapes = true;
+
         private Random random = new Random();
        
         private int shape_index = 0;
         private List<shapes.Shape> shapes = new List<shapes.Shape>();
 
+        private Timer timer;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            ShapesCountSlider.Maximum = 10000;
+            ShapesCountSlider.Maximum = shapes_count;
             shape_index = (int)ShapesCountSlider.Maximum - 1;
+            AnimateShapes.IsChecked = animate_shapes;
+            AnimateShapesSpeed.Value = animation_rate;
         }
 
         private void canvas_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -61,6 +68,15 @@ namespace BetterShapes
             }
 
             redraw();
+
+            timer = new Timer(animation_rate);
+            timer.Elapsed += Timer_Elapsed;
+            timer.Enabled = true;
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            animate();
         }
 
         private void Canvas_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -114,6 +130,26 @@ namespace BetterShapes
             redraw();
         }
 
+        private void AnimateShapes_Checked(object sender, RoutedEventArgs e)
+        {
+            animate_shapes = (bool)AnimateShapes.IsChecked;
+        }
+
+        private void AnimateShapesSpeed_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            AnimateShapesSpeed.Value = 10;
+            animation_rate = 10;
+            timer.Interval = animation_rate;
+            AnimateShapesSpeedLabel.Text = $"Speed of Shapes: {animation_rate}";
+        }
+
+        private void AnimateShapesSpeed_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            animation_rate = (int)AnimateShapesSpeed.Value;
+            timer.Interval = animation_rate;
+            AnimateShapesSpeedLabel.Text = $"Speed of Shapes: {animation_rate}";
+        }
+
         private void RecreateShapesButton_Click(object sender, RoutedEventArgs e)
         {
             redraw();
@@ -149,6 +185,7 @@ namespace BetterShapes
 
             CanvasMarginLabel.Text = $"Canvas Margin: {CanvasMarginSlider.Value}";
             ShapesCountLabel.Text = $"Amount of Shapes: {ShapesCountSlider.Value}";
+            AnimateShapesSpeedLabel.Text = $"Speed of Shapes: {animation_rate}";
 
             canvas.Children.Clear();
 
@@ -164,6 +201,31 @@ namespace BetterShapes
                     shapes[i].Visible = false;
                 }
             }
+        }
+
+        private void animate()
+        {
+            try
+            {
+                if (animate_shapes)
+                {
+                    for (int i = 0; i < shapes_count; i++)
+                    {
+                        if (shapes[i].Visible)
+                        {
+                            this.Dispatcher.Invoke((Action)(() =>
+                            {
+                                shapes[i].animate();
+                            }));
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("catched error on animation!");
+            }
+            
         }
     }
 }

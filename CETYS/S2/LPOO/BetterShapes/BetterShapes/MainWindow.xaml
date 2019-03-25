@@ -8,7 +8,7 @@
         Title="BetterShapes" Height="450" Width="800" Loaded="Window_Loaded" Icon="icon.png" MinWidth="800" MinHeight="450">
     <Grid>
         <Canvas x:Name="canvas" Background="Black" SizeChanged="canvas_SizeChanged" MouseDown="Canvas_MouseDown" MouseMove="Canvas_MouseMove"/>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="50">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="75">
             <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="Left Mouse Button Down : Remove Shapes"/>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="Right Mouse Button Down : Add Shapes"/>
@@ -19,9 +19,14 @@
             </StackPanel>
             <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock x:Name="ShapesCountLabel" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="Amount of Shapes: 1500"/>
-                <Slider x:Name="ShapesCountSlider" VerticalAlignment="Center" Width="250" Value="1500" Minimum="1" AutoToolTipPlacement="TopLeft" MouseDoubleClick="ShapesCountSlider_MouseDoubleClick" Thumb.DragCompleted="ShapesCountSlider_DragCompleted"/>
+                <Slider x:Name="ShapesCountSlider" VerticalAlignment="Center" Width="150" Value="1500" Minimum="1" AutoToolTipPlacement="TopLeft" MouseDoubleClick="ShapesCountSlider_MouseDoubleClick" Thumb.DragCompleted="ShapesCountSlider_DragCompleted"/>
             </StackPanel>
-            <Button x:Name="RecreateShapesButton" Margin="10" Padding="2.5" Content="Recreate" Click="RecreateShapesButton_Click"/>
+            <StackPanel Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <CheckBox x:Name="AnimateShapes" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Content="Animate Shapes" Checked="AnimateShapes_Checked" Unchecked="AnimateShapes_Checked"/>
+                <TextBlock x:Name="AnimateShapesSpeedLabel" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Foreground="White" Text="Speed of Shapes: 10"/>
+                <Slider x:Name="AnimateShapesSpeed" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Minimum="1" Maximum="10000" AutoToolTipPlacement="TopLeft" MouseDoubleClick="AnimateShapesSpeed_MouseDoubleClick" Thumb.DragCompleted="AnimateShapesSpeed_DragCompleted"/>
+            </StackPanel>
+            <Button x:Name="RecreateShapesButton" Margin="5, 25, 5, 25" Padding="2.5" Content="Recreate" Click="RecreateShapesButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
