@@ -1,127 +1,134 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenericClasses
 {
     class Lista<T> where T: IComparable
     {
-       public Nodo<T> raiz { get; set; }
+        private Nodo<T> root { get; set; }
 
-        public int tamanio { get; private set; } = 0;
+        public int size { get; private set; } = 0;
        
-        
-        public void AgregarNodo(Nodo<T> nuevonodo)
+        public void Add(Nodo<T> nodo)
         {
-            if (raiz is null)
-            {
-                raiz = nuevonodo;
-            }
+            if (root == null) root = nodo;
             else
             {
-                Nodo<T> temp = raiz;
-                while (!(temp.siguiente is null))
-                {
-                    temp = temp.siguiente;
-                }
-                temp.siguiente = nuevonodo;
+                _last().link = nodo;
             }
-            tamanio++;
-            
+            size++;
         }
 
-        public void AgregaNodo(T valor )
+        public void Add(T valor)
         {
-            AgregarNodo(new Nodo<T>(valor));
+            Add(new Nodo<T>(valor));
         }
 
         public override string ToString()
         {
-            string resultado = "";
-            Nodo<T> actual = raiz;
-            for (int i = 0; i < tamanio; i++)
-            {
-                resultado += actual.valor + " ";
-                actual = actual.siguiente;
-            }
-            return resultado;
-        }
-        public void insertar(T valor, int index)
-        {
-            if (index >= tamanio || index < 0) throw new System.ArgumentException("Index out of range");
-            Nodo<T> anterior = null;
-            Nodo<T> actual = raiz;
-            Nodo<T> temp = new Nodo<T>(valor);
+            string result = "";
+            Nodo<T> current = root;
 
-            for (int i = 0; i < tamanio; i++)
+            for (int i = 0; i < size; i++)
             {
-                if (i == index)
-                {
-                    if (i != 0) anterior.siguiente = temp;
-                    temp.siguiente = actual;
-                    tamanio++;
-                    break;
-                }
-                anterior = actual;
-                actual = actual.siguiente;
+                result += $"{current.value}" + (current.link == null ? "" : ",");
+                current = current.link;
             }
+
+            return result;
         }
+
+        public void insert(T value, int index)
+        {
+            if (index < 0 || index >= size) throw new System.ArgumentException("Index out of range");
+            Nodo<T> nodo = new Nodo<T>(value);
+
+            if (index == 0)
+            {
+                nodo.link = root;
+                root = nodo;
+            } else if (index == size - 1)
+            {
+                _last().link = nodo;
+            }
+            else
+            {
+                Nodo<T> current = root;
+
+                for (int i = 0; i < size; i++)
+                {
+                    if (i + 1 == index)
+                    {
+                        nodo.link = current.link;
+                        current.link = nodo;
+                        break;
+                    }
+                    current = current.link;
+                }
+            }
+
+            size++;
+        }
+
         public void pop(int index)
         {
-            Nodo<T> anterior = null;
-            Nodo<T> actual = raiz;
-            if (index >= tamanio || index < 0) throw new System.ArgumentException("Index out of range");
+            if (index < 0 || index >= size) throw new System.ArgumentException("Index out of range");
+            Nodo<T> current = root;
 
-            for (int i = 0; i < tamanio; i++)
+            if (index == 0) root = root.link;
+            else
             {
-                if (i == 0)
+                for (int i = 0; i < size; i++)
                 {
-                    raiz = actual.siguiente;
+                    if (i + 1 == index)
+                    {
+                        current.link = current.link.link;
+                        break;
+                    }
+                    current = current.link;
                 }
-                else if (i == index)
-                {
-                    anterior.siguiente = actual.siguiente;
-                    tamanio--;
-                    break;
-                }
-                anterior = actual;
-                actual = actual.siguiente;
             }
+
+            size--;
         }
 
-        public void remove(T valor )
+        public void remove(T value)
         {
-            Nodo<T> anterior = null;
-            Nodo<T> actual = raiz;
-            for (int i = 0; i < tamanio; i++)
+            if (root.value.Equals(value))
             {
-                if (actual.valor.Equals(valor))
+                root = root.link;
+                size--;
+            }
+            else
+            {
+                Nodo<T> current = root;
+
+                for (int i = 0; i < size; i++)
                 {
-                    anterior.siguiente = actual.siguiente;
-                    tamanio--;
-                    break;
+                    if (current.link != null && current.link.value.Equals(value))
+                    {
+                        current.link = current.link.link;
+                        size--;
+                        break;
+                    }
+                    current = current.link;
                 }
-                anterior = actual;
-                actual = actual.siguiente;
             }
         }
 
         public bool isEmpty()
         {
-            return tamanio == 0;
+            return size == 0;
         }
         
         public int count(T valor)
         {
             int result = 0;
+            Nodo<T> current = root;
 
-            Nodo<T> actual = raiz;
-            for (int i = 0; i < tamanio; i++)
+            for (int i = 0; i < size; i++)
             {
-                if (actual.valor.Equals(valor)) result++;
-                actual = actual.siguiente;
+                if (current.value.Equals(valor)) result++;
+                current = current.link;
             }
 
             return result;
@@ -130,16 +137,16 @@ namespace GenericClasses
         public bool contains(T valor)
         {
             bool result = false;
+            Nodo<T> current = root;
 
-            Nodo<T> actual = raiz;
-            for (int i = 0; i < tamanio; i++)
+            for (int i = 0; i < size; i++)
             {
-                if (actual.valor.Equals(valor))
+                if (current.value.Equals(valor))
                 {
                     result = true;
                     break;
                 }
-                actual = actual.siguiente;
+                current = current.link;
             }
 
             return result;
@@ -147,98 +154,163 @@ namespace GenericClasses
 
         public void extends(T[] iterable)
         {
-            foreach (var item in iterable)
-            {
-                AgregaNodo(item);
-                tamanio++;
-            }
+            foreach (var item in iterable) Add(item);
         }
 
         public void reverse()
         {
-            Nodo<T> new_raiz = _last();
-            Nodo<T> actual = raiz;
+            if (size == 1) return;
 
-            for (int i = 0; i < tamanio; i++)
+            Nodo<T> ref_1 = null, ref_2 = null, ref_3 = null;
+            Nodo<T> current = root;
+            Nodo<T> new_root = _last();
+
+            for (int i = 0; i < size; i++)
             {
-                actual.siguiente = new_raiz.siguiente;
-                new_raiz.siguiente = actual;
-
-                actual = actual.siguiente;
+                if (i == 0)
+                {
+                    ref_1 = current.link;
+                    current.link = null;
+                    current = ref_1;
+                    continue;
+                }
+                else if (i == 1)
+                {
+                    ref_2 = current.link;
+                    current.link = root;
+                    current = ref_2;
+                    continue;
+                }
+                else
+                {
+                    ref_3 = current.link;
+                    current.link = ref_1;
+                    ref_1 = ref_2;
+                    ref_2 = ref_3;
+                    current = ref_3;
+                    continue;
+                }
             }
+
+            root = new_root;
         }
 
         private Nodo<T> _last()
         {
-            Nodo<T> result = raiz;
-            for (int i = 0; i < tamanio; i++)
-            {
-                result = result.siguiente;
-            }
+            Nodo<T> result = root;
+            for (int i = 0; i < size - 1; i++) result = result.link;
             return result;
         }
 
         public T last()
         {
-            Nodo<T> result = raiz;
-            for (int i = 0; i < tamanio; i++)
-            {
-                result = result.siguiente;
-            }
-            return result.valor;
+            return _last().value;
         }
 
         public void EveryOther()
         {
-            for (int i = 0; i < tamanio; i++)
+            for (int i = 0; i < size; i++) if (i % 2 == 0) pop(i);
+        }
+        
+        public void swap(int index_1, int index_2)
+        {
+            // TODO >:v
+            if (index_1 < 0 || index_1 >= size) throw new System.ArgumentException("Index 1 out of range");
+            else if (index_2 < 0 || index_2 >= size) throw new System.ArgumentException("Index 2 out of range");
+            else if (index_1 == index_2) throw new System.ArgumentException("Indexes need to be diffrent");
+
+            //Nodo<T> nodoA = null;
+            //Nodo<T> nodoB = null;
+            //Nodo<T> nodoC = null;
+            //Nodo<T> nodoD = null;
+
+            //Nodo<T> current = root;
+            //Nodo<T> previous = root;
+            //Nodo<T> temp = null;
+
+
+            //for (int i = 0; i < size; i++)
+            //{
+            //    if (i == index_1)
+            //    {
+            //        nodoA = previous;
+            //        nodoB = current;
+            //    }
+            //    if (i == index_2)
+            //    {
+            //        nodoC = previous;
+            //        nodoD = current;
+            //    }
+
+            //    previous = current;
+            //    current = current.link;
+            //}
+
+            //nodoA.link = nodoD;
+            //nodoC.link = nodoB;
+
+            //temp = nodoD.link;
+            //nodoD.link = nodoB.link;
+            //nodoB.link = temp;
+
+            Nodo<T> nodo_1 = null, nodo_2 = null, current = root;
+
+            if (index_1 == 0) nodo_1 = root;
+            else if (index_2 == 0) nodo_2 = root;
+
+            for (int i = 0; i < size; i++)
             {
-                if (i%2==-0)
+                if (i + 1 == index_1)
                 {
-                    pop(i);
+                    nodo_1 = current;
                 }
+                else if (i + 1 == index_2)
+                {
+                    nodo_2 = current;
+                }
+
+                if (nodo_1 != null && nodo_2 != null) break;
+
+                current = current.link;
             }
+
+            Nodo<T> ref_1 = nodo_1.link, ref_2 = nodo_2.link.link;
+
+            nodo_2.link.link = nodo_1.link.link;
+            nodo_1.link = nodo_2.link;
+
+            nodo_2.link = ref_1;
+            nodo_2.link.link = ref_2;
+
+            if (index_1 == 0) root = nodo_1;
+            else if (index_2 == 0) root = nodo_2;
         }
 
-        
-
-        private void swap(int index_1, int index_2)
+        private Nodo<T> _get(int index)
         {
-            if (index_1 >= tamanio || index_1 < 0) throw new System.ArgumentException("Index 1 out of range");
-            if (index_2 >= tamanio || index_2 < 0) throw new System.ArgumentException("Index 2 out of range");
+            if (index >= size || index < 0) throw new System.ArgumentException("Index out of range");
 
-            Nodo<T> nodoA = null;
-            Nodo<T> nodoB = null;
-            Nodo<T> nodoC = null;
-            Nodo<T> nodoD = null;
+            Nodo<T> result = root;
 
-            Nodo<T> current = raiz;
-            Nodo<T> previous = raiz;
-            Nodo<T> temp = null;
-
-
-            for (int i = 0; i < tamanio; i++)
+            for (int i = 0; i < size; i++)
             {
-                if (i == index_1)
-                {
-                    nodoA = previous;
-                    nodoB = current;
-                }
-                if (i == index_2)
-                {
-                    nodoC = previous;
-                    nodoD = current;
-                }
+                if (i == index) break;
 
-                previous = current;
-                current = current.siguiente;
+                result = result.link;
             }
 
-            nodoA.siguiente = nodoD;
-            nodoC.siguiente = nodoB;
+            return result;
+        }
 
-            temp = nodoD.siguiente;
-            nodoD.siguiente = nodoB.siguiente;
-            nodoB.siguiente = temp;
+        public T get(int index)
+        {
+            return _get(index).value;
+        }
+
+        public void clear()
+        {
+            root = null;
+            size = 0;
         }
     }
 }

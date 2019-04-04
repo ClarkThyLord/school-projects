@@ -1,25 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenericClasses
 {
     class Nodo<T> where T : IComparable
     {
-        public T valor { get; set; }
-        public Nodo<T> siguiente { get; set; }
+        public T value { get; set; }
+        public Nodo<T> link { get; set; }
       
-        public Nodo(T valor)
+        public Nodo(T value)
         {
-            this.valor = valor;
+            this.value = value;
         }
 
-        public Nodo(T valor, Nodo<T> siguiente)
+        public Nodo(T value, Nodo<T> link)
         {
-            this.valor = valor;
-            this.siguiente = siguiente;
+            this.value = value;
+            this.link = link;
         } 
     }
 }
