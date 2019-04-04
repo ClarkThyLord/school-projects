@@ -7,12 +7,25 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="10,10,0,0" SelectedIndex="0">
+        <Label Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Height="400" Width="795"/>
+        <TextBox x:Name="input" TextWrapping="Wrap" Text="TextBox" Margin="245,0,103.2,-0.2" Height="22" VerticalAlignment="Bottom"/>
+        <ComboBox x:Name="datatype" Margin="0,0,0,-0.2" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" SelectedIndex="0">
             <ComboBoxItem Content="double"/>
-            <ComboBoxItem Content="float"/>
             <ComboBoxItem Content="string"/>
             <ComboBoxItem Content="int"/>
         </ComboBox>
-
+        <ComboBox x:Name="function" Margin="120,0,0,-0.2" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="125" SelectedIndex="0">
+            <ComboBoxItem Content="Insertar"/>
+            <ComboBoxItem Content="Pop"/>
+            <ComboBoxItem Content="Remove"/>
+            <ComboBoxItem Content="IsEmpty"/>
+            <ComboBoxItem Content="Count"/>
+            <ComboBoxItem Content="Contains"/>
+            <ComboBoxItem Content="Extend"/>
+            <ComboBoxItem Content="Reverse"/>
+            <ComboBoxItem Content="Last"/>
+            <ComboBoxItem Content="EveryOther"/>
+        </ComboBox>
+        <Button x:Name="reset" Content="Reset" Margin="0,0,0.2,-0.2" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="103"/>
     </Grid>
 </Window>

@@ -20,13 +20,13 @@ namespace GenericClasses
     /// </summary>
     public partial class MainWindow : Window
     {
-        
-        Lista<string> lista;
+        private  Lista<string> stringlist = new Lista<string>();
+        private Lista<int> intlist = new Lista<int>();
+        private Lista<double> doublelist = new Lista<double>();
+
         public MainWindow()
         {
             InitializeComponent();
-           
-
         }
     }
 }
