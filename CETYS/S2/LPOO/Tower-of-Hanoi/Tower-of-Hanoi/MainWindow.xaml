@@ -5,18 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tower_of_Hanoi"
         mc:Ignorable="d"
-        Title="Tower of Hanoi" Height="450" Width="800" Icon="assets/icon.png">
+        Title="Tower of Hanoi" Height="450" Width="800" Icon="assets/icon.png" Loaded="Window_Loaded" SizeChanged="Window_SizeChanged" MinWidth="800" MinHeight="450">
     <Grid>
-        <Canvas>
-            <Canvas.Background>
-                <RadialGradientBrush>
-                    <GradientStop Color="Black" Offset="1"/>
-                    <GradientStop Color="White"/>
-                </RadialGradientBrush>
-            </Canvas.Background>
-        </Canvas>
+        <Canvas x:Name="canvas" Background="PeachPuff"/>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Margin="10,0,9.6,9">
-            <ComboBox HorizontalAlignment="Left" Width="120" Height="22" VerticalAlignment="Bottom" SelectedIndex="0" >
+            <ComboBox x:Name="rings_amount" HorizontalAlignment="Left" Width="120" Height="22" VerticalAlignment="Bottom" SelectedIndex="0" >
                 <ComboBoxItem Content="Rings 3" HorizontalAlignment="Left" Width="118.4"/>
                 <ComboBoxItem Content="Rings 4" HorizontalAlignment="Left" Width="118.4"/>
                 <ComboBoxItem Content="Rings 5" HorizontalAlignment="Left" Width="118.4"/>
@@ -24,10 +17,10 @@
                 <ComboBoxItem Content="Rings 7" HorizontalAlignment="Left" Width="118.4"/>
                 <ComboBoxItem Content="Rings 8" HorizontalAlignment="Left" Width="118.4"/>
             </ComboBox>
-            <Button Content="⏪︎" HorizontalAlignment="Left" Width="85" Height="22" VerticalAlignment="Bottom"/>
-            <Button Content="⏵" HorizontalAlignment="Left" Width="85" Height="22" VerticalAlignment="Bottom"/>
-            <Button Content="⏸" HorizontalAlignment="Left" Width="85"  Height="22" VerticalAlignment="Bottom"/>
-            <Button Content="⏩︎" HorizontalAlignment="Left" Width="85" Height="22" VerticalAlignment="Bottom"/>
+            <Button x:Name="back" Content="⏪︎" HorizontalAlignment="Left" Width="85" Height="22" VerticalAlignment="Bottom"/>
+            <Button x:Name="play" Content="⏵" HorizontalAlignment="Left" Width="85" Height="22" VerticalAlignment="Bottom"/>
+            <Button x:Name="pause" Content="⏸" HorizontalAlignment="Left" Width="85"  Height="22" VerticalAlignment="Bottom"/>
+            <Button x:Name="next" Content="⏩︎" HorizontalAlignment="Left" Width="85" Height="22" VerticalAlignment="Bottom"/>
         </StackPanel>
     </Grid>
 </Window>
