@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop.gui"
         mc:Ignorable="d"
-        Title="Books" Height="450" Width="800">
+        Title="Books" MinWidth="800" MinHeight="450" Height="450" Width="800" Icon="../assets/shop.png" IsVisibleChanged="Window_IsVisibleChanged" Closed="Window_Closed">
     <Grid>
         
     </Grid>

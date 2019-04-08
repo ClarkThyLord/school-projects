@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop"
         mc:Ignorable="d"
-        Title="Shop" Height="450" Width="800" Icon="assets/shop.png" Loaded="Window_Loaded">
+        Title="Shop" MinWidth="800" MinHeight="450" Height="450" Width="800" Icon="assets/shop.png" IsVisibleChanged="Window_IsVisibleChanged" Closed="Window_Closed">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <Menu.ItemsPanel>
@@ -14,28 +14,31 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
             <MenuItem Header="Add" ToolTip="Add a product">
-                <MenuItem x:Name="ItemAddGUI" Header="Item"/>
-                <MenuItem x:Name="BookAddGUI" Header="Book"/>
-                <MenuItem x:Name="MovieAddGUI" Header="Movie"/>
+                <MenuItem x:Name="ItemAddGUI" Header="Item" Click="ItemAddGUI_Click"/>
+                <MenuItem x:Name="BookAddGUI" Header="Book" Click="BookAddGUI_Click"/>
+                <MenuItem x:Name="MovieAddGUI" Header="Movie" Click="MovieAddGUI_Click"/>
             </MenuItem>
-            <MenuItem x:Name="ProductModifyGUI" Header="Modify" ToolTip="Modify selected product" IsEnabled="False"/>
-            <MenuItem x:Name="ProductRemoveGUI" Header="Remove" ToolTip="Remove selected product(s)" IsEnabled="False"/>
+            <MenuItem x:Name="ProductModifyGUI" Header="Modify" ToolTip="Modify selected product" IsEnabled="False" Click="ProductModifyGUI_Click"/>
+            <MenuItem x:Name="ProductRemoveGUI" Header="Remove" ToolTip="Remove selected product(s)" IsEnabled="False" Click="ProductRemoveGUI_Click"/>
 
             <MenuItem Header="User Name" HorizontalAlignment="Right">
-                <MenuItem x:Name="LoginGUI" Header="Log-in" ToolTip="Sign-in to another Shop user"/>
-                <MenuItem x:Name="LogoutGUI" Header="Log-out" ToolTip="Log-out from this Shop user"/>
+                <MenuItem x:Name="LoginGUI" Header="Log-in" ToolTip="Sign-in to another Shop user" Click="LoginGUI_Click"/>
+                <MenuItem x:Name="LogoutGUI" Header="Log-out" ToolTip="Log-out from this Shop user" Click="LogoutGUI_Click"/>
             </MenuItem>
         </Menu>
 
         <Grid DockPanel.Dock="Top">
-            <TextBox x:Name="searchGUI" Text="Search products..." FontSize="16" Foreground="Gray" GotFocus="searchGUI_GotFocus" LostFocus="searchGUI_LostFocus" Margin="0,0,75,0"></TextBox>
+            <TextBox x:Name="searchGUI" Text="Search products..." FontSize="16" Foreground="Gray" GotFocus="searchGUI_GotFocus" LostFocus="searchGUI_LostFocus" Margin="0,0,75,0" KeyUp="searchGUI_KeyUp"></TextBox>
             <Button x:Name="searchGoGUI" Padding="10,0,10,0" Content="Search" HorizontalAlignment="Right" Width="75"/>
         </Grid>
-        
+
         <ListView x:Name="productsGUI">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                    <GridViewColumn Header="Price" Width="100" DisplayMemberBinding="{Binding Price}"></GridViewColumn>
+                    <GridViewColumn Header="Amount" Width="100" DisplayMemberBinding="{Binding Amount}"></GridViewColumn>
+                    <GridViewColumn Header="Description" Width="420" DisplayMemberBinding="{Binding Description}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

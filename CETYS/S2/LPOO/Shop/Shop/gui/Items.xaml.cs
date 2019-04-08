@@ -23,5 +23,21 @@ namespace Shop.gui
         {
             InitializeComponent();
         }
+
+        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (this.Visibility == Visibility.Visible)
+            {
+                Width = MinWidth;
+                Height = MinHeight;
+                Left = (SystemParameters.PrimaryScreenWidth / 2) - (Width / 2);
+                Top = (SystemParameters.PrimaryScreenHeight / 2) - (Height / 2);
+            }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Owner.Show();
+        }
     }
 }

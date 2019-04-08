@@ -25,10 +25,6 @@ namespace Shop
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Window itemsWindow = new Items();
-        public Window booksWindow = new Books();
-        public Window moviesWindow = new Movies();
-
         private List<Product> products = new List<Product>();
 
         public static string JSON_LOCATION = $@"{Directory.GetCurrentDirectory()}\products.json";
@@ -39,11 +35,47 @@ namespace Shop
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            if (this.Visibility == Visibility.Visible)
+            {
+                Width = MinWidth;
+                Height = MinHeight;
+                Left = (SystemParameters.PrimaryScreenWidth / 2) - (Width / 2);
+                Top = (SystemParameters.PrimaryScreenHeight / 2) - (Height / 2);
+            }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            save_products();
+        }
+
+        private void ItemAddGUI_Click(object sender, RoutedEventArgs e)
+        {
+            Window itemsWindow = new Items();
             itemsWindow.Owner = this;
+
+            itemsWindow.Show();
+            Hide();
+        }
+
+        private void BookAddGUI_Click(object sender, RoutedEventArgs e)
+        {
+            Window booksWindow = new Books();
             booksWindow.Owner = this;
+
+            booksWindow.Show();
+            Hide();
+        }
+
+        private void MovieAddGUI_Click(object sender, RoutedEventArgs e)
+        {
+            Window moviesWindow = new Movies();
             moviesWindow.Owner = this;
+
+            moviesWindow.Show();
+            Hide();
         }
 
         private void searchGUI_GotFocus(object sender, RoutedEventArgs e)
@@ -56,6 +88,33 @@ namespace Shop
         {
             searchGUI.Text = "Search products...";
             searchGUI.Foreground = Brushes.Gray;
+        }
+
+        private void searchGUI_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                add_product(new Item(Product.Types.Item));
+            }
+        }
+
+        public Product get_product(int index)
+        {
+            return products.Find(product => product.id == index);
+        }
+
+        public void add_product(Product product)
+        {
+            products.Add(product);
+            productsGUI.Items.Add(product);
+            save_products();
+        }
+
+        public void remove_product(Product product)
+        {
+            products.Remove(product);
+            productsGUI.Items.Remove(product);
+            save_products();
         }
 
         public void save_products()
@@ -82,6 +141,26 @@ namespace Shop
                 if (result == MessageBoxResult.OK) File.Delete(JSON_LOCATION);
                 else Application.Current.Shutdown();
             }
+        }
+
+        private void ProductModifyGUI_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ProductRemoveGUI_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LoginGUI_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LogoutGUI_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

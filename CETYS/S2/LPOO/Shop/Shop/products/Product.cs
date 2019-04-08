@@ -8,17 +8,12 @@ using System.Threading.Tasks;
 
 namespace Shop.products
 {
-    class Product
+    public class Product
     {
         private static int _id = 0;
 
         [JsonIgnore]
         public int id { get; }
-
-        public string name;
-        public string description;
-        public int amount = 0;
-        public double price = 0;
 
         public enum Types
         {
@@ -26,17 +21,41 @@ namespace Shop.products
             Book,
             Movie
         };
-        public int type { get; }
+        public int Type { get; }
+
+
+        public string Name {
+            get;
+            set;
+        }
+
+        public string Description
+        {
+            get;
+            set;
+        }
+
+        public double Price
+        {
+            get;
+            set;
+        } = 0;
+
+        public int Amount
+        {
+            get;
+            set;
+        } = 0;
 
         public Product(Types type, string name=null, string description=null)
         {
-            this.id = _id;
+            id = _id;
             _id++;
 
-            this.type = (int)type;
+            Type = (int)type;
 
-            this.name = name == null ? $"New {(Types)this.type} #{this.id}" : name;
-            this.description = description == null ? $"{(Types)this.type}'s description" : description;
+            Name = name == null ? $"New {(Types)Type} #{id}" : name;
+            Description = description == null ? $"{(Types)Type}'s description" : description;
         }
 
         public virtual string to_json()
@@ -61,7 +80,7 @@ namespace Shop.products
 
         public override string ToString()
         {
-            return $"ID: {this.id} - {this.name} : {this.amount} : {(this.description.Length > 20 ? this.description.Substring(0, 20) + "..." : this.description)}";
+            return $"ID: {this.id} - {Name} : {Price} x {Amount} : {(Description.Length > 20 ? Description.Substring(0, 20) + "..." : Description)}";
         }
     }
 }
