@@ -33,5 +33,13 @@ namespace Shop.products
         } = "";
 
         public Item(string name = null, string description = null) : base(Types.Item, name, description) { }
+
+        public Item(string name, string description, double weight, string dimensions, string usage, string producers) : this(name, description)
+        {
+            Weight = weight;
+            Dimensions = dimensions;
+            Usage = usage;
+            Producers = producers;
+        }
     }
 }

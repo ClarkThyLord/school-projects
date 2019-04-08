@@ -103,6 +103,11 @@ namespace Shop
 
         }
 
+        private void productsResetGUI_Click(object sender, RoutedEventArgs e)
+        {
+            reset_products();
+        }
+
         private void searchGUI_GotFocus(object sender, RoutedEventArgs e)
         {
             if (searchGUI.Text == "Search products...")
@@ -176,13 +181,25 @@ namespace Shop
         public void add_product(Product product)
         {
             products.Add(product);
+            productsGUI.Items.Refresh();
             save_products();
         }
 
         public void remove_product(Product product)
         {
             products.Remove(product);
+            productsGUI.Items.Refresh();
             save_products();
+        }
+
+        public void reset_products()
+        {
+            if (MessageBox.Show("Are you sure you want to reset Shop?", "Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+            {
+                products.Clear();
+                productsGUI.Items.Refresh();
+                save_products();
+            }
         }
 
         public void save_products()
@@ -201,12 +218,7 @@ namespace Shop
             try { foreach (JObject item in JArray.Parse(File.ReadAllText(JSON_LOCATION))) products.Add(Product.from_json(item)); }
             catch (Exception e)
             {
-                MessageBoxResult result = MessageBox.Show("Saved products have been corrupted, creating a new batch!",
-                                          "Confirmation",
-                                          MessageBoxButton.OKCancel,
-                                          MessageBoxImage.Question);
-
-                if (result == MessageBoxResult.OK) File.Delete(JSON_LOCATION);
+                if (MessageBox.Show("Saved products have been corrupted, creating a new batch!", "Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK) File.Delete(JSON_LOCATION);
                 else Application.Current.Shutdown();
             }
         }

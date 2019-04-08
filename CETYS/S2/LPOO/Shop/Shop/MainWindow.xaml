@@ -24,6 +24,8 @@
             <MenuItem Header="User Name" HorizontalAlignment="Right">
                 <MenuItem x:Name="LoginGUI" Header="Log-in" ToolTip="Sign-in to another Shop user" Click="LoginGUI_Click"/>
                 <MenuItem x:Name="LogoutGUI" Header="Log-out" ToolTip="Log-out from this Shop user" Click="LogoutGUI_Click"/>
+                <Separator/>
+                <MenuItem x:Name="productsResetGUI" Header="Reset" ToolTip="Reset the Shop!" Click="productsResetGUI_Click"/>
             </MenuItem>
         </Menu>
 

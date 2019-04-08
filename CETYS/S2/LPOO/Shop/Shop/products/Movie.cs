@@ -9,7 +9,7 @@ namespace Shop.products
 {
     internal class Movie : Product
     {
-        public int Length
+        public double Length
         {
             get;
             set;
@@ -60,5 +60,17 @@ namespace Shop.products
         }
         
         public Movie(string name = null, string description = null) : base(Types.Movie, name, description) {}
+
+        public Movie(string name, string description, double length, string language, string genre, string actors, string directors, string producers, string studio, double rating) : this(name, description)
+        {
+            Length = length;
+            Language = language;
+            Genre = genre;
+            Actors = actors;
+            Directors = directors;
+            Producers = producers;
+            Studio = studio;
+            Rating = rating;
+        }
     }
 }

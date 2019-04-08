@@ -54,5 +54,16 @@ namespace Shop.products
         }
 
         public Book(string name = null, string description = null) : base(Types.Book, name, description) { }
+
+        public Book(string name, string description, int pages, string language, string genre, string author, string editors, string publisher, double rating) : this(name, description)
+        {
+            Pages = pages;
+            Language = language;
+            Genre = genre;
+            Author = author;
+            Editors = editors;
+            Publisher = publisher;
+            Rating = rating;
+        }
     }
 }
