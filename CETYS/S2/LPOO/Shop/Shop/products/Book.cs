@@ -8,6 +8,6 @@ namespace Shop.products
 {
     internal class Book : Product
     {
-        public Book(Types type, string name = null, string description = null) : base(type, name, description) { }
+        public Book(string name = null, string description = null) : base(Types.Book, name, description) { }
     }
 }

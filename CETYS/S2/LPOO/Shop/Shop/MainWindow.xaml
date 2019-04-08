@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop"
         mc:Ignorable="d"
-        Title="Shop" MinWidth="800" MinHeight="450" Height="450" Width="800" Icon="assets/shop.png" IsVisibleChanged="Window_IsVisibleChanged" Closed="Window_Closed">
+        Title="Shop" MinWidth="800" MinHeight="450" Height="450" Width="800" Icon="assets/shop.png" Loaded="Window_Loaded" IsVisibleChanged="Window_IsVisibleChanged" Closed="Window_Closed">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <Menu.ItemsPanel>
@@ -28,8 +28,8 @@
         </Menu>
 
         <Grid DockPanel.Dock="Top">
-            <TextBox x:Name="searchGUI" Text="Search products..." FontSize="16" Foreground="Gray" GotFocus="searchGUI_GotFocus" LostFocus="searchGUI_LostFocus" Margin="0,0,75,0" KeyUp="searchGUI_KeyUp"></TextBox>
-            <Button x:Name="searchGoGUI" Padding="10,0,10,0" Content="Search" HorizontalAlignment="Right" Width="75"/>
+            <TextBox x:Name="searchGUI" Text="Search products..." FontSize="16" Foreground="Gray" GotFocus="searchGUI_GotFocus" LostFocus="searchGUI_LostFocus" Margin="0,0,75,0" KeyUp="searchGUI_KeyUp" TextChanged="searchGUI_TextChanged"></TextBox>
+            <Button x:Name="searchGoGUI" Padding="10,0,10,0" Content="Search" HorizontalAlignment="Right" Width="75" Click="searchGoGUI_Click"/>
         </Grid>
 
         <ListView x:Name="productsGUI">

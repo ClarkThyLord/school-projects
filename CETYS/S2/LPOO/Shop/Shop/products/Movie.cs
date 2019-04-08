@@ -25,6 +25,6 @@ namespace Shop.products
             }
         }
         
-        public Movie(Types type, string name = null, string description = null) : base(type, name, description) {}
+        public Movie(string name = null, string description = null) : base(Types.Movie, name, description) {}
     }
 }

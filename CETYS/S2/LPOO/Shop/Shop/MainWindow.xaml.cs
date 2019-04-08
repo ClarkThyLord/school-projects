@@ -35,6 +35,11 @@ namespace Shop
             InitializeComponent();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            productsGUI.ItemsSource = products;
+        }
+
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (this.Visibility == Visibility.Visible)
@@ -43,6 +48,7 @@ namespace Shop
                 Height = MinHeight;
                 Left = (SystemParameters.PrimaryScreenWidth / 2) - (Width / 2);
                 Top = (SystemParameters.PrimaryScreenHeight / 2) - (Height / 2);
+                if (productsGUI != null) productsGUI.ItemsSource = products;
             }
         }
 
@@ -78,24 +84,67 @@ namespace Shop
             Hide();
         }
 
+        private void ProductModifyGUI_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ProductRemoveGUI_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LoginGUI_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LogoutGUI_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void searchGUI_GotFocus(object sender, RoutedEventArgs e)
         {
-            searchGUI.Text = "";
-            searchGUI.Foreground = Brushes.Black;
+            if (searchGUI.Text == "Search products...")
+            {
+                searchGUI.Text = "";
+                searchGUI.Foreground = Brushes.Black;
+                if (productsGUI != null) productsGUI.ItemsSource = products;
+            }
         }
 
         private void searchGUI_LostFocus(object sender, RoutedEventArgs e)
         {
-            searchGUI.Text = "Search products...";
-            searchGUI.Foreground = Brushes.Gray;
+            if (searchGUI.Text == "")
+            {
+                searchGUI.Text = "Search products...";
+                searchGUI.Foreground = Brushes.Gray;
+                if (productsGUI != null) productsGUI.ItemsSource = products;
+            }
+        }
+
+        private void searchGUI_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchGUI.Text.Length > 0 && searchGUI.Text != "Search products...") search_listGUI(searchGUI.Text);
+            else if (productsGUI != null) productsGUI.ItemsSource = products;
+
         }
 
         private void searchGUI_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                add_product(new Item(Product.Types.Item));
+                add_product(new Book());
+                if (searchGUI.Text.Length > 0 && searchGUI.Text != "Search products...") search_listGUI(searchGUI.Text);
+                else if (productsGUI != null) productsGUI.ItemsSource = products;
             }
+        }
+
+        private void searchGoGUI_Click(object sender, RoutedEventArgs e)
+        {
+            if (searchGUI.Text.Length > 0 && searchGUI.Text != "Search products...") search_listGUI(searchGUI.Text);
+            else if (productsGUI != null) productsGUI.ItemsSource = products;
         }
 
         public Product get_product(int index)
@@ -106,14 +155,12 @@ namespace Shop
         public void add_product(Product product)
         {
             products.Add(product);
-            productsGUI.Items.Add(product);
             save_products();
         }
 
         public void remove_product(Product product)
         {
             products.Remove(product);
-            productsGUI.Items.Remove(product);
             save_products();
         }
 
@@ -143,24 +190,11 @@ namespace Shop
             }
         }
 
-        private void ProductModifyGUI_Click(object sender, RoutedEventArgs e)
+        public void search_listGUI(string search_term)
         {
+            if (search_term.Length <= 0) return;
 
-        }
-
-        private void ProductRemoveGUI_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void LoginGUI_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void LogoutGUI_Click(object sender, RoutedEventArgs e)
-        {
-
+            productsGUI.ItemsSource = products.FindAll(product => product.ToString().Contains(search_term));
         }
     }
 }

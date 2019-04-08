@@ -65,22 +65,22 @@ namespace Shop.products
 
         public static Product from_json(JObject json)
         {
-            switch ((int)json.GetValue("type"))
+            switch ((int)json.GetValue("Type"))
             {
                 case (int)Types.Item:
-                    return new Item((Types)(int)json.GetValue("type"), (string)json.GetValue("name"), (string)json.GetValue("description"));
+                    return new Item((string)json.GetValue("Name"), (string)json.GetValue("Description"));
                 case (int)Types.Book:
-                    return new Book((Types)(int)json.GetValue("type"), (string)json.GetValue("name"), (string)json.GetValue("description"));
+                    return new Book((string)json.GetValue("Name"), (string)json.GetValue("Description"));
                 case (int)Types.Movie:
-                    return new Movie((Types)(int)json.GetValue("type"), (string)json.GetValue("name"), (string)json.GetValue("description"));
+                    return new Movie((string)json.GetValue("Name"), (string)json.GetValue("Description"));
                 default:
-                    return new Product((Types)(int)json.GetValue("type"), (string)json.GetValue("name"), (string)json.GetValue("description"));
+                    return new Product((Types)(int)json.GetValue("Type"), (string)json.GetValue("Name"), (string)json.GetValue("Description"));
             }
         }
 
         public override string ToString()
         {
-            return $"ID: {this.id} - {Name} : {Price} x {Amount} : {(Description.Length > 20 ? Description.Substring(0, 20) + "..." : Description)}";
+            return $"ID: {id} - {Name} : {Price} x {Amount} : {(Description.Length > 20 ? Description.Substring(0, 20) + "..." : Description)}";
         }
     }
 }
