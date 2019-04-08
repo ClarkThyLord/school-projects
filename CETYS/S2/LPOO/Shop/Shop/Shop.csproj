@@ -127,7 +127,9 @@
     <Folder Include="users\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="assets\shop.png" />
+    <Resource Include="assets\shop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

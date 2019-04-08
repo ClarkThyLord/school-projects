@@ -21,7 +21,7 @@ namespace Shop.products
             Book,
             Movie
         };
-        public int Type { get; }
+        public Types Type { get; }
 
 
         public string Name {
@@ -52,7 +52,7 @@ namespace Shop.products
             id = _id;
             _id++;
 
-            Type = (int)type;
+            Type = type;
 
             Name = name == null ? $"New {(Types)Type} #{id}" : name;
             Description = description == null ? $"{(Types)Type}'s description" : description;
