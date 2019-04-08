@@ -14,9 +14,21 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
             <MenuItem Header="Add" ToolTip="Add a product">
-                <MenuItem x:Name="ItemAddGUI" Header="Item" Click="ItemAddGUI_Click"/>
-                <MenuItem x:Name="BookAddGUI" Header="Book" Click="BookAddGUI_Click"/>
-                <MenuItem x:Name="MovieAddGUI" Header="Movie" Click="MovieAddGUI_Click"/>
+                <MenuItem x:Name="ItemAddGUI" Header="Item" Click="ItemAddGUI_Click">
+                    <MenuItem.Icon>
+                        <Image Source="assets/item.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="BookAddGUI" Header="Book" Click="BookAddGUI_Click">
+                    <MenuItem.Icon>
+                        <Image Source="assets/book.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem x:Name="MovieAddGUI" Header="Movie" Click="MovieAddGUI_Click">
+                    <MenuItem.Icon>
+                        <Image Source="assets/movie.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem x:Name="ProductModifyGUI" Header="Modify" ToolTip="Modify last selected product" Click="ProductModifyGUI_Click"/>
             <MenuItem x:Name="ProductRemoveGUI" Header="Remove" ToolTip="Remove all selected product(s)" Click="ProductRemoveGUI_Click"/>

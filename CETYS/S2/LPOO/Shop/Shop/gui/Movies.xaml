@@ -5,8 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop.gui"
         mc:Ignorable="d"
-        Title="Movies" MinWidth="800" MinHeight="450" Height="450" Width="800" Icon="../assets/shop.png" IsVisibleChanged="Window_IsVisibleChanged" Closing="Window_Closed">
+        Title="Movies" MinWidth="800" MinHeight="450" Height="450" Width="800" Icon="../assets/movie.png" IsVisibleChanged="Window_IsVisibleChanged" Closing="Window_Closed">
     <Grid>
-        
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="30"/>
+        <TextBox Height="30" Margin="59,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Description:" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
+        <RichTextBox Margin="10,66,10,253">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text=""/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+        <Separator Margin="10,0,10,233" Height="15" VerticalAlignment="Bottom"/>
+
+        <WrapPanel Orientation="Horizontal" Margin="10,0,10,10" Height="218" VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+                <Label Content="Label" VerticalAlignment="Center"/>
+                <TextBox Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" Text="TextBox" FontSize="13"/>
+            </StackPanel>
+        </WrapPanel>
     </Grid>
 </Window>

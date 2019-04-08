@@ -46,8 +46,9 @@ namespace Shop
 
                 productsGUI.UnselectAll();
                 productsGUI.ItemsSource = products;
-                searchGUI.Foreground = Brushes.Gray;
-                searchGUI.Text = "Search products...";
+                searchGUI.Foreground = Brushes.Black;
+                searchGUI.Text = "";
+                searchGUI.Focus();
             }
         }
 
@@ -218,7 +219,7 @@ namespace Shop
             try { foreach (JObject item in JArray.Parse(File.ReadAllText(JSON_LOCATION))) products.Add(Product.from_json(item)); }
             catch (Exception e)
             {
-                if (MessageBox.Show("Saved products have been corrupted, creating a new batch!", "Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK) File.Delete(JSON_LOCATION);
+                if (MessageBox.Show("Saved Shop products have been corrupted, creating a new batch!", "Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK) File.Delete(JSON_LOCATION);
                 else Application.Current.Shutdown();
             }
         }
