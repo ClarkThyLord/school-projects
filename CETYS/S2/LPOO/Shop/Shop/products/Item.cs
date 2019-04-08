@@ -32,9 +32,9 @@ namespace Shop.products
             set;
         } = "";
 
-        public Item(string name = null, string description = null) : base(Types.Item, name, description) { }
+        public Item(string name="", string description="", double price=0, int amount=0) : base(Types.Item, name, description) { }
 
-        public Item(string name, string description, double weight, string dimensions, string usage, string producers) : this(name, description)
+        public Item(string name, string description, double price, int amount, double weight, string dimensions, string usage, string producers) : this(name, description, price, amount)
         {
             Weight = weight;
             Dimensions = dimensions;

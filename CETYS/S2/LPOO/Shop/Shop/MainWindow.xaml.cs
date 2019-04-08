@@ -44,11 +44,11 @@ namespace Shop
                 Left = (SystemParameters.PrimaryScreenWidth / 2) - (Width / 2);
                 Top = (SystemParameters.PrimaryScreenHeight / 2) - (Height / 2);
 
-                productsGUI.UnselectAll();
-                productsGUI.ItemsSource = products;
-                searchGUI.Foreground = Brushes.Black;
-                searchGUI.Text = "";
                 searchGUI.Focus();
+                productsGUI.UnselectAll();
+
+                update_productsGUI();
+                save_products();
             }
         }
 
@@ -61,7 +61,6 @@ namespace Shop
         {
             Window itemsWindow = new Items();
             itemsWindow.Owner = this;
-
             itemsWindow.Show();
             Hide();
         }
@@ -70,7 +69,6 @@ namespace Shop
         {
             Window booksWindow = new Books();
             booksWindow.Owner = this;
-
             booksWindow.Show();
             Hide();
         }
@@ -79,7 +77,6 @@ namespace Shop
         {
             Window moviesWindow = new Movies();
             moviesWindow.Owner = this;
-
             moviesWindow.Show();
             Hide();
         }
@@ -170,8 +167,34 @@ namespace Shop
         {
             if (productsGUI.SelectedItem != null)
             {
-                
+                Window window = null;
+                Product product = (Product)productsGUI.SelectedItem;
+
+                switch (product.Type)
+                {
+                    case Product.Types.Item:
+                        window = new Items((Item)product);
+                        break;
+                    case Product.Types.Book:
+                        window = new Books((Book)product);
+                        break;
+                    case Product.Types.Movie:
+                        window = new Movies((Movie)product);
+                        break;
+                }
+
+                if (window != null)
+                {
+                    window.Owner = this;
+                    window.Show();
+                    Hide();
+                }
             }
+        }
+
+        public void update_productsGUI()
+        {
+            productsGUI.Items.Refresh();
         }
 
         public Product get_product(int index)
@@ -182,14 +205,14 @@ namespace Shop
         public void add_product(Product product)
         {
             products.Add(product);
-            productsGUI.Items.Refresh();
+            update_productsGUI();
             save_products();
         }
 
         public void remove_product(Product product)
         {
             products.Remove(product);
-            productsGUI.Items.Refresh();
+            update_productsGUI();
             save_products();
         }
 
@@ -198,7 +221,7 @@ namespace Shop
             if (MessageBox.Show("Are you sure you want to reset Shop?", "Confirmation", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
             {
                 products.Clear();
-                productsGUI.Items.Refresh();
+                update_productsGUI();
                 save_products();
             }
         }

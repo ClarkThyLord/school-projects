@@ -10,13 +10,7 @@
         <Label Content="Name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="30"/>
         <TextBox x:Name="nameGUI" Height="30" Margin="59,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="Description:" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
-        <RichTextBox x:Name="descriptionGUI" Margin="10,66,10,253">
-            <FlowDocument>
-                <Paragraph>
-                    <Run Text=""/>
-                </Paragraph>
-            </FlowDocument>
-        </RichTextBox>
+        <TextBox x:Name="descriptionGUI" Margin="10,66,10,253"/>
         <Separator Margin="10,0,10,233" Height="15" VerticalAlignment="Bottom"/>
 
         <WrapPanel Orientation="Horizontal" Margin="10,0,10,40" Height="188" VerticalAlignment="Bottom">

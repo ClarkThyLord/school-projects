@@ -25,9 +25,13 @@ namespace Shop.gui
         public Items(Item item=null)
         {
             this.item = item;
-            if (this.item != null) setup(this.item);
 
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (this.item != null) setup(this.item);
         }
 
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -66,14 +70,17 @@ namespace Shop.gui
         public void setup(Item item)
         {
             nameGUI.Text = item.Name;
-            descriptionGUI.Document.Blocks.Clear();
-            descriptionGUI.Document.Blocks.Add(new Paragraph(new Run(item.Description)));
+            descriptionGUI.Text = item.Description;
+            amountGUI.Text = item.Amount.ToString();
+            priceGUI.Text = item.Price.ToString();
         }
 
         public bool validate()
         {
             if (nameGUI.Text.Length <= 0) return false;
-            else if (new TextRange(descriptionGUI.Document.ContentStart, descriptionGUI.Document.ContentEnd).Text.Length <= 0) return false;
+            else if (descriptionGUI.Text.Length <= 0) return false;
+            else if (amountGUI.Text.Length <= 0 && int.TryParse(amountGUI.Text, out int amount)) return false;
+            else if (priceGUI.Text.Length <= 0 && double.TryParse(priceGUI.Text, out double price)) return false;
 
             return true;
         }
@@ -81,12 +88,18 @@ namespace Shop.gui
         public void edit()
         {
             item.Name = nameGUI.Text;
-            item.Description = new TextRange(descriptionGUI.Document.ContentStart, descriptionGUI.Document.ContentEnd).Text;
+            item.Description = descriptionGUI.Text;
+            item.Amount = int.Parse(amountGUI.Text);
+            item.Price = double.Parse(priceGUI.Text);
+            item.Weight = double.Parse(weightGUI.Text);
+            item.Dimensions = dimensionsGUI.Text;
+            item.Usage = usageGUI.Text;
+            item.Producers = producersGUI.Text;
         }
 
         public void create()
         {
-            (Owner as MainWindow).add_product(new Item(nameGUI.Text, new TextRange(descriptionGUI.Document.ContentStart, descriptionGUI.Document.ContentEnd).Text));
+            (Owner as MainWindow).add_product(new Item(nameGUI.Text, descriptionGUI.Text));
         }
     }
 }

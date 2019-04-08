@@ -59,9 +59,9 @@ namespace Shop.products
             }
         }
         
-        public Movie(string name = null, string description = null) : base(Types.Movie, name, description) {}
+        public Movie(string name="", string description="", double price=0, int amount=0) : base(Types.Movie, name, description, price, amount) {}
 
-        public Movie(string name, string description, double length, string language, string genre, string actors, string directors, string producers, string studio, double rating) : this(name, description)
+        public Movie(string name, string description, double price, int amount, double length, string language, string genre, string actors, string directors, string producers, string studio, double rating) : this(name, description, price, amount)
         {
             Length = length;
             Language = language;
