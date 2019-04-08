@@ -18,8 +18,8 @@
                 <MenuItem x:Name="BookAddGUI" Header="Book" Click="BookAddGUI_Click"/>
                 <MenuItem x:Name="MovieAddGUI" Header="Movie" Click="MovieAddGUI_Click"/>
             </MenuItem>
-            <MenuItem x:Name="ProductModifyGUI" Header="Modify" ToolTip="Modify selected product" IsEnabled="False" Click="ProductModifyGUI_Click"/>
-            <MenuItem x:Name="ProductRemoveGUI" Header="Remove" ToolTip="Remove selected product(s)" IsEnabled="False" Click="ProductRemoveGUI_Click"/>
+            <MenuItem x:Name="ProductModifyGUI" Header="Modify" ToolTip="Modify last selected product" Click="ProductModifyGUI_Click"/>
+            <MenuItem x:Name="ProductRemoveGUI" Header="Remove" ToolTip="Remove all selected product(s)" Click="ProductRemoveGUI_Click"/>
 
             <MenuItem Header="User Name" HorizontalAlignment="Right">
                 <MenuItem x:Name="LoginGUI" Header="Log-in" ToolTip="Sign-in to another Shop user" Click="LoginGUI_Click"/>
@@ -32,7 +32,7 @@
             <Button x:Name="searchGoGUI" Padding="10,0,10,0" Content="Search" HorizontalAlignment="Right" Width="75" Click="searchGoGUI_Click"/>
         </Grid>
 
-        <ListView x:Name="productsGUI">
+        <ListView x:Name="productsGUI" ToolTip="Double click to see more or edit!" SelectionChanged="productsGUI_SelectionChanged" MouseDoubleClick="productsGUI_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
@@ -44,5 +44,4 @@
             </ListView.View>
         </ListView>
     </DockPanel>
-
 </Window>

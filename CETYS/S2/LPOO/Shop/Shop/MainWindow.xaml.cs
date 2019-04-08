@@ -43,7 +43,11 @@ namespace Shop
                 Height = MinHeight;
                 Left = (SystemParameters.PrimaryScreenWidth / 2) - (Width / 2);
                 Top = (SystemParameters.PrimaryScreenHeight / 2) - (Height / 2);
-                if (productsGUI != null) productsGUI.ItemsSource = products;
+
+                productsGUI.UnselectAll();
+                productsGUI.ItemsSource = products;
+                searchGUI.Foreground = Brushes.Gray;
+                searchGUI.Text = "Search products...";
             }
         }
 
@@ -140,6 +144,28 @@ namespace Shop
         {
             if (searchGUI.Text.Length > 0 && searchGUI.Text != "Search products...") search_listGUI(searchGUI.Text);
             else if (productsGUI != null) productsGUI.ItemsSource = products;
+        }
+
+        private void productsGUI_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (productsGUI.SelectedItems.Count > 0)
+            {
+                ProductModifyGUI.Visibility = Visibility.Visible;
+                ProductRemoveGUI.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ProductModifyGUI.Visibility = Visibility.Hidden;
+                ProductRemoveGUI.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void productsGUI_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (productsGUI.SelectedItem != null)
+            {
+                
+            }
         }
 
         public Product get_product(int index)

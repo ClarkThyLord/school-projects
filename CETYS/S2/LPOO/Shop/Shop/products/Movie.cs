@@ -9,8 +9,42 @@ namespace Shop.products
 {
     internal class Movie : Product
     {
-        public int length = 0;
-        public string genre = "";
+        public int Length
+        {
+            get;
+            set;
+        } = 0;
+        public string Language
+        {
+            get;
+            set;
+        } = "";
+        public string Genre
+        {
+            get;
+            set;
+        } = "";
+
+        public string Actors
+        {
+            get;
+            set;
+        } = "";
+        public string Directors
+        {
+            get;
+            set;
+        } = "";
+        public string Producers
+        {
+            get;
+            set;
+        } = "";
+        public string Studio
+        {
+            get;
+            set;
+        } = "";
 
         private double rating = 0;
         public double Rating
