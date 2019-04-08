@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shop.products
 {
-    internal class Movie : Product
+    public class Movie : Product
     {
         public double Length
         {

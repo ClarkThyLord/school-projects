@@ -8,9 +8,9 @@
         Title="Movies" MinWidth="800" MinHeight="450" Height="450" Width="800" Icon="../assets/movie.png" IsVisibleChanged="Window_IsVisibleChanged" Closing="Window_Closed">
     <Grid>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="30"/>
-        <TextBox Height="30" Margin="59,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="nameGUI" Height="30" Margin="59,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="Description:" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
-        <RichTextBox Margin="10,66,10,253">
+        <RichTextBox x:Name="descriptionGUI" Margin="10,66,10,253">
             <FlowDocument>
                 <Paragraph>
                     <Run Text=""/>
@@ -19,11 +19,44 @@
         </RichTextBox>
         <Separator Margin="10,0,10,233" Height="15" VerticalAlignment="Bottom"/>
 
-        <WrapPanel Orientation="Horizontal" Margin="10,0,10,10" Height="218" VerticalAlignment="Bottom">
+        <WrapPanel Orientation="Horizontal" Margin="10,0,10,40" Height="188" VerticalAlignment="Bottom">
             <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
-                <Label Content="Label" VerticalAlignment="Center"/>
-                <TextBox Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" Text="TextBox" FontSize="13"/>
+                <Label Content="Length:" VerticalAlignment="Center"/>
+                <TextBox x:Name="lengthGUI" Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" FontSize="13"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+                <Label Content="Language:" VerticalAlignment="Center"/>
+                <TextBox x:Name="languageGUI" Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" FontSize="13"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+                <Label Content="Genre:" VerticalAlignment="Center"/>
+                <TextBox x:Name="genreGUI" Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" FontSize="13"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+                <Label Content="Actors:" VerticalAlignment="Center"/>
+                <TextBox x:Name="actorsGUI" Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" FontSize="13"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+                <Label Content="Directors:" VerticalAlignment="Center"/>
+                <TextBox x:Name="directorsGUI" Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" FontSize="13"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+                <Label Content="Producers:" VerticalAlignment="Center"/>
+                <TextBox x:Name="producersGUI" Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap"  FontSize="13"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+                <Label Content="Studio:" VerticalAlignment="Center"/>
+                <TextBox x:Name="studioGUI" Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" FontSize="13"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
+                <Label Content="Rating:" VerticalAlignment="Center"/>
+                <TextBox x:Name="ratingGUI" Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" FontSize="13"/>
             </StackPanel>
         </WrapPanel>
+
+        <StackPanel Orientation="Horizontal" Height="25" Margin="10,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+            <Button x:Name="cancelGUI" Margin="5,0,5,0" Padding="10,0,10,0" Content="Cancel" Click="cancelGUI_Click"/>
+            <Button x:Name="submitGUI" Margin="5,0,5,0" Padding="10,0,10,0" Content="Submit" Click="submitGUI_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shop.products;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,12 @@ namespace Shop.gui
     /// </summary>
     public partial class Books : Window
     {
-        public Books()
+        Book book;
+
+        public Books(Book book=null)
         {
+            this.book = book;
+
             InitializeComponent();
         }
 
@@ -38,6 +43,16 @@ namespace Shop.gui
         private void Window_Closed(object sender, EventArgs e)
         {
             Owner.Show();
+        }
+
+        private void submitGUI_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cancelGUI_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

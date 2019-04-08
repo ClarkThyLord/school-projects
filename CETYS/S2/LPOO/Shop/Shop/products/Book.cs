@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shop.products
 {
-    internal class Book : Product
+    public class Book : Product
     {
         public int Pages
         {
@@ -24,7 +24,7 @@ namespace Shop.products
             set;
         } = "";
 
-        public string Author
+        public string Authors
         {
             get;
             set;
@@ -34,7 +34,7 @@ namespace Shop.products
             get;
             set;
         } = "";
-        public string Publisher
+        public string Publishers
         {
             get;
             set;
@@ -55,14 +55,14 @@ namespace Shop.products
 
         public Book(string name = null, string description = null) : base(Types.Book, name, description) { }
 
-        public Book(string name, string description, int pages, string language, string genre, string author, string editors, string publisher, double rating) : this(name, description)
+        public Book(string name, string description, int pages, string language, string genre, string authors, string editors, string publishers, double rating) : this(name, description)
         {
             Pages = pages;
             Language = language;
             Genre = genre;
-            Author = author;
+            Authors = authors;
             Editors = editors;
-            Publisher = publisher;
+            Publishers = publishers;
             Rating = rating;
         }
     }

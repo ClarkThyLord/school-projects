@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shop.products
 {
-    internal class Item : Product
+    public class Item : Product
     {
         private double weight = 0;
         public double Weight
