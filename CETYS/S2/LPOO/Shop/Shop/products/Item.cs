@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Shop.products
 {
-    internal class Book : Product
+    internal class Item : Product
     {
-        public Book(Types type, string name = null, string description = null) : base(type, name, description) { }
+        public Item(Types type, string name = null, string description = null) : base(type, name, description) { }
     }
 }
