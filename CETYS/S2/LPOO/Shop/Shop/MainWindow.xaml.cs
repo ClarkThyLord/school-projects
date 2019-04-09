@@ -83,12 +83,42 @@ namespace Shop
 
         private void ProductModifyGUI_Click(object sender, RoutedEventArgs e)
         {
+            if (productsGUI.SelectedItem != null)
+            {
+                Window window = null;
+                Product product = (Product)productsGUI.SelectedItem;
 
+                switch (product.Type)
+                {
+                    case Product.Types.Item:
+                        window = new Items((Item)product);
+                        break;
+                    case Product.Types.Book:
+                        window = new Books((Book)product);
+                        break;
+                    case Product.Types.Movie:
+                        window = new Movies((Movie)product);
+                        break;
+                }
+
+                if (window != null)
+                {
+                    window.Owner = this;
+                    window.Show();
+                    Hide();
+                }
+            }
         }
 
         private void ProductRemoveGUI_Click(object sender, RoutedEventArgs e)
         {
+            foreach (var product in productsGUI.SelectedItems)
+            {
+                products.Remove((Product)product);
+            }
 
+            productsGUI.Items.Refresh();
+            save_products();
         }
 
         private void LoginGUI_Click(object sender, RoutedEventArgs e)
