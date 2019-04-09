@@ -33,9 +33,9 @@
             <MenuItem x:Name="ProductModifyGUI" Header="Modify" ToolTip="Modify last selected product" Click="ProductModifyGUI_Click"/>
             <MenuItem x:Name="ProductRemoveGUI" Header="Remove" ToolTip="Remove all selected product(s)" Click="ProductRemoveGUI_Click"/>
 
-            <MenuItem Header="User Name" HorizontalAlignment="Right">
-                <MenuItem x:Name="LoginGUI" Header="Log-in" ToolTip="Sign-in to another Shop user" Click="LoginGUI_Click"/>
-                <MenuItem x:Name="LogoutGUI" Header="Log-out" ToolTip="Log-out from this Shop user" Click="LogoutGUI_Click"/>
+            <MenuItem Header="Settings" HorizontalAlignment="Right">
+                <MenuItem x:Name="LoginGUI" IsEnabled="False" Header="Log-in" ToolTip="Sign-in to another Shop user" Click="LoginGUI_Click"/>
+                <MenuItem x:Name="LogoutGUI" IsEnabled="False" Header="Log-out" ToolTip="Log-out from this Shop user" Click="LogoutGUI_Click"/>
                 <Separator/>
                 <MenuItem x:Name="productsResetGUI" Header="Reset" ToolTip="Reset the Shop!" Click="productsResetGUI_Click"/>
             </MenuItem>

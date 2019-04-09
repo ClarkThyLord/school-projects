@@ -5,12 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shop.gui"
         mc:Ignorable="d"
-        Title="Books" MinWidth="800" MinHeight="450" Height="450" Width="800" Icon="../assets/book.png" IsVisibleChanged="Window_IsVisibleChanged" Closed="Window_Closed">
+        Title="Books" MinWidth="800" MinHeight="450" Height="450" Width="800" Icon="../assets/book.png" Loaded="Window_Loaded" IsVisibleChanged="Window_IsVisibleChanged" Closed="Window_Closed">
     <Grid>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="30"/>
-        <TextBox x:Name="nameGUI" Height="30" Margin="59,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox x:Name="nameGUI" Height="30" Margin="59,10,342.6,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+        <Label Content="Amount:" HorizontalAlignment="Right" Margin="0,10,281.6,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="amountGUI" Height="30" Margin="0,10,176.6,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Right" Width="100"/>
+        <Label Content="Price:" HorizontalAlignment="Right" Margin="0,10,133.6,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="priceGUI" Height="30" Margin="0,10,9.6,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" HorizontalAlignment="Right" Width="100"/>
         <Label Content="Description:" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="descriptionGUI" Margin="10,66,10,253"/>
+        <TextBox x:Name="descriptionGUI" Margin="10,66,10,253" TextWrapping="Wrap"/>
         <Separator Margin="10,0,10,233" Height="15" VerticalAlignment="Bottom"/>
 
         <WrapPanel Orientation="Horizontal" Margin="10,0,10,40" Height="188" VerticalAlignment="Bottom">
@@ -27,8 +31,8 @@
                 <TextBox x:Name="languageGUI" Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" FontSize="13"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
-                <Label Content="Author:" VerticalAlignment="Center"/>
-                <TextBox x:Name="authorGUI" Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" FontSize="13"/>
+                <Label Content="Authors:" VerticalAlignment="Center"/>
+                <TextBox x:Name="authorsGUI" Padding="2" VerticalAlignment="Center" Width="150" Height="25" TextWrapping="Wrap" FontSize="13"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="35" VerticalAlignment="Top">
                 <Label Content="Editors:" VerticalAlignment="Center"/>

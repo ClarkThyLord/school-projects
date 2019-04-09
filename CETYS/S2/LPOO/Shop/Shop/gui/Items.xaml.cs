@@ -31,7 +31,7 @@ namespace Shop.gui
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (this.item != null) setup(this.item);
+            if (item != null) setup(item);
         }
 
         private void Window_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -71,16 +71,26 @@ namespace Shop.gui
         {
             nameGUI.Text = item.Name;
             descriptionGUI.Text = item.Description;
-            amountGUI.Text = item.Amount.ToString();
             priceGUI.Text = item.Price.ToString();
+            amountGUI.Text = item.Amount.ToString();
+
+            weightGUI.Text = item.Weight.ToString();
+            dimensionsGUI.Text = item.Dimensions;
+            usageGUI.Text = item.Usage;
+            producersGUI.Text = item.Producers;
         }
 
         public bool validate()
         {
             if (nameGUI.Text.Length <= 0) return false;
             else if (descriptionGUI.Text.Length <= 0) return false;
-            else if (amountGUI.Text.Length <= 0 && int.TryParse(amountGUI.Text, out int amount)) return false;
-            else if (priceGUI.Text.Length <= 0 && double.TryParse(priceGUI.Text, out double price)) return false;
+            else if (priceGUI.Text.Length <= 0 || !(double.TryParse(priceGUI.Text, out double price) && (price >= 0))) return false;
+            else if (amountGUI.Text.Length <= 0 || !(int.TryParse(amountGUI.Text, out int amount) && (amount >= 0))) return false;
+
+            else if (weightGUI.Text.Length <= 0 || !double.TryParse(weightGUI.Text, out double weight)) return false;
+            else if (dimensionsGUI.Text.Length <= 0) return false;
+            else if (usageGUI.Text.Length <= 0) return false;
+            else if (producersGUI.Text.Length <= 0) return false;
 
             return true;
         }
@@ -89,8 +99,9 @@ namespace Shop.gui
         {
             item.Name = nameGUI.Text;
             item.Description = descriptionGUI.Text;
-            item.Amount = int.Parse(amountGUI.Text);
             item.Price = double.Parse(priceGUI.Text);
+            item.Amount = int.Parse(amountGUI.Text);
+
             item.Weight = double.Parse(weightGUI.Text);
             item.Dimensions = dimensionsGUI.Text;
             item.Usage = usageGUI.Text;
@@ -99,7 +110,7 @@ namespace Shop.gui
 
         public void create()
         {
-            (Owner as MainWindow).add_product(new Item(nameGUI.Text, descriptionGUI.Text));
+            (Owner as MainWindow).add_product(new Item(nameGUI.Text, descriptionGUI.Text, double.Parse(priceGUI.Text), int.Parse(amountGUI.Text), double.Parse(weightGUI.Text), dimensionsGUI.Text, usageGUI.Text, producersGUI.Text));
         }
     }
 }
