@@ -60,7 +60,7 @@ namespace BinaryTree.classes
 
         public void Add(int value) { Add(new Node(value)); }
 
-        public void AddR(Node node, Node current)
+        private void AddR(Node node, Node current)
         {
             if (current == null)
             {
@@ -75,7 +75,11 @@ namespace BinaryTree.classes
                     current.Left = node;
                     return;
                 }
-                else AddR(node, current.Left);
+                else
+                {
+                    AddR(node, current.Left);
+                    return;
+                }
             }
             else if (node.Value > current.Value)
             {
@@ -84,7 +88,11 @@ namespace BinaryTree.classes
                     current.Right = node;
                     return;
                 }
-                else AddR(node, current.Right);
+                else
+                {
+                    AddR(node, current.Right);
+                    return;
+                }
             }
         }
 
