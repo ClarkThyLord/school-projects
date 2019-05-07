@@ -60,6 +60,36 @@ namespace BinaryTree.classes
 
         public void Add(int value) { Add(new Node(value)); }
 
+        public void AddR(Node node, Node current)
+        {
+            if (current == null)
+            {
+                Root = node;
+                return;
+            }
+            else if (node.Value == current.Value) return;
+            else if (node.Value < current.Value)
+            {
+                if (current.Left == null)
+                {
+                    current.Left = node;
+                    return;
+                }
+                else AddR(node, current.Left);
+            }
+            else if (node.Value > current.Value)
+            {
+                if (current.Right == null)
+                {
+                    current.Right = node;
+                    return;
+                }
+                else AddR(node, current.Right);
+            }
+        }
+
+        public void AddR(int value) { AddR(new Node(value), Root); }
+
         public bool Contains(int value)
         {
             Node current = Root;
@@ -87,5 +117,23 @@ namespace BinaryTree.classes
                 }
             }
         }
+
+        private bool ContainsR(int value, Node current)
+        {
+            if (current == null) return false;
+            else if (value == current.Value) return true;
+            else if (value < current.Value)
+            {
+                if (current.Left == null) return false;
+                else return ContainsR(value, current.Left);
+            }
+            else
+            {
+                if (current.Right == null) return false;
+                else return ContainsR(value, current.Right);
+            }
+        }
+
+        public bool ContainsR(int value) { return ContainsR(value, Root); }
     }
 }
