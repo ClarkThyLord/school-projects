@@ -21,7 +21,10 @@ namespace BinaryTree
             tree.Add(new Node(-1));
 
             Console.WriteLine(tree.Contains(100));
+            Console.WriteLine(tree.Contains(10));
             Console.WriteLine(tree.Contains(-100));
+            Console.WriteLine(tree.Contains(-36));
+            Console.WriteLine(tree.Contains(-37));
 
             Console.ReadKey();
         }
