@@ -6,13 +6,19 @@ class player:
         self.velocity = velocity
     
     def getGroundPoundDisplacement(self):
-        return round(self.weight / 3, 4)
+        return self.weight / 3
     
     def getGroundPoundRate(self):
-        return round(5 / self.velocity, 4)
+        return 5 / self.velocity
+
+    def getPumpRate(self):
+        return (self.weight * self.velocity) / 2
+    
+    def getPumpAmount(self):
+        return self.weight / 4
 
     def toString(self):
-        return "Name: {} ~ Weight: {} Velocity: {} ~ Ground Pound Displacement: {} x {} sec.".format(self.name, self.weight, self.velocity, self.getGroundPoundDisplacement(), self.getGroundPoundRate())
+        return "Name: {} ~ Weight: {} Velocity: {} ~ Ground Pound Displacement: {} x {} sec.".format(self.name, round(self.weight), round(self.velocity), round(self.getGroundPoundDisplacement()), round(self.getGroundPoundRate()))
 
 players = [
     player("Mario", 3, 3),
@@ -49,6 +55,45 @@ for _player in players:
 
 print("*****************")
 
+# pt = (v * w) / 2
+# v+ = w / 4
+# va = v+ * (t / pt)
+# 60 = v+ * (t / pt) -> t = (60 * pt) / v+
+# vb = v+ * t / pt / t
+# 60in^2
+balloon_max_volume = 60
+
+def pump_a(player):
+    current_time = 1
+    current_ballon_volume = balloon_max_volume
+
+    while True:
+        current_ballon_volume -= player.getPumpAmount() * (current_time / player.getGroundPoundRate())
+        current_time += 1
+
+        if current_ballon_volume <= 0: break
+
+
+    return current_time
+    # return (balloon_max_volume * player.getPumpRate()) / player.getPumpAmount()
+
+def pump_b(player):
+    current_time = 1
+    current_ballon_volume = balloon_max_volume
+
+    while True:
+        current_ballon_volume -= (player.getPumpAmount() * (current_time / player.getPumpRate())) / ((10 - current_time) if current_time < 10 else 1)
+        current_time += 1
+
+        if current_ballon_volume <= 0: break
+
+
+    return current_time
+
+for player in players:
+    print(player.name, " ~ Pump A: ", pump_a(player),"sec. | Pump B: ", pump_b(player), "sec.")
+
+print("*****************")
 
 playing_players = []
 for _ in range(6):
