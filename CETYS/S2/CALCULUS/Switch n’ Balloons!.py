@@ -61,6 +61,12 @@ print("*****************")
 # 60 = v+ * (t / pt) -> t = (60 * pt) / v+
 # vb = v+ * t / pt / t
 # 60in^2
+
+# 1 / (2 * v) * t
+# 1 / (2 * v) * t^2
+# V = vi + 1 / (2 * v) * t^2
+# V = vi + 1 / (2 * v) * t + 1 / (2 * v) * t^2
+# V = vi + (1 / (2 * v1) + 1 / (2 * v2)) * t
 balloon_max_volume = 60
 
 def pump_a(player):
@@ -68,7 +74,8 @@ def pump_a(player):
     current_ballon_volume = balloon_max_volume
 
     while True:
-        current_ballon_volume -= player.getPumpAmount() * (current_time / player.getGroundPoundRate())
+        current_ballon_volume -= (current_time / (2 * player.velocity))
+#       current_ballon_volume -= player.getPumpAmount() * (current_time / player.getGroundPoundRate())
         current_time += 1
 
         if current_ballon_volume <= 0: break
