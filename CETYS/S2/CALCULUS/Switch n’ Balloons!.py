@@ -1,24 +1,62 @@
 class player:
-    def __init__(self, name, weight, velocity):
+    def __init__(self, name, weight, speed):
         self.name = name
 
         self.weight = weight
-        self.velocity = velocity
+        self.speed = speed
     
     def getGroundPoundDisplacement(self):
         return self.weight / 3
     
     def getGroundPoundRate(self):
-        return 5 / self.velocity
-
-    def getPumpRate(self):
-        return (self.weight * self.velocity) / 2
+        return 5 / self.speed
     
     def getPumpAmount(self):
         return self.weight / 4
 
+    def getPumpRate(self):
+        return 1 / (self.weight * self.speed)
+    
+    # v = spw +  (weight / 4) *  (t / (1 / weight * speed))
+    # 60 = spw +  (weight / 4) *  (t / (1 / weight * speed))
+    def getPumpATime(self):
+        current_time = 1
+        current_ballon_volume = 60
+
+        while True:
+            current_ballon_volume -= self.getPumpAmount() * (current_time / self.getPumpRate())
+            current_time += 1
+
+            if current_ballon_volume <= 0: break
+
+        return current_time
+    
+    def getPumpBTime(self):
+        current_time = 1
+        current_ballon_volume = 60
+
+        while True:
+            current_ballon_volume -= (1 / 2 * (self.getPumpAmount())) * (current_time / self.getPumpRate()) * ((current_time / self.getPumpRate()) if current_time <= 10 else 1)
+            current_time += 1
+
+            if current_ballon_volume <= 0: break
+
+        return current_time
+
     def toString(self):
-        return "Name: {} ~ Weight: {} Velocity: {} ~ Ground Pound Displacement: {} x {} sec.".format(self.name, round(self.weight), round(self.velocity), round(self.getGroundPoundDisplacement()), round(self.getGroundPoundRate()))
+        return "Name: {} ~ Weight: {} speed: {} ~ Ground Pound Displacement: {} x {} sec.".format(self.name, round(self.weight), round(self.speed), round(self.getGroundPoundDisplacement()), round(self.getGroundPoundRate()))
+
+class team:
+    def __init__(self, switch_player, pump_a_player, pump_b_player):
+        self.switch_player = switch_player
+        self.pump_a_player = pump_a_player
+        self.pump_b_player = pump_b_player
+    
+    def completionTime():
+        return 1
+
+    def best():
+        return []
 
 players = [
     player("Mario", 3, 3),
@@ -61,37 +99,9 @@ print("*****************")
 # 60 = v+ * (t / pt) -> t = (60 * pt) / v+
 # vb = v+ * t / pt / t
 # 60in^2
-balloon_max_volume = 60
-
-def pump_a(player):
-    current_time = 1
-    current_ballon_volume = balloon_max_volume
-
-    while True:
-        current_ballon_volume -= player.getPumpAmount() * (current_time / player.getGroundPoundRate())
-        current_time += 1
-
-        if current_ballon_volume <= 0: break
-
-
-    return current_time
-    # return (balloon_max_volume * player.getPumpRate()) / player.getPumpAmount()
-
-def pump_b(player):
-    current_time = 1
-    current_ballon_volume = balloon_max_volume
-
-    while True:
-        current_ballon_volume -= (player.getPumpAmount() * (current_time / player.getPumpRate())) / ((10 - current_time) if current_time < 10 else 1)
-        current_time += 1
-
-        if current_ballon_volume <= 0: break
-
-
-    return current_time
 
 for player in players:
-    print(player.name, " ~ Pump A: ", pump_a(player),"sec. | Pump B: ", pump_b(player), "sec.")
+    print(player.name, " ~ Pump A: ", player.getPumpATime(),"sec. | Pump B: ", player.getPumpBTime(), "sec.")
 
 print("*****************")
 
