@@ -100,6 +100,41 @@ print("*****************")
 # vb = v+ * t / pt / t
 # 60in^2
 
+# 1 / (2 * v) * t
+# 1 / (2 * v) * t^2
+# V = vi + 1 / (2 * v) * t^2
+# V = vi + 1 / (2 * v) * t + 1 / (2 * v) * t^2
+# V = vi + (1 / (2 * v1) + 1 / (2 * v2)) * t
+# balloon_max_volume = 60
+
+# def pump_a(player):
+    # current_time = 1
+    # current_ballon_volume = balloon_max_volume
+
+    # while True:
+        # current_ballon_volume -= (current_time / (2 * player.velocity))
+# #       current_ballon_volume -= player.getPumpAmount() * (current_time / player.getGroundPoundRate())
+        # current_time += 1
+
+        # if current_ballon_volume <= 0: break
+
+
+    # return current_time
+    # # return (balloon_max_volume * player.getPumpRate()) / player.getPumpAmount()
+
+# def pump_b(player):
+    # current_time = 1
+    # current_ballon_volume = balloon_max_volume
+
+    # while True:
+        # current_ballon_volume -= (player.getPumpAmount() * (current_time / player.getPumpRate())) / ((10 - current_time) if current_time < 10 else 1)
+        # current_time += 1
+
+        # if current_ballon_volume <= 0: break
+
+
+    # return current_time
+
 for player in players:
     print(player.name, " ~ Pump A: ", player.getPumpATime(),"sec. | Pump B: ", player.getPumpBTime(), "sec.")
 
