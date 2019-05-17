@@ -1,0 +1,14 @@
+﻿<Window x:Class="VinaryTree.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VinaryTree"
+        mc:Ignorable="d"
+        Title="VinaryTree" Height="600" Width="800" MinWidth="800" MinHeight="600" Icon="assets/VinaryTree.png" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Foreground="{x:Null}" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Image Margin="150" Source="assets/VinaryTree.png"/>
+        <ProgressBar x:Name="progress" Width="250" Height="30" VerticalAlignment="Bottom" Margin="286,0,264,95" HorizontalAlignment="Center" Background="#FF005B00" Foreground="#FF00AC3B" BorderBrush="{x:Null}"/>
+
+    </Grid>
+</Window>

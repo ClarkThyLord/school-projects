@@ -1,0 +1,17 @@
+﻿<Window x:Class="VinaryTree.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VinaryTree"
+        mc:Ignorable="d"
+        Title="VinaryTree" Height="600" Width="800" Icon="assets/VinaryTree.png" WindowStartupLocation="CenterScreen" MinWidth="800" MinHeight="600" Closed="Window_Closed">
+    <Grid>
+        <Canvas Background="Black"/>
+        <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <TextBox x:Name="input" Margin="10,10,0,10" Width="680" VerticalContentAlignment="Center" Foreground="Gray" BorderThickness="2"  Text="Input data..." GotFocus="input_GotFocus" LostFocus="input_LostFocus" KeyDown="input_KeyDown"></TextBox>
+            <Button x:Name="view" Margin="0,10,10,10" Padding="20,0,20,0" Content="View" Click="view_Click"></Button>
+        </StackPanel>
+
+    </Grid>
+</Window>
