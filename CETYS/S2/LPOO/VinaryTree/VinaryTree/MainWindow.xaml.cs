@@ -22,7 +22,23 @@ namespace VinaryTree
     {
         public bool READY = false;
 
-        public VBinaryTree vBinaryTree;
+        private VBinaryTree vbinarytree;
+        public VBinaryTree vBinaryTree
+        {
+            get
+            {
+                return vbinarytree;
+            }
+            set
+            {
+                if (vbinarytree != null) canvas.Children.Remove(vbinarytree);
+
+                vbinarytree = value;
+
+                canvas.Children.Add(vbinarytree);
+                center_binarytree();
+            }
+        }
 
         public MainWindow()
         {
@@ -33,8 +49,7 @@ namespace VinaryTree
         {
             READY = true;
 
-            // Create the VBinaryTree
-            vBinaryTree = new VBinaryTree(new int[] {
+            update(new int[] {
                 11,
                 20,
                 4,
@@ -46,11 +61,6 @@ namespace VinaryTree
                 332,
                 123
             });
-
-            center_binarytree();
-
-            // Add the VBinaryTree to the canvas
-            canvas.Children.Add(vBinaryTree);
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -61,6 +71,11 @@ namespace VinaryTree
         private void Window_Closed(object sender, EventArgs e)
         {
             Owner.Close();
+        }
+
+        private void canvas_MouseEnter(object sender, MouseEventArgs e)
+        {
+            view.Focus();
         }
 
         private void input_GotFocus(object sender, RoutedEventArgs e)
@@ -87,13 +102,20 @@ namespace VinaryTree
             if (e.Key == Key.Enter) update();
         }
 
+        private void view_GotFocus(object sender, RoutedEventArgs e)
+        {
+            validate_input();
+        }
+
         private void view_Click(object sender, RoutedEventArgs e)
         {
             update();
         }
 
-        private bool is_input_valid()
+        private bool validate_input()
         {
+            if (!READY) return false;
+
             string[] inputs = input.Text.Split(',');
             foreach (string _input in inputs)
             {
@@ -108,11 +130,15 @@ namespace VinaryTree
                 }
             }
 
+            input.BorderBrush = Brushes.Green;
+
             return true;
         }
 
         private int[] get_input()
         {
+            if (!READY) return null;
+
             return input.Text.Split(',').Select(n => int.Parse(n)).ToArray();
         }
 
@@ -125,13 +151,18 @@ namespace VinaryTree
             Canvas.SetTop(vBinaryTree, 75);
         }
 
-        public void update()
+        public void update(int[] values = null)
         {
             if (!READY) return;
+            
+            if (values != null)
+            {
+                vBinaryTree = new VBinaryTree(values);
 
-            if (is_input_valid()) {
-                int[] input = get_input();
+                input.Text = string.Join(",", values);
+                input.Foreground = Brushes.Black;
             }
+            else if (validate_input()) vBinaryTree = new VBinaryTree(get_input());
         }
     }
 }

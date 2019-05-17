@@ -49,7 +49,7 @@ namespace VinaryTree.classes
                 this.left = value;
 
                 // Setup left node relative to this nodes canvas
-                Canvas.SetRight(this.left, -60);
+                Canvas.SetRight(this.left, 60);
                 Canvas.SetTop(this.left, 60);
 
                 // Add new left node to this nodes canvas
@@ -72,7 +72,7 @@ namespace VinaryTree.classes
                 this.right = value;
 
                 // Setup right node relative to this nodes canvas
-                Canvas.SetRight(this.right, 60);
+                Canvas.SetRight(this.right, -60);
                 Canvas.SetTop(this.right, 60);
 
                 // Add new right node to this nodes canvas
