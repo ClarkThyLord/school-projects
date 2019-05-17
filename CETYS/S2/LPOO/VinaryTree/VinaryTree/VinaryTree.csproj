@@ -116,6 +116,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="assets\help.png" />
     <Resource Include="assets\VinaryTree.png" />
     <Content Include="assets\VinaryTree.svg" />
   </ItemGroup>

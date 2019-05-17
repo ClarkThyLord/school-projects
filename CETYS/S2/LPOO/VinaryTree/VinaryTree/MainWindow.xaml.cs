@@ -155,6 +155,11 @@ namespace VinaryTree
             update();
         }
 
+        private void help_btn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            help_panel.Visibility = help_panel.Visibility == Visibility.Visible ? Visibility.Hidden : Visibility.Visible;
+        }
+
         private bool validate_input_txt()
         {
             if (!READY) return false;
