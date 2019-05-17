@@ -46,11 +46,11 @@ namespace VinaryTree.classes
                 // If there is a left node remove it
                 if (this.left != null) canvas.Children.Remove(this.left);
 
-                this.left = Left;
+                this.left = value;
 
                 // Setup left node relative to this nodes canvas
-                Canvas.SetRight(this.left, -30);
-                Canvas.SetTop(this.left, 30);
+                Canvas.SetRight(this.left, -60);
+                Canvas.SetTop(this.left, 60);
 
                 // Add new left node to this nodes canvas
                 canvas.Children.Add(this.left);
@@ -69,11 +69,11 @@ namespace VinaryTree.classes
                 // If there is a right node remove it
                 if (this.right != null) canvas.Children.Remove(this.right);
 
-                this.right = Right;
+                this.right = value;
 
                 // Setup right node relative to this nodes canvas
-                Canvas.SetRight(this.right, 30);
-                Canvas.SetTop(this.right, 30);
+                Canvas.SetRight(this.right, 60);
+                Canvas.SetTop(this.right, 60);
 
                 // Add new right node to this nodes canvas
                 canvas.Children.Add(this.right);

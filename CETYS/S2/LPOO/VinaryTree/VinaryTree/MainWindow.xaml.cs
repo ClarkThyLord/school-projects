@@ -34,7 +34,18 @@ namespace VinaryTree
             READY = true;
 
             // Create the VBinaryTree
-            vBinaryTree = new VBinaryTree(100);
+            vBinaryTree = new VBinaryTree(new int[] {
+                11,
+                20,
+                4,
+                5,
+                -45,
+                33,
+                100,
+                31,
+                332,
+                123
+            });
 
             center_binarytree();
 
