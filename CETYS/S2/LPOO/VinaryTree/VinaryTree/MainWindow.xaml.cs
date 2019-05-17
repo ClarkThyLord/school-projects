@@ -140,6 +140,11 @@ namespace VinaryTree
             if (e.Key == Key.Enter) update();
         }
 
+        private void input_txt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            update();
+        }
+
         private void center_btn_Click(object sender, RoutedEventArgs e)
         {
             center_binarytree();
