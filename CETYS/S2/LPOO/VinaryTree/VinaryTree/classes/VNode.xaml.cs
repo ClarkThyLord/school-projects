@@ -45,6 +45,19 @@ namespace VinaryTree.classes
             {
                 // If there is a left node remove it
                 if (this.left != null) canvas.Children.Remove(this.left);
+                else
+                {
+                    Line link = new Line();
+                    link.Stroke = lesserLink;
+
+                    link.X1 = MinWidth / 2;
+                    link.Y1 = MinHeight / 2;
+                    link.X2 = -60 + MinWidth / 2;
+                    link.Y2 = 60 + MinHeight / 2;
+
+                    link.StrokeThickness = 2;
+                    canvas.Children.Add(link);
+                }
 
                 this.left = value;
 
@@ -68,6 +81,19 @@ namespace VinaryTree.classes
             {
                 // If there is a right node remove it
                 if (this.right != null) canvas.Children.Remove(this.right);
+                else
+                {
+                    Line link = new Line();
+                    link.Stroke = greaterLink;
+
+                    link.X1 = MinWidth / 2;
+                    link.Y1 = MinHeight / 2;
+                    link.X2 = 60 + MinWidth / 2;
+                    link.Y2 = 60 + MinHeight / 2;
+
+                    link.StrokeThickness = 2;
+                    canvas.Children.Add(link);
+                }
 
                 this.right = value;
 
@@ -85,6 +111,9 @@ namespace VinaryTree.classes
 
         public static Brush focusedFill = Brushes.LightGray;
         public static Brush focusedStroke = Brushes.White;
+
+        public static Brush lesserLink = Brushes.Blue;
+        public static Brush greaterLink = Brushes.Red;
 
         public VNode()
         {
