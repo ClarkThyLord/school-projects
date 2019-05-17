@@ -23,7 +23,7 @@ namespace VinaryTree
         public bool READY = false;
 
         public bool dragging = false;
-        public double dragging_speed = 2;
+        public double dragging_speed = 10;
         public double scaleX = 1, scaleY = 1;
         public double zoom_rate = 0.03;
         public Point last_position = new Point();
@@ -230,6 +230,9 @@ namespace VinaryTree
         public void center_binarytree()
         {
             if (!READY) return;
+
+            // Set canvas scale back to 1
+            canvas.RenderTransform = new ScaleTransform(1, 1);
 
             // Center it horizontally and a little bit bellow the top of the canvas
             Canvas.SetLeft(vBinaryTree, canvas.ActualWidth / 2 - 25);
