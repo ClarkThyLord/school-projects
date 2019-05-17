@@ -24,7 +24,11 @@ namespace VinaryTree
 
         public bool dragging = false;
         public double dragging_speed = 2;
+        public double scaleX = 1, scaleY = 1;
+        public double zoom_rate = 0.03;
         public Point last_position = new Point();
+
+        private Random random = new Random();
 
         private VBinaryTree vbinarytree;
         public VBinaryTree vBinaryTree
@@ -75,6 +79,22 @@ namespace VinaryTree
         private void Window_Closed(object sender, EventArgs e)
         {
             Owner.Close();
+        }
+
+        private void on_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+            {
+                scaleX += zoom_rate;
+                scaleY += zoom_rate;
+            }
+            else
+            {
+                scaleX -= zoom_rate;
+                scaleY -= zoom_rate;
+            }
+
+            canvas.RenderTransform = new ScaleTransform(scaleX, scaleY, Mouse.GetPosition(canvas).X, Mouse.GetPosition(canvas).Y);
         }
 
         private void canvas_MouseEnter(object sender, MouseEventArgs e)
@@ -143,6 +163,18 @@ namespace VinaryTree
         private void input_txt_TextChanged(object sender, TextChangedEventArgs e)
         {
             update();
+        }
+
+        private void random_btn_Click(object sender, RoutedEventArgs e)
+        {
+            int length = random.Next(3, 1000);
+            int[] values = new int[length];
+            for (int n = 0; n < length; n++)
+            {
+                values[n] = random.Next(-1000, 1000);
+            }
+
+            update(values);
         }
 
         private void center_btn_Click(object sender, RoutedEventArgs e)
