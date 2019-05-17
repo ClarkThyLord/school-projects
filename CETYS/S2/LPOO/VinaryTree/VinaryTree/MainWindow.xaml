@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="VinaryTree" Height="600" Width="800" Icon="assets/VinaryTree.png" WindowStartupLocation="CenterScreen" MinWidth="800" MinHeight="600" Loaded="Window_Loaded" SizeChanged="Window_SizeChanged" Closed="Window_Closed">
     <Grid>
-        <Canvas x:Name="canvas" Background="Black" MouseEnter="canvas_MouseEnter"></Canvas>
+        <Canvas x:Name="canvas" Background="Black" MouseEnter="canvas_MouseEnter" MouseLeave="canvas_MouseLeave" MouseDown="canvas_MouseDown" MouseMove="canvas_MouseMove" MouseUp="canvas_MouseUp"></Canvas>
         
         <StackPanel Orientation="Horizontal" Height="50" VerticalAlignment="Bottom" HorizontalAlignment="Center">
             <TextBox x:Name="input" Margin="10,10,0,10" Width="680" VerticalContentAlignment="Center" Foreground="Gray" BorderThickness="2"  Text="Input data..." GotFocus="input_GotFocus" LostFocus="input_LostFocus" KeyDown="input_KeyDown"/>

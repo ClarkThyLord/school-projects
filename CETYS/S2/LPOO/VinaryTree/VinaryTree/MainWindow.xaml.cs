@@ -22,6 +22,9 @@ namespace VinaryTree
     {
         public bool READY = false;
 
+        public bool dragging = false;
+        public Point last_position = new Point();
+
         private VBinaryTree vbinarytree;
         public VBinaryTree vBinaryTree
         {
@@ -76,6 +79,40 @@ namespace VinaryTree
         private void canvas_MouseEnter(object sender, MouseEventArgs e)
         {
             view.Focus();
+        }
+
+        private void canvas_MouseLeave(object sender, MouseEventArgs e)
+        {
+            dragging = false;
+        }
+
+        private void canvas_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            dragging = true;
+        }
+
+        private void canvas_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                Point current_position = e.GetPosition(canvas);
+
+                double x_delta = current_position.X - last_position.X;
+                if (x_delta > 0) Canvas.SetLeft(vBinaryTree, Canvas.GetLeft(vBinaryTree) + 1);
+                else if (x_delta < 0) Canvas.SetLeft(vBinaryTree, Canvas.GetLeft(vBinaryTree) - 1);
+
+                double y_delta = current_position.Y - last_position.Y;
+                if (y_delta > 0) Canvas.SetTop(vBinaryTree, Canvas.GetTop(vBinaryTree) + 1);
+                else if (y_delta < 0) Canvas.SetTop(vBinaryTree, Canvas.GetTop(vBinaryTree) - 1);
+
+                last_position = current_position;
+            }
+            else last_position = e.GetPosition(canvas);
+        }
+
+        private void canvas_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            dragging = false;
         }
 
         private void input_GotFocus(object sender, RoutedEventArgs e)
