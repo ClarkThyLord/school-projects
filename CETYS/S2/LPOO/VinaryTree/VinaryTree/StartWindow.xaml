@@ -8,7 +8,7 @@
         Title="VinaryTree" Height="600" Width="800" MinWidth="800" MinHeight="600" Icon="assets/VinaryTree.png" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Foreground="{x:Null}" WindowStartupLocation="CenterScreen">
     <Grid>
         <Image Margin="150" Source="assets/VinaryTree.png"/>
-        <ProgressBar x:Name="progress" Width="250" Height="30" VerticalAlignment="Bottom" Margin="286,0,264,95" HorizontalAlignment="Center" Background="#FF005B00" Foreground="#FF00AC3B" BorderBrush="{x:Null}"/>
+        <ProgressBar x:Name="progress" Width="250" Height="30" VerticalAlignment="Bottom" Margin="286,0,264,95" HorizontalAlignment="Center" Background="#FF005B00" Foreground="#FF00AC3B" BorderBrush="{x:Null}" Maximum="30"/>
 
     </Grid>
 </Window>
