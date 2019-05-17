@@ -41,8 +41,8 @@ namespace VinaryTree.classes
             get
             {
                 //return nodeDistance;
-                //return nodeDistance - (level % 4);
-                return nodeDistance * ((level % 4) + 1);
+                //retur1n nodeDistance - (level % 4);
+                return nodeDistance / ((2 * (this.level % 3)) > 0 ? (2 * this.level) : 1);
             }
         }
 
@@ -65,7 +65,7 @@ namespace VinaryTree.classes
                     link.X1 = MinWidth / 2;
                     link.Y1 = MinHeight / 2;
                     link.X2 = -NodeDistance + MinWidth / 2;
-                    link.Y2 = NodeDistance + MinHeight / 2;
+                    link.Y2 = nodeDistance + MinHeight / 2;
 
                     link.StrokeThickness = 2;
                     canvas.Children.Add(link);
@@ -76,7 +76,7 @@ namespace VinaryTree.classes
 
                 // Setup left node relative to this nodes canvas
                 Canvas.SetRight(this.left, NodeDistance);
-                Canvas.SetTop(this.left, NodeDistance);
+                Canvas.SetTop(this.left, nodeDistance);
 
                 // Add new left node to this nodes canvas
                 canvas.Children.Add(this.left);
@@ -102,7 +102,7 @@ namespace VinaryTree.classes
                     link.X1 = MinWidth / 2;
                     link.Y1 = MinHeight / 2;
                     link.X2 = NodeDistance + MinWidth / 2;
-                    link.Y2 = NodeDistance + MinHeight / 2;
+                    link.Y2 = nodeDistance + MinHeight / 2;
 
                     link.StrokeThickness = 2;
                     canvas.Children.Add(link);
@@ -113,7 +113,7 @@ namespace VinaryTree.classes
 
                 // Setup right node relative to this nodes canvas
                 Canvas.SetRight(this.right, -NodeDistance);
-                Canvas.SetTop(this.right, NodeDistance);
+                Canvas.SetTop(this.right, nodeDistance);
 
                 // Add new right node to this nodes canvas
                 canvas.Children.Add(this.right);
