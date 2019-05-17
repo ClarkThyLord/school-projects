@@ -1,0 +1,26 @@
+﻿<Window x:Class="MVVM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVM"
+        mc:Ignorable="d"
+        Title="MVVM" Height="450" Width="800" Icon="assets/icon.png">
+    <Grid>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="image_picker" Content="Choose image" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="100" Click="image_picker_Click"/>
+
+        <TextBox x:Name="name" Height="23" Margin="115,10,9.6,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" TextChanged="name_TextChanged"/>
+        
+        <TextBlock HorizontalAlignment="Left" Margin="117,38,0,0" TextWrapping="Wrap" Text="Date of Birth:" VerticalAlignment="Top" Height="24" Width="77"/>
+        <DatePicker x:Name="date_of_birth_picker" HorizontalAlignment="Left" Margin="194,38,0,0" VerticalAlignment="Top" SelectedDateChanged="date_of_birth_picker_SelectedDateChanged"/>
+
+        <TextBlock HorizontalAlignment="Left" Margin="301,38,0,0" TextWrapping="Wrap" Text="Date of Death:" VerticalAlignment="Top" Height="24" Width="77"/>
+        <DatePicker x:Name="date_of_death_picker" HorizontalAlignment="Left" Margin="383,38,0,0" VerticalAlignment="Top" SelectedDateChanged="date_of_death_picker_SelectedDateChanged"/>
+
+        <TextBox x:Name="info_txt" Height="67" Margin="117,67,9.6,0" TextWrapping="Wrap" Text="Info" VerticalAlignment="Top" TextChanged="info_txt_TextChanged"/>
+        <Separator Margin="0,139,-0.4,0" Height="14" VerticalAlignment="Top"/>
+
+        <DataGrid Margin="10,158,9.6,10"/>
+    </Grid>
+</Window>
