@@ -80,6 +80,12 @@ namespace VinaryTree.classes
             }
         }
 
+        public static Brush defaultFill = Brushes.White;
+        public static Brush defaultStroke = Brushes.Gray;
+
+        public static Brush focusedFill = Brushes.LightGray;
+        public static Brush focusedStroke = Brushes.White;
+
         public VNode()
         {
             InitializeComponent();
@@ -92,17 +98,22 @@ namespace VinaryTree.classes
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            // Once we're able to access the value_txt change it's content to this nodes value
+            ellipse.Fill = defaultFill;
+            ellipse.Stroke = defaultStroke;
             value_txt.Content = value.ToString();
         }
 
         private void ellipse_MouseEnter(object sender, MouseEventArgs e)
         {
+            ellipse.Fill = focusedFill;
+            ellipse.Stroke = focusedStroke;
             ellipse.Margin = new Thickness(-Math.Abs(MinWidth / MinHeight * 3));
         }
 
         private void ellipse_MouseLeave(object sender, MouseEventArgs e)
         {
+            ellipse.Fill = defaultFill;
+            ellipse.Stroke = defaultStroke;
             ellipse.Margin = new Thickness(0);
         }
     }
