@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VinaryTree.classes;
 
 namespace VinaryTree
 {
@@ -19,9 +20,31 @@ namespace VinaryTree
     /// </summary>
     public partial class MainWindow : Window
     {
+        public bool READY = false;
+
+        public VBinaryTree vBinaryTree;
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            READY = true;
+
+            // Create the VBinaryTree
+            vBinaryTree = new VBinaryTree(100);
+
+            center_binarytree();
+
+            // Add the VBinaryTree to the canvas
+            canvas.Children.Add(vBinaryTree);
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            center_binarytree();
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -82,8 +105,19 @@ namespace VinaryTree
             return input.Text.Split(',').Select(n => int.Parse(n)).ToArray();
         }
 
+        public void center_binarytree()
+        {
+            if (!READY) return;
+
+            // Center it horizontally and a little bit bellow the top of the canvas
+            Canvas.SetLeft(vBinaryTree, canvas.ActualWidth / 2 - 25);
+            Canvas.SetTop(vBinaryTree, 75);
+        }
+
         public void update()
         {
+            if (!READY) return;
+
             if (is_input_valid()) {
                 int[] input = get_input();
             }
