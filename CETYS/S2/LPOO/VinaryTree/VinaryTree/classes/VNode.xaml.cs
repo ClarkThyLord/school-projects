@@ -42,7 +42,7 @@ namespace VinaryTree.classes
             {
                 //return nodeDistance;
                 //retur1n nodeDistance - (level % 4);
-                return nodeDistance / ((2 * (this.level % 3)) > 0 ? (2 * this.level) : 1);
+                return nodeDistance / ((2 * (this.level)) > 0 ? (2 * this.level) : 1);
             }
         }
 
