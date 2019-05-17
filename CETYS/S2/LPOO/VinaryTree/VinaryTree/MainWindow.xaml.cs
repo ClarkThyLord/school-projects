@@ -23,6 +23,7 @@ namespace VinaryTree
         public bool READY = false;
 
         public bool dragging = false;
+        public double dragging_speed = 2;
         public Point last_position = new Point();
 
         private VBinaryTree vbinarytree;
@@ -78,7 +79,7 @@ namespace VinaryTree
 
         private void canvas_MouseEnter(object sender, MouseEventArgs e)
         {
-            view.Focus();
+            update_btn.Focus();
         }
 
         private void canvas_MouseLeave(object sender, MouseEventArgs e)
@@ -98,12 +99,12 @@ namespace VinaryTree
                 Point current_position = e.GetPosition(canvas);
 
                 double x_delta = current_position.X - last_position.X;
-                if (x_delta > 0) Canvas.SetLeft(vBinaryTree, Canvas.GetLeft(vBinaryTree) + 1);
-                else if (x_delta < 0) Canvas.SetLeft(vBinaryTree, Canvas.GetLeft(vBinaryTree) - 1);
+                if (x_delta > 0) Canvas.SetLeft(vBinaryTree, Canvas.GetLeft(vBinaryTree) + dragging_speed);
+                else if (x_delta < 0) Canvas.SetLeft(vBinaryTree, Canvas.GetLeft(vBinaryTree) - dragging_speed);
 
                 double y_delta = current_position.Y - last_position.Y;
-                if (y_delta > 0) Canvas.SetTop(vBinaryTree, Canvas.GetTop(vBinaryTree) + 1);
-                else if (y_delta < 0) Canvas.SetTop(vBinaryTree, Canvas.GetTop(vBinaryTree) - 1);
+                if (y_delta > 0) Canvas.SetTop(vBinaryTree, Canvas.GetTop(vBinaryTree) + dragging_speed);
+                else if (y_delta < 0) Canvas.SetTop(vBinaryTree, Canvas.GetTop(vBinaryTree) - dragging_speed);
 
                 last_position = current_position;
             }
@@ -115,68 +116,73 @@ namespace VinaryTree
             dragging = false;
         }
 
-        private void input_GotFocus(object sender, RoutedEventArgs e)
+        private void input_txt_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (input.Text == "Input data...")
+            if (input_txt.Text == "Input data...")
             {
-                input.Clear();
-                input.Foreground = Brushes.Black;
+                input_txt.Clear();
+                input_txt.Foreground = Brushes.Black;
             }
-            else input.SelectAll();
+            else input_txt.SelectAll();
         }
 
-        private void input_LostFocus(object sender, RoutedEventArgs e)
+        private void input_txt_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (input.Text == "")
+            if (input_txt.Text == "")
             {
-                input.Text = "Input data...";
-                input.Foreground = Brushes.Gray;
+                input_txt.Text = "Input data...";
+                input_txt.Foreground = Brushes.Gray;
             }
         }
 
-        private void input_KeyDown(object sender, KeyEventArgs e)
+        private void input_txt_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) update();
         }
 
-        private void view_GotFocus(object sender, RoutedEventArgs e)
+        private void center_btn_Click(object sender, RoutedEventArgs e)
         {
-            validate_input();
+            center_binarytree();
         }
 
-        private void view_Click(object sender, RoutedEventArgs e)
+        private void update_btn_GotFocus(object sender, RoutedEventArgs e)
+        {
+            validate_input_txt();
+        }
+
+        private void update_btn_Click(object sender, RoutedEventArgs e)
         {
             update();
         }
 
-        private bool validate_input()
+        private bool validate_input_txt()
         {
             if (!READY) return false;
 
-            string[] inputs = input.Text.Split(',');
-            foreach (string _input in inputs)
+            string[] input_txts = input_txt.Text.Split(',');
+            foreach (string _input_txt in input_txts)
             {
-                if (int.TryParse(_input, out int num_input))
+                if (int.TryParse(_input_txt, out int num_input_txt))
                 {
-                    input.BorderBrush = input.IsFocused ? SystemColors.ActiveBorderBrush : SystemColors.InactiveBorderBrush;
+                    input_txt.BorderBrush = input_txt.IsFocused ? SystemColors.ActiveBorderBrush : SystemColors.InactiveBorderBrush;
                 }
                 else
                 {
-                    input.BorderBrush = Brushes.Red;
+                    input_txt.BorderBrush = Brushes.Red;
                     return false;
                 }
             }
 
-            input.BorderBrush = Brushes.Green;
+            input_txt.BorderBrush = Brushes.Green;
 
             return true;
         }
 
-        private int[] get_input()
+        private int[] get_input_txt()
         {
             if (!READY) return null;
 
-            return input.Text.Split(',').Select(n => int.Parse(n)).ToArray();
+            return input_txt.Text.Split(',').Select(n => int.Parse(n)).ToArray();
         }
 
         public void center_binarytree()
@@ -196,10 +202,10 @@ namespace VinaryTree
             {
                 vBinaryTree = new VBinaryTree(values);
 
-                input.Text = string.Join(",", values);
-                input.Foreground = Brushes.Black;
+                input_txt.Text = string.Join(",", values);
+                input_txt.Foreground = Brushes.Black;
             }
-            else if (validate_input()) vBinaryTree = new VBinaryTree(get_input());
+            else if (validate_input_txt()) vBinaryTree = new VBinaryTree(get_input_txt());
         }
     }
 }
