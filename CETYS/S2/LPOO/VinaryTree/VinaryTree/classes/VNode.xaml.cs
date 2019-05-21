@@ -34,6 +34,18 @@ namespace VinaryTree.classes
             }
         }
 
+        public int level = 0;
+        public static double nodeDistance = 120;
+        private double NodeDistance
+        {
+            get
+            {
+                //return nodeDistance;
+                //retur1n nodeDistance - (level % 4);
+                return nodeDistance / ((2 * (this.level)) > 0 ? (2 * this.level) : 1);
+            }
+        }
+
         private VNode left;
         public VNode Left
         {
@@ -52,18 +64,19 @@ namespace VinaryTree.classes
 
                     link.X1 = MinWidth / 2;
                     link.Y1 = MinHeight / 2;
-                    link.X2 = -60 + MinWidth / 2;
-                    link.Y2 = 60 + MinHeight / 2;
+                    link.X2 = -NodeDistance + MinWidth / 2;
+                    link.Y2 = nodeDistance + MinHeight / 2;
 
                     link.StrokeThickness = 2;
                     canvas.Children.Add(link);
                 }
 
                 this.left = value;
+                this.left.level = this.level + 1;
 
                 // Setup left node relative to this nodes canvas
-                Canvas.SetRight(this.left, 60);
-                Canvas.SetTop(this.left, 60);
+                Canvas.SetRight(this.left, NodeDistance);
+                Canvas.SetTop(this.left, nodeDistance);
 
                 // Add new left node to this nodes canvas
                 canvas.Children.Add(this.left);
@@ -88,18 +101,19 @@ namespace VinaryTree.classes
 
                     link.X1 = MinWidth / 2;
                     link.Y1 = MinHeight / 2;
-                    link.X2 = 60 + MinWidth / 2;
-                    link.Y2 = 60 + MinHeight / 2;
+                    link.X2 = NodeDistance + MinWidth / 2;
+                    link.Y2 = nodeDistance + MinHeight / 2;
 
                     link.StrokeThickness = 2;
                     canvas.Children.Add(link);
                 }
 
                 this.right = value;
+                this.right.level = this.level + 1;
 
                 // Setup right node relative to this nodes canvas
-                Canvas.SetRight(this.right, -60);
-                Canvas.SetTop(this.right, 60);
+                Canvas.SetRight(this.right, -NodeDistance);
+                Canvas.SetTop(this.right, nodeDistance);
 
                 // Add new right node to this nodes canvas
                 canvas.Children.Add(this.right);
