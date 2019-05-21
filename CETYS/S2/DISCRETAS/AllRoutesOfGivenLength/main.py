@@ -27,33 +27,32 @@ def pretty_matrix(matrix):
     
     return pretty
 
-def matrix_pow(matrix, pow = 2):
+def matrix_pow(matrix, pow = 2, original_columns = []):
     if pow <= 1: return matrix
     
     rows = []
-    columns = []
     matrix_size = int(math.sqrt(len(matrix)))
     for dimension in range(matrix_size):
         rows.append([])
-        columns.append([])
+        if len(original_columns) < matrix_size: original_columns.append([])
     
     for index in range(len(matrix)):
         rows[int(index / matrix_size)].append(matrix[index])
-        columns[int(index % matrix_size)].append(matrix[index])
+        if len(original_columns[matrix_size - 1]) < matrix_size: original_columns[int(index % matrix_size)].append(matrix[index])
 
     result = []
     for row in rows:
         value = 0
-        for column in columns:
+        for column in original_columns:
             for index in range(len(rows)):
                 value += row[index] * column[index]
             result.append(value)
             value = 0
 
-    return matrix_pow(result, pow - 1)
+    return matrix_pow(result, pow - 1, original_columns)
 
 if __name__ == "__main__":
-    file = open('./example.txt', 'r')
+    file = open('./example_book.txt', 'r')
     start, end, length, matrix = text_to_input(file.read())
     file.close()
 
@@ -65,4 +64,3 @@ if __name__ == "__main__":
 
     print('Amount: ', result[start * int(math.sqrt(len(matrix))) + end])
     print(pretty_matrix(result))
-    
