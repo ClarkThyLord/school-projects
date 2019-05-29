@@ -25,9 +25,19 @@ namespace MVVM
             InitializeComponent();
         }
 
+        public void set_image(Image image)
+        {
+            // SET IMAGE TO INTERFACE
+        }
+
         private void image_picker_Click(object sender, RoutedEventArgs e)
         {
             Logic.process_image(image_picker.Content);
+        }
+
+        public void set_name(string name)
+        {
+            // SET IMAGE TO INTERFACE
         }
 
         private void name_TextChanged(object sender, TextChangedEventArgs e)
@@ -35,17 +45,32 @@ namespace MVVM
             Logic.process_name(name.Text);
         }
 
+        public void set_info(String info)
+        {
+            // SET INFO TO INTERFACE
+        }
+
         private void info_txt_TextChanged(object sender, TextChangedEventArgs e)
         {
             Logic.process_info(info_txt.Text);
         }
 
-        private void date_of_death_picker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        public void set_date_of_birth(DateTime date)
         {
-            Logic.process_date_of_birth(date_of_death_picker.SelectedDate);
+            // SET DATE OF BIRTH
         }
 
         private void date_of_birth_picker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Logic.process_date_of_birth(date_of_birth_picker.SelectedDate);
+        }
+
+        public void set_date_of_death(DateTime date)
+        {
+            // SET DATE OF DEATH
+        }
+
+        private void date_of_death_picker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             Logic.process_date_of_death(date_of_death_picker.SelectedDate);
         }

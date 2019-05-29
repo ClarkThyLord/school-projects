@@ -6,21 +6,24 @@
         xmlns:local="clr-namespace:MVVM"
         mc:Ignorable="d"
         Title="MVVM" Height="450" Width="800" Icon="assets/icon.png">
-    <Grid>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
-        <Button x:Name="image_picker" Content="Choose image" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top" Width="100" Click="image_picker_Click"/>
+    <Grid Background="#FF5353A8">
+        <Grid Margin="0,0,-0.4,281" Background="#FF4D4D90">
+            <Rectangle Fill="#FF5252A5" HorizontalAlignment="Left" Height="104" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Stroke="#FF688CAF"/>
+            <Button x:Name="image_picker" Content="Choose image" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top" Width="100" Click="image_picker_Click" Height="20" BorderBrush="#FF688CAF" Background="#FF5353B9"/>
 
-        <TextBox x:Name="name" Height="23" Margin="115,10,9.6,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" TextChanged="name_TextChanged"/>
-        
-        <TextBlock HorizontalAlignment="Left" Margin="117,38,0,0" TextWrapping="Wrap" Text="Date of Birth:" VerticalAlignment="Top" Height="24" Width="77"/>
-        <DatePicker x:Name="date_of_birth_picker" HorizontalAlignment="Left" Margin="194,38,0,0" VerticalAlignment="Top" SelectedDateChanged="date_of_birth_picker_SelectedDateChanged"/>
+            <TextBox x:Name="name" Height="23" Margin="115,10,9.6,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" TextChanged="name_TextChanged" Background="#FF5252A5" BorderBrush="#FF688CAF"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="301,38,0,0" TextWrapping="Wrap" Text="Date of Death:" VerticalAlignment="Top" Height="24" Width="77"/>
-        <DatePicker x:Name="date_of_death_picker" HorizontalAlignment="Left" Margin="383,38,0,0" VerticalAlignment="Top" SelectedDateChanged="date_of_death_picker_SelectedDateChanged"/>
+            <TextBlock HorizontalAlignment="Left" Margin="117,38,0,0" TextWrapping="Wrap" Text="Date of Birth:" VerticalAlignment="Top" Height="24" Width="77"/>
+            <DatePicker x:Name="date_of_birth_picker" HorizontalAlignment="Left" Margin="194,38,0,0" VerticalAlignment="Top" SelectedDateChanged="date_of_birth_picker_SelectedDateChanged" BorderBrush="#FF688CAF"/>
 
-        <TextBox x:Name="info_txt" Height="67" Margin="117,67,9.6,0" TextWrapping="Wrap" Text="Info" VerticalAlignment="Top" TextChanged="info_txt_TextChanged"/>
-        <Separator Margin="0,139,-0.4,0" Height="14" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="301,38,0,0" TextWrapping="Wrap" Text="Date of Death:" VerticalAlignment="Top" Height="24" Width="77"/>
+            <DatePicker x:Name="date_of_death_picker" HorizontalAlignment="Left" Margin="383,38,0,0" VerticalAlignment="Top" SelectedDateChanged="date_of_death_picker_SelectedDateChanged" BorderBrush="#FF688CAF"/>
 
-        <DataGrid Margin="10,158,9.6,10"/>
+            <TextBox x:Name="info_txt" Height="67" Margin="117,67,9.6,0" TextWrapping="Wrap" Text="Info" VerticalAlignment="Top" TextChanged="info_txt_TextChanged" Background="#FF5252A5" BorderBrush="#FF688CAF"/>
+        </Grid>
+
+        <Separator Margin="0,139,-0.4,0" Height="14" VerticalAlignment="Top" Background="#FF494989"/>
+
+        <DataGrid Margin="10,158,9.6,10" Background="#FF4D4D90"/>
     </Grid>
 </Window>
