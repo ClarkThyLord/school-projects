@@ -1,11 +1,10 @@
 #include <iostream>
-using namespace std;
 
 void	str_inverse(char *str)
 {
 	while(*str)
 	{
-		cout << *str;
+		std::cout << *str;
 		str++;
 	}
 }
