@@ -124,12 +124,46 @@ class List{
             }
         }
 
-        T minimum()
+        int minimum()
         {
+            if (size > 0)
+            {
+                int index = -1;
+                int result = 0;
+                Node<T>* resultN = head;
+                for (Node<T>* current = head; current != nullptr; current = current -> next)
+                {
+                    index++;
+                    if (current -> payload < resultN -> payload)
+                    {
+                        result = index;
+                        resultN = current;
+                    }
+                }
+                return result;
+            }
+            else return -1;
         }
 
-        T maximum()
+        int maximum()
         {
+            if (size > 0)
+            {
+                int index = -1;
+                int result = 0;
+                Node<T>* resultN = head;
+                for (Node<T>* current = head; current != nullptr; current = current -> next)
+                {
+                    index++;
+                    if (current -> payload > resultN -> payload)
+                    {
+                        result = index;
+                        resultN = current;
+                    }
+                }
+                return result;
+            }
+            else return -1;
         }
     
         void unique()
@@ -236,5 +270,11 @@ int main(void)
     mins.print();
     std::cout << " | ";
     maxs.print();
+    std::cout << "\n---\n";
+
+
+    test.print();
+    std::cout << " -> min: " << test.get(test.minimum());
+    std::cout << " | max: " << test.get(test.maximum());
     std::cout << "\n---\n";
 }
