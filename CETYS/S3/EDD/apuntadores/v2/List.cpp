@@ -135,14 +135,20 @@ class List{
         void unique()
         {
             List<T> uniques;
-            for (Node<T> current = head; current != nullptr; current = current -> next)
+            for (Node<T>* current = head; current != nullptr; current = current -> next)
             {
-                if (uniques.search(current -> payload) == )
+                if (uniques.search(current -> payload) == -1) uniques.insert(current -> payload);
+                else eraseN(current);
             }
         }
     
-        void split(T value, List *min_list, List *max_list)
+        void split(T value, List<T> *min_list, List<T> *max_list)
         {
+            for (Node<T>* current = head; current != nullptr; current = current -> next)
+            {
+                if (current -> payload < value) min_list -> insert(current -> payload);
+                else max_list -> insert(current -> payload);
+            }
         }
     
         void print()
@@ -197,5 +203,38 @@ int main(void)
 
     std::cout << '\n';
     test.print();
+    std::cout << "\n---\n";
+
+
+    test.insert(1);
+    test.insert(1);
+    test.insert(-5);
+    test.insert(1);
+    test.insert(5);
+    test.insert(-4);
+    test.insert(-3);
+    test.insert(3);
+    test.insert(-2);
+    test.insert(4);
+    test.insert(-1);
+    test.insert(-1);
+
+    test.print();
+    std::cout << "\n---\n";
+
+    test.unique();
+
+    test.print();
+    std::cout << "\n---\n";
+
+
+    List<int> mins, maxs;
+    test.split(0, &mins, &maxs);
+
+    test.print();
+    std::cout << " -> ";
+    mins.print();
+    std::cout << " | ";
+    maxs.print();
     std::cout << "\n---\n";
 }
