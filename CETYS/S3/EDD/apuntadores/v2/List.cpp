@@ -32,6 +32,7 @@ class List{
         Node<T>* searchN(T payload)
         {
             for (Node<T>* current = head; current != nullptr; current = current -> next) if (current -> payload == payload) return current;
+            return nullptr;
         }
 
         void eraseN(Node<T>* node)
@@ -67,9 +68,27 @@ class List{
             return getN(index) -> payload;
         }
 
-        T search(T payload)
+        int search(T payload)
         {
-            return searchN(payload) -> payload;
+            int index = 0;
+            for (Node<T>* current = head; current != nullptr; current = current -> next)
+            {
+                if (current -> payload == payload) return index++;
+                index++;
+            }
+            return -1;
+        }
+
+        int succesor(T payload)
+        {
+            int res = search(payload);
+            return res >= 0 ? res + 1 : -1;
+        }
+
+        int predecessor(int payload)
+        {
+            int res = search(payload);
+            return res >= 1 ? res - 1 : -1;
         }
 
         void insert(T payload)
@@ -82,9 +101,14 @@ class List{
                 break;
             }
             size++;
-        } 
+        }
     
-        void erase(T payload)
+        void erase(int index)
+        {
+            eraseN(getN(index));
+        }
+    
+        void find_erase(T payload)
         {
             eraseN(searchN(payload));
         }
@@ -106,19 +130,15 @@ class List{
 
         T maximum()
         {
-            int res = 0;
-        }
-
-        Node<T>* succesor(T payload)
-        {
-        }
-
-        Node<T>* predecessor(int payload)
-        {
         }
     
         void unique()
         {
+            List<T> uniques;
+            for (Node<T> current = head; current != nullptr; current = current -> next)
+            {
+                if (uniques.search(current -> payload) == )
+            }
         }
     
         void split(T value, List *min_list, List *max_list)
