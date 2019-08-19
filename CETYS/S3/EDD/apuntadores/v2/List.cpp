@@ -63,6 +63,11 @@ class List{
             for (auto payload : payloads) insert(payload);
         }
 
+        int Size()
+        {
+            return size;
+        }
+
         T get(int index)
         {
             return getN(index) -> payload;
