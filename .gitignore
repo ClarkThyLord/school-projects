@@ -379,3 +379,6 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
+# CUSTOM
+build/
