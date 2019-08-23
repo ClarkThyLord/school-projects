@@ -1,0 +1,13 @@
+#include "LinkedList.h"
+#include <iostream>
+
+using namespace std;
+
+main(int argc, char** argv){
+    LinkedList<int> ll{};
+
+    ll.insert(0)
+    cout<< ll.size();
+
+    return 0;
+}
