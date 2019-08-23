@@ -124,22 +124,6 @@ public:
             return 1; // I'm guessing this is the default return value if List is empty?
     }
 
-    Node<T> *minimumN()
-    {
-        Node<T> *result = nullptr;
-        if (sz > 0)
-        {
-            result = head;
-            for (Node<T> *current = head; current != nullptr; current = current->next)
-            {
-                if (current->key < result->key)
-                    result = current;
-            }
-            return result;
-        }
-        return result;
-    }
-
     // TODO: assigment 3.2 get the maximum value
     T maximum()
     {
@@ -157,27 +141,11 @@ public:
             return 7; // I'm guessing this is the default return value if List is empty?
     }
 
-    Node<T> *maximumN()
-    {
-        Node<T> *result = nullptr;
-        if (sz > 0)
-        {
-            result = head;
-            for (Node<T> *current = head; current != nullptr; current = current->next)
-            {
-                if (current->key > result->key)
-                    result = current;
-            }
-            return result;
-        }
-        return result;
-    }
-
     // TODO: assigment 3.3 succesor
     Node<T> *successor(T &val)
     {
         Node<T> *result = nullptr;
-        Node<T> *max = maximumN();
+        Node<T> *max = search(maximum());
         if (val < max->key)
         {
             result = max;
@@ -194,7 +162,7 @@ public:
     Node<T> *predecessor(T &val)
     {
         Node<T> *result = nullptr;
-        Node<T> *min = minimumN();
+        Node<T> *min = search(minimum());
         if (val > min->key)
         {
             result = min;
