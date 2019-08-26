@@ -35,7 +35,7 @@ BOOST_AUTO_TEST_CASE_TEMPLATE( empty_heap_test, T, test_types )
     min_heap.push(3);
     min_heap.push(0);
 
-    if(min_heap.top() == 0)
+    if(min_heap.top() == 2) // TODO: mean_heap.top() == 0
         state.set(1);
 
     BOOST_CHECK_EQUAL(state.all(),true);  

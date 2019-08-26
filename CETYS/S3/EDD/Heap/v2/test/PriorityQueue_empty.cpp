@@ -35,11 +35,12 @@ BOOST_AUTO_TEST_CASE_TEMPLATE( empty_heap_test, T, test_types )
     if(min_heap.size() == 10) // TODO: implement size in hpp
         state.set(0);
 
-    while(!min_heap.empty()) { // TODO: implement empty in hpp
+    while(!min_heap.empty()){ // TODO: implement empty in hpp
         sum += min_heap.top();
+        min_heap.pop();
     }
-
-    if( sum == 55)
+    
+    if(sum == 55)
         state.set(1);
 
     BOOST_CHECK_EQUAL(state.all(),true);  
