@@ -5,13 +5,13 @@ def main():
     while True:
         print(
             '***\nActividad #2\n',
-            '1    - root(x^3 - 3 * x^2 + 1)\n',
+            '1    - Newton     : root(x^3 - 3 * x^2 + 1)\n',
             '2    - Newton     : root(21, 3)\n',
             '3    - Punto Fijo : root(21, 3)\n',
             '4    - Bisection  : sen(x) - x^2\n',
             '5    - Newton     : sen(x) - x^2\n',
             '6    - Punto Fijo : sen(x) - x^2\n',
-            '7    - sec(x) -> π',
+            '7    - Punto Fijo : sec(x) -> π',
             'exit - exit the program'
         )
         ans = input()
@@ -20,7 +20,7 @@ def main():
         elif ans == '3': print('')
         elif ans == '4': print(bisection(func_3, 0, 1, 100))
         elif ans == '5': print(newton(func_3, func_3d, 100))
-        elif ans == '6': print(fixed_point(func_3))
+        elif ans == '6': print(fixed_point(func_3, func_3c))
         elif ans == '7': print('')
         elif ans == 'exit': return
         else: print('invalid input')
@@ -33,8 +33,10 @@ def func_2d(x): return 0
 
 def func_3(x): return math.sin(x) - math.pow(x, 2)
 def func_3d(x): return math.cos(x) - 2 * x
+def func_3c(x): return math.sin(x) / x
 
 def func_4(x): return sen(x)
+def func_4c(x): return 0
 
 
 def sign(x): return 1 if x >= 0 else 0
@@ -59,8 +61,11 @@ def newton(f, fd, x0, iterations=100):
         x0 = x1
     return x1
 
-def fixed_point(f, iterations=100):
-    x1 = f(
+def fixed_point(f, fc, x=0.5, iterations=100):
+    x1 = 0
+    for i in range(iterations):
+        x1 = fc(x1)
+    return x1
 
 
 if __name__== "__main__": main()
