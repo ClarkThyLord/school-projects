@@ -16,17 +16,16 @@ struct Node
 template <typename T>
 class BinaryTree
 {
+    enum PrintOrder
+    {
+        InOrder,
+        PreOrder,
+        PostOrder
+    };
+
 private:
     int size;
     Node<T> *head = nullptr;
-
-    void balance()
-    {
-        Node<T> current = head;
-        while (current)
-        {
-        }
-    }
 
 public:
     bool contains(T payload)
@@ -98,32 +97,67 @@ public:
                 if (payload < current->payload)
                 {
                     if (current->left == nullptr)
-                        current->left = &new Node<T>(payload);
-                    break;
-                    else current = current->left;
+                    {
+                        current->left = new Node<T>(payload);
+                        break;
+                    }
+                    else
+                        current = current->left;
                 }
                 else
                 {
                     if (current->right == nullptr)
-                        current->right = &new Node<T>(payload);
-                    break;
-                    else current = current->right;
+                    {
+                        current->right = new Node<T>(payload);
+                        break;
+                    }
+                    else
+                        current = current->right;
                 }
             }
         }
         size++;
     }
 
-    void print()
+    void erase(T payload)
     {
-        std::cout << head->payload;
+        if (head->payload == payload)
+        {
+        }
+        else
+        {
+            for (Node<T> *current = head; current; current = current->next)
+            {
+                if (current->left && current->left->payload == payload)
+                {
+                }
+            }
+        }
+    }
+
+    void print(PrintOrder order = PrintOrder::InOrder)
+    {
+        switch (order)
+        {
+        case PrintOrder::PreOrder:
+            break;
+        case PrintOrder::PostOrder:
+            break;
+        default:
+
+            break;
+        }
     }
 };
 
 int main(void)
 {
     BinaryTree<int> *binary_tree = new BinaryTree<int>();
-    binary_tree->append(3);
-    binary_tree->print();
+    binary_tree->insert(3);
+    binary_tree->insert(-3);
+    binary_tree->insert(2);
+    binary_tree->insert(9);
+    binary_tree->insert(12);
+    binary_tree->insert(1);
     return 0;
 }
