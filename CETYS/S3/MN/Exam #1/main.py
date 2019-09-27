@@ -4,19 +4,15 @@ def main():
     while True:
         print(
             '***\nActividad #2\n',
-            '1 - Taylor                         : e^x * ln(1 + x)\n',
-            '2 - Taylor                         : sen(π /4)\n',
-            '3 - Bisection, Newton, Fixed Point : sqrt(12, 3)\n',
-            '4 - Bisection, Newton              : x - tan(x)\n',
-            '5 - Bisection, Newton              : x^x - 2\n',
+            '1 - Bisection : 1 / x\n',
+            '2 - Bisection : (20 - y) * y + (20 - y) * sqrt(y) + sqrt(20 - y) * y + sqrt(20 - y) * sqrt(y)\n',
+            '3 - Newton    : ln(2)',
             'exit - exit the program'
         )
         ans = input()
-        if ans == '1': print(func_1(0.5, 5))
-        elif ans == '2': print(func_2(math.pi / 4, 6))
-        elif ans == '3': print(bisection(func_3, 0, 3, 100), newton(func_3, func_3d, 100), fixed_point(func_3c, 1, 100))
-        elif ans == '4': print(bisection(func_4, 4, 5, 100), fixed_point(func_4c, 100, 100))
-        elif ans == '5': print(bisection(func_5, 1, 2, 100), newton(func_5, func_5d, 1, 100))
+        if ans == '1': print(bisection(func_1, -2, 1, 100))
+        elif ans == '2': print(bisection(func_2, -10, 10, 100))
+        elif ans == '3': print(newton(func_3, func_3d, 0.1, 100))
         elif ans == 'exit': return
         else: print('invalid input')
 
@@ -56,24 +52,6 @@ def sen(x, i2terations):
     return Sen
 
 
-def func_1(x, iterations):
-    return e(x, iterations) * ln(x + 1, iterations)
-
-def func_2(x, iterations):
-    return 1 / cos(x, iterations)
-
-def func_3(x): return x ** 3 - 12
-def func_3d(x): return 3 * x ** 2
-def func_3c(x): return math.sqrt(12 / x)
-
-def func_4(x): return x - math.tan(x)
-def func_4d(x): return 1 - (1 / math.pow(math.cos(x), 2))
-def func_4c(x): return math.tan(x)
-
-def func_5(x): return math.pow(x, x) - 2
-def func_5d(x): return math.pow(x, x) * (math.log(x) + 1)
-
-
 def bisection(f, a, b, iterations=100):
     c = 0
     for i in range(iterations):
@@ -99,6 +77,14 @@ def fixed_point(fc, x=0.5, iterations=100):
     for i in range(iterations):
         x1 = fc(x1)
     return x1
+
+
+def func_1(x): return 1 / x
+
+def func_2(y): return (20 - y) * y + (20 - y) * math.sqrt(y) + math.sqrt(20 - y) * y + math.sqrt(20 - y) * math.sqrt(y)
+
+def func_3(x): return x ** 2 - math.log(2) ** 2
+def func_3d(x): return 2 * x - ((2 * math.log(x)) / x)
 
 
 if __name__== "__main__": main()
