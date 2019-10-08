@@ -88,8 +88,7 @@ void Tree<T>::remove(const T val)
         }
         else
         {
-            Node<T> *temp = min(node->right);
-            node->data = temp->data;
+            Node<T> *temp = predecessor(node);
             remove(temp->data);
         }
     }
@@ -119,7 +118,7 @@ Node<T> *Tree<T>::min() const
 template <typename T>
 Node<T> *Tree<T>::min(Node<T> *node) const
 {
-    for (Node<T> *current = root; current;)
+    for (Node<T> *current = node; current;)
     {
         if (current->left)
             current = current->left;
@@ -137,7 +136,7 @@ Node<T> *Tree<T>::max() const
 template <typename T>
 Node<T> *Tree<T>::max(Node<T> *node) const
 {
-    for (Node<T> *current = root; current;)
+    for (Node<T> *current = node; current;)
     {
         if (current->right)
             current = current->right;
@@ -150,15 +149,7 @@ template <typename T>
 Node<T> *Tree<T>::predecessor(Node<T> *node) const
 {
     if (node->left)
-    {
-        for (Node<T> *current = node->left; current;)
-        {
-            if (current->right)
-                current = current->right;
-            else
-                return current;
-        }
-    }
+        return max(node->left);
     else
         return node->parent;
 }
@@ -167,15 +158,7 @@ template <typename T>
 Node<T> *Tree<T>::successor(Node<T> *node) const
 {
     if (node->right)
-    {
-        for (Node<T> *current = node->right; current;)
-        {
-            if (current->left)
-                current = current->left;
-            else
-                return current;
-        }
-    }
+        return min(node->right);
     else
         return node->parent;
 }
