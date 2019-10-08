@@ -89,6 +89,7 @@ void Tree<T>::remove(const T val)
         else
         {
             Node<T> *temp = predecessor(node);
+            node->data = temp->data;
             remove(temp->data);
         }
     }
