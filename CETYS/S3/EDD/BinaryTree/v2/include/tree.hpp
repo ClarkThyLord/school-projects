@@ -110,7 +110,7 @@ Node<T> *Tree<T>::search(const T val) const
 {
     if (root)
     {
-        for (Node<T> *current = root; current)
+        for (Node<T> *current = root; current != nullptr)
         {
             if (current->data == val)
                 return current;
