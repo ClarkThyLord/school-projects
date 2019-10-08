@@ -7,6 +7,10 @@
 template <typename T>
 class Tree
 {
+private:
+    Node<T> *min(Node<T> *node) const;
+    Node<T> *max(Node<T> *node) const;
+
 public:
     Node<T> *root;
 
@@ -28,7 +32,7 @@ Tree<T>::Tree(const T rootval) : root{new Node<T>{rootval}} {}
 template <typename T>
 void Tree<T>::insert(const T val)
 {
-    for (Node<T> *current = head; current;)
+    for (Node<T> *current = root; current;)
     {
         if (current->data == val)
             return;
@@ -48,61 +52,48 @@ void Tree<T>::insert(const T val)
 template <typename T>
 void Tree<T>::remove(const T val)
 {
-    Node<T> *node = this->search(val);
-    if (node->parent)
+    Node<T> *node = search(val);
+    if (node)
     {
         if (node->left == nullptr && node->right == nullptr)
         {
-            if (node->parent->left && node->parent->left->data == val)
-                node->parent->left = nullptr;
+            if (root == node)
+                root = nullptr;
+            else if (root->parent->data > val)
+                root->left = nullptr;
             else
-                node->parent->right = nullptr;
+                root->right = nullptr;
             delete node;
         }
         else if (node->left && node->right == nullptr)
         {
-            if (node->parent->left && node->parent->left->data == val)
-                node->parent->left = node->left;
+            if (root->parent->data > val)
+                root->left = node->left;
             else
-                node->parent->right = node->left;
+                root->right = node->left;
             delete node;
         }
         else if (node->left == nullptr && node->right)
         {
-            if (node->parent->left && node->parent->left->data == val)
-                node->parent->left = node->right;
+            if (root->parent->data > val)
+                root->left = node->right;
             else
-                node->parent->right = node->right;
+                root->right = node->right;
             delete node;
         }
         else
         {
-            Node<T> *y = nullptr;
-            for (Node<T> *current = node->right; current;)
-            {
-                if (current->left)
-                    current = current->left;
-                else
-                {
-                    y = current;
-                    break;
-                }
-            }
-            remove(y->data);
-            node->data = y->data;
+            Node<T> *temp = min(node->right);
+            node->data = temp->data;
+            remove(temp);
         }
-    }
-    else
-    {
-        delete head;
-        head = nullptr;
     }
 }
 
 template <typename T>
 Node<T> *Tree<T>::search(const T val) const
 {
-    for (Node<T> *current = head; current;)
+    for (Node<T> *current = root; current;)
     {
         if (current->data == val)
             return current;
@@ -117,7 +108,13 @@ Node<T> *Tree<T>::search(const T val) const
 template <typename T>
 Node<T> *Tree<T>::min() const
 {
-    for (Node<T> *current = head; current;)
+    min(root);
+}
+
+template <typename T>
+Node<T> *Tree<T>::min(Node<T> *node) const
+{
+    for (Node<T> *current = root; current;)
     {
         if (current->left)
             current = current->left;
@@ -129,7 +126,13 @@ Node<T> *Tree<T>::min() const
 template <typename T>
 Node<T> *Tree<T>::max() const
 {
-    for (Node<T> *current = head; current;)
+    max(root);
+}
+
+template <typename T>
+Node<T> *Tree<T>::max(Node<T> *node) const
+{
+    for (Node<T> *current = root; current;)
     {
         if (current->right)
             current = current->right;

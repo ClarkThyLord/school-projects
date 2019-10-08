@@ -16,12 +16,16 @@ public:
     Node *right;
 
     Node(const T data);
+    Node(const T data, Node<T> *parent);
 
     void insert(const T val);
 };
 
 template <typename T>
 Node<T>::Node(const T data) : data{data}, parent{nullptr}, left{nullptr}, right{nullptr} {}
+
+template <typename T>
+Node<T>::Node(const T data, Node<T> *parent) : data{data}, parent{parent}, left{nullptr}, right{nullptr} {}
 
 template <typename T>
 void Node<T>::insert(Node<T> *n)
