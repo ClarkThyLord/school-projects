@@ -45,11 +45,10 @@ void Tree<T>::insert(const T val)
                     current = current->left;
                 else
                     current->left = new Node<T>(val, current);
-            else if (current->data < val)
-                if (current->right)
-                    current = current->right;
-                else
-                    current->right = new Node<T>(val, current);
+            else if (current->right)
+                current = current->right;
+            else
+                current->right = new Node<T>(val, current);
         }
     }
 }
@@ -98,14 +97,17 @@ void Tree<T>::remove(const T val)
 template <typename T>
 Node<T> *Tree<T>::search(const T val) const
 {
-    for (Node<T> *current = root; current;)
+    if (root)
     {
-        if (current->data == val)
-            return current;
-        else if (current->data > val)
-            current = current->left;
-        else if (current->data < val)
-            current = current->right;
+        for (Node<T> *current = root; current != nullptr;)
+        {
+            if (current->data == val)
+                return current;
+            else if (current->data > val)
+                current = current->left;
+            else
+                current = current->right;
+        }
     }
     return nullptr;
 }
@@ -113,37 +115,45 @@ Node<T> *Tree<T>::search(const T val) const
 template <typename T>
 Node<T> *Tree<T>::min() const
 {
-    min(root);
+    return min(root);
 }
 
 template <typename T>
 Node<T> *Tree<T>::min(Node<T> *node) const
 {
-    for (Node<T> *current = node; current;)
+    if (node)
     {
-        if (current->left)
-            current = current->left;
-        else
-            return current;
+        for (Node<T> *current = node; current;)
+        {
+            if (current->left)
+                current = current->left;
+            else
+                return current;
+        }
     }
+    return nullptr;
 }
 
 template <typename T>
 Node<T> *Tree<T>::max() const
 {
-    max(root);
+    return max(root);
 }
 
 template <typename T>
 Node<T> *Tree<T>::max(Node<T> *node) const
 {
-    for (Node<T> *current = node; current;)
+    if (node)
     {
-        if (current->right)
-            current = current->right;
-        else
-            return current;
+        for (Node<T> *current = node; current;)
+        {
+            if (current->right)
+                current = current->right;
+            else
+                return current;
+        }
     }
+    return nullptr;
 }
 
 template <typename T>
