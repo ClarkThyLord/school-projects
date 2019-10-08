@@ -43,14 +43,20 @@ void Tree<T>::insert(const T val)
             else if (current->data > val)
             {
                 if (current->left == nullptr)
+                {
                     current->left = new Node<T>(val, current);
+                    return;
+                }
                 else
                     current = current->left;
             }
             else
             {
                 if (current->right == nullptr)
+                {
                     current->right = new Node<T>(val, current);
+                    return;
+                }
                 else
                     current = current->right;
             }
