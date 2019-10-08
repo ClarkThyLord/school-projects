@@ -74,33 +74,34 @@ void Tree<T>::remove(const T val)
         {
             if (root == node)
                 root = nullptr;
-            else if (root->parent->data > val)
-                root->left = nullptr;
+            else if (node->parent->data > val)
+                node->parent->left = nullptr;
             else
-                root->right = nullptr;
+                node->parent->right = nullptr;
             delete node;
         }
         else if (node->left && node->right == nullptr)
         {
-            if (root->parent->data > val)
-                root->left = node->left;
+            if (node->parent->data > val)
+                node->parent->left = node->left;
             else
-                root->right = node->left;
+                node->parent->right = node->left;
             delete node;
         }
         else if (node->left == nullptr && node->right)
         {
-            if (root->parent->data > val)
-                root->left = node->right;
+            if (node->parent->data > val)
+                node->parent->left = node->right;
             else
-                root->right = node->right;
+                node->parent->right = node->right;
             delete node;
         }
         else
         {
             Node<T> *temp = predecessor(node);
-            node->data = temp->data;
+            T temp_val = temp->data;
             remove(temp->data);
+            node->data = temp_val;
         }
     }
 }
