@@ -36,19 +36,24 @@ void Tree<T>::insert(const T val)
         root = new Node<T>(val);
     else
     {
-        for (Node<T> *current = root; current;)
+        for (Node<T> *current = root; current != nullptr;)
         {
             if (current->data == val)
                 return;
             else if (current->data > val)
-                if (current->left)
-                    current = current->left;
-                else
+            {
+                if (current->left == nullptr)
                     current->left = new Node<T>(val, current);
-            else if (current->right)
-                current = current->right;
+                else
+                    current = current->left;
+            }
             else
-                current->right = new Node<T>(val, current);
+            {
+                if (current->right == nullptr)
+                    current->right = new Node<T>(val, current);
+                else
+                    current = current->right;
+            }
         }
     }
 }
