@@ -99,10 +99,12 @@ Node<T> *Tree<T>::search(const T val) const
 {
     if (root)
     {
-        for (Node<T> *current = root; current != nullptr;)
+        for (Node<T> *current = root; current)
         {
             if (current->data == val)
                 return current;
+            else if (current == nullptr)
+                return nullptr;
             else if (current->data > val)
                 current = current->left;
             else
