@@ -90,7 +90,7 @@ void Tree<T>::remove(const T val)
         {
             Node<T> *temp = min(node->right);
             node->data = temp->data;
-            remove(temp);
+            remove(temp->data);
         }
     }
 }
