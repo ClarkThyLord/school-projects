@@ -112,10 +112,10 @@ Node<T> *Tree<T>::search(const T val) const
     {
         for (Node<T> *current = root; current != nullptr)
         {
-            if (current->data == val)
-                return current;
-            else if (current == nullptr)
+            if (current == nullptr)
                 return nullptr;
+            else if (current->data == val)
+                return current;
             else if (current->data > val)
                 current = current->left;
             else
