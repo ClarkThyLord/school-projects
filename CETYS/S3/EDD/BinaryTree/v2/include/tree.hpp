@@ -32,20 +32,25 @@ Tree<T>::Tree(const T rootval) : root{new Node<T>{rootval}} {}
 template <typename T>
 void Tree<T>::insert(const T val)
 {
-    for (Node<T> *current = root; current;)
+    if (root == nullptr)
+        root = new Node<T>(val);
+    else
     {
-        if (current->data == val)
-            return;
-        else if (current->data > val)
-            if (current->left)
-                current = current->left;
-            else
-                current->left = new Node<T>(val, current);
-        else if (current->data < val)
-            if (current->right)
-                current = current->right;
-            else
-                current->right = new Node<T>(val, current);
+        for (Node<T> *current = root; current;)
+        {
+            if (current->data == val)
+                return;
+            else if (current->data > val)
+                if (current->left)
+                    current = current->left;
+                else
+                    current->left = new Node<T>(val, current);
+            else if (current->data < val)
+                if (current->right)
+                    current = current->right;
+                else
+                    current->right = new Node<T>(val, current);
+        }
     }
 }
 
