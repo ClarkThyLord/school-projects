@@ -59,3 +59,6 @@ if __name__== "__main__":
     A = [[1, 2, 3], [1, 1, 2], [0, 1, 2]]
     print(code('citaelmartes', A))
     print(decode(code('citaelmartes', A), A))
+
+    print(code('enviadolares', A))
+    print(decode([85, 58, 39, 70, 45, 30, 73,51, 37, 91, 57, 53], A))
