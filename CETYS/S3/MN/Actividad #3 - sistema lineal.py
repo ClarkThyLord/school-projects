@@ -55,6 +55,16 @@ def decode(code, A):
     
     return ress
 
+def vector_transformation(vector, A):
+    t1 = None
+    t2 = None
+    vector = np.array(vector)
+    A = np.array(A)
+    for i in range(10):
+        t1 = vector * np.linalg.matrix_power(A, 2)
+        t2 = vector * np.linalg.inv(A)
+    return t1.tolist(), t2.tolist()
+
 if __name__== "__main__":
     A = [[1, 2, 3], [1, 1, 2], [0, 1, 2]]
     print(code('citaelmartes', A))
@@ -62,3 +72,8 @@ if __name__== "__main__":
 
     print(code('enviadolares', A))
     print(decode([85, 58, 39, 70, 45, 30, 73,51, 37, 91, 57, 53], A))
+
+    ang = math.pi / 6
+    A = [[math.cos(ang), -math.sin(ang)], [math.sin(ang), math.cos(ang)]]
+    print(vector_transformation([[1, 1]], A))
+    print(vector_transformation([[2.5, 2.5]], A))
