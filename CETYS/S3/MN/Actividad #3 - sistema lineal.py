@@ -65,6 +65,9 @@ def vector_transformation(vector, A):
         t2 = vector * np.linalg.inv(A)
     return t1.tolist(), t2.tolist()
 
+def time_optimization():
+    pass
+
 if __name__== "__main__":
     A = [[1, 2, 3], [1, 1, 2], [0, 1, 2]]
     print(code('citaelmartes', A))
@@ -77,3 +80,9 @@ if __name__== "__main__":
     A = [[math.cos(ang), -math.sin(ang)], [math.sin(ang), math.cos(ang)]]
     print(vector_transformation([[1, 1]], A))
     print(vector_transformation([[2.5, 2.5]], A))
+
+    # Silla   : 10x + 6x  + 12x = 28x
+    # Mesa    : 12y + 8y  + 12y = 22y
+    # Comedor : 15z + 12z + 18z = 45z
+    #           16    11    18
+    time_optimization()
