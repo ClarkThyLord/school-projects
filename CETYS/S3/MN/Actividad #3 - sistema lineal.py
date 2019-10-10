@@ -30,7 +30,7 @@ def code(msg, A):
     return ress
 
 def decode(code, A):
-    A_inv = np.invert(np.array(A))
+    A_inv = np.linalg.inv(A)
     codes = []
 
     i = 0
@@ -48,10 +48,10 @@ def decode(code, A):
         res.append(A_inv.dot((np.array(codes[i]))).tolist())
         i += 1
 
-    ress = []
+    ress = ''
     for x in res:
         for y in x:
-            for z in y: ress.append(z)
+            ress += chr(96 + int(y))
     
     return ress
 
