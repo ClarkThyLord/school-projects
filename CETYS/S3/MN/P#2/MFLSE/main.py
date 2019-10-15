@@ -43,3 +43,6 @@ if __name__ == "__main__":
     
     result, error = gauss_seidel(A, b)
     print('Gauss Seidel ~ Result: ', result, 'Error: ', error)
+
+def LU(A, b):
+    pass
