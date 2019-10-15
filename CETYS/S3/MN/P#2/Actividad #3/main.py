@@ -55,14 +55,21 @@ def decode(code, A):
     
     return ress
 
-def vector_transformation(vector, A):
-    t1 = None
-    t2 = None
-    vector = np.array(vector)
+def vector_transformation(vector, A, iterations=10):
+    t1 = np.array(vector)
+    t2 = np.array(vector)
     A = np.array(A)
-    for i in range(10):
-        t1 = vector * np.linalg.matrix_power(A, 2)
-        t2 = vector * np.linalg.inv(A)
+
+    print('Origianl Vector : ', t1)
+    for i in range(iterations):
+        t1 = np.linalg.matrix_power(A, 2).dot(t1)
+        print('Step : ', 1 + i, ' - ', t1)
+
+    print('Origianl Vector : ', t2)
+    for i in range(iterations):
+        t2 = np.linalg.inv(A).dot(t2)
+        print('Step : ', 1 + i, ' - ', t2)
+    
     return t1.tolist(), t2.tolist()
 
 def time_optimization():
@@ -78,8 +85,8 @@ if __name__== "__main__":
 
     ang = math.pi / 6
     A = [[math.cos(ang), -math.sin(ang)], [math.sin(ang), math.cos(ang)]]
-    print(vector_transformation([[1, 1]], A))
-    print(vector_transformation([[2.5, 2.5]], A))
+    print(vector_transformation([1, 1], A))
+    print(vector_transformation([2.5, 2.5], A))
 
     # Silla   : 10x + 6x  + 12x = 28x
     # Mesa    : 12y + 8y  + 12y = 22y
