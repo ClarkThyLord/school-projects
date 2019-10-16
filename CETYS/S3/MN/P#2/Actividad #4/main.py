@@ -46,8 +46,12 @@ if __name__== "__main__":
     # 1     0     4
     A = [[3., 3., 3], [1., 6., 3.], [1., 2., 7.]]
     b = [1., 0., 4.]
-    print('Jacobi : ', jacobi(A, b, 15)[0])
-    print('Gauss Seidel : ', gauss_seidel(A, b, 15)[0])
+    resultj, errorj = jacobi(A, b, 15)
+    print('Jacobi : ', resultj)
+    resultg, errorg = gauss_seidel(A, b, 15)
+    print('Gauss Seidel : ', resultj)
     print('Exact : ', np.linalg.solve(A,b))
+    print('Jacobi Error : ', np.linalg.solve(A,b) - resultj, ' Gauss Seidel Error : ', np.linalg.solve(A,b) - resultg)
+    print('Conclusion : Al ejecutar esto desde mi escritorio, obtengo un resultado más preciso al usar el método Jacobi, el método Gauss Seidel requiere más iteraciones para obtener un resultado exacto')
 
     print('\n\n2-)')
