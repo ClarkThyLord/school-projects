@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 
 # https://www.mathsisfun.com/data/least-squares-regression.html
@@ -77,4 +78,25 @@ if __name__== "__main__":
     print('y =', m, '* x', '+', b)
     for x in range(0, 6, 1):
         print('Point : ', points[x], ' ~ LSR : ', least_squares_regression_func(m, b, x))
+    
+    A = np.array([[6.0, 8.5], [8.5, 15.05]])
+    b = np.array([[44.5776], [65.39048]])
+
+    A_inv = np.linalg.inv(A)
+    res = np.dot(A_inv, b)
+
+    print(res)
+    a = math.e ** res[0][0]
+    b = res[1][0]
+
+    print(a, b)
+    print(a, 'e^(', b, 'x)')
+    print(a, 'e^(', b, '3) = ', a * math.e ** (b * 3))
+    # 2500 = 587.1496e ^ (0.7442260387811608 * x)
+    # 2500 / 587.1496 = e ^ (0.7442260387811608 * x)
+    # 4.2578 = e ^ (0.7442260387811608 * x)
+    # ln(4.2578) = ln(e ^ (0.7442260387811608 * x))
+    # ln(4.2578) = (0.7442260387811608 * x)
+    # ln(4.2578) / 0.7442260387811608 = x
+    print(math.log(4.2578) / 0.7442260387811608)
     
