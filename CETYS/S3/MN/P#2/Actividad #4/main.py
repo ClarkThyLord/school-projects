@@ -73,7 +73,7 @@ if __name__== "__main__":
     # 3x1 + 6x2 + 2x3
     # 3x1 + 3x2 + 7x3
     # 1     0     4
-    A = [[3., 3., 3], [1., 6., 3.], [1., 2., 7.]]
+    A = [[3., 1., 1.], [3., 6., 2.], [3., 3., 7.]]
     b = [1., 0., 4.]
     resultj, errorj = jacobi(A, b, 15)
     print('Jacobi : ', resultj)
@@ -81,7 +81,7 @@ if __name__== "__main__":
     print('Gauss Seidel : ', resultj)
     print('Exact : ', np.linalg.solve(A,b))
     print('Jacobi Error : ', np.linalg.solve(A,b) - resultj, ' Gauss Seidel Error : ', np.linalg.solve(A,b) - resultg)
-    print('Conclusion : Al ejecutar esto desde mi escritorio, obtengo un resultado más preciso al usar el método Jacobi, el método Gauss Seidel requiere más iteraciones para obtener un resultado exacto')
+    print('Conclusion : Al ejecutar esto desde mi escritorio, obtengo un resultado más preciso al usar el método Gauss Seidel, el método Jacobi requiere más iteraciones para obtener un resultado exacto')
 
     print('\n\n2-)')
     A = [
