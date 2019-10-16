@@ -1,5 +1,5 @@
+import math
 import numpy as np
-
 # https://en.wikipedia.org/wiki/Jacobi_method
 def jacobi(A, b, max_iterations = 1000):
     A = np.array(A)
@@ -18,7 +18,7 @@ def jacobi(A, b, max_iterations = 1000):
 
         x = x_new
         print('Step : ', 1 + it_count, ' ~ ', x)
-    return x, np.dot(A, x) - b
+    return x.tolist(), np.dot(A, x) - b
 
 # https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method
 def gauss_seidel(A, b, max_iterations = 1000):
@@ -35,23 +35,19 @@ def gauss_seidel(A, b, max_iterations = 1000):
             break
         x = x_new
         print('Step : ', 1 + it_count, ' ~ ', x)
-    return x, np.dot(A, x) - b
-
-def LU(A, b):
-    pass
+    return x.tolist(), np.dot(A, x) - b
 
 
-if __name__ == "__main__":
-    A = [
-            [10., -1., 2., 0.],
-            [-1., 11., -1., 3.],
-            [2., -1., 10., -1.],
-            [0., 3., -1., 8.]
-        ]
-    b = [6., 25., -11., 15.]
-    
-    result, error = jacobi(A, b)
-    print('Jacobi ~ Result: ', result, 'Error: ', error)
-    
-    result, error = gauss_seidel(A, b)
-    print('Gauss Seidel ~ Result: ', result, 'Error: ', error)
+if __name__== "__main__":
+    print('1-)')
+    # 3x1 + 1x2 + 1x3
+    # 3x1 + 6x2 + 2x3
+    # 3x1 + 3x2 + 7x3
+    # 1     0     4
+    A = [[3., 3., 3], [1., 6., 3.], [1., 2., 7.]]
+    b = [1., 0., 4.]
+    print('Jacobi : ', jacobi(A, b, 15)[0])
+    print('Gauss Seidel : ', gauss_seidel(A, b, 15)[0])
+    print('Exact : ', np.linalg.solve(A,b))
+
+    print('\n\n2-)')
