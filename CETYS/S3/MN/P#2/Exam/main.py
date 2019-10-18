@@ -1,4 +1,10 @@
+import math
 import numpy as np
+
+
+def converge(x): return math.floor(x) if x - int(x) < 0.5 else math.ceil(x)
+def matrix_converge(m): return [converge(x) for x in m]
+
 
 # https://en.wikipedia.org/wiki/Jacobi_method
 def jacobi(A, b, max_iterations = 1000):
@@ -37,9 +43,6 @@ def gauss_seidel(A, b, max_iterations = 1000):
         print('Step : ', 1 + it_count, ' ~ ', x)
     return x, np.dot(A, x) - b
 
-import math
-import numpy as np
-
 
 # https://www.mathsisfun.com/data/least-squares-regression.html
 def least_squares_regression(points):
@@ -65,7 +68,7 @@ def least_squares_regression_func(m, b, x):
 
 
 if __name__ == "__main__":
-    print('1-)')
+    print('1-)\na.1)\nJacobi')
     A = [
             [4., -1., 1., 3.],
             [-1., 5., 1., 1.],
@@ -74,13 +77,18 @@ if __name__ == "__main__":
         ]
     b = [14., -1., 19., 10.]
     
-    result, error = jacobi(A, b)
-    print('Jacobi ~ Result: ', result, 'Error: ', error)
-    
-    result, error = gauss_seidel(A, b)
-    print('Gauss Seidel ~ Result: ', result, 'Error: ', error)
+    result, error = jacobi(A, b, 10)
+    print('Resultado:', result, '\nb.1) Converge:', matrix_converge(result), '\nError:', error)
 
-    print('3-)')
+    print('\na.2)\nGauss Seidel')
+    result, error = gauss_seidel(A, b, 10)
+    print('Resultado:', result, '\nb.2) Converge:', matrix_converge(result), '\nError:', error)
+
+    print('\nc)\nComparación: Al comparar los métodos de Jacobi y Gauss Seidel, encontré que el método de Gauss Seidel es más preciso y exacto en menos iteraciones que el método de Gauss, hasta el punto de que Jacobi tendría que hacer de 2 a 4 veces las iteraciones que el de Gauss Seidel Método.')
+    print('\nd)\nConclusión: Ambos métodos son simples pero elegantes y fáciles de implementar, mucho más, realizan muy pocas operaciones en comparación con otros métodos, pero proporcionan resultados tan precisos y exactos.')
+
+
+    print('\n\n3-)\na)')
     points = [
         (0., 3.49),
         (0., 3.05),
@@ -94,6 +102,13 @@ if __name__ == "__main__":
         (12., 2.51)
     ]
     m, b = least_squares_regression(points)
-    print('y =', m, '* x', '+', b)
+    print('Ecuación de la Recta de Regresión Lineal: y =', m, '* x', '+', b)
     for x in range(0, len(points), 1):
-        print('Point : ', points[x], ' ~ LSR : ', least_squares_regression_func(m, b, x))
+        print('Punto Original:', points[x], '\nPunto de Regresión: ', least_squares_regression_func(m, b, x), '\n---')
+    print('\nb)\ny    = -0.09418502202643177 * x + 3.276343612334802')
+    print('y    = -0.09418502202643177 * 7 + 3.276343612334802')
+    print('y    =', -0.09418502202643177 * 7 + 3.276343612334802)
+    print('\nc)\ny    = -0.09418502202643177 * x + 3.276343612334802')
+    print('2.40 = -0.09418502202643177 * x + 3.276343612334802')
+    print('2.40 - 3.276343612334802 / -0.09418502202643177 = x')
+    print('x    =', (2.40 - b) / m)
