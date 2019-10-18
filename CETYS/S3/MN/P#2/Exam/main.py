@@ -37,8 +37,35 @@ def gauss_seidel(A, b, max_iterations = 1000):
         print('Step : ', 1 + it_count, ' ~ ', x)
     return x, np.dot(A, x) - b
 
+import math
+import numpy as np
+
+
+# https://www.mathsisfun.com/data/least-squares-regression.html
+def least_squares_regression(points):
+    sum_x = 0.
+    sum_y = 0.
+    sum_x2 = 0.
+    sum_xy = 0.
+
+    for point in points:
+        sum_x += point[0]
+        sum_y += point[1]
+        sum_x2 += point[0] ** 2
+        sum_xy += point[0] * point[1]
+
+    m = ((len(points) * sum_xy) - (sum_x * sum_y)) / ((len(points) * sum_x2) - (sum_x ** 2))
+
+    b = (sum_y - (m * sum_x)) / len(points)
+
+    return m, b
+
+def least_squares_regression_func(m, b, x):
+    return m * x + b
+
 
 if __name__ == "__main__":
+    print('1-)')
     A = [
             [4., -1., 1., 3.],
             [-1., 5., 1., 1.],
@@ -53,3 +80,20 @@ if __name__ == "__main__":
     result, error = gauss_seidel(A, b)
     print('Gauss Seidel ~ Result: ', result, 'Error: ', error)
 
+    print('3-)')
+    points = [
+        (0., 3.49),
+        (0., 3.05),
+        (2., 3.24),
+        (3., 2.82),
+        (3., 3.19),
+        (5., 2.78),
+        (8., 2.31),
+        (8., 2.54),
+        (10., 2.03),
+        (12., 2.51)
+    ]
+    m, b = least_squares_regression(points)
+    print('y =', m, '* x', '+', b)
+    for x in range(0, len(points), 1):
+        print('Point : ', points[x], ' ~ LSR : ', least_squares_regression_func(m, b, x))
