@@ -7,7 +7,7 @@ template <typename T>
 class OSRBTree
 {
 public:
-    OSRBNode<T> *root;
+    OSRBNode<T> * this->root;
 
     OSRBTree(T key);
 
@@ -22,10 +22,10 @@ public:
 };
 
 template <typename T>
-OSRBTree<T>::OSRBTree(T data) : root{new OSRBNode<T>{data}}
+OSRBTree<T>::OSRBTree(T data) : this->root{new OSRBNode<T>{data}}
 {
-    root->size = 1;
-    root->color = Color::BLACK;
+    this->root->size = 1;
+    this->root->color = Color::BLACK;
 }
 
 template <typename T>
@@ -37,7 +37,7 @@ void OSRBTree<T>::left_rotate(OSRBNode<T> *node)
         sub_node->left->parent = node;
     sub_node->parent = node->parent;
     if (node->parent == nullptr)
-        root = sub_node;
+        this->root = sub_node;
     else if (node == node->parent->left)
         node->parent->left = sub_node;
     else
@@ -62,7 +62,7 @@ void OSRBTree<T>::right_rotate(OSRBNode<T> *node)
         sub_node->right->parent = node;
     sub_node->parent = node->parent;
     if (node->parent == nullptr)
-        root = sub_node;
+        this->root = sub_node;
     else if (node == node->parent->right)
         node->parent->right = sub_node;
     else
@@ -83,13 +83,13 @@ void OSRBTree<T>::insert(T data)
 {
     if (root == nullptr)
     {
-        root = new OSRBNode<T>(data);
-        root->color = Color::BLACK;
-        root->size = 1;
+        this->root = new OSRBNode<T>(data);
+        this->root->color = Color::BLACK;
+        this->root->size = 1;
     }
     else
     {
-        OSRBNode<T> *temp = root;
+        OSRBNode<T> *temp = this->root;
         OSRBNode<T> *previous = nullptr;
         while (temp)
         {
@@ -98,7 +98,7 @@ void OSRBTree<T>::insert(T data)
                 temp = temp->left;
             else
                 temp = temp->right;
-            previous->size = previous->size + 1;
+            previous->size += 1;
         }
         temp = new OSRBNode<T>(data);
 
@@ -117,7 +117,7 @@ void OSRBTree<T>::insert(T data)
 template <typename T>
 void OSRBTree<T>::fixup(OSRBNode<T> *node)
 {
-    while (node != root && node->parent->color == Color::RED)
+    while (node != this->root && node->parent->color == Color::RED)
     {
         if (node->parent == node->parent->parent->left)
         {
@@ -170,13 +170,13 @@ void OSRBTree<T>::fixup(OSRBNode<T> *node)
             }
         }
     }
-    root->color = Color::BLACK;
+    this->root->color = Color::BLACK;
 }
 
 template <typename T>
 OSRBNode<T> OSRBTree<T>::OS_SELECT(int index)
 {
-    OSRBNode<T> *node = root;
+    OSRBNode<T> *node = this->root;
     if (index == node->left->size)
         return node;
     else if (index < node->left->size)
@@ -190,7 +190,7 @@ int OSRBTree<T>::OS_RANK(OSRBNode<T> *node)
 {
     int sub_node_size = node->left->size + 1;
     OSRBNode<T> *sub_node = node;
-    while (sub_node != root)
+    while (sub_node != this->root)
     {
         if (sub_node == sub_node->parent->right)
             sub_node_size += sub_node->parent->left->size + 1;
