@@ -17,7 +17,7 @@ public:
     void insert(T data);
     void fixup(OSRBNode<T> *node);
 
-    int OS_RANK(OSRBNode<T> node);
+    int OS_RANK(OSRBNode<T> *node);
     OSRBNode<T> OS_SELECT(int index);
 };
 
@@ -81,7 +81,7 @@ void OSRBTree<T>::right_rotate(OSRBNode<T> *node)
 template <typename T>
 void OSRBTree<T>::insert(T data)
 {
-    if (!root)
+    if (root == nullptr)
     {
         root = new OSRBNode<T>(data);
         root->color = Color::BLACK;
@@ -122,7 +122,17 @@ void OSRBTree<T>::fixup(OSRBNode<T> *node)
         if (node->parent == node->parent->parent->left)
         {
             OSRBNode<T> *sub_node = node->parent->parent->right;
-            if (!sub_node)
+            if (sub_node)
+            {
+                if (sub_node->color == Color::RED)
+                {
+                    node->parent->color = Color::BLACK;
+                    sub_node->color = Color::BLACK;
+                    node->parent->parent->color = Color::RED;
+                    node = node->parent->parent;
+                }
+            }
+            else
             {
                 if (node == node->parent->right)
                 {
@@ -132,16 +142,6 @@ void OSRBTree<T>::fixup(OSRBNode<T> *node)
                 node->parent->color = Color::BLACK;
                 node->parent->parent->color = Color::RED;
                 right_rotate(node->parent->parent);
-            }
-            else
-            {
-                if (sub_node->color == Color::RED)
-                {
-                    node->parent->color = Color::BLACK;
-                    sub_node->color = Color::BLACK;
-                    node->parent->parent->color = Color::RED;
-                    node = node->parent->parent;
-                }
             }
         }
         else
@@ -176,25 +176,25 @@ void OSRBTree<T>::fixup(OSRBNode<T> *node)
 template <typename T>
 OSRBNode<T> OSRBTree<T>::OS_SELECT(int index)
 {
-    OSRBNode<T> node = root;
-    if (index == node.left.size)
+    OSRBNode<T> *node = root;
+    if (index == node->left->size)
         return node;
-    else if (index < node.left.size)
-        return OS_SELECT(node.left, index);
+    else if (index < node->left->size)
+        return OS_SELECT(node->left, index);
     else
-        return OS_SELECT(node.right, index - node.left.size);
+        return OS_SELECT(node->right, index - node->left->size);
 }
 
 template <typename T>
-int OSRBTree<T>::OS_RANK(OSRBNode<T> node)
+int OSRBTree<T>::OS_RANK(OSRBNode<T> *node)
 {
-    int sub_node_size = node.left.size + 1;
-    OSRBNode<T> sub_node = node;
-    while (sub_node != this.root)
+    int sub_node_size = node->left->size + 1;
+    OSRBNode<T> *sub_node = node;
+    while (sub_node != this->root)
     {
-        if (sub_node == sub_node.parent.right)
-            sub_node_size += sub_node.parent.left.size + 1;
-        sub_node = sub_node.parent;
+        if (sub_node == sub_node->parent->right)
+            sub_node_size += sub_node->parent->left->size + 1;
+        sub_node = sub_node->parent;
     }
     return sub_node_size;
 }
