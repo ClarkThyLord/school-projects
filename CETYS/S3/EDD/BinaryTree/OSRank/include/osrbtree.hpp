@@ -7,7 +7,7 @@ template <typename T>
 class OSRBTree
 {
 public:
-    OSRBNode<T> * this->root;
+    OSRBNode<T> *root;
 
     OSRBTree(T key);
 
@@ -22,7 +22,7 @@ public:
 };
 
 template <typename T>
-OSRBTree<T>::OSRBTree(T data) : this->root{new OSRBNode<T>{data}}
+OSRBTree<T>::OSRBTree(T data) : root{new OSRBNode<T>{data}}
 {
     this->root->size = 1;
     this->root->color = Color::BLACK;
@@ -79,7 +79,7 @@ void OSRBTree<T>::right_rotate(OSRBNode<T> *node)
 template <typename T>
 void OSRBTree<T>::insert(T data)
 {
-    if (root == nullptr)
+    if (this->root == nullptr)
     {
         this->root = new OSRBNode<T>(data);
         this->root->color = Color::BLACK;
