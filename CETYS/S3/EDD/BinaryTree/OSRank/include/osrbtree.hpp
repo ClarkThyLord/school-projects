@@ -45,12 +45,11 @@ void OSRBTree<T>::left_rotate(OSRBNode<T> *node)
     sub_node->left = node;
     node->parent = sub_node;
     sub_node->size = node->size;
-    int sub_size = 0;
+    node->size = 0;
     if (node->left)
-        sub_size += node->left->size;
+        node->size += node->left->size;
     if (node->right)
-        sub_size += node->right->size;
-    node->size = sub_size + 1;
+        node->size += node->right->size;
 }
 
 template <typename T>
@@ -70,12 +69,11 @@ void OSRBTree<T>::right_rotate(OSRBNode<T> *node)
     sub_node->right = node;
     node->parent = sub_node;
     sub_node->size = node->size;
-    int sub_size = 0;
+    node->size = 0;
     if (node->left)
-        sub_size += node->left->size;
+        node->size += node->left->size;
     if (node->right)
-        sub_size += node->right->size;
-    node->size = sub_size + 1;
+        node->size += node->right->size;
 }
 
 template <typename T>
