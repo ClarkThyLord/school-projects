@@ -1,10 +1,10 @@
 #ifndef __NODE_COLOR__
 #define __NODE_COLOR__
 
-enum class Color : unsigned int
+enum Color
 {
-    BLACK,
     RED,
+    BLACK,
     DOUBLE_BLACK,
     DOUBLE_RED
 };
