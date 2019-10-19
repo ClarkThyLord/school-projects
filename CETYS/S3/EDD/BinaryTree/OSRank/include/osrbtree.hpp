@@ -36,7 +36,7 @@ void OSRBTree<T>::left_rotate(OSRBNode<T> *node)
     if (sub_node->left)
         sub_node->left->parent = node;
     sub_node->parent = node->parent;
-    if (!node->parent)
+    if (node->parent == nullptr)
         root = sub_node;
     else if (node == node->parent->left)
         node->parent->left = sub_node;
@@ -61,7 +61,7 @@ void OSRBTree<T>::right_rotate(OSRBNode<T> *node)
     if (sub_node->right)
         sub_node->right->parent = node;
     sub_node->parent = node->parent;
-    if (!node->parent)
+    if (node->parent == nullptr)
         root = sub_node;
     else if (node == node->parent->right)
         node->parent->right = sub_node;
@@ -147,7 +147,7 @@ void OSRBTree<T>::fixup(OSRBNode<T> *node)
         else
         {
             OSRBNode<T> *sub_node = node->parent->parent->left;
-            if (!sub_node)
+            if (sub_node == nullptr)
             {
                 if (node == node->parent->left)
                 {
@@ -190,7 +190,7 @@ int OSRBTree<T>::OS_RANK(OSRBNode<T> *node)
 {
     int sub_node_size = node->left->size + 1;
     OSRBNode<T> *sub_node = node;
-    while (sub_node != this->root)
+    while (sub_node != root)
     {
         if (sub_node == sub_node->parent->right)
             sub_node_size += sub_node->parent->left->size + 1;
