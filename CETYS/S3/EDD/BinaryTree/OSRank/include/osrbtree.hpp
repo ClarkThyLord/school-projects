@@ -45,7 +45,7 @@ void OSRBTree<T>::left_rotate(OSRBNode<T> *node)
     sub_node->left = node;
     node->parent = sub_node;
     sub_node->size = node->size;
-    node->size = 0;
+    node->size = 1;
     if (node->left)
         node->size += node->left->size;
     if (node->right)
@@ -69,7 +69,7 @@ void OSRBTree<T>::right_rotate(OSRBNode<T> *node)
     sub_node->right = node;
     node->parent = sub_node;
     sub_node->size = node->size;
-    node->size = 0;
+    node->size = 1;
     if (node->left)
         node->size += node->left->size;
     if (node->right)
@@ -79,13 +79,7 @@ void OSRBTree<T>::right_rotate(OSRBNode<T> *node)
 template <typename T>
 void OSRBTree<T>::insert(T data)
 {
-    if (this->root == nullptr)
-    {
-        this->root = new OSRBNode<T>(data);
-        this->root->color = Color::BLACK;
-        this->root->size = 1;
-    }
-    else
+    if (this->root)
     {
         OSRBNode<T> *temp = this->root;
         OSRBNode<T> *previous = nullptr;
@@ -109,6 +103,12 @@ void OSRBTree<T>::insert(T data)
         temp->color = Color::RED;
         temp->size = 1;
         fixup(temp);
+    }
+    else
+    {
+        this->root = new OSRBNode<T>(data);
+        this->root->color = Color::BLACK;
+        this->root->size = 1;
     }
 }
 
