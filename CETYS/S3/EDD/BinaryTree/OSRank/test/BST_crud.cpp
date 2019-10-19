@@ -10,10 +10,10 @@
 
 BOOST_AUTO_TEST_CASE(bst_crud)
 {
-    Tree<int> t{ 13 };
-    int values[]{ 5, 4, 6, 15, 14, 16, 11 };
+    Tree<int> t{13};
+    int values[]{5, 4, 6, 15, 14, 16, 11};
 
-    for(int i = 0; i < 7; i++)
+    for (int i = 0; i < 7; i++)
         t.insert(values[i]);
 
     BOOST_REQUIRE(t.root->left->data == 5);
@@ -26,7 +26,7 @@ BOOST_AUTO_TEST_CASE(bst_crud)
     BOOST_REQUIRE(res1->data == 4);
     BOOST_REQUIRE(res1->data == 11);
     BOOST_REQUIRE(res3 == nullptr);
-    
+
     t.remove(14);
     t.remove(11);
     t.remove(5);
