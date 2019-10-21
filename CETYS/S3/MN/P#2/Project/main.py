@@ -84,5 +84,19 @@ if __name__ == "__main__":
     result, error = gauss_seidel(A, b, 15)
     print('Resultado:', result, '\nb.2) Converge:', matrix_converge(result), '\nError:', error)
 
-    print('\nc)\nComparación: Al comparar los métodos de Jacobi y Gauss Seidel, encontré que el método de Gauss Seidel es más preciso y exacto en menos iteraciones que el método de Gauss, hasta el punto de que Jacobi tendría que hacer de 2 a 4 veces las iteraciones que el de Gauss Seidel Método.')
-    print('\nd)\nConclusión: Ambos métodos son simples pero elegantes y fáciles de implementar, mucho más, realizan muy pocas operaciones en comparación con otros métodos, pero proporcionan resultados tan precisos y exactos.')
+    
+    print('3-)')
+    points = [
+        (0., 100.),
+        (1., 88.3),
+        (2., 75.9),
+        (3., 69.4),
+        (4., 59.1),
+        (5., 51.8),
+        (6., 45.5)
+    ]
+    m, b = least_squares_regression(points)
+    print('y =', m, '* x', '+', b)
+    for x in range(0, len(points), 1):
+        print('Punto Original:', points[x], '\nPunto de Regresión: ', least_squares_regression_func(m, b, x), '\n---')
+    
