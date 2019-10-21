@@ -28,10 +28,16 @@ def least_squares_regression_func(m, b, x):
 if __name__== "__main__":
     print('1-)')
     points = [
-        (0., 0.),
+        (686., 1600.),
+        (770., 1665.),
+        (817., 1750.),
+        (800., 1685.),
+        (809., 1700.),
+        (901., 1770.),
+        (803., 1725.),
     ]
     m, b = least_squares_regression(points)
     print('y =', m, '* x', '+', b)
-    for x in range(0, 14, 1):
+    for x in range(0, len(points), 1):
         print('Point : ', points[x], ' ~ LSR : ', least_squares_regression_func(m, b, x))
     
