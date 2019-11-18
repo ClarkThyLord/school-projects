@@ -20,7 +20,13 @@ def simpson_1_3(f, a, b, n):
     return x * (((b - a) / n) / 3)
 
 def simpson_3_8(f, a, b, n):
-    return
+    x = f(a) + f(b)
+    
+    for k in range(n - 1):
+        step = a + k * ((b - a) / n)
+        x += 2 * f(step) if k % 3 == 0 else 3 * f(step)
+    
+    return x * ((3 * ((b - a) / n)) / 8)
 
 
 if __name__ == '__main__':
