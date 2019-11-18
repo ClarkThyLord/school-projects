@@ -52,8 +52,8 @@ if __name__ == '__main__':
 
     print('============')
 
-##    f = lambda x : 1 / math.sqrt(1 - (x ** 2))
-    f = lambda x : math.asin(x)
+    f = lambda x : 1 / math.sqrt(1 - (x ** 2))
+    #f = lambda x : math.asin(x)
     a = -0.99
     b = 0.99
     n = 1000
