@@ -48,6 +48,21 @@ if __name__ == '__main__':
     a = -1
     b = math.sqrt(3)
     n = 18
-    print('1.c) x^2 / sqrt(4 - x^2) [-1, sqrt(3)] n=18 ->\ntrapecio:   ', trapecio(f,a, b, n), '\nsimpson 1/3:', simpson_1_3(f, a, b, n),'\nsimpson 3/8:', simpson_3_8(f, a, b, n))
+    print('1.c) x^2 / sqrt(4 - x^2) [-1, sqrt(3)] n=18 ->\ntrapecio:   ', trapecio(f, a, b, n), '\nsimpson 1/3:', simpson_1_3(f, a, b, n),'\nsimpson 3/8:', simpson_3_8(f, a, b, n))
 
     print('============')
+
+##    f = lambda x : 1 / math.sqrt(1 - (x ** 2))
+    f = lambda x : math.asin(x)
+    a = -0.99
+    b = 0.99
+    n = 1000
+    x = trapecio(f, a, b, n)
+    print('2.a) 1 / sqrt(1 - x^2) [-1, 1] ->\ntrapecio:   ', x, '\nerror:', 3.141592653589793 - x)
+
+    f = lambda x : math.cos(x) / (math.e ** x)
+    a = 0
+    b = (5 * math.pi) / 4
+    n = 1000
+    x = trapecio(f, a, b, n)
+    print('2.b) cos(x) / e^x [5pi/4, e^x] ->\ntrapecio:   ', x, '\nerror:', 0.5 - x)
