@@ -66,3 +66,13 @@ if __name__ == '__main__':
     n = 1000
     x = trapecio(f, a, b, n)
     print('2.b) cos(x) / e^x [5pi/4, e^x] ->\ntrapecio:   ', x, '\nerror:', 0.5 - x)
+
+    print('============')
+
+
+    f = lambda x : ((1/3) * x ** 3) + 1
+    a = 0
+    b = 2
+    n = 1000
+    x = simpson_1_3(f, a, b, n)
+    print('1.a) xln(x) [1, 2] n=6 ->\nsimpson 1/3: ', x, '\nerror:', 3.333333333333333 - x)
