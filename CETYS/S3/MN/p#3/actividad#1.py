@@ -2,7 +2,14 @@ import math
 
 
 def trapecio(f, a, b, n):
-    return
+    x = 0
+
+    for k in range(n - 1):
+        x += f(a + (k * ((b - a) / n)))
+
+    x += ((f(a) + f(b)) / 2)
+    
+    return ((b - a) / n) * x
 
 def simpson_1_3(f, a, b, n):
     return 
