@@ -69,10 +69,18 @@ if __name__ == '__main__':
 
     print('============')
 
-
     f = lambda x : ((1/3) * x ** 3) + 1
     a = 0
     b = 2
     n = 1000
     x = simpson_1_3(f, a, b, n)
     print('1.a) xln(x) [1, 2] n=6 ->\nsimpson 1/3: ', x, '\nerror:', 3.333333333333333 - x)
+    
+    print('============')
+
+    f = lambda x : math.cos(x) + math.sin(x)
+    a = 0
+    b = 2
+    n = 1000
+    x = simpson_1_3(f, a, b, n)
+    print('1.a) xln(x) [1, 2] n=6 ->\nsimpson 1/3: ', x)
