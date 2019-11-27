@@ -58,7 +58,7 @@ if __name__ == '__main__':
     b = 0.99
     n = 1000
     x = trapecio(f, a, b, n)
-    print('2.a) 1 / sqrt(1 - x^2) [-1, 1] ->\ntrapecio:   ', x, '\nerror:', 3.141592653589793 - x)
+    print('2.a) 1 / sqrt(1 - x^2) (-1, 1) ->\ntrapecio:   ', x, '\nerror:', 3.141592653589793 - x)
 
     f = lambda x : math.cos(x) / (math.e ** x)
     a = 0
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     b = 2
     n = 1000
     x = simpson_1_3(f, a, b, n)
-    print('3) y=1/3x^3 [1, 2] n=6 ->\nsimpson 1/3: ', x, '\nerror:', 3.333333333333333 - x)
+    print('3) y=1/3x^3 [0, 2] n=1000 ->\nsimpson 1/3: ', x, '\nerror:', 3.333333333333333 - x)
     
     print('============')
 
@@ -83,4 +83,4 @@ if __name__ == '__main__':
     b = 1.8525
     n = 1000
     x = simpson_1_3(f, a, b, n)
-    print('4) 4 * sqrt(49 - x^2) [1, 2] n=6 ->\ntrapecio:   ', trapecio(f, a, b, n), '\nsimpson 1/3:', simpson_1_3(f, a, b, n),'\nsimpson 3/8:', simpson_3_8(f, a, b, n))
+    print('4) 4 * sqrt(49 - x^2) [0, 1.8525] n=1000 ->\ntrapecio:   ', trapecio(f, a, b, n), '\nsimpson 1/3:', simpson_1_3(f, a, b, n),'\nsimpson 3/8:', simpson_3_8(f, a, b, n))
