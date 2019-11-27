@@ -74,13 +74,13 @@ if __name__ == '__main__':
     b = 2
     n = 1000
     x = simpson_1_3(f, a, b, n)
-    print('1.a) xln(x) [1, 2] n=6 ->\nsimpson 1/3: ', x, '\nerror:', 3.333333333333333 - x)
+    print('3) y=1/3x^3 [1, 2] n=6 ->\nsimpson 1/3: ', x, '\nerror:', 3.333333333333333 - x)
     
     print('============')
 
-    f = lambda x : math.cos(x) + math.sin(x)
+    f = lambda x : 4 * math.sqrt(49 - (x * x))
     a = 0
-    b = 2
+    b = 1.8525
     n = 1000
     x = simpson_1_3(f, a, b, n)
-    print('1.a) xln(x) [1, 2] n=6 ->\nsimpson 1/3: ', x)
+    print('4) 4 * sqrt(49 - x^2) [1, 2] n=6 ->\ntrapecio:   ', trapecio(f, a, b, n), '\nsimpson 1/3:', simpson_1_3(f, a, b, n),'\nsimpson 3/8:', simpson_3_8(f, a, b, n))
