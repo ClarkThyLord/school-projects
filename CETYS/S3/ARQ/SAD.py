@@ -2,11 +2,12 @@ import os
 
 
 FILE_EXTENSION = 'sad'
-TOKENS = (
-    (
-        
-    )
-)
+TOKENS = {
+    'add': '0000',
+    'sub': '0001',
+    'and': '0010',
+    'or':  '0011'
+}
 
 
 def read(file_path):
@@ -21,10 +22,20 @@ def save(file_path, data):
 
 
 def tokenize(source):
-    return ''
+    line = 1
+    position = 1
+    for char in source:
+        if char.isalnum():
+            continue
+        elif char == '\n':
+            line += 1
+        else:
+            raise Exception('Syntax error :: line' + str(line) + 'position', position, 'Unknown character:', char)
+    return 
 
 def compile(source_file_path, hex_file_path=''):
-    pass
+    source = read(source_file_path)
+    print(tokenize(source))
 
 
 if __name__ == '__main__':
