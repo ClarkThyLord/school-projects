@@ -26,10 +26,10 @@ def save(file_path, data):
 def assembler(source_file_path, dest_file_path=''):
     source = read(source_file_path)
     tokens = source.split()
+    
     if len(tokens) % 2 == 1:
         print('Invalid format')
         return False
-
     
     command = ''
     commands = b''
