@@ -1,12 +1,14 @@
 import os
+import binascii
 
 
+MAX_VALUE = 15
 FILE_EXTENSION = 'sad'
 TOKENS = {
-    'sum': '0000',
-    'sub': '0001',
-    'and': '0010',
-    'or':  '0011'
+    'sum': '0',
+    'sub': '1',
+    'and': '3',
+    'or':  '4'
 }
 
 
@@ -17,33 +19,39 @@ def read(file_path):
     return data
 
 def save(file_path, data):
-    with open(file_path.replace(FILE_EXTENSION, 'hex'), 'w') as file:
+    with open(file_path.replace(FILE_EXTENSION, 'hex'), 'wb') as file:
         file.write(data)
 
 
-def tokenize(source):
-    line = 1
-    position = 1
-    tokens = {}
-    for char in source.split(' '):
-        if char.isalnum():
-            position += 1
-        elif char == '\n':
-            line += 1
-            position = 1
-        else:
-            error = 'Syntax error :: Line: ' + str(line) + ', Position: ' + str(position) + '; Unknown token: ' + str(char)
-            raise Exception(error)
-    return tokens
-
-def compile(source_file_path, hex_file_path=''):
+def assembler(source_file_path, dest_file_path=''):
     source = read(source_file_path)
-    try:
-        tokens = tokenize(source)
-    except Exception as e:
-        print(e)
+    tokens = source.split()
+    if len(tokens) % 2 == 1:
+        print('Invalid format')
         return False
+
+    
+    command = ''
+    commands = b''
+    is_token = True
+    for token in tokens:
+        token = token.lower()
+        if token.isalpha() and is_token:
+            if token in TOKENS:
+                command = TOKENS[token]
+            else:
+                print('Unrecognized token:', token)
+                return False
+        elif not token.isnumeric() == is_token and int(token) <= MAX_VALUE:
+            commands += binascii.unhexlify(command + token)
+        else:
+            print('Invalid token:', token)
+            return False
+        is_token = not is_token
+    save(source_file_path if dest_file_path == '' else dest_file_path, commands)
     return True
+    
+
 
 if __name__ == '__main__':
     while True:
@@ -58,7 +66,7 @@ if __name__ == '__main__':
             print('INVALID')
         elif os.path.exists(source_file_path):
             print('FOUND\nCOMPILING...')
-            result = compile(source_file_path)
+            result = assembler(source_file_path)
             if result: print('SUCCESS')
             else: print('FAILED')
         else: print('NOT FOUND')
