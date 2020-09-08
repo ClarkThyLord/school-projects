@@ -1,0 +1,21 @@
+Auto = attach(Advertising)
+dim(Auto)
+#names(Auto)
+
+plot(TV, Sales, col="grey")
+regression = lm(Sales~TV)
+abline(regression)
+#print(regression)
+summary(lm(Sales~TV))
+
+plot(Radio, Sales, col="red")
+regression = lm(Sales~Radio)
+abline(regression)
+#print(regression)
+summary(lm(Sales~Radio))
+
+plot(Newspaper, Sales, col="blue")
+regression = lm(Sales~Newspaper)
+abline(regression)
+#print(regression)
+summary(lm(Sales~Newspaper))
