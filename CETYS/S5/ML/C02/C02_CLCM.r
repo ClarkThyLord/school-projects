@@ -40,7 +40,7 @@ x=rnorm(100)
 y=rnorm(100)
 plot(x,y)
 plot(x,y,xlab="this is the x-axis",ylab="this is the y-axis",
-       main="Plot of X vs Y")
+     main="Plot of X vs Y")
 
 pdf("Figure.pdf")
 plot(x,y,col="green")
@@ -81,10 +81,13 @@ A[-c(1,3) ,]
 A[-c(1,3) ,-c(1,3,4)]
 dim(A)
 
-Auto=read.csv("./Auto.csv")
+Auto=read.table("./Auto.data")
 fix(Auto)
 
-Auto=read.csv("./Auto.csv",header=T,na.strings ="?")
+Auto=read.table("./Auto.data", header =T,na.strings ="?")
+fix(Auto)
+
+Auto=read.csv("./Auto.csv", header=T,na.strings ="?")
 fix(Auto)
 dim(Auto)
 
@@ -97,7 +100,7 @@ plot(Auto$cylinders , Auto$mpg )
 attach(Auto)
 plot(cylinders , mpg)
 
-cylinders =as.factor(cylinders )
+cylinders = as.factor(cylinders )
 
 plot(cylinders , mpg)
 plot(cylinders , mpg , col ="red ")
