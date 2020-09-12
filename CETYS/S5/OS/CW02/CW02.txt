@@ -1,0 +1,50 @@
+Configuration	CW02
+STM32CubeMX 	6.0.1
+Date	09/11/2020
+MCU	STM32F767ZITx
+
+
+
+PERIPHERALS	MODES	FUNCTIONS	PINS
+SYS	TIM1	SYS_VS_tim1	VP_SYS_VS_tim1
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+46	PB0	GPIO_Output	GreenLED
+137	PB7	GPIO_Output	BlueLED
+PERIPHERALS	MODES	FUNCTIONS	PINS
+SYS	TIM1	SYS_VS_tim1	VP_SYS_VS_tim1
+
+
+
+Pin Nb	PINs	FUNCTIONs	LABELs
+46	PB0	GPIO_Output	GreenLED
+137	PB7	GPIO_Output	BlueLED
+
+
+
+SOFTWARE PROJECT
+
+Project Settings : 
+Project Name : CW02
+Project Folder : /Users/clarkthylord/Documents/GitHub/school-projects/CETYS/S5/OS/CW02
+Toolchain / IDE : STM32CubeIDE
+Firmware Package Name and Version : STM32Cube FW_F7 V1.16.0
+
+
+Code Generation Settings : 
+STM32Cube MCU packages and embedded software packs : Copy only the necessary library files
+Generate peripheral initialization as a pair of '.c/.h' files per peripheral : No
+Backup previously generated files when re-generating : No
+Delete previously generated files when not re-generated : Yes
+Set all free pins as analog (to optimize the power consumption) : No
+
+
+Toolchains Settings : 
+Compiler Optimizations : 
+
+
+
+
+

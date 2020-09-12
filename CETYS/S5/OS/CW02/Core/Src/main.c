@@ -191,14 +191,14 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(BlueLED_GPIO_Port, BlueLED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GreenLED_Pin|BlueLED_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : BlueLED_Pin */
-  GPIO_InitStruct.Pin = BlueLED_Pin;
+  /*Configure GPIO pins : GreenLED_Pin BlueLED_Pin */
+  GPIO_InitStruct.Pin = GreenLED_Pin|BlueLED_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(BlueLED_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 
@@ -219,8 +219,6 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	  HAL_GPIO_TogglePin(BlueLED_GPIO_Port, BlueLED_Pin);
-	  	  HAL_Delay(1000);
     osDelay(1);
   }
   /* USER CODE END 5 */
@@ -239,6 +237,8 @@ void StartToggle(void const * argument)
   /* Infinite loop */
   for(;;)
   {
+	HAL_GPIO_TogglePin(GreenLED_GPIO_Port, GreenLED_Pin);
+	HAL_Delay(1000);
     osDelay(1);
   }
   /* USER CODE END StartToggle */
