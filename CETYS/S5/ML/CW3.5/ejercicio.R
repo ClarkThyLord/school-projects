@@ -1,0 +1,6 @@
+attach(Advertising)
+model <- lm(Sales ~ TV + Radio + Newspaper)
+summary(model)
+cor(Advertising)
+par(mfrow=c(2,2))
+plot(model)
