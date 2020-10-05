@@ -1,6 +1,6 @@
-attach(Advertising)
-model <- lm(Sales ~ TV + Radio + Newspaper)
-summary(model)
-cor(Advertising)
+attach(Credit)
+
+credit_female <- lm(Balance ~ Ethnicity)
+summary(credit_female)
 par(mfrow=c(2,2))
-plot(model)
+plot(credit_female)
