@@ -128,7 +128,7 @@ class QuotesSpider(scrapy.Spider):
 
 
 #
-# V6
+# V5
 # You can provide command line arguments to your spiders by using the -a option when running them.
 # In this example, the value provided for the tag argument will be available via self.tag.
 # You can use this to make your spider fetch only quotes with a specific tag, building the URL based on the argument
