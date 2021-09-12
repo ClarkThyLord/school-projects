@@ -10,15 +10,18 @@ int main()
 {
     double pi = 0.0;
     step = 1.0 / num_steps;
+    int at = 0;
 #pragma omp parallel num_threads(4)
     {
         double sum = 0.0;
-        for (size_t i = 0; i < num_steps / threads; i++)
+        int range = num_steps / threads;
+        for (size_t i = at; i < at + range; i++)
         {
             double x = (i + 0.5) * step;
             sum += 4.0 / (1.0 + x * x);
         }
         pi += step * sum;
+        at += range;
     }
     printf("PI: %f\n", pi);
 }
