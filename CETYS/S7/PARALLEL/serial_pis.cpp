@@ -5,29 +5,40 @@
 
 using namespace std;
 
-static int threads = 4;
+#define THREADS 4
 static long num_steps = 100'000'000;
-
-double step;
 
 int main()
 {
     auto start = chrono::steady_clock::now();
 
-    double pi = 0.0;
-    step = 1.0 / num_steps;
     int at = 0;
-#pragma omp parallel num_threads(4)
+    double pi = 0.0;
+    double step = 1.0 / num_steps;
+
+    float sums[THREADS] = {0.0};
+
+    omp_set_num_threads(THREADS);
+#pragma omp parallel
     {
-        double sum = 0.0;
-        int range = num_steps / threads;
-        for (size_t i = at; i < at + range; i++)
+        for (size_t i = omp_get_thread_num() * (num_steps / omp_get_num_threads()); i < (omp_get_thread_num() + 1) * (num_steps / omp_get_num_threads()); i++)
         {
             double x = (i + 0.5) * step;
-            sum += 4.0 / (1.0 + x * x);
+            sums[omp_get_thread_num()] += 4.0 / (1.0 + x * x);
         }
-        pi += step * sum;
-        at += range;
+
+        // int steps = num_steps / omp_get_num_threads();
+        // at += steps;
+        // for (size_t i = at - steps; i < at; i++)
+        // {
+        //     double x = (i + 0.5) * step;
+        //     sums[omp_get_thread_num()] += 4.0 / (1.0 + x * x);
+        // }
+    }
+
+    for (size_t i = 0; i < THREADS; i++)
+    {
+        pi += sums[i] * step;
     }
 
     auto end = chrono::steady_clock::now();
