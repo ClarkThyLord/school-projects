@@ -14,26 +14,20 @@ int main()
 
     int at = 0;
     double pi = 0.0;
-    double step = 1.0 / num_steps;
+    double step = 1.0 / (float)num_steps;
 
     float sums[THREADS] = {0.0};
 
     omp_set_num_threads(THREADS);
-#pragma omp parallel
+
+    int i, x;
+#pragma omp parallel private(i, x)
     {
-        for (size_t i = omp_get_thread_num() * (num_steps / omp_get_num_threads()); i < (omp_get_thread_num() + 1) * (num_steps / omp_get_num_threads()); i++)
+        for (int i = omp_get_thread_num(); i < num_steps; i++)
         {
             double x = (i + 0.5) * step;
             sums[omp_get_thread_num()] += 4.0 / (1.0 + x * x);
         }
-
-        // int steps = num_steps / omp_get_num_threads();
-        // at += steps;
-        // for (size_t i = at - steps; i < at; i++)
-        // {
-        //     double x = (i + 0.5) * step;
-        //     sums[omp_get_thread_num()] += 4.0 / (1.0 + x * x);
-        // }
     }
 
     for (size_t i = 0; i < THREADS; i++)
