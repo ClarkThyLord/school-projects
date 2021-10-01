@@ -1,11 +1,16 @@
-#include <omp.h>
-#include <stdio.h>
+#include <chrono>
+#include <iostream>
+#include <unistd.h>
+
+using namespace std;
 
 static long num_steps = 100'000;
 double step;
 
 int main()
 {
+    auto start = chrono::steady_clock::now();
+
     int i;
     double x, pi, sum = 0.0;
 
@@ -19,5 +24,14 @@ int main()
         }
         pi = step * sum;
     }
-    printf("PI: %f\n", pi);
+
+    auto end = chrono::steady_clock::now();
+
+    cout << "PI: "
+         << pi << endl;
+    cout << "Elapsed Time: "
+         << chrono::duration_cast<chrono::seconds>(end - start).count()
+         << " sec / "
+         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
+         << " ms" << endl;
 }
