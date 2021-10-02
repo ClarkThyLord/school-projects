@@ -4,7 +4,7 @@
 
 using namespace std;
 
-static long num_steps = 100'000;
+static long num_steps = 1'000'000'000;
 double step;
 
 int main()

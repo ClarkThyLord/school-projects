@@ -8,6 +8,8 @@
 
 using namespace std;
 
+#define PAD 8
+
 static long num_steps = 1'000'000'000;
 
 int main()
@@ -20,7 +22,7 @@ int main()
         int nthreads = 0;
         double pi = 0.0;
 
-        double sums[THREADS] = {0.0};
+        double sums[THREADS][PAD] = {0.0};
         double step = 1.0 / num_steps;
 
         omp_set_num_threads(THREADS);
@@ -38,17 +40,17 @@ int main()
             for (int i = id; i < num_steps; i = i + nthrds)
             {
                 x = (i + 0.5) * step;
-                sums[id] += 4.0 / (1.0 + x * x);
+                sums[id][0] += 4.0 / (1.0 + x * x);
             }
         }
 
         for (i = 0; i < nthreads; i++)
-            pi += sums[i] * step;
+            pi += sums[i][0] * step;
 
         auto end = chrono::steady_clock::now();
 
         cout << "THREADS: "
-             << omp_get_num_threads() << " / " << THREADS << endl;
+             << nthreads << " / " << THREADS << endl;
         cout << "PI: "
              << pi << endl;
         cout << "Elapsed Time: "
