@@ -20,6 +20,8 @@ int main()
     {
         auto start = chrono::steady_clock::now();
 
+        pi = 0.0;
+
         int i = 0;
         int nthreads = 0;
 
@@ -41,7 +43,7 @@ int main()
             {
                 x = (i + 0.5) * step;
 #pragma omp critical
-                pi += 4.0 / (1.0 + x * x);
+                pi += (4.0 / (1.0 + x * x)) * step;
             }
         }
 
