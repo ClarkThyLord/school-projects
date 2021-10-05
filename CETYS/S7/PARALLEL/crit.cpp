@@ -12,6 +12,8 @@ using namespace std;
 
 static long num_steps = 1'000'000'000;
 
+static double pi = 0.0;
+
 int main()
 {
     for (int THREADS = 1; THREADS < 7; THREADS++)
@@ -20,9 +22,7 @@ int main()
 
         int i = 0;
         int nthreads = 0;
-        double pi = 0.0;
 
-        double sums[THREADS][PAD] = {0.0};
         double step = 1.0 / num_steps;
 
         omp_set_num_threads(THREADS);
@@ -40,12 +40,10 @@ int main()
             for (int i = id; i < num_steps; i = i + nthrds)
             {
                 x = (i + 0.5) * step;
-                sums[id][0] += 4.0 / (1.0 + x * x);
+#pragma omp critical
+                pi += 4.0 / (1.0 + x * x);
             }
         }
-
-        for (i = 0; i < nthreads; i++)
-            pi += sums[i][0] * step;
 
         auto end = chrono::steady_clock::now();
 
