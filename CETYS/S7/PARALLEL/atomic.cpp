@@ -1,5 +1,5 @@
 // To Compile:
-// g++ -fopenmp ./helloworlds.cpp
+// g++ -fopenmp <file_path>
 
 #include <omp.h>
 #include <iostream>

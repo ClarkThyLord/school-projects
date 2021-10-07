@@ -1,3 +1,6 @@
+// To Compile:
+// g++ -fopenmp <file_path>
+
 #include <omp.h>
 #include <iostream>
 #include <chrono>
