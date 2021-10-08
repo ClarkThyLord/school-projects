@@ -34,6 +34,7 @@ int main()
             int id = 0;
             int nthrds = 0;
             double x = 0.0;
+            double sum = 0.0;
 
             id = omp_get_thread_num();
             nthrds = omp_get_num_threads();
@@ -42,9 +43,11 @@ int main()
             for (int i = id; i < num_steps; i = i + nthrds)
             {
                 x = (i + 0.5) * step;
-#pragma omp critical
-                pi += (4.0 / (1.0 + x * x)) * step;
+                sum += (4.0 / (1.0 + x * x));
             }
+
+#pragma omp atomic
+            pi += sum * step;
         }
 
         auto end = chrono::steady_clock::now();
