@@ -1,6 +1,7 @@
 // To Compile:
 // g++ -fopenmp <file_path>
 
+#include <omp.h>
 #include <chrono>
 #include <iostream>
 #include <unistd.h>
@@ -22,6 +23,10 @@ int main()
                                    : pi)
     for (size_t i = 0; i < num_steps; i++)
     {
+        if (i == 0)
+            cout << "THREADS: "
+                 << omp_get_num_threads() << endl;
+
         x = (i + 0.5) * step;
         pi += step * (4.0 / (1.0 + x * x));
     }
