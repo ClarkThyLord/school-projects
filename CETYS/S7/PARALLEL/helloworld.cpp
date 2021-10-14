@@ -1,3 +1,6 @@
+// To Compile:
+// g++ <file_path>
+
 #include <omp.h>
 #include <stdio.h>
 
