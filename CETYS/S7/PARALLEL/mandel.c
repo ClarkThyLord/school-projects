@@ -1,3 +1,6 @@
+// To Compile:
+// g++ -fopenmp <file_path>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
