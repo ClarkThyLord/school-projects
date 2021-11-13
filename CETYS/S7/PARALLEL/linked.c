@@ -91,6 +91,12 @@ int main(int argc, char *argv[])
 
    p = head;
 
+   // omp_set_num_threads(1);
+   // omp_set_num_threads(2);
+   // omp_set_num_threads(3);
+   // omp_set_num_threads(4);
+   // omp_set_num_threads(5);
+   // omp_set_num_threads(6);
    start = omp_get_wtime();
    {
       // Before we had our "while" do all of our logic, but now we just
