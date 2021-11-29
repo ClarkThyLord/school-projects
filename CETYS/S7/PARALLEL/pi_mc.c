@@ -1,6 +1,9 @@
+// To Compile:
+// gcc -fopenmp <file_path>
+
 #include <stdio.h>
 #include <omp.h>
-// #include "random.h"
+#include "random.h"
 
 //
 // The monte carlo pi program
